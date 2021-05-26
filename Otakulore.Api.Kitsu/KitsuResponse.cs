@@ -1,12 +1,14 @@
-﻿namespace Otakulore.Api.Kitsu
+﻿using System.Text.Json.Serialization;
+
+namespace Otakulore.Api.Kitsu
 {
 
-    public class KitsuResponse
+    public class KitsuResponse<T>
     {
 
-        public KitsuData[] Data { get; init; }
-        public KitsuMeta Meta { get; init; }
-        public KitsuLinks Links { get; init; }
+        [JsonPropertyName("data")] public KitsuData<T>[] Data { get; init; }
+        [JsonPropertyName("meta")] public KitsuMeta Meta { get; init; }
+        [JsonPropertyName("links")] public KitsuLinks Links { get; init; }
 
     }
 

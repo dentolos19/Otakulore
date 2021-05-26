@@ -3,14 +3,24 @@
 namespace Otakulore.Api.Kitsu
 {
 
-    public class KitsuData
+    public class KitsuData<T>
     {
 
-        [JsonPropertyName("id")] public uint Id { get; init; }
-        [JsonPropertyName("type")] public KitsuDataType Type { get; init; }
-        [JsonPropertyName("links")] public KitsuLinks Links { get; init; }
-        [JsonPropertyName("links")] public KitsuDataAttributes Attributes { get; init; }
-        [JsonPropertyName("links")] public KitsuDataRelationships Relationships { get; init; }
+        [JsonPropertyName("id")]
+        public string Id { get; init; } // int
+
+        [JsonPropertyName("type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public KitsuDataType Type { get; init; }
+
+        [JsonPropertyName("links")]
+        public KitsuLinks Links { get; init; }
+
+        [JsonPropertyName("attributes")]
+        public T Attributes { get; init; }
+
+        [JsonPropertyName("relationships")]
+        public KitsuDataRelationships Relationships { get; init; }
 
     }
 

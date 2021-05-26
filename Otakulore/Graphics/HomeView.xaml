@@ -1,6 +1,8 @@
 ﻿<Page x:Class="Otakulore.Graphics.HomeView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:c="clr-namespace:Otakulore.Converters"
+      xmlns:m="clr-namespace:Otakulore.Models">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -20,9 +22,26 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"/>
-            <Button Grid.Column="2" Content="Search"/>
+            <TextBox x:Name="SearchInput" Grid.Column="0"/>
+            <Button Grid.Column="2" Content="Search" IsDefault="True" Click="Search"/>
         </Grid>
-        <ListView Grid.Column="1" Grid.Row="3"/>
+        <ListView x:Name="SearchOutput" Grid.Column="1" Grid.Row="3">
+            <ListView.Resources>
+                <c:ImageUrlConverter x:Key="ImageUrlConverter"/>
+            </ListView.Resources>
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="m:SearchItemModel">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding Path=Image, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Path=Title}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
