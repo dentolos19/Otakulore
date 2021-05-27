@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Otakulore.Api.Kitsu
 {
 
-    public class KitsuAnimeAttributes : KitsuDataAttributes
+    public class KitsuAnimeAttributes : KitsuDataAttributes // TODO: add more properties
     {
 
         [JsonPropertyName("posterImage")] public KitsuImage PosterImage { get; init; }
@@ -27,10 +27,19 @@ namespace Otakulore.Api.Kitsu
         [JsonPropertyName("endingDate")] public string EndingDate { get; init; }
 
         [JsonPropertyName("episodeCount")] public int EpisodeCount { get; init; }
-        [JsonPropertyName("episodeLength")] public int? EpisodeLength { get; init; }
-        [JsonPropertyName("totalLength")] public int? TotalEpisodeLength { get; init; }
+        [JsonPropertyName("episodeLength")] public int EpisodeLength { get; init; }
+        
+        [JsonPropertyName("showType")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public KitsuMediaFormat Format { get; init; }
 
-        [JsonPropertyName("showType")] public string Format { get; init; } // enum 
+        [JsonPropertyName("subtype")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public KitsuMediaFormat Subformat { get; init; }
+        
+        [JsonPropertyName("status")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public KitsuMediaStatus Status { get; init; }
 
     }
 

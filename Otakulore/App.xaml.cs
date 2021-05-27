@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Controls;
 using Otakulore.Graphics;
 
 namespace Otakulore
@@ -9,15 +9,17 @@ namespace Otakulore
     {
 
         internal static HomeView HomeViewPage { get; } = new();
+        internal static DetailsView DetailsViewPage { get; } = new();
 
         private void InitializeApp(object sender, StartupEventArgs args)
         {
             new MainWindow().Show();
         }
 
-        private void HandleException(object sender, DispatcherUnhandledExceptionEventArgs args)
+        public static void NavigateSinglePageApp(Page view)
         {
-            // TODO
+            if (Current.MainWindow is MainWindow window)
+                window.View.Navigate(view);
         }
 
     }

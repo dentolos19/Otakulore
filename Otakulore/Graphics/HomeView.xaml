@@ -1,7 +1,6 @@
 ﻿<Page x:Class="Otakulore.Graphics.HomeView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:c="clr-namespace:Otakulore.Converters"
       xmlns:m="clr-namespace:Otakulore.Models">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,10 +24,7 @@
             <TextBox x:Name="SearchInput" Grid.Column="0"/>
             <Button Grid.Column="2" Content="Search" IsDefault="True" Click="Search"/>
         </Grid>
-        <ListView x:Name="SearchOutput" Grid.Column="1" Grid.Row="3">
-            <ListView.Resources>
-                <c:ImageUrlConverter x:Key="ImageUrlConverter"/>
-            </ListView.Resources>
+        <ListView x:Name="SearchOutput" Grid.Column="1" Grid.Row="3" MouseDoubleClick="OpenDetails">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="m:SearchItemModel">
                     <Grid>
@@ -38,7 +34,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Source="{Binding Path=Image, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Path=Title}"/>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="TitleText" Grid.Row="0" Content="{Binding Path=Title}" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="16"/>
+                            <Label x:Name="YearText" Grid.Row="1" Content="{Binding Path=Year}"/>
+                        </Grid>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

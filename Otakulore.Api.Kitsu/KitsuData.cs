@@ -19,8 +19,7 @@ namespace Otakulore.Api.Kitsu
         [JsonPropertyName("attributes")]
         public T Attributes { get; init; }
 
-        [JsonPropertyName("relationships")]
-        public KitsuDataRelationships Relationships { get; init; }
+        // TODO: add data relationships
 
     }
 
