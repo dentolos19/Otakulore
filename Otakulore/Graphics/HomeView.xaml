@@ -24,27 +24,31 @@
             <TextBox x:Name="SearchInput" Grid.Column="0"/>
             <Button Grid.Column="2" Content="Search" IsDefault="True" Click="Search"/>
         </Grid>
-        <ListView x:Name="SearchOutput" Grid.Column="1" Grid.Row="3" MouseDoubleClick="OpenDetails">
-            <ListView.ItemTemplate>
+        <ListBox x:Name="SearchOutput" Grid.Column="1" Grid.Row="3" MouseDoubleClick="OpenDetails">
+            <ListBox.ItemTemplate>
                 <DataTemplate DataType="m:SearchItemModel">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Path=Image, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}"/>
+                        <Image Grid.Column="0" Source="{Binding Path=Image, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}" Height="50"/>
                         <Grid Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label x:Name="TitleText" Grid.Row="0" Content="{Binding Path=Title}" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="16"/>
-                            <Label x:Name="YearText" Grid.Row="1" Content="{Binding Path=Year}"/>
+                            <Border Grid.Row="0" BorderBrush="{x:Null}">
+                                <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
+                            </Border>
+                            <Border Grid.Row="1" BorderBrush="{x:Null}">
+                                <TextBlock Text="{Binding Path=Subtitle}" VerticalAlignment="Center"/>
+                            </Border>
                         </Grid>
                     </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

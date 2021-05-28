@@ -1,4 +1,5 @@
-﻿using Otakulore.Api.Kitsu;
+﻿using Humanizer;
+using Kitsu.Anime;
 
 namespace Otakulore.Models
 {
@@ -8,9 +9,24 @@ namespace Otakulore.Models
 
         public string Image { get; init; }
         public string Title { get; init; }
-        public KitsuData<KitsuAnimeAttributes> Data { get; init; }
+        public object Data { get; init; }
 
-        public string Year => Data.Attributes.StartingDate.Substring(0, 4);
+        public string Subtitle
+        {
+            get
+            {
+                var subtitle = string.Empty;
+                if (Data is AnimeAttributesModel attributes)
+                {
+                    subtitle += attributes.StartDate.Substring(0, 4);
+                    subtitle += " | ";
+                    subtitle += attributes.AgeRating;
+                    subtitle += " | ";
+                    subtitle += attributes.Status.Transform(To.TitleCase);
+                }
+                return subtitle;
+            }
+        }
 
     }
 

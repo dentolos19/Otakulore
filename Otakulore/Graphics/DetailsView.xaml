@@ -17,7 +17,7 @@
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="PosterImage" Grid.Column="0"/>
@@ -26,8 +26,12 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="TitleText" Grid.Row="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="16"/>
-                <Label x:Name="YearText" Grid.Row="1"/>
+                <Border Grid.Row="0" BorderBrush="{x:Null}">
+                    <TextBlock x:Name="TitleText" VerticalAlignment="Bottom" FontSize="24"/>
+                </Border>
+                <Border Grid.Row="1" BorderBrush="{x:Null}">
+                    <TextBlock x:Name="YearText" VerticalAlignment="Center"/>
+                </Border>
             </Grid>
         </Grid>
         <TabControl Grid.Column="1" Grid.Row="3">
