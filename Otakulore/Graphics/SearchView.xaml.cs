@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using Kitsu.Anime;
+using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 
 namespace Otakulore.Graphics
@@ -20,19 +19,19 @@ namespace Otakulore.Graphics
             var inputQuery = SearchInput.Text;
             if (string.IsNullOrEmpty(inputQuery))
                 return;
-            List<AnimeDataModel>? searchResults;
+            KitsuData<KitsuAnimeAttributes>[] searchResults;
             try
             {
-                searchResults = (await Anime.GetAnimeAsync(inputQuery)).Data;
+                searchResults = await KitsuApi.FilterAnimeAsync(inputQuery);
             }
             catch
             {
                 MessageBox.Show("An error had occurred while searching for content.", "Otakulore");
                 return;
             }
-            if (searchResults is not { Count: > 0 })
+            if (searchResults?.Length <= 0)
             {
-                MessageBox.Show("No content was found matching your query.", "Otakulore");
+                MessageBox.Show("No content has matched your query.", "Otakulore");
                 return;
             }
             SearchOutput.Items.Clear();
@@ -40,7 +39,7 @@ namespace Otakulore.Graphics
             {
                 SearchOutput.Items.Add(new SearchItemModel
                 {
-                    Image = item.Attributes.PosterImage.Original,
+                    Image = item.Attributes.PosterImage.OriginalImageUrl,
                     Title = item.Attributes.CanonicalTitle,
                     Data = item.Attributes
                 });

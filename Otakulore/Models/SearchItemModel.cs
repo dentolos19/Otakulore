@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using Kitsu.Anime;
+﻿using Otakulore.Core.Kitsu;
 
 namespace Otakulore.Models
 {
@@ -16,13 +15,13 @@ namespace Otakulore.Models
             get
             {
                 var subtitle = string.Empty;
-                if (Data is AnimeAttributesModel attributes)
+                if (Data is KitsuAnimeAttributes attributes)
                 {
-                    subtitle += attributes.StartDate.Substring(0, 4);
+                    subtitle += attributes.StartingDate.Substring(0, 4);
                     subtitle += " | ";
                     subtitle += attributes.AgeRating;
                     subtitle += " | ";
-                    subtitle += attributes.Status.Transform(To.TitleCase);
+                    subtitle += attributes.Status;
                 }
                 return subtitle;
             }

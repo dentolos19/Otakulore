@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Media.Imaging;
-using Kitsu.Anime;
+using Otakulore.Core.Kitsu;
 
 namespace Otakulore.Graphics
 {
@@ -20,13 +20,13 @@ namespace Otakulore.Graphics
 
         public void ShowDetails(object data)
         {
-            if (data is AnimeAttributesModel attributes)
+            if (data is KitsuAnimeAttributes attributes)
             {
                 TitleText.Text = attributes.CanonicalTitle;
-                YearText.Text = attributes.StartDate.Substring(0, 4);
+                YearText.Text = attributes.StartingDate.Substring(0, 4);
                 ThreadPool.QueueUserWorkItem(_ =>
                 {
-                    var buffer = _client.DownloadData(attributes.PosterImage.Original);
+                    var buffer = _client.DownloadData(attributes.PosterImage.OriginalImageUrl);
                     var image = new BitmapImage();
                     using (var stream = new MemoryStream(buffer))
                     {
