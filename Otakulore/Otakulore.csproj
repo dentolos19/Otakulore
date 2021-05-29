@@ -3,12 +3,13 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net5.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AdonisUI" Version="1.17.0"/>
+		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.0"/>
 		<PackageReference Include="Humanizer.Core" Version="2.10.1"/>
 		<PackageReference Include="Kitsu" Version="1.4.2"/>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>

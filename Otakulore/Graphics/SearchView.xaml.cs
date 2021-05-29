@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using Kitsu.Anime;
@@ -9,10 +7,10 @@ using Otakulore.Models;
 namespace Otakulore.Graphics
 {
 
-    public partial class HomeView
+    public partial class SearchView
     {
         
-        public HomeView()
+        public SearchView()
         {
             InitializeComponent();
         }
@@ -47,6 +45,11 @@ namespace Otakulore.Graphics
                     Data = item.Attributes
                 });
             }
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs args)
+        {
+            // TODO
         }
 
         private void OpenDetails(object sender, MouseButtonEventArgs args)

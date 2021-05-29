@@ -14,26 +14,28 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image x:Name="PosterImage" Grid.Column="0"/>
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Border Grid.Row="0" BorderBrush="{x:Null}">
-                    <TextBlock x:Name="TitleText" VerticalAlignment="Bottom" FontSize="24"/>
-                </Border>
-                <Border Grid.Row="1" BorderBrush="{x:Null}">
-                    <TextBlock x:Name="YearText" VerticalAlignment="Center"/>
-                </Border>
+        <GroupBox Grid.Column="1" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="PosterImage" Grid.Column="0"/>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderBrush="{x:Null}">
+                        <TextBlock x:Name="TitleText" VerticalAlignment="Bottom" FontSize="24"/>
+                    </Border>
+                    <Border Grid.Row="1" BorderBrush="{x:Null}">
+                        <TextBlock x:Name="YearText" VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
             </Grid>
-        </Grid>
+        </GroupBox>
         <TabControl Grid.Column="1" Grid.Row="3">
             <TabItem Header="Overview">
                 <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>

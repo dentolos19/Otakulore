@@ -11,11 +11,11 @@ namespace Otakulore.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value is not string)
                 return null;
             var image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri(value.ToString() ?? throw new InvalidOperationException());
+            image.UriSource = new Uri(value.ToString()!);
             image.EndInit();
             return image;
         }

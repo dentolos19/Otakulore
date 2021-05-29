@@ -1,6 +1,7 @@
-﻿<Window x:Class="Otakulore.Graphics.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Otakulore">
+﻿<ui:AdonisWindow x:Class="Otakulore.Graphics.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:ui="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                 Title="Otakulore">
     <Frame x:Name="View" x:FieldModifier="public"/>
-</Window>
+</ui:AdonisWindow>

@@ -8,7 +8,7 @@ namespace Otakulore
     public partial class App
     {
 
-        internal static HomeView HomeViewPage { get; } = new();
+        internal static SearchView SearchViewPage { get; } = new();
         internal static DetailsView DetailsViewPage { get; } = new();
 
         private void InitializeApp(object sender, StartupEventArgs args)

@@ -7,7 +7,7 @@
         public MainWindow()
         {
             InitializeComponent();
-            View.Navigate(App.HomeViewPage);
+            View.Navigate(App.SearchViewPage);
         }
 
     }
