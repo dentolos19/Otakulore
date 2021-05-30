@@ -22,7 +22,7 @@ namespace Otakulore.Models
                     subtitle += " | ";
                     subtitle += attributes.AgeRating;
                     subtitle += " | ";
-                    subtitle += attributes.Status.Transform(To.TitleCase);
+                    subtitle += attributes.Status;
                 }
                 return subtitle;
             }

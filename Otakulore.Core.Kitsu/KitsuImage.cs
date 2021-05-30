@@ -3,7 +3,7 @@
 namespace Otakulore.Core.Kitsu
 {
 
-    public class KitsuImage // TODO: add meta dimensions
+    public class KitsuImage
     {
 
         [JsonPropertyName("tiny")] public string TinyImageUrl { get; init; }

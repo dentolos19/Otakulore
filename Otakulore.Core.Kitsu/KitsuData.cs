@@ -3,7 +3,7 @@
 namespace Otakulore.Core.Kitsu
 {
 
-    public class KitsuData<T> // TODO: add data relationships
+    public class KitsuData<T>
     {
 
         [JsonPropertyName("id")]
@@ -12,9 +12,6 @@ namespace Otakulore.Core.Kitsu
         [JsonPropertyName("type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public KitsuDataType Type { get; init; }
-
-        [JsonPropertyName("links")]
-        public KitsuLinks Links { get; init; }
 
         [JsonPropertyName("attributes")]
         public T Attributes { get; init; }
