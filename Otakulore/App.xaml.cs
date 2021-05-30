@@ -9,7 +9,7 @@ namespace Otakulore
     public partial class App
     {
 
-        internal static UserConfig Configuration { get; } = UserConfig.LoadConfig();
+        internal static Configuration Settings { get; } = Configuration.LoadConfig();
 
         internal static SearchView SearchViewPage { get; } = new();
         internal static DetailsView DetailsViewPage { get; } = new();

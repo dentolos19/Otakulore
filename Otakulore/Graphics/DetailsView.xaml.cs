@@ -20,25 +20,24 @@ namespace Otakulore.Graphics
 
         public void ShowDetails(object data)
         {
-            if (data is KitsuAnimeAttributes attributes)
+            if (data is not KitsuData animeData)
+                return;
+            TitleText.Text = animeData.Attributes.CanonicalTitle;
+            YearText.Text = animeData.Attributes.StartingDate.Substring(0, 4);
+            ThreadPool.QueueUserWorkItem(_ =>
             {
-                TitleText.Text = attributes.CanonicalTitle;
-                YearText.Text = attributes.StartingDate.Substring(0, 4);
-                ThreadPool.QueueUserWorkItem(_ =>
+                var buffer = _client.DownloadData(animeData.Attributes.PosterImage.OriginalImageUrl);
+                var image = new BitmapImage();
+                using (var stream = new MemoryStream(buffer))
                 {
-                    var buffer = _client.DownloadData(attributes.PosterImage.OriginalImageUrl);
-                    var image = new BitmapImage();
-                    using (var stream = new MemoryStream(buffer))
-                    {
-                        image.BeginInit();
-                        image.CacheOption = BitmapCacheOption.OnLoad;
-                        image.StreamSource = stream;
-                        image.EndInit();
-                        image.Freeze();
-                    }
-                    Dispatcher.BeginInvoke(() => PosterImage.Source = image);
-                });
-            }
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = stream;
+                    image.EndInit();
+                    image.Freeze();
+                }
+                Dispatcher.BeginInvoke(() => PosterImage.Source = image);
+            });
         }
 
     }

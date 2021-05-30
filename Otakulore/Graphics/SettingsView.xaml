@@ -1,5 +1,5 @@
 ﻿<Page x:Class="Otakulore.Graphics.SettingsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TextBlock Text="This feature is coming soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </Page>

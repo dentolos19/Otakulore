@@ -38,7 +38,7 @@
             <TabItem Header="Overview">
                 <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </TabItem>
-            <TabItem Header="Watch">
+            <TabItem Header="Stream">
                 <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </TabItem>
         </TabControl>

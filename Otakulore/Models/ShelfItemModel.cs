@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using Otakulore.Core.Kitsu;
+﻿using Otakulore.Core.Kitsu;
 
 namespace Otakulore.Models
 {
@@ -16,14 +15,13 @@ namespace Otakulore.Models
             get
             {
                 var subtitle = string.Empty;
-                if (Data is KitsuAnimeAttributes attributes)
-                {
-                    subtitle += attributes.StartingDate.Substring(0, 4);
-                    subtitle += " | ";
-                    subtitle += attributes.AgeRating;
-                    subtitle += " | ";
-                    subtitle += attributes.Status;
-                }
+                if (Data is not KitsuData animeData)
+                    return subtitle;
+                subtitle += animeData.Attributes.StartingDate.Substring(0, 4);
+                subtitle += " | ";
+                subtitle += animeData.Attributes.AgeRating ?? "Unknown Age Rating";
+                subtitle += " | ";
+                subtitle += animeData.Attributes.Status;
                 return subtitle;
             }
         }

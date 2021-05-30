@@ -3,7 +3,7 @@
 namespace Otakulore.Core.Kitsu
 {
 
-    public enum KitsuAnimeFormat
+    public enum KitsuMediaFormat
     {
 
         [EnumMember(Value = "ONA")] Ona,

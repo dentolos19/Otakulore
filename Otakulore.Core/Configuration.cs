@@ -6,11 +6,11 @@ using System.Xml.Serialization;
 namespace Otakulore.Core
 {
 
-    public class UserConfig
+    public class Configuration
     {
 
         private static readonly string SourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Otakulore.cfg");
-        private static readonly XmlSerializer ConfigSerializer = new(typeof(UserConfig));
+        private static readonly XmlSerializer ConfigSerializer = new(typeof(Configuration));
 
         public List<string> FavoritesList { get; set; } = new();
 
@@ -21,12 +21,12 @@ namespace Otakulore.Core
             stream.Close();
         }
 
-        public static UserConfig LoadConfig()
+        public static Configuration LoadConfig()
         {
             if (!File.Exists(SourcePath))
-                return new UserConfig();
+                return new Configuration();
             var stream = new FileStream(SourcePath, FileMode.Open);
-            var result = (UserConfig)ConfigSerializer.Deserialize(stream)!;
+            var result = (Configuration)ConfigSerializer.Deserialize(stream)!;
             stream.Close();
             return result;
         }

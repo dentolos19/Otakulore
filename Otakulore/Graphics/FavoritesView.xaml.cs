@@ -23,7 +23,7 @@ namespace Otakulore.Graphics
         public void UpdateFavorites()
         {
             var list = new List<ShelfItemModel>();
-            foreach (var id in App.Configuration.FavoritesList)
+            foreach (var id in App.Settings.FavoritesList)
             {
                 ThreadPool.QueueUserWorkItem(async _ =>
                 {
@@ -32,7 +32,7 @@ namespace Otakulore.Graphics
                     {
                         ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
                         Title = data.Attributes.CanonicalTitle,
-                        Data = data.Attributes
+                        Data = data
                     });
                 });
             }
