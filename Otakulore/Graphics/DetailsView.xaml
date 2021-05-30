@@ -36,7 +36,28 @@
         </Grid>
         <TabControl Grid.Column="1" Grid.Row="3">
             <TabItem Header="Overview">
-                <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Padding="10">
+                        <StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Format" FontWeight="Bold"/>
+                                <TextBlock x:Name="FormatText"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Status" FontWeight="Bold"/>
+                                <TextBlock x:Name="StatusText"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2" Padding="10">
+                        <TextBlock x:Name="SynopsisText" TextWrapping="Wrap"/>
+                    </GroupBox>
+                </Grid>
             </TabItem>
             <TabItem Header="Stream">
                 <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>

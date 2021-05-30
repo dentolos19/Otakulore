@@ -10,9 +10,7 @@ namespace Otakulore.Graphics
 
     public partial class DetailsView
     {
-
-        private readonly WebClient _client = new();
-
+        
         public DetailsView()
         {
             InitializeComponent();
@@ -24,19 +22,23 @@ namespace Otakulore.Graphics
                 return;
             TitleText.Text = animeData.Attributes.CanonicalTitle;
             YearText.Text = animeData.Attributes.StartingDate.Substring(0, 4);
+            FormatText.Text = animeData.Attributes.Format.ToString();
+            StatusText.Text = animeData.Attributes.Status.ToString();
+            SynopsisText.Text = animeData.Attributes.Synopsis;
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                var buffer = _client.DownloadData(animeData.Attributes.PosterImage.OriginalImageUrl);
-                var image = new BitmapImage();
+                using var client = new WebClient();
+                var buffer = client.DownloadData(animeData.Attributes.PosterImage.OriginalImageUrl);
+                var bitmap = new BitmapImage();
                 using (var stream = new MemoryStream(buffer))
                 {
-                    image.BeginInit();
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.StreamSource = stream;
-                    image.EndInit();
-                    image.Freeze();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                    bitmap.Freeze();
                 }
-                Dispatcher.BeginInvoke(() => PosterImage.Source = image);
+                Dispatcher.BeginInvoke(() => PosterImage.Source = bitmap);
             });
         }
 
