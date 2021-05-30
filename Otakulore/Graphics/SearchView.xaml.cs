@@ -14,7 +14,7 @@ namespace Otakulore.Graphics
             InitializeComponent();
         }
 
-        private async void Search(object sender, RoutedEventArgs args)
+        private async void SearchForContent(object sender, RoutedEventArgs args)
         {
             var inputQuery = SearchInput.Text;
             if (string.IsNullOrEmpty(inputQuery))
@@ -22,7 +22,7 @@ namespace Otakulore.Graphics
             KitsuData<KitsuAnimeAttributes>[] searchResults;
             try
             {
-                searchResults = await KitsuApi.FilterAnimeAsync(inputQuery);
+                searchResults = await KitsuApi.SearchAnimeAsync(inputQuery);
             }
             catch
             {
@@ -35,28 +35,33 @@ namespace Otakulore.Graphics
                 return;
             }
             SearchOutput.Items.Clear();
-            foreach (var item in searchResults)
+            foreach (var data in searchResults)
             {
-                SearchOutput.Items.Add(new SearchItemModel
+                SearchOutput.Items.Add(new ShelfItemModel
                 {
-                    Image = item.Attributes.PosterImage.OriginalImageUrl,
-                    Title = item.Attributes.CanonicalTitle,
-                    Data = item.Attributes
+                    ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
+                    Title = data.Attributes.CanonicalTitle,
+                    Data = data.Attributes
                 });
             }
         }
 
-        private void OpenSettings(object sender, RoutedEventArgs args)
+        private void OpenFavorites(object sender, RoutedEventArgs args)
         {
-            // TODO
+            App.NavigateSinglePage(App.FavoritesViewPage);
         }
 
-        private void OpenDetails(object sender, MouseButtonEventArgs args)
+        private void OpenSettings(object sender, RoutedEventArgs args)
         {
-            if (SearchOutput.SelectedItem is not SearchItemModel model)
+            App.NavigateSinglePage(App.SettingsViewPage);
+        }
+
+        private void ShowDetails(object sender, MouseButtonEventArgs args)
+        {
+            if (SearchOutput.SelectedItem is not ShelfItemModel model)
                 return;
             App.DetailsViewPage.ShowDetails(model.Data);
-            App.NavigateSinglePageApp(App.DetailsViewPage);
+            App.NavigateSinglePage(App.DetailsViewPage);
         }
 
     }

@@ -26,10 +26,11 @@ namespace Otakulore.Core.Kitsu
         [JsonPropertyName("startDate")] public string StartingDate { get; init; } // DateTime
         [JsonPropertyName("endingDate")] public string EndingDate { get; init; } // DateTime
 
-        [JsonPropertyName("episodeCount")] public int EpisodeCount { get; init; }
-        [JsonPropertyName("episodeLength")] public int EpisodeLength { get; init; }
+        [JsonPropertyName("episodeCount")] public int? EpisodeCount { get; init; }
+        [JsonPropertyName("episodeLength")] public int? EpisodeLength { get; init; }
 
         [JsonPropertyName("ageRating")] public string AgeRating { get; init; } // enum
+        [JsonPropertyName("status")] public string Status { get; init; } // enum
         
         [JsonPropertyName("showType")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -38,10 +39,6 @@ namespace Otakulore.Core.Kitsu
         [JsonPropertyName("subtype")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public KitsuMediaFormat Subformat { get; init; }
-        
-        [JsonPropertyName("status")]
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public KitsuMediaStatus Status { get; init; }
 
     }
 

@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Otakulore.Core.Kitsu;
 
 namespace Otakulore.Graphics
@@ -36,7 +36,7 @@ namespace Otakulore.Graphics
                         image.EndInit();
                         image.Freeze();
                     }
-                    Dispatcher.BeginInvoke((Action)(() => PosterImage.Source = image));
+                    Dispatcher.BeginInvoke(() => PosterImage.Source = image);
                 });
             }
         }

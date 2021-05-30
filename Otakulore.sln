@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore", "Otakulore\Otakulore.csproj", "{03B4DC97-23F5-4E3F-93B8-B0C3C63F5D56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core.Kitsu", "Otakulore.Api.Kitsu\Otakulore.Core.Kitsu.csproj", "{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core.Kitsu", "Otakulore.Core.Kitsu\Otakulore.Core.Kitsu.csproj", "{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{03B9E0B8-C85C-4A2D-812F-CC268CD8F215}"
 EndProject

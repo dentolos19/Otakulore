@@ -3,7 +3,7 @@
 namespace Otakulore.Core.Kitsu
 {
 
-    public class KitsuResponse<T>
+    public class KitsuResponses<T>
     {
 
         [JsonPropertyName("data")] public KitsuData<T>[] Data { get; init; }

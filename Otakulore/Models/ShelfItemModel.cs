@@ -1,12 +1,13 @@
-﻿using Otakulore.Core.Kitsu;
+﻿using Humanizer;
+using Otakulore.Core.Kitsu;
 
 namespace Otakulore.Models
 {
 
-    public class SearchItemModel
+    public class ShelfItemModel
     {
 
-        public string Image { get; init; }
+        public string ImageUrl { get; init; }
         public string Title { get; init; }
         public object Data { get; init; }
 
@@ -21,7 +22,7 @@ namespace Otakulore.Models
                     subtitle += " | ";
                     subtitle += attributes.AgeRating;
                     subtitle += " | ";
-                    subtitle += attributes.Status;
+                    subtitle += attributes.Status.Transform(To.TitleCase);
                 }
                 return subtitle;
             }

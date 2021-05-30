@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace Otakulore.Core.AnimeServices.Scrapers
+namespace Otakulore.Core.AnimeServices
 {
 
-    public class GogoanimeScraper
+    public class AnimeScraper
     {
 
         private static string BaseEndpoint => "https://www1.gogoanime.ai";
@@ -22,8 +22,8 @@ namespace Otakulore.Core.AnimeServices.Scrapers
                 list.Add(new AnimePoster
                 {
                     ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
-                    AnimeTitle = root.Attributes["title"].Value,
-                    ReleaseYear = node.SelectSingleNode("./p[@class='released']").InnerText,
+                    Title = root.Attributes["title"].Value,
+                    ReleaseYear = node.SelectSingleNode("./p[@class='released']").InnerText.Trim().Remove(9),
                     InfoLink = BaseEndpoint + root.Attributes["href"]
                 });
             }

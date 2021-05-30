@@ -5,8 +5,17 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+
+                <!-- local -->
+
+                <ResourceDictionary Source="Resources/Dictionaries/Converters.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/Templates.xaml"/>
+
+                <!-- external -->
+
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI;component/ColorSchemes/Light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
