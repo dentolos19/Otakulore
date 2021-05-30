@@ -10,7 +10,6 @@ namespace Otakulore.Core.Kitsu
     {
 
         private static string BaseEndpoint => "https://kitsu.io/api/edge";
-
         private static string SearchAnimeEndpoint => BaseEndpoint + "/anime?filter[text]={0}";
         private static string GetAnimeEndpoint => BaseEndpoint + "/anime/{0}";
 

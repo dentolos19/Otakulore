@@ -23,4 +23,17 @@
             </Grid>
         </Grid>
     </DataTemplate>
+    <DataTemplate x:Key="StreamItemTemplate" DataType="m:StreamItemModel">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="{Binding Path=ImageUrl, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}" Width="50"/>
+            <Border Grid.Column="2" BorderBrush="{x:Null}">
+                <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

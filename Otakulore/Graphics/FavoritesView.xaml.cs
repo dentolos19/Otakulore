@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 
@@ -17,42 +18,25 @@ namespace Otakulore.Graphics
         {
             InitializeComponent();
             UpdateFavorites();
-            FilterFavorites(null, null);
         }
 
         public void UpdateFavorites()
         {
-            var list = new List<ShelfItemModel>();
+            FavoritesList.Items.Clear();
             foreach (var id in App.Settings.FavoritesList)
             {
                 ThreadPool.QueueUserWorkItem(async _ =>
                 {
                     var data = await KitsuApi.GetAnimeAsync(id);
-                    list.Add(new ShelfItemModel
+                    await Dispatcher.BeginInvoke(() => FavoritesList.Items.Add(new ShelfItemModel
                     {
                         ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
                         Title = data.Attributes.CanonicalTitle,
                         Data = data
-                    });
+                    }));
                 });
             }
-            FavoritesList.ItemsSource = list;
-            ((CollectionView)CollectionViewSource.GetDefaultView(FavoritesList.ItemsSource)).Filter = FilterFavoriteItem;
-        }
 
-        private bool FilterFavoriteItem(object item)
-        {
-            var inputQuery = FilterInput.Text;
-            if (string.IsNullOrEmpty(inputQuery))
-                return true;
-            if (item is ShelfItemModel model)
-                return model.Title.Contains(inputQuery, StringComparison.OrdinalIgnoreCase);
-            return true;
-        }
-
-        private void FilterFavorites(object sender, TextChangedEventArgs args)
-        {
-            CollectionViewSource.GetDefaultView(FavoritesList.ItemsSource).Refresh();
         }
 
         private void ShowDetails(object sender, MouseButtonEventArgs args)

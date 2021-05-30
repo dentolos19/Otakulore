@@ -60,7 +60,16 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Stream">
-                <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="4Anime" Margin="0,0,0,10">
+                            <ListBox x:Name="FourAnimeSection" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}"/>
+                        </GroupBox>
+                        <GroupBox Header="Gogoanime">
+                            <ListBox x:Name="GogoanimeSection" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}"/>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </Grid>
