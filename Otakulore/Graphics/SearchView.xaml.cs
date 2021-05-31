@@ -19,11 +19,11 @@ namespace Otakulore.Graphics
             InitializeComponent();
             _query = query;
             _worker = new BackgroundWorker();
-            _worker.DoWork += SearchContent;
+            _worker.DoWork += LoadContent;
             _worker.RunWorkerAsync();
         }
 
-        private async void SearchContent(object sender, DoWorkEventArgs args)
+        private async void LoadContent(object sender, DoWorkEventArgs args)
         {
             KitsuData[] searchResults;
             try

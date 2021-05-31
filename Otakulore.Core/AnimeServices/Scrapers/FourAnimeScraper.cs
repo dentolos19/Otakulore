@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using HtmlAgilityPack;
 
@@ -31,7 +33,7 @@ namespace Otakulore.Core.AnimeServices.Scrapers
                         ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
                         Title = root.SelectSingleNode("./div").InnerText,
                         ReleaseYear = root.SelectNodes("./span").First().InnerText,
-                        InfoLink = root.Attributes["href"].Value
+                        EpisodesUrl = root.Attributes["href"].Value
                     });
                 }
                 return list.ToArray();
@@ -40,7 +42,51 @@ namespace Otakulore.Core.AnimeServices.Scrapers
             {
                 return null;
             }
-            
+        }
+
+        public static AnimeEpisode[]? ScrapeEpisodes(string url)
+        {
+            try
+            {
+                var document = new HtmlWeb().Load(url);
+                var nodes = document.DocumentNode.SelectNodes("//div[@class='watchpage']//li");
+                if (nodes == null)
+                    return null;
+                var list = new List<AnimeEpisode>();
+                foreach (var node in nodes)
+                {
+                    var root = node.SelectSingleNode("./a");
+                    if (root == null)
+                        continue;
+                    list.Add(new AnimeEpisode
+                    {
+                        EpisodeNumber = root.InnerText,
+                        WatchUrl = root.Attributes["href"].Value
+                    });
+                }
+                return list.ToArray();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static string? ScrapeVideoSource(string url)
+        {
+            try
+            {
+                var document = new HtmlWeb().Load(url);
+                File.WriteAllText("4anime.html", document.ParsedText);
+                var node = document.DocumentNode.SelectSingleNode("//video/source");
+                if (node == null)
+                    return null;
+                return node.Attributes["src"].Value;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
     }

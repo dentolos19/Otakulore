@@ -15,7 +15,7 @@ namespace Otakulore.Models
             get
             {
                 var subtitle = string.Empty;
-                subtitle += Data.Attributes.StartingDate.Substring(0, 4);
+                subtitle += Data.Attributes.StartingDate?.Substring(0, 4) ?? "XXXX";
                 subtitle += " | ";
                 subtitle += Data.Attributes.Status;
                 return subtitle;

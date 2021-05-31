@@ -29,7 +29,7 @@ namespace Otakulore.Core.AnimeServices.Scrapers
                         ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
                         Title = root.Attributes["title"].Value,
                         ReleaseYear = releaseYear.Substring(releaseYear.Length - 4),
-                        InfoLink = BaseEndpoint + root.Attributes["href"]
+                        EpisodesUrl = BaseEndpoint + root.Attributes["href"]
                     });
                 }
                 return list.ToArray();

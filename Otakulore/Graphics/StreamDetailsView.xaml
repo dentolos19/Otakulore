@@ -1,0 +1,5 @@
+﻿<Page x:Class="Otakulore.Graphics.StreamDetailsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ListBox x:Name="EpisodeList" ItemTemplate="{StaticResource ResourceKey=EpisodeItemTemplate}" MouseDoubleClick="PlayEpisode"/>
+</Page>

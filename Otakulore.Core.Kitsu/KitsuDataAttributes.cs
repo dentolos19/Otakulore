@@ -13,7 +13,7 @@ namespace Otakulore.Core.Kitsu
         [JsonPropertyName("canonicalTitle")] public string CanonicalTitle { get; init; }
         [JsonPropertyName("abbreviatedTitles")] public string[] AbbreviatedTitles { get; init; }
         [JsonPropertyName("averageRating")] public string AverageRating { get; init; } // double
-        [JsonPropertyName("startDate")] public string StartingDate { get; init; } // DateTime
+        [JsonPropertyName("startDate")] public string? StartingDate { get; init; } // DateTime
         [JsonPropertyName("endingDate")] public string? EndingDate { get; init; } // DateTime
         [JsonPropertyName("ageRating")] public string? AgeRating { get; init; }
         [JsonPropertyName("posterImage")] public KitsuImage PosterImage { get; init; }

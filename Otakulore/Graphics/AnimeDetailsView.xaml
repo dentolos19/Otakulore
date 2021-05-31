@@ -2,19 +2,12 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="10"/>
@@ -42,7 +35,7 @@
                 </Border>
             </Grid>
         </Grid>
-        <TabControl Grid.Column="1" Grid.Row="3">
+        <TabControl Grid.Row="2">
             <TabItem Header="Overview">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -71,10 +64,10 @@
                 <ScrollViewer>
                     <StackPanel>
                         <GroupBox Header="4Anime" Margin="0,0,0,10">
-                            <ListBox x:Name="FourAnimeSection" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}"/>
+                            <ListBox x:Name="FourAnimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamFourAnime"/>
                         </GroupBox>
                         <GroupBox Header="Gogoanime">
-                            <ListBox x:Name="GogoanimeSection" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}"/>
+                            <ListBox x:Name="GogoanimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamGogoanime"/>
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>

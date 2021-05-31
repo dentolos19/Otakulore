@@ -2,11 +2,14 @@
 using System.Net;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Otakulore.Core.AnimeServices;
 using Otakulore.Core.AnimeServices.Scrapers;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
+using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
 namespace Otakulore.Graphics
 {
@@ -16,22 +19,20 @@ namespace Otakulore.Graphics
 
         private readonly KitsuData _data;
         
-        public AnimeDetailsView(object data)
+        public AnimeDetailsView(KitsuData data)
         {
             InitializeComponent();
-            if (data is not KitsuData animeData)
-                return;
-            _data = animeData;
-            TitleText.Text = animeData.Attributes.CanonicalTitle;
-            YearText.Text = animeData.Attributes.StartingDate.Substring(0, 4);
-            FormatText.Text = animeData.Attributes.Format.ToString();
-            StatusText.Text = animeData.Attributes.Status.ToString();
-            SynopsisText.Text = animeData.Attributes.Synopsis;
+            _data = data;
+            TitleText.Text = data.Attributes.CanonicalTitle;
+            YearText.Text = data.Attributes.StartingDate?.Substring(0, 4) ?? "XXXX";
+            FormatText.Text = data.Attributes.Format.ToString();
+            StatusText.Text = data.Attributes.Status;
+            SynopsisText.Text = data.Attributes.Synopsis;
             FavoriteButton.Content = App.Settings.FavoritesList.Contains(_data.Id) ? "\xE00B" : "\xE006";
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 using var client = new WebClient();
-                var buffer = client.DownloadData(animeData.Attributes.PosterImage.OriginalImageUrl);
+                var buffer = client.DownloadData(data.Attributes.PosterImage.OriginalImageUrl);
                 var bitmap = new BitmapImage();
                 using (var stream = new MemoryStream(buffer))
                 {
@@ -43,7 +44,7 @@ namespace Otakulore.Graphics
                 }
                 Dispatcher.BeginInvoke(() => PosterImage.Source = bitmap);
             });
-            FourAnimeSection.Items.Clear();
+            FourAnimeList.Items.Clear();
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 var posters = FourAnimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
@@ -51,14 +52,16 @@ namespace Otakulore.Graphics
                     return; // TODO: add null indicator
                 foreach (var poster in posters)
                 {
-                    Dispatcher.BeginInvoke(() => FourAnimeSection.Items.Add(new StreamItemModel
+                    Dispatcher.BeginInvoke(() => FourAnimeList.Items.Add(new StreamItemModel
                     {
                         ImageUrl = poster.ImageUrl,
-                        Title = poster.Title
+                        Title = poster.Title,
+                        Service = StreamingService.FourAnime,
+                        EpisodesUrl = poster.EpisodesUrl
                     }));
                 }
             });
-            GogoanimeSection.Items.Clear();
+            GogoanimeList.Items.Clear();
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 var posters = GogoanimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
@@ -66,10 +69,12 @@ namespace Otakulore.Graphics
                     return; // TODO: add null indicator
                 foreach (var poster in posters)
                 {
-                    Dispatcher.BeginInvoke(() => GogoanimeSection.Items.Add(new StreamItemModel
+                    Dispatcher.BeginInvoke(() => GogoanimeList.Items.Add(new StreamItemModel
                     {
                         ImageUrl = poster.ImageUrl,
-                        Title = poster.Title
+                        Title = poster.Title,
+                        Service = StreamingService.Gogoanime,
+                        EpisodesUrl = poster.EpisodesUrl
                     }));
                 }
             });
@@ -89,6 +94,17 @@ namespace Otakulore.Graphics
                 App.Settings.SaveData();
                 FavoriteButton.Content = "\xE00B";
             }
+        }
+
+        private void StreamFourAnime(object sender, MouseButtonEventArgs args)
+        {
+            if (FourAnimeList.SelectedItem is StreamItemModel model)
+                App.NavigateSinglePage(new StreamDetailsView(model.EpisodesUrl, model.Service));
+        }
+
+        private void StreamGogoanime(object sender, MouseButtonEventArgs args)
+        {
+            AdonisMessageBox.Show("Sorry, this streaming service is currently disabled.", "Otakulore");
         }
 
     }
