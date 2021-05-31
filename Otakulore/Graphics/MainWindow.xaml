@@ -1,7 +1,40 @@
-﻿<ui:AdonisWindow x:Class="Otakulore.Graphics.MainWindow"
+﻿<ct:AdonisWindow x:Class="Otakulore.Graphics.MainWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:ui="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                 xmlns:ct="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                 xmlns:ex="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
                  Title="Otakulore">
-    <Frame x:Name="View" x:FieldModifier="public"/>
-</ui:AdonisWindow>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="&#xE10F;" ToolTip="Home" FontFamily="Segoe MDL2 Assets" Click="NavigateHome"/>
+            <TextBox x:Name="QueryInput" Grid.Column="2" ex:WatermarkExtension.Watermark="Search"/>
+            <Button Grid.Column="4" Content="&#xE721;" ToolTip="Search" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="NavigateSearch"/>
+            <Button Grid.Column="6" Content="&#xE00B;" ToolTip="Favorites" FontFamily="Segoe MDL2 Assets" Click="NavigateFavorites"/>
+            <Button Grid.Column="8" Content="&#xE713;" ToolTip="Settings" FontFamily="Segoe MDL2 Assets" Click="NavigateSettings"/>
+        </Grid>
+        <Frame Grid.Column="1" Grid.Row="3" x:Name="View" x:FieldModifier="public" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</ct:AdonisWindow>

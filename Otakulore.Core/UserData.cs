@@ -6,27 +6,27 @@ using System.Xml.Serialization;
 namespace Otakulore.Core
 {
 
-    public class Configuration
+    public class UserData
     {
 
-        private static readonly string SourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Otakulore.cfg");
-        private static readonly XmlSerializer ConfigSerializer = new(typeof(Configuration));
+        private static readonly string SourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Otakulore.usrdat");
+        private static readonly XmlSerializer DataSerializer = new(typeof(UserData));
 
         public List<string> FavoritesList { get; set; } = new();
 
-        public void SaveConfig()
+        public void SaveData()
         {
             var stream = new FileStream(SourcePath, FileMode.Create);
-            ConfigSerializer.Serialize(stream, this);
+            DataSerializer.Serialize(stream, this);
             stream.Close();
         }
 
-        public static Configuration LoadConfig()
+        public static UserData LoadData()
         {
             if (!File.Exists(SourcePath))
-                return new Configuration();
+                return new UserData();
             var stream = new FileStream(SourcePath, FileMode.Open);
-            var result = (Configuration)ConfigSerializer.Deserialize(stream)!;
+            var result = (UserData)DataSerializer.Deserialize(stream)!;
             stream.Close();
             return result;
         }

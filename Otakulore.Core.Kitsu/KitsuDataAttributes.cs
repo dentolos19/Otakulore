@@ -26,15 +26,14 @@ namespace Otakulore.Core.Kitsu
         public KitsuMediaFormat Subformat { get; init; }
 
         [JsonPropertyName("status")]
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public KitsuMediaStatus Status { get; init; }
+        // [JsonConverter(typeof(JsonStringEnumConverter))]
+        public string? Status { get; init; } // KitsuMediaStatus?
 
         [JsonPropertyName("showType")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public KitsuMediaFormat Format { get; init; }
 
         // TODO: add "nextrelease" property
-        // TODO: add "tba" property
 
     }
 

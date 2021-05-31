@@ -9,12 +9,7 @@ namespace Otakulore
     public partial class App
     {
 
-        internal static Configuration Settings { get; } = Configuration.LoadConfig();
-
-        internal static SearchView SearchViewPage { get; } = new();
-        internal static DetailsView DetailsViewPage { get; } = new();
-        internal static FavoritesView FavoritesViewPage { get; } = new();
-        internal static SettingsView SettingsViewPage { get; } = new();
+        internal static UserData Settings { get; } = UserData.LoadData();
 
         private void InitializeApp(object sender, StartupEventArgs args)
         {

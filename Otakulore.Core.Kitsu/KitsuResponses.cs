@@ -7,7 +7,7 @@ namespace Otakulore.Core.Kitsu
     {
 
         [JsonPropertyName("data")] public KitsuData[] Data { get; init; }
-        [JsonPropertyName("links")] public KitsuLinks Links { get; init; }
+        [JsonPropertyName("links")] public KitsuLinks? Links { get; init; }
 
     }
 

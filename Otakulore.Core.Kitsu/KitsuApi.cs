@@ -12,6 +12,7 @@ namespace Otakulore.Core.Kitsu
         private static string BaseEndpoint => "https://kitsu.io/api/edge";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/anime?filter[text]={0}";
         private static string GetAnimeEndpoint => BaseEndpoint + "/anime/{0}";
+        private static string GetTrendingAnimeEndpoint => BaseEndpoint + "/trending/anime";
 
         private static HttpClient RestClient => new();
 
@@ -29,6 +30,14 @@ namespace Otakulore.Core.Kitsu
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<KitsuResponse>(content)!.Data;
+        }
+
+        public static async Task<KitsuData[]> GetTrendingAnimeAsync()
+        {
+            var response = await RestClient.GetAsync(GetTrendingAnimeEndpoint);
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<KitsuResponses>(content)!.Data;
         }
 
     }

@@ -8,42 +8,36 @@ using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 namespace Otakulore.Graphics
 {
 
-    public partial class SearchView
+    public partial class HomeView
     {
 
-        private readonly string _query;
         private readonly BackgroundWorker _worker;
 
-        public SearchView(string query)
+        public HomeView()
         {
             InitializeComponent();
-            _query = query;
             _worker = new BackgroundWorker();
-            _worker.DoWork += SearchContent;
+            _worker.DoWork += AddContent;
             _worker.RunWorkerAsync();
         }
 
-        private async void SearchContent(object sender, DoWorkEventArgs args)
+        private async void AddContent(object sender, DoWorkEventArgs args)
         {
-            KitsuData[] searchResults;
+            KitsuData[] trendingResults;
+            trendingResults = await KitsuApi.GetTrendingAnimeAsync();
             try
             {
-                searchResults = await KitsuApi.SearchAnimeAsync(_query);
+
             }
             catch
             {
-                AdonisMessageBox.Show("An error had occurred while searching for content.", "Otakulore");
+                AdonisMessageBox.Show("An error had occurred while getting trending content.", "Otakulore");
                 return;
             }
-            if (!(searchResults.Length > 0))
+            await Dispatcher.BeginInvoke(() => TrendingList.Items.Clear());
+            foreach (var data in trendingResults)
             {
-                AdonisMessageBox.Show("No content has matched your query.", "Otakulore");
-                return;
-            }
-            await Dispatcher.BeginInvoke(() => ContentList.Items.Clear());
-            foreach (var data in searchResults)
-            {
-                await Dispatcher.BeginInvoke(() => ContentList.Items.Add(new ShelfItemModel
+                await Dispatcher.BeginInvoke(() => TrendingList.Items.Add(new ShelfItemModel
                 {
                     ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
                     Title = data.Attributes.CanonicalTitle,
@@ -54,7 +48,7 @@ namespace Otakulore.Graphics
 
         private void ShowDetails(object sender, MouseButtonEventArgs args)
         {
-            if (ContentList.SelectedItem is not ShelfItemModel model)
+            if (TrendingList.SelectedItem is not ShelfItemModel model)
                 return;
             App.NavigateSinglePage(new AnimeDetailsView(model.Data));
         }
