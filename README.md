@@ -18,3 +18,6 @@ This project is currently work-in-progress!
 ## Screenshots
 
 ![](./.github/screenshots/0.png)
+![](./.github/screenshots/1.png)
+![](./.github/screenshots/2.png)
+![](./.github/screenshots/3.png)
