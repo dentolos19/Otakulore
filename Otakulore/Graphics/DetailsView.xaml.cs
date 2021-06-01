@@ -10,7 +10,6 @@ using Otakulore.Core;
 using Otakulore.Core.Kitsu;
 using Otakulore.Core.Services.Scrapers;
 using Otakulore.Models;
-using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
 namespace Otakulore.Graphics
 {
@@ -106,13 +105,13 @@ namespace Otakulore.Graphics
         private void StreamFourAnime(object sender, MouseButtonEventArgs args)
         {
             if (FourAnimeList.SelectedItem is StreamItemModel model)
-                App.NavigateSinglePage(new StreamDetailsView(model.EpisodesUrl, model.Service));
+                App.NavigateSinglePage(new StreamDetailsView(model.Title, model.EpisodesUrl, model.Service));
         }
 
         private void StreamGogoanime(object sender, MouseButtonEventArgs args)
         {
             if (GogoanimeList.SelectedItem is StreamItemModel model)
-                App.NavigateSinglePage(new StreamDetailsView(model.EpisodesUrl, model.Service));
+                App.NavigateSinglePage(new StreamDetailsView(model.Title, model.EpisodesUrl, model.Service));
         }
 
     }

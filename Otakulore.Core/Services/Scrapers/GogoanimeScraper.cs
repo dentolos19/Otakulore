@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HtmlAgilityPack;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace Otakulore.Core.Services.Scrapers
 {
@@ -44,25 +48,37 @@ namespace Otakulore.Core.Services.Scrapers
         {
             try
             {
-                var document = new HtmlDocument();
-                document.LoadHtml(EdgeWebDriver.ScrapeDynamicHtml(url));
-                var nodes = document.DocumentNode.SelectNodes("//ul[@id='episode_related']//li");
-                if (nodes == null)
+                var driver = EdgeWebDriver.GetWebDriver();
+                driver.Url = url;
+                var pages = driver.FindElementsByXPath("//ul[@id='episode_page']/li");
+                if (pages == null)
                     return null;
                 var list = new List<AnimeEpisode>();
-                foreach (var node in nodes)
+                foreach (var page in pages)
                 {
-                    var root = node.SelectSingleNode("./a");
-                    if (root == null)
-                        continue;
-                    int? episodeNumber = null;
-                    if (int.TryParse(root.SelectSingleNode("./div[@class='name']").InnerText.Trim().Substring(3), out int result))
-                        episodeNumber = result;
-                    list.Add(new AnimeEpisode
+                    page.Click();
+                    var document = new HtmlDocument();
+                    document.LoadHtml(driver.PageSource);
+                    var nodes = document.DocumentNode.SelectNodes("//ul[@id='episode_related']/li");
+                    if (nodes == null)
+                        return null;
+                    var subList = new List<AnimeEpisode>();
+                    foreach (var node in nodes)
                     {
-                        EpisodeNumber = episodeNumber,
-                        WatchUrl = BaseEndpoint + root.Attributes["href"].Value.Trim()
-                    });
+                        var root = node.SelectSingleNode("./a");
+                        if (root == null)
+                            continue;
+                        int? episodeNumber = null;
+                        if (int.TryParse(root.SelectSingleNode("./div[@class='name']").InnerText.Trim().Substring(3), out int result))
+                            episodeNumber = result;
+                        subList.Add(new AnimeEpisode
+                        {
+                            EpisodeNumber = episodeNumber,
+                            WatchUrl = BaseEndpoint + root.Attributes["href"].Value.Trim()
+                        });
+                    }
+                    subList.Reverse();
+                    list.AddRange(subList);
                 }
                 return list.ToArray();
             }

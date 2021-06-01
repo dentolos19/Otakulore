@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using OpenQA.Selenium.Edge;
 
@@ -21,6 +22,7 @@ namespace Otakulore.Core
             options.UseChromium = true;
             options.AddArgument("headless");
             _webDriver = new EdgeDriver(service, options);
+            _webDriver.Manage().Window.Size = new Size(1920, 1080);
             return _webDriver;
         }
 

@@ -14,6 +14,7 @@ namespace Otakulore.Graphics
     public partial class StreamDetailsView
     {
 
+        private readonly string _title;
         private readonly string _url;
         private readonly StreamingService _service;
         private readonly BackgroundWorker _worker;
@@ -21,9 +22,11 @@ namespace Otakulore.Graphics
 
         private bool _isVideoSeeking;
 
-        public StreamDetailsView(string url, StreamingService service)
+        public StreamDetailsView(string title, string url, StreamingService service)
         {
             InitializeComponent();
+            MediaControl.Header = $"{title} | Select a episode to stream from the list on the left.";
+            _title = title;
             _url = url;
             _service = service;
             _worker = new BackgroundWorker();
@@ -76,6 +79,7 @@ namespace Otakulore.Graphics
         {
             if (EpisodeList.SelectedItem is not EpisodeItemModel model)
                 return;
+            MediaControl.Header = $"{_title} | Episode {model.EpisodeNumber}";
             switch (_service)
             {
                 case StreamingService.FourAnime:
