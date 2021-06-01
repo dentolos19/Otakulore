@@ -4,6 +4,10 @@
                  xmlns:ct="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
                  xmlns:ex="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
                  Title="Otakulore">
+    <Window.CommandBindings>
+        <CommandBinding Command="BrowseBack" Executed="NavigateBack" CanExecute="CanNavigateBack"/>
+        <CommandBinding Command="BrowseForward" Executed="NavigateForward" CanExecute="CanNavigateForward"/>
+    </Window.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -31,8 +35,8 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="&#xE112;" ToolTip="Back" FontFamily="Segoe MDL2 Assets" Click="NavigateBack"/>
-            <Button Grid.Column="2" Content="&#xE111;" ToolTip="Forward" FontFamily="Segoe MDL2 Assets" Click="NavigateForward"/>
+            <Button Grid.Column="0" Content="&#xE112;" ToolTip="Back" FontFamily="Segoe MDL2 Assets" Command="BrowseBack"/>
+            <Button Grid.Column="2" Content="&#xE111;" ToolTip="Forward" FontFamily="Segoe MDL2 Assets" Command="BrowseForward"/>
             <TextBox x:Name="QueryInput" Grid.Column="4" ex:WatermarkExtension.Watermark="Search"/>
             <Button Grid.Column="6" Content="&#xE721;" ToolTip="Search" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="NavigateSearch"/>
             <Button Grid.Column="8" Content="&#xE00A;" ToolTip="Trending" FontFamily="Segoe MDL2 Assets" Click="NavigateTrending"/>

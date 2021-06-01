@@ -15,12 +15,12 @@ using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 namespace Otakulore.Graphics
 {
 
-    public partial class AnimeDetailsView
+    public partial class DetailsView
     {
 
         private readonly KitsuData _data;
 
-        public AnimeDetailsView(KitsuData data)
+        public DetailsView(KitsuData data)
         {
             InitializeComponent();
             _data = data;

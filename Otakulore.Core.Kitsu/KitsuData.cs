@@ -10,7 +10,7 @@ namespace Otakulore.Core.Kitsu
         public string Id { get; init; } // int
         
         [JsonPropertyName("attributes")]
-        public KitsuDataAttributes Attributes { get; init; }
+        public KitsuMediaAttributes Attributes { get; init; }
 
     }
 

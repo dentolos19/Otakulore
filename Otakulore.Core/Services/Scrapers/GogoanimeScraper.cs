@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using HtmlAgilityPack;
 
 namespace Otakulore.Core.Services.Scrapers
@@ -66,6 +65,18 @@ namespace Otakulore.Core.Services.Scrapers
                     });
                 }
                 return list.ToArray();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static string? ScrapeVideoSource(string url)
+        {
+            try
+            {
+                return null; // TODO: scrape gogoanime video source
             }
             catch
             {

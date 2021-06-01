@@ -38,7 +38,7 @@ namespace Otakulore.Graphics
         {
             if (FavoritesList.SelectedItem is not ShelfItemModel model)
                 return;
-            App.NavigateSinglePage(new AnimeDetailsView(model.Data));
+            App.NavigateSinglePage(new DetailsView(model.Data));
         }
 
     }

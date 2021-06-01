@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Otakulore.Core.Kitsu
 {
 
-    public class KitsuDataAttributes
+    public class KitsuMediaAttributes
     {
 
         [JsonPropertyName("slug")] public string SlugTitle { get; init; }

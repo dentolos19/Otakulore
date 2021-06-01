@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace Otakulore.Graphics
 {
@@ -12,14 +13,28 @@ namespace Otakulore.Graphics
             NavigateTrending(null, null);
         }
 
-        private void NavigateBack(object sender, RoutedEventArgs args)
+        private void NavigateBack(object sender, ExecutedRoutedEventArgs args)
         {
-            View.GoBack(); // TODO: use commands instead
+            View.GoBack(); 
         }
 
-        private void NavigateForward(object sender, RoutedEventArgs args)
+        private void CanNavigateBack(object sender, CanExecuteRoutedEventArgs args)
         {
-            View.GoForward(); // TODO: use commands instead
+            if (!IsInitialized)
+                return;
+            args.CanExecute = View.CanGoBack;
+        }
+
+        private void NavigateForward(object sender, ExecutedRoutedEventArgs args)
+        {
+            View.GoForward();
+        }
+
+        private void CanNavigateForward(object sender, CanExecuteRoutedEventArgs args)
+        {
+            if (!IsInitialized)
+                return;
+            args.CanExecute = View.CanGoForward;
         }
 
         private void NavigateSearch(object sender, RoutedEventArgs args)

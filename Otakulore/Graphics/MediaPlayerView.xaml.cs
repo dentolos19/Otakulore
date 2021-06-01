@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Otakulore.Core;
 using Otakulore.Core.Services.Scrapers;
@@ -31,7 +32,13 @@ namespace Otakulore.Graphics
                 }
                 case StreamingService.Gogoanime:
                 {
-                    // TODO: add gogoanime video streaming
+                    var sourceUrl = FourAnimeScraper.ScrapeVideoSource(url);
+                    if (string.IsNullOrEmpty(sourceUrl))
+                    {
+                        AdonisMessageBox.Show("Sorry, unable to find video source.", "Otakulore");
+                        return;
+                    }
+                    MediaPlayer.Source = new Uri(sourceUrl);
                     break;
                 }
             }
@@ -41,7 +48,7 @@ namespace Otakulore.Graphics
             _timer.Start();
         }
 
-        private void UpdateStatus(object? sender, EventArgs args)
+        private void UpdateStatus(object sender, EventArgs args)
         {
             if (MediaPlayer.IsBuffering)
             {
@@ -49,7 +56,7 @@ namespace Otakulore.Graphics
             }
             else
             {
-                if (!MediaPlayer.NaturalDuration.HasTimeSpan) // TODO: add playback seeking
+                if (!MediaPlayer.NaturalDuration.HasTimeSpan)
                     return;
                 PlaybackSlider.Minimum = 0;
                 PlaybackSlider.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
@@ -58,14 +65,19 @@ namespace Otakulore.Graphics
             }
         }
 
-        private void PlayMedia(object sender, RoutedEventArgs args)
+        private void PlayMedia(object sender, ExecutedRoutedEventArgs args)
         {
             MediaPlayer.Play(); // TODO: use commands instead
         }
 
-        private void PauseMedia(object sender, RoutedEventArgs args)
+        private void PauseMedia(object sender, ExecutedRoutedEventArgs args)
         {
             MediaPlayer.Pause(); // TODO: use commands instead
+        }
+
+        private void SeekPlayback(object sender, RoutedPropertyChangedEventArgs<double> args)
+        {
+            // TODO: add playback seeking
         }
 
     }

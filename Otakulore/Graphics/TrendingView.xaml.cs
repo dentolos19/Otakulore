@@ -49,7 +49,7 @@ namespace Otakulore.Graphics
         {
             if (TrendingList.SelectedItem is not ShelfItemModel model)
                 return;
-            App.NavigateSinglePage(new AnimeDetailsView(model.Data));
+            App.NavigateSinglePage(new DetailsView(model.Data));
         }
 
     }

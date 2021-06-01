@@ -14,10 +14,10 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" BorderBrush="{x:Null}">
+                <Border Grid.Row="0">
                     <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
                 </Border>
-                <Border Grid.Row="1" BorderBrush="{x:Null}">
+                <Border Grid.Row="1">
                     <TextBlock Text="{Binding Path=Subtitle}" VerticalAlignment="Center"/>
                 </Border>
             </Grid>

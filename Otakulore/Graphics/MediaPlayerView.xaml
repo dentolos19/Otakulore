@@ -1,13 +1,17 @@
 ﻿<Page x:Class="Otakulore.Graphics.MediaPlayerView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Page.CommandBindings>
+        <CommandBinding Command="Play" Executed="PlayMedia"/>
+        <CommandBinding Command="Pause" Executed="PauseMedia"/>
+    </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <MediaElement x:Name="MediaPlayer" Grid.Row="0" LoadedBehavior="Play" UnloadedBehavior="Manual"/>
+        <MediaElement x:Name="MediaPlayer" Grid.Row="0" LoadedBehavior="Play" UnloadedBehavior="Manual" ScrubbingEnabled="True"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -18,10 +22,10 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="&#xE768;" ToolTip="Play" FontFamily="Segoe MDL2 Assets" Click="PlayMedia"/>
-            <Button Grid.Column="2" Content="&#xE769;" ToolTip="Pause" FontFamily="Segoe MDL2 Assets" Click="PauseMedia"/>
+            <Button Grid.Column="0" Content="&#xE768;" ToolTip="Play" FontFamily="Segoe MDL2 Assets" Command="Play"/>
+            <Button Grid.Column="2" Content="&#xE769;" ToolTip="Pause" FontFamily="Segoe MDL2 Assets" Command="Pause"/>
             <TextBlock x:Name="StatusText" Grid.Column="4" Text="Loading"/>
-            <Slider x:Name="PlaybackSlider" Grid.Column="6" IsEnabled="False"/>
+            <Slider x:Name="PlaybackSlider" Grid.Column="6" ValueChanged="SeekPlayback"/>
         </Grid>
     </Grid>
 </Page>
