@@ -1,5 +1,5 @@
 ﻿<Page x:Class="Otakulore.Graphics.FavoritesView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ListBox x:Name="FavoritesList" Grid.Column="1" Grid.Row="1" ItemTemplate="{StaticResource ResourceKey=ShelfItemTemplate}" MouseDoubleClick="ShowDetails"/>
+    <ListBox x:Name="FavoritesList" ItemTemplate="{StaticResource ResourceKey=ShelfItemTemplate}" MouseDoubleClick="ShowDetails"/>
 </Page>

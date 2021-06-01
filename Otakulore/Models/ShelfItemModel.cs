@@ -1,4 +1,5 @@
-﻿using Otakulore.Core.Kitsu;
+﻿using Humanizer;
+using Otakulore.Core.Kitsu;
 
 namespace Otakulore.Models
 {
@@ -15,9 +16,11 @@ namespace Otakulore.Models
             get
             {
                 var subtitle = string.Empty;
-                subtitle += Data.Attributes.StartingDate?.Substring(0, 4) ?? "XXXX";
+                subtitle += Data.Attributes.StartingDate?.Substring(0, 4) ?? "Unknown Year";
                 subtitle += " | ";
-                subtitle += Data.Attributes.Status;
+                subtitle += Data.Attributes.Format.Humanize();
+                subtitle += " | ";
+                subtitle += Data.Attributes.Status.Transform(To.TitleCase);
                 return subtitle;
             }
         }

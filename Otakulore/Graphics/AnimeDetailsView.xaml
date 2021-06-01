@@ -49,9 +49,21 @@
                                 <TextBlock Text="Format" FontWeight="Bold"/>
                                 <TextBlock x:Name="FormatText"/>
                             </StackPanel>
-                            <StackPanel>
+                            <StackPanel Margin="0,0,0,10">
                                 <TextBlock Text="Status" FontWeight="Bold"/>
                                 <TextBlock x:Name="StatusText"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10">
+                                <TextBlock Text="Episodes" FontWeight="Bold"/>
+                                <TextBlock x:Name="EpisodesText"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,10">
+                                <TextBlock Text="Starting Date" FontWeight="Bold"/>
+                                <TextBlock x:Name="StartingDateText"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Ending Date" FontWeight="Bold"/>
+                                <TextBlock x:Name="EndingDateText"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>

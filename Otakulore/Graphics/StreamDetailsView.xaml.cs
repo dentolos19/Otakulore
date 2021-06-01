@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Otakulore.Core.AnimeServices;
-using Otakulore.Core.AnimeServices.Scrapers;
+using Otakulore.Core;
+using Otakulore.Core.Services.Scrapers;
 using Otakulore.Models;
 
 namespace Otakulore.Graphics
@@ -38,7 +38,7 @@ namespace Otakulore.Graphics
                     {
                         Dispatcher.BeginInvoke(() => EpisodeList.Items.Add(new EpisodeItemModel
                         {
-                            EpisodeNumber = "Episode " + episode.EpisodeNumber,
+                            EpisodeNumber = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
                             WatchUrl = episode.WatchUrl
                         }));
                     }
@@ -46,7 +46,17 @@ namespace Otakulore.Graphics
                 }
                 case StreamingService.Gogoanime:
                 {
-                    // TODO: add gogoanime streaming details
+                    var episodes = GogoanimeScraper.ScrapeEpisodes(_url);
+                    if (episodes == null)
+                        return; // TODO: add null indictator
+                    foreach (var episode in episodes)
+                    {
+                        Dispatcher.BeginInvoke(() => EpisodeList.Items.Add(new EpisodeItemModel
+                        {
+                            EpisodeNumber = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
+                            WatchUrl = episode.WatchUrl
+                        }));
+                    }
                     break;
                 }
             }

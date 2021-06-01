@@ -1,4 +1,4 @@
-﻿using Otakulore.Core.AnimeServices;
+﻿using Otakulore.Core;
 
 namespace Otakulore.Models
 {

@@ -5,9 +5,10 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Otakulore.Core.AnimeServices;
-using Otakulore.Core.AnimeServices.Scrapers;
+using Humanizer;
+using Otakulore.Core;
 using Otakulore.Core.Kitsu;
+using Otakulore.Core.Services.Scrapers;
 using Otakulore.Models;
 using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
@@ -18,17 +19,21 @@ namespace Otakulore.Graphics
     {
 
         private readonly KitsuData _data;
-        
+
         public AnimeDetailsView(KitsuData data)
         {
             InitializeComponent();
             _data = data;
             TitleText.Text = data.Attributes.CanonicalTitle;
-            YearText.Text = data.Attributes.StartingDate?.Substring(0, 4) ?? "XXXX";
-            FormatText.Text = data.Attributes.Format.ToString();
-            StatusText.Text = data.Attributes.Status;
+            YearText.Text = data.Attributes.StartingDate?.Substring(0, 4) ?? "Unknown";
+            FormatText.Text = data.Attributes.Format.Humanize();
+            StatusText.Text = data.Attributes.Status.Transform(To.TitleCase);
+            EpisodesText.Text = data.Attributes.EpisodeCount.HasValue ? data.Attributes.EpisodeCount.ToString() : "Unknown";
+            StartingDateText.Text = data.Attributes.StartingDate ?? "TBA";
+            EndingDateText.Text = data.Attributes.EndingDate ?? "Unknown";
             SynopsisText.Text = data.Attributes.Synopsis;
             FavoriteButton.Content = App.Settings.FavoritesList.Contains(_data.Id) ? "\xE00B" : "\xE006";
+            FavoriteButton.ToolTip = App.Settings.FavoritesList.Contains(_data.Id) ? "Remove From Favorites" : "Add To Favorites";
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 using var client = new WebClient();
@@ -47,7 +52,7 @@ namespace Otakulore.Graphics
             FourAnimeList.Items.Clear();
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                var posters = FourAnimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
+                var posters = FourAnimeScraper.SearchAnime(data.Attributes.CanonicalTitle);
                 if (posters == null)
                     return; // TODO: add null indicator
                 foreach (var poster in posters)
@@ -64,7 +69,7 @@ namespace Otakulore.Graphics
             GogoanimeList.Items.Clear();
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                var posters = GogoanimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
+                var posters = GogoanimeScraper.SearchAnime(data.Attributes.CanonicalTitle);
                 if (posters == null)
                     return; // TODO: add null indicator
                 foreach (var poster in posters)
@@ -87,12 +92,14 @@ namespace Otakulore.Graphics
                 App.Settings.FavoritesList.Remove(_data.Id);
                 App.Settings.SaveData();
                 FavoriteButton.Content = "\xE006";
+                FavoriteButton.ToolTip = "Add To Favorites";
             }
             else
             {
                 App.Settings.FavoritesList.Add(_data.Id);
                 App.Settings.SaveData();
                 FavoriteButton.Content = "\xE00B";
+                FavoriteButton.ToolTip = "Remove From Favorites";
             }
         }
 
@@ -104,7 +111,8 @@ namespace Otakulore.Graphics
 
         private void StreamGogoanime(object sender, MouseButtonEventArgs args)
         {
-            AdonisMessageBox.Show("Sorry, this streaming service is currently disabled.", "Otakulore");
+            if (GogoanimeList.SelectedItem is StreamItemModel model)
+                App.NavigateSinglePage(new StreamDetailsView(model.EpisodesUrl, model.Service));
         }
 
     }

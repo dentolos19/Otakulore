@@ -1,5 +1,0 @@
-﻿<Page x:Class="Otakulore.Graphics.HomeView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ListBox x:Name="TrendingList" ItemTemplate="{StaticResource ResourceKey=ShelfItemTemplate}" MouseDoubleClick="ShowDetails"/>
-</Page>

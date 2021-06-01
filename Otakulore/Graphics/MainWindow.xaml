@@ -21,6 +21,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="Auto"/>
@@ -29,11 +31,12 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="&#xE10F;" ToolTip="Home" FontFamily="Segoe MDL2 Assets" Click="NavigateHome"/>
-            <TextBox x:Name="QueryInput" Grid.Column="2" ex:WatermarkExtension.Watermark="Search"/>
-            <Button Grid.Column="4" Content="&#xE721;" ToolTip="Search" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="NavigateSearch"/>
-            <Button Grid.Column="6" Content="&#xE00B;" ToolTip="Favorites" FontFamily="Segoe MDL2 Assets" Click="NavigateFavorites"/>
-            <Button Grid.Column="8" Content="&#xE713;" ToolTip="Settings" FontFamily="Segoe MDL2 Assets" Click="NavigateSettings"/>
+            <Button Grid.Column="0" Content="&#xE112;" ToolTip="Back" FontFamily="Segoe MDL2 Assets" Click="NavigateBack"/>
+            <Button Grid.Column="2" Content="&#xE111;" ToolTip="Forward" FontFamily="Segoe MDL2 Assets" Click="NavigateForward"/>
+            <TextBox x:Name="QueryInput" Grid.Column="4" ex:WatermarkExtension.Watermark="Search"/>
+            <Button Grid.Column="6" Content="&#xE721;" ToolTip="Search" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="NavigateSearch"/>
+            <Button Grid.Column="8" Content="&#xE00A;" ToolTip="Trending" FontFamily="Segoe MDL2 Assets" Click="NavigateTrending"/>
+            <Button Grid.Column="10" Content="&#xE00B;" ToolTip="Favorites" FontFamily="Segoe MDL2 Assets" Click="NavigateFavorites"/>
         </Grid>
         <Frame Grid.Column="1" Grid.Row="3" x:Name="View" x:FieldModifier="public" NavigationUIVisibility="Hidden"/>
     </Grid>

@@ -9,12 +9,17 @@ namespace Otakulore.Graphics
         public MainWindow()
         {
             InitializeComponent();
-            NavigateHome(null, null);
+            NavigateTrending(null, null);
         }
 
-        private void NavigateHome(object sender, RoutedEventArgs args)
+        private void NavigateBack(object sender, RoutedEventArgs args)
         {
-            App.NavigateSinglePage(new HomeView());
+            View.GoBack(); // TODO: use commands instead
+        }
+
+        private void NavigateForward(object sender, RoutedEventArgs args)
+        {
+            View.GoForward(); // TODO: use commands instead
         }
 
         private void NavigateSearch(object sender, RoutedEventArgs args)
@@ -25,14 +30,14 @@ namespace Otakulore.Graphics
             App.NavigateSinglePage(new SearchView(query));
         }
 
+        private void NavigateTrending(object sender, RoutedEventArgs args)
+        {
+            App.NavigateSinglePage(new TrendingView());
+        }
+
         private void NavigateFavorites(object sender, RoutedEventArgs args)
         {
             App.NavigateSinglePage(new FavoritesView());
-        }
-
-        private void NavigateSettings(object sender, RoutedEventArgs args)
-        {
-            App.NavigateSinglePage(new SettingsView());
         }
 
     }

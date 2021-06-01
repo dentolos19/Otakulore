@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using Otakulore.Core.AnimeServices;
-using Otakulore.Core.AnimeServices.Scrapers;
+using Otakulore.Core;
+using Otakulore.Core.Services.Scrapers;
 using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
 namespace Otakulore.Graphics
@@ -49,7 +49,7 @@ namespace Otakulore.Graphics
             }
             else
             {
-                if (!MediaPlayer.NaturalDuration.HasTimeSpan)
+                if (!MediaPlayer.NaturalDuration.HasTimeSpan) // TODO: add playback seeking
                     return;
                 PlaybackSlider.Minimum = 0;
                 PlaybackSlider.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
@@ -60,12 +60,12 @@ namespace Otakulore.Graphics
 
         private void PlayMedia(object sender, RoutedEventArgs args)
         {
-            MediaPlayer.Play();
+            MediaPlayer.Play(); // TODO: use commands instead
         }
 
         private void PauseMedia(object sender, RoutedEventArgs args)
         {
-            MediaPlayer.Pause();
+            MediaPlayer.Pause(); // TODO: use commands instead
         }
 
     }

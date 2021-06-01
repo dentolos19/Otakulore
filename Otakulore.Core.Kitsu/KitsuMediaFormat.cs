@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Otakulore.Core.Kitsu
 {
@@ -6,9 +7,9 @@ namespace Otakulore.Core.Kitsu
     public enum KitsuMediaFormat
     {
 
-        [EnumMember(Value = "ONA")] Ona,
-        [EnumMember(Value = "OVA")] Ova,
-        [EnumMember(Value = "TV")] Tv,
+        [EnumMember(Value = "ONA")] [Description("ONA")] Ona,
+        [EnumMember(Value = "OVA")] [Description("OVA")] Ova,
+        [EnumMember(Value = "TV")] [Description("TV")] Tv,
         [EnumMember(Value = "movie")] Movie,
         [EnumMember(Value = "music")] Music,
         [EnumMember(Value = "special")] Special
