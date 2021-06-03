@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using HtmlAgilityPack;
 
 namespace Otakulore.Core.Services.Scrapers
@@ -31,7 +30,6 @@ namespace Otakulore.Core.Services.Scrapers
                     {
                         ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
                         Title = root.SelectSingleNode("./div").InnerText,
-                        ReleaseYear = root.SelectNodes("./span").First().InnerText,
                         EpisodesUrl = root.Attributes["href"].Value
                     });
                 }

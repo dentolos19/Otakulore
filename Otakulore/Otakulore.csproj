@@ -8,14 +8,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AdonisUI" Version="1.17.0"/>
-		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.0"/>
-		<PackageReference Include="Humanizer.Core" Version="2.10.1"/>
+		<PackageReference Include="AdonisUI" Version="1.17.0" />
+		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.0" />
+		<PackageReference Include="Humanizer.Core" Version="2.10.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Otakulore.Core.Kitsu\Otakulore.Core.Kitsu.csproj"/>
-		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
+		<ProjectReference Include="..\Otakulore.Core.Kitsu\Otakulore.Core.Kitsu.csproj" />
+		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj" />
 	</ItemGroup>
 
 </Project>

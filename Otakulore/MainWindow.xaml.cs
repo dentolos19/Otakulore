@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using Otakulore.Views;
 
-namespace Otakulore.Graphics
+namespace Otakulore
 {
 
     public partial class MainWindow

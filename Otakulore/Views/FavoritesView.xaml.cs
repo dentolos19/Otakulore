@@ -4,7 +4,7 @@ using System.Windows.Threading;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 
-namespace Otakulore.Graphics
+namespace Otakulore.Views
 {
 
     public partial class FavoritesView

@@ -1,4 +1,4 @@
-﻿<Page x:Class="Otakulore.Graphics.DetailsView"
+﻿<Page x:Class="Otakulore.Views.DetailsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
@@ -70,12 +70,26 @@
             <TabItem Header="Stream">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="4Anime" Margin="0,0,0,10">
-                            <ListBox x:Name="FourAnimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamFourAnime"/>
-                        </GroupBox>
-                        <GroupBox Header="Gogoanime">
-                            <ListBox x:Name="GogoanimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamGogoanime"/>
-                        </GroupBox>
+                        <Expander Header="4Anime" Margin="0,0,0,10" Expanded="FourAnimeSectionExpanded">
+                            <Grid>
+                                <Grid>
+                                    <ListBox x:Name="FourAnimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamFourAnime"/>
+                                </Grid>
+                                <Grid x:Name="FourAnimeLoadingPanel">
+                                    <TextBlock x:Name="FourAnimeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Expander>
+                        <Expander Header="Gogoanime" Expanded="GogoanimeSectionExpanded">
+                            <Grid>
+                                <Grid>
+                                    <ListBox x:Name="GogoanimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamGogoanime"/>
+                                </Grid>
+                                <Grid x:Name="GogoanimeLoadingPanel">
+                                    <TextBlock x:Name="GogoanimeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Expander>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

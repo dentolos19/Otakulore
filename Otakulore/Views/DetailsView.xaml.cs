@@ -11,13 +11,16 @@ using Otakulore.Core.Kitsu;
 using Otakulore.Core.Services.Scrapers;
 using Otakulore.Models;
 
-namespace Otakulore.Graphics
+namespace Otakulore.Views
 {
 
     public partial class DetailsView
     {
 
         private readonly KitsuData _data;
+
+        private bool _isFourAnimeLoaded;
+        private bool _isGogoanimeLoaded;
 
         public DetailsView(KitsuData data)
         {
@@ -47,40 +50,6 @@ namespace Otakulore.Graphics
                     bitmap.Freeze();
                 }
                 Dispatcher.BeginInvoke(() => PosterImage.Source = bitmap);
-            });
-            FourAnimeList.Items.Clear();
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                var posters = FourAnimeScraper.SearchAnime(data.Attributes.CanonicalTitle);
-                if (posters == null)
-                    return; // TODO: add null indicator
-                foreach (var poster in posters)
-                {
-                    Dispatcher.BeginInvoke(() => FourAnimeList.Items.Add(new StreamItemModel
-                    {
-                        ImageUrl = poster.ImageUrl,
-                        Title = poster.Title,
-                        Service = StreamingService.FourAnime,
-                        EpisodesUrl = poster.EpisodesUrl
-                    }));
-                }
-            });
-            GogoanimeList.Items.Clear();
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                var posters = GogoanimeScraper.SearchAnime(data.Attributes.CanonicalTitle);
-                if (posters == null)
-                    return; // TODO: add null indicator
-                foreach (var poster in posters)
-                {
-                    Dispatcher.BeginInvoke(() => GogoanimeList.Items.Add(new StreamItemModel
-                    {
-                        ImageUrl = poster.ImageUrl,
-                        Title = poster.Title,
-                        Service = StreamingService.Gogoanime,
-                        EpisodesUrl = poster.EpisodesUrl
-                    }));
-                }
             });
         }
 
@@ -112,6 +81,70 @@ namespace Otakulore.Graphics
         {
             if (GogoanimeList.SelectedItem is StreamItemModel model)
                 App.NavigateSinglePage(new StreamDetailsView(model.Title, model.EpisodesUrl, model.Service));
+        }
+
+        private void FourAnimeSectionExpanded(object sender, RoutedEventArgs args)
+        {
+            if (_isFourAnimeLoaded)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                var posters = FourAnimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
+                if (posters == null)
+                {
+                    Dispatcher.BeginInvoke(() => FourAnimeLoadingIndicator.Text = "Failed to scrape content.");
+                    return;
+                }
+                if (posters.Length <= 0)
+                {
+                    Dispatcher.BeginInvoke(() => FourAnimeLoadingIndicator.Text = "No content found.");
+                    return;
+                }
+                foreach (var poster in posters)
+                {
+                    Dispatcher.BeginInvoke(() => FourAnimeList.Items.Add(new StreamItemModel
+                    {
+                        ImageUrl = poster.ImageUrl,
+                        Title = poster.Title,
+                        Service = StreamingService.FourAnime,
+                        EpisodesUrl = poster.EpisodesUrl
+                    }));
+                }
+                Dispatcher.BeginInvoke(() => FourAnimeLoadingPanel.Visibility = Visibility.Collapsed);
+                _isFourAnimeLoaded = true;
+            });
+        }
+
+        private void GogoanimeSectionExpanded(object sender, RoutedEventArgs args)
+        {
+            if (_isGogoanimeLoaded)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                var posters = GogoanimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
+                if (posters == null)
+                {
+                    Dispatcher.BeginInvoke(() => GogoanimeLoadingIndicator.Text = "Failed to scrape content.");
+                    return;
+                }
+                if (posters.Length <= 0)
+                {
+                    Dispatcher.BeginInvoke(() => GogoanimeLoadingIndicator.Text = "No content found.");
+                    return;
+                }
+                foreach (var poster in posters)
+                {
+                    Dispatcher.BeginInvoke(() => GogoanimeList.Items.Add(new StreamItemModel
+                    {
+                        ImageUrl = poster.ImageUrl,
+                        Title = poster.Title,
+                        Service = StreamingService.Gogoanime,
+                        EpisodesUrl = poster.EpisodesUrl
+                    }));
+                }
+                Dispatcher.BeginInvoke(() => GogoanimeLoadingPanel.Visibility = Visibility.Collapsed);
+                _isGogoanimeLoaded = true;
+            });
         }
 
     }

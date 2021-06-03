@@ -1,9 +1,9 @@
-﻿<Page x:Class="Otakulore.Graphics.StreamDetailsView"
+﻿<Page x:Class="Otakulore.Views.StreamDetailsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.CommandBindings>
         <CommandBinding Command="Play" Executed="PlayMedia"/>
-        <CommandBinding Command="Paste" Executed="PauseMedia"/>
+        <CommandBinding Command="Pause" Executed="PauseMedia"/>
     </Page.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -42,7 +42,14 @@
             </Grid>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="Episodes">
-            <ListBox x:Name="EpisodeList" ItemTemplate="{StaticResource ResourceKey=EpisodeItemTemplate}" MouseDoubleClick="PlayEpisode"/>
+            <Grid>
+                <Grid>
+                    <ListBox x:Name="EpisodeList" ItemTemplate="{StaticResource ResourceKey=EpisodeItemTemplate}" MouseDoubleClick="PlayEpisode"/>
+                </Grid>
+                <Grid x:Name="EpisodeLoadingPanel">
+                    <TextBlock x:Name="EpisodeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
         </GroupBox>
     </Grid>
 </Page>

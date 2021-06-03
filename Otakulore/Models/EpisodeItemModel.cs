@@ -1,13 +1,10 @@
-﻿using Otakulore.Core;
-
-namespace Otakulore.Models
+﻿namespace Otakulore.Models
 {
 
     public class EpisodeItemModel
     {
 
-        public string EpisodeNumber { get; init; }
-        public StreamingService Service { get; init; }
+        public string EpisodeName { get; init; }
         public string WatchUrl { get; init; }
 
     }

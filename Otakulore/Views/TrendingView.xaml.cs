@@ -5,7 +5,7 @@ using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
-namespace Otakulore.Graphics
+namespace Otakulore.Views
 {
 
     public partial class TrendingView

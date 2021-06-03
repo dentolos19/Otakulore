@@ -1,14 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Humanizer;
 using Otakulore.Core;
 using Otakulore.Core.Services.Scrapers;
 using Otakulore.Models;
 using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
-namespace Otakulore.Graphics
+namespace Otakulore.Views
 {
 
     public partial class StreamDetailsView
@@ -25,7 +27,7 @@ namespace Otakulore.Graphics
         public StreamDetailsView(string title, string url, StreamingService service)
         {
             InitializeComponent();
-            MediaControl.Header = $"{title} | Select a episode to stream from the list on the left.";
+            MediaControl.Header = $"{title} | {service.Humanize()} | Select a episode to stream from the list on the left.";
             _title = title;
             _url = url;
             _service = service;
@@ -46,12 +48,15 @@ namespace Otakulore.Graphics
                 {
                     var episodes = FourAnimeScraper.ScrapeEpisodes(_url);
                     if (episodes == null)
-                        return; // TODO: add null indictator
+                    {
+                        Dispatcher.BeginInvoke(() => EpisodeLoadingIndicator.Text = "Failed to scrape content.");
+                        return;
+                    }
                     foreach (var episode in episodes)
                     {
                         Dispatcher.BeginInvoke(() => EpisodeList.Items.Add(new EpisodeItemModel
                         {
-                            EpisodeNumber = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
+                            EpisodeName = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
                             WatchUrl = episode.WatchUrl
                         }));
                     }
@@ -61,25 +66,29 @@ namespace Otakulore.Graphics
                 {
                     var episodes = GogoanimeScraper.ScrapeEpisodes(_url);
                     if (episodes == null)
-                        return; // TODO: add null indictator
+                    {
+                        Dispatcher.BeginInvoke(() => EpisodeLoadingIndicator.Text = "Failed to scrape content.");
+                        return;
+                    }
                     foreach (var episode in episodes)
                     {
                         Dispatcher.BeginInvoke(() => EpisodeList.Items.Add(new EpisodeItemModel
                         {
-                            EpisodeNumber = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
+                            EpisodeName = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
                             WatchUrl = episode.WatchUrl
                         }));
                     }
                     break;
                 }
             }
+            Dispatcher.BeginInvoke(() => EpisodeLoadingPanel.Visibility = Visibility.Collapsed);
         }
 
         private void PlayEpisode(object sender, MouseButtonEventArgs args)
         {
             if (EpisodeList.SelectedItem is not EpisodeItemModel model)
                 return;
-            MediaControl.Header = $"{_title} | Episode {model.EpisodeNumber}";
+            MediaControl.Header = $"{_title} | {_service.Humanize()} | {model.EpisodeName}";
             switch (_service)
             {
                 case StreamingService.FourAnime:

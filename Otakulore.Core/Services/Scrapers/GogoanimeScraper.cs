@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using HtmlAgilityPack;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 
 namespace Otakulore.Core.Services.Scrapers
 {
@@ -27,12 +23,10 @@ namespace Otakulore.Core.Services.Scrapers
                 foreach (var node in nodes)
                 {
                     var root = node.SelectSingleNode("./div/a");
-                    var releaseYear = node.SelectSingleNode("./p[@class='released']").InnerText.Trim();
                     list.Add(new AnimePoster
                     {
                         ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
                         Title = root.Attributes["title"].Value,
-                        ReleaseYear = releaseYear.Substring(releaseYear.Length - 4),
                         EpisodesUrl = BaseEndpoint + root.Attributes["href"].Value
                     });
                 }

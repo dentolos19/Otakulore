@@ -14,12 +14,12 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0">
+                <Grid Grid.Row="0">
                     <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
-                </Border>
-                <Border Grid.Row="1">
+                </Grid>
+                <Grid Grid.Row="1">
                     <TextBlock Text="{Binding Path=Subtitle}" VerticalAlignment="Center"/>
-                </Border>
+                </Grid>
             </Grid>
         </Grid>
     </DataTemplate>
@@ -31,9 +31,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Source="{Binding Path=ImageUrl, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}" Width="50"/>
-            <Border Grid.Column="2" BorderBrush="{x:Null}">
+            <Grid Grid.Column="2">
                 <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center"/>
-            </Border>
+            </Grid>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="EpisodeItemTemplate" DataType="m:EpisodeItemModel">
@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="&#xE25D;" FontFamily="Segoe MDL2 Assets"/>
-            <TextBlock Grid.Column="2" Text="{Binding Path=EpisodeNumber}"/>
+            <TextBlock Grid.Column="2" Text="{Binding Path=EpisodeName}"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
