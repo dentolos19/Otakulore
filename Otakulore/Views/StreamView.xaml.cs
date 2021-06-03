@@ -96,7 +96,7 @@ namespace Otakulore.Views
                     var sourceUrl = FourAnimeScraper.ScrapeVideoSource(model.WatchUrl);
                     if (string.IsNullOrEmpty(sourceUrl))
                     {
-                        AdonisMessageBox.Show("Sorry, unable to find video source.", "Otakulore");
+                        AdonisMessageBox.Show("Sorry, we are unable to find a working video source.", "Otakulore");
                         return;
                     }
                     MediaPlayer.Source = new Uri(sourceUrl);
@@ -104,10 +104,10 @@ namespace Otakulore.Views
                 }
                 case StreamingService.Gogoanime:
                 {
-                    var sourceUrl = FourAnimeScraper.ScrapeVideoSource(model.WatchUrl);
+                    var sourceUrl = GogoanimeScraper.ScrapeVideoSource(model.WatchUrl);
                     if (string.IsNullOrEmpty(sourceUrl))
                     {
-                        AdonisMessageBox.Show("Sorry, unable to find video source.", "Otakulore");
+                        AdonisMessageBox.Show("Sorry, we are unable to find a working video source.", "Otakulore");
                         return;
                     }
                     MediaPlayer.Source = new Uri(sourceUrl);

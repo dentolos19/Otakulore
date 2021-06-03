@@ -86,7 +86,13 @@ namespace Otakulore.Core.Services.Scrapers
         {
             try
             {
-                return null; // TODO: scrape gogoanime video source
+                var document = new HtmlWeb().Load(url);
+                var playerUrl = "https:" + document.DocumentNode.SelectSingleNode("//div[@class='anime_muti_link']/ul/li[@class='vidcdn']/a").Attributes["data-video"].Value;
+                document = new HtmlWeb().Load(playerUrl);
+                var javaScriptSource = document.DocumentNode.SelectSingleNode("//div[@class='wrapper']/div/script").InnerText;
+                if (javaScriptSource == null)
+                    return null;
+                return javaScriptSource.GetStringBetweenStrings("file: '", "',label");
             }
             catch
             {
