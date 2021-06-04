@@ -48,17 +48,22 @@ namespace Otakulore
 
         private void NavigateTrending(object sender, RoutedEventArgs args)
         {
-            App.NavigateSinglePage(new TrendingView());
+            App.NavigateSinglePage(App.TrendingViewPage);
         }
 
         private void NavigateFavorites(object sender, RoutedEventArgs args)
         {
-            App.NavigateSinglePage(new FavoritesView());
+            App.NavigateSinglePage(App.FavoritesViewPage);
+        }
+
+        private void NavigateDownloads(object sender, RoutedEventArgs args)
+        {
+            App.NavigateSinglePage(new DownloadsView());
         }
 
         private void NavigateSettings(object sender, RoutedEventArgs args)
         {
-            App.NavigateSinglePage(new SettingsView());
+            App.NavigateSinglePage(App.SettingsViewPage);
         }
 
     }

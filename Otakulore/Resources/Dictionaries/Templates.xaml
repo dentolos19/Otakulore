@@ -36,15 +36,4 @@
             </Grid>
         </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="EpisodeItemTemplate" DataType="m:EpisodeItemModel">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="&#xE25D;" FontFamily="Segoe MDL2 Assets"/>
-            <TextBlock Grid.Column="2" Text="{Binding Path=EpisodeName}"/>
-        </Grid>
-    </DataTemplate>
 </ResourceDictionary>

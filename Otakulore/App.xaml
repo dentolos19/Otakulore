@@ -1,7 +1,7 @@
 ﻿<Application x:Class="Otakulore.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml" Startup="SetupApp" Exit="DisposeInstance">
+             StartupUri="MainWindow.xaml" Startup="SetupApp" Exit="DisposeInstances">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

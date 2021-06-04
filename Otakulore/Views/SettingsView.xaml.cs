@@ -9,7 +9,7 @@
             InitializeComponent();
             DataContext = App.UserPreferences;
         }
-
+        
     }
 
 }

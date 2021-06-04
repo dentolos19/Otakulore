@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Otakulore.Core.Kitsu;
@@ -20,7 +21,7 @@ namespace Otakulore.Views
             _worker.RunWorkerAsync();
         }
 
-        private async void LoadFavorites(object sender, DoWorkEventArgs args)
+        private async void LoadFavorites(object? sender, DoWorkEventArgs args)
         {
             foreach (var id in App.UserPreferences.FavoritesList)
             {
@@ -32,6 +33,12 @@ namespace Otakulore.Views
                     Data = data
                 }));
             }
+        }
+
+        private void RefreshFavorites(object sender, RoutedEventArgs args)
+        {
+            FavoritesList.Items.Clear();
+            _worker.RunWorkerAsync();
         }
 
         private void ShowDetails(object sender, MouseButtonEventArgs args)

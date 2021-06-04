@@ -7,16 +7,10 @@
     </Page.DataContext>
     <StackPanel>
         <GroupBox Header="General Preferences">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <CheckBox Content="Enable Discord Rich Presence (Requires Restart)" IsChecked="{Binding Path=EnableDiscordRpc}"/>
-                </StackPanel>
-            </Grid>
+            <StackPanel>
+                <CheckBox Content="Enable Dark Mode (Requires Restart)" IsChecked="{Binding Path=EnableDarkMode}"/>
+                <CheckBox Content="Enable Discord Rich Presence (Requires Restart)" IsChecked="{Binding Path=EnableDiscordRichPresence}"/>
+            </StackPanel>
         </GroupBox>
     </StackPanel>
 </Page>

@@ -77,7 +77,6 @@ namespace Otakulore.Core.Anime.Providers
             try
             {
                 var document = new HtmlWeb().Load(url);
-                File.WriteAllText("4anime.html", document.ParsedText);
                 var node = document.DocumentNode.SelectSingleNode("//video/source");
                 if (node == null)
                     return null;

@@ -21,7 +21,7 @@ namespace Otakulore.Views
             _worker.RunWorkerAsync();
         }
 
-        private async void AddContent(object sender, DoWorkEventArgs args)
+        private async void AddContent(object? sender, DoWorkEventArgs args)
         {
             KitsuData[] trendingResults;
             try

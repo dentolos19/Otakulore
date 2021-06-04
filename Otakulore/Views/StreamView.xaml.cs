@@ -24,12 +24,11 @@ namespace Otakulore.Views
         private readonly DispatcherTimer _timer;
         
         private bool _isVideoSeeking;
-        private DateTime _videoStartTime;
 
         public StreamDetailsView(string title, string url, AnimeProvider service)
         {
             InitializeComponent();
-            MediaControl.Header = $"{title} | {service.Humanize()} | Select a episode to stream from the list on the left.";
+            MediaTitle.Text = $"{title} | {service.Humanize()} | Select a episode to stream from the list on the left.";
             _title = title;
             _url = url;
             _service = service;
@@ -44,46 +43,29 @@ namespace Otakulore.Views
 
         private void LoadEpisodes(object? sender, DoWorkEventArgs args)
         {
-            switch (_service)
+            AnimeEpisode[]? episodes = _service switch
             {
-                case AnimeProvider.FourAnime:
+                AnimeProvider.FourAnime => FourAnimeProvider.ScrapeEpisodes(_url),
+                AnimeProvider.Gogoanime => GogoanimeProvider.ScrapeEpisodes(_url),
+                _ => null
+            };
+            Dispatcher.BeginInvoke(() =>
+            {
+                if (episodes == null)
                 {
-                    var episodes = FourAnimeProvider.ScrapeEpisodes(_url);
-                    if (episodes == null)
-                    {
-                        Dispatcher.BeginInvoke(() => EpisodeLoadingIndicator.Text = "Failed to scrape content.");
-                        return;
-                    }
-                    foreach (var episode in episodes)
-                    {
-                        Dispatcher.BeginInvoke(() => EpisodeList.Items.Add(new EpisodeItemModel
-                        {
-                            EpisodeName = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
-                            WatchUrl = episode.WatchUrl
-                        }));
-                    }
-                    break;
+                    EpisodeLoadingIndicator.Text = "Failed to scrape content.";
+                    return;
                 }
-                case AnimeProvider.Gogoanime:
+                foreach (var episode in episodes)
                 {
-                    var episodes = GogoanimeProvider.ScrapeEpisodes(_url);
-                    if (episodes == null)
+                    EpisodeList.Items.Add(new EpisodeItemModel
                     {
-                        Dispatcher.BeginInvoke(() => EpisodeLoadingIndicator.Text = "Failed to scrape content.");
-                        return;
-                    }
-                    foreach (var episode in episodes)
-                    {
-                        Dispatcher.BeginInvoke(() => EpisodeList.Items.Add(new EpisodeItemModel
-                        {
-                            EpisodeName = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
-                            WatchUrl = episode.WatchUrl
-                        }));
-                    }
-                    break;
+                        EpisodeName = "Episode " + (episode.EpisodeNumber.HasValue ? episode.EpisodeNumber : "Unknown"),
+                        WatchUrl = episode.WatchUrl
+                    });
                 }
-            }
-            Dispatcher.BeginInvoke(() => EpisodeLoadingPanel.Visibility = Visibility.Collapsed);
+                EpisodeLoadingPanel.Visibility = Visibility.Collapsed;
+            });
         }
 
         private void PlayEpisode(object sender, MouseButtonEventArgs args)
@@ -102,13 +84,12 @@ namespace Otakulore.Views
                 {
                     if (string.IsNullOrEmpty(sourceUrl))
                     {
-                        AdonisMessageBox.Show("Sorry, the providers unable to find a working video source.", "Otakulore");
+                        AdonisMessageBox.Show("Sorry, the providers are unable to find a working video source.", "Otakulore");
                         return;
                     }
                     MediaPlayer.Source = new Uri(sourceUrl);
-                    MediaControl.Header = $"{_title} | {_service.Humanize()} | {model.EpisodeName}";
+                    MediaTitle.Text = $"{_title} | {_service.Humanize()} | {model.EpisodeName}";
                     MediaPlayer.Play();
-                    _videoStartTime = DateTime.Now;
                     App.RichPresence?.SetWatchingState(_title, model.EpisodeName);
                 });
             });
@@ -164,6 +145,16 @@ namespace Otakulore.Views
         {
             MediaPlayer.Pause();
             App.RichPresence?.SetInitialState();
+        }
+
+        private void DownloadEpisode(object sender, RoutedEventArgs args)
+        {
+            // TODO: download episode
+        }
+
+        private void DownloadEpisodes(object sender, RoutedEventArgs args)
+        {
+            // TODO: download all episodes
         }
 
     }

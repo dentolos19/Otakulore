@@ -1,16 +1,12 @@
-﻿using System.IO;
-using System.Net;
-using System.Threading;
+﻿using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Humanizer;
-using Otakulore.Core;
 using Otakulore.Core.Anime;
 using Otakulore.Core.Anime.Providers;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
+using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
@@ -27,31 +23,8 @@ namespace Otakulore.Views
         {
             InitializeComponent();
             _data = data;
-            TitleText.Text = data.Attributes.CanonicalTitle;
-            YearText.Text = data.Attributes.StartingDate?.Substring(0, 4) ?? "Unknown";
-            FormatText.Text = data.Attributes.Format.Humanize();
-            StatusText.Text = data.Attributes.Status.Transform(To.TitleCase);
-            EpisodesText.Text = data.Attributes.EpisodeCount.HasValue ? data.Attributes.EpisodeCount.ToString() : "Unknown";
-            StartingDateText.Text = data.Attributes.StartingDate ?? "TBA";
-            EndingDateText.Text = data.Attributes.EndingDate ?? "Unknown";
-            SynopsisText.Text = data.Attributes.Synopsis;
+            DataContext = DetailsViewModel.CreateModel(_data);
             FavoriteButton.Content = App.UserPreferences.FavoritesList.Contains(_data.Id) ? "\xE00B" : "\xE006";
-            FavoriteButton.ToolTip = App.UserPreferences.FavoritesList.Contains(_data.Id) ? "Remove From Favorites" : "Add To Favorites";
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                using var client = new WebClient();
-                var buffer = client.DownloadData(data.Attributes.PosterImage.OriginalImageUrl);
-                var bitmap = new BitmapImage();
-                using (var stream = new MemoryStream(buffer))
-                {
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = stream;
-                    bitmap.EndInit();
-                    bitmap.Freeze();
-                }
-                Dispatcher.BeginInvoke(() => PosterImage.Source = bitmap);
-            });
         }
 
         private void ToggleFavorite(object sender, RoutedEventArgs args)
@@ -59,12 +32,14 @@ namespace Otakulore.Views
             if (App.UserPreferences.FavoritesList.Contains(_data.Id))
             {
                 App.UserPreferences.FavoritesList.Remove(_data.Id);
+                App.UserPreferences.SaveData();
                 FavoriteButton.Content = "\xE006";
                 FavoriteButton.ToolTip = "Add To Favorites";
             }
             else
             {
                 App.UserPreferences.FavoritesList.Add(_data.Id);
+                App.UserPreferences.SaveData();
                 FavoriteButton.Content = "\xE00B";
                 FavoriteButton.ToolTip = "Remove From Favorites";
             }

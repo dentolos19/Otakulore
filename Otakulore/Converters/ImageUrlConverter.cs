@@ -9,7 +9,7 @@ namespace Otakulore.Converters
     public class ImageUrlConverter : IValueConverter
     {
 
-        public object Convert(object value, Type type, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type type, object parameter, CultureInfo culture)
         {
             if (value is not string)
                 return null;

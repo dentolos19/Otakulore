@@ -1,6 +1,7 @@
 ﻿<Page x:Class="Otakulore.Views.StreamDetailsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:m="clr-namespace:Otakulore.Models"
       Unloaded="StopVideo">
     <Page.CommandBindings>
         <CommandBinding Command="Play" Executed="PlayVideo" CanExecute="CanInteractVideo"/>
@@ -12,7 +13,17 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="MediaControl" Grid.Column="0">
+        <GroupBox Grid.Column="0">
+            <GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="MediaTitle" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Button Grid.Column="1" Content="&#xE896;" ToolTip="Download Episode" FontFamily="Segoe MDL2 Assets" Click="DownloadEpisode"/>
+                </Grid>
+            </GroupBox.Header>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -42,10 +53,34 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Column="2" Header="Episodes">
+        <GroupBox Grid.Column="2">
+            <GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Episodes" VerticalAlignment="Center"/>
+                    <Button Grid.Column="1" Content="&#xE896;" ToolTip="Download All Episodes" FontFamily="Segoe MDL2 Assets" Click="DownloadEpisodes"/>
+                </Grid>
+            </GroupBox.Header>
             <Grid>
                 <Grid>
-                    <ListBox x:Name="EpisodeList" ItemTemplate="{StaticResource ResourceKey=EpisodeItemTemplate}" MouseDoubleClick="PlayEpisode"/>
+                    <ListBox x:Name="EpisodeList" MouseDoubleClick="PlayEpisode">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="m:EpisodeItemModel">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="&#xE25D;" FontFamily="Segoe MDL2 Assets"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Path=EpisodeName}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
                 <Grid x:Name="EpisodeLoadingPanel">
                     <TextBlock x:Name="EpisodeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>

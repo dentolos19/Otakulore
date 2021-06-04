@@ -26,7 +26,7 @@ namespace Otakulore.Core
             _client?.SetPresence(new RichPresence
             {
                 Details = title,
-                State = episode,
+                State = episode
             });
         }
 
