@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace Otakulore.Core.Services.Scrapers
+namespace Otakulore.Core.Anime.Providers
 {
 
-    public static class GogoanimeScraper
+    public static class GogoanimeProvider
     {
 
         private static string BaseEndpoint => "https://www1.gogoanime.ai";

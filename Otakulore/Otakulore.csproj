@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net5.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
 		<Authors>Dennise Catolos</Authors>
@@ -9,7 +10,6 @@
 	<ItemGroup>
 		<PackageReference Include="AdonisUI" Version="1.17.0"/>
 		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.0"/>
-		<PackageReference Include="Catel.MVVM" Version="5.12.16"/>
 		<PackageReference Include="Humanizer.Core" Version="2.10.1"/>
 	</ItemGroup>
 	<ItemGroup>

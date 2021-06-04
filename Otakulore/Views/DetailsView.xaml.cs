@@ -7,8 +7,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Humanizer;
 using Otakulore.Core;
+using Otakulore.Core.Anime;
+using Otakulore.Core.Anime.Providers;
 using Otakulore.Core.Kitsu;
-using Otakulore.Core.Services.Scrapers;
 using Otakulore.Models;
 
 namespace Otakulore.Views
@@ -89,7 +90,7 @@ namespace Otakulore.Views
                 return;
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                var posters = FourAnimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
+                var posters = FourAnimeProvider.SearchAnime(_data.Attributes.CanonicalTitle);
                 if (posters == null)
                 {
                     Dispatcher.BeginInvoke(() => FourAnimeLoadingIndicator.Text = "Failed to scrape content.");
@@ -106,7 +107,7 @@ namespace Otakulore.Views
                     {
                         ImageUrl = poster.ImageUrl,
                         Title = poster.Title,
-                        Service = StreamingService.FourAnime,
+                        Service = AnimeProvider.FourAnime,
                         EpisodesUrl = poster.EpisodesUrl
                     }));
                 }
@@ -121,7 +122,7 @@ namespace Otakulore.Views
                 return;
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                var posters = GogoanimeScraper.SearchAnime(_data.Attributes.CanonicalTitle);
+                var posters = GogoanimeProvider.SearchAnime(_data.Attributes.CanonicalTitle);
                 if (posters == null)
                 {
                     Dispatcher.BeginInvoke(() => GogoanimeLoadingIndicator.Text = "Failed to scrape content.");
@@ -138,7 +139,7 @@ namespace Otakulore.Views
                     {
                         ImageUrl = poster.ImageUrl,
                         Title = poster.Title,
-                        Service = StreamingService.Gogoanime,
+                        Service = AnimeProvider.Gogoanime,
                         EpisodesUrl = poster.EpisodesUrl
                     }));
                 }

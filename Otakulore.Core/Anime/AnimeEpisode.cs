@@ -1,4 +1,4 @@
-﻿namespace Otakulore.Core.Services
+﻿namespace Otakulore.Core.Anime
 {
 
     public class AnimeEpisode

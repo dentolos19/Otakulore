@@ -19,16 +19,16 @@ namespace Otakulore
             View.GoBack(); 
         }
 
+        private void NavigateForward(object sender, ExecutedRoutedEventArgs args)
+        {
+            View.GoForward();
+        }
+
         private void CanNavigateBack(object sender, CanExecuteRoutedEventArgs args)
         {
             if (!IsInitialized)
                 return;
             args.CanExecute = View.CanGoBack;
-        }
-
-        private void NavigateForward(object sender, ExecutedRoutedEventArgs args)
-        {
-            View.GoForward();
         }
 
         private void CanNavigateForward(object sender, CanExecuteRoutedEventArgs args)

@@ -1,4 +1,4 @@
-﻿using Otakulore.Core;
+﻿using Otakulore.Core.Anime;
 
 namespace Otakulore.Models
 {
@@ -8,7 +8,7 @@ namespace Otakulore.Models
 
         public string ImageUrl { get; init; }
         public string Title { get; init; }
-        public StreamingService Service { get; init; }
+        public AnimeProvider Service { get; init; }
         public string EpisodesUrl { get; init; }
 
     }

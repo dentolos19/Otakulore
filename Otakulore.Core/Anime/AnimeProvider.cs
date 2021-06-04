@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel;
 
-namespace Otakulore.Core
+namespace Otakulore.Core.Anime
 {
 
-    public enum StreamingService
+    public enum AnimeProvider
     {
 
         [Description("4Anime")] FourAnime,
         [Description("Gogoanime")] Gogoanime,
-        [Description("9anime")] NineAnime
 
     }
 

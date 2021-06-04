@@ -1,9 +1,10 @@
 ﻿<Page x:Class="Otakulore.Views.StreamDetailsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Unloaded="StopVideo">
     <Page.CommandBindings>
-        <CommandBinding Command="Play" Executed="PlayMedia"/>
-        <CommandBinding Command="Pause" Executed="PauseMedia"/>
+        <CommandBinding Command="Play" Executed="PlayVideo" CanExecute="CanInteractVideo"/>
+        <CommandBinding Command="Pause" Executed="PauseVideo" CanExecute="CanInteractVideo"/>
     </Page.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,7 +21,7 @@
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <MediaElement x:Name="MediaPlayer" Grid.Row="2" LoadedBehavior="Play" UnloadedBehavior="Manual"/>
+                <MediaElement x:Name="MediaPlayer" Grid.Row="2" LoadedBehavior="Manual" UnloadedBehavior="Manual"/>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -35,8 +36,8 @@
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" Content="&#xE768;" ToolTip="Play" FontFamily="Segoe MDL2 Assets" Command="Play"/>
                     <Button Grid.Column="2" Content="&#xE769;" ToolTip="Pause" FontFamily="Segoe MDL2 Assets" Command="Pause"/>
-                    <TextBlock x:Name="StatusText" Grid.Column="4" Text="00:00:00"/>
-                    <Slider x:Name="VideoProgress" Grid.Column="6" Thumb.DragStarted="VideoSeekingStarted" Thumb.DragCompleted="VideoSeekingCompleted"/>
+                    <TextBlock x:Name="VideoProgressText" Grid.Column="4" Text="00:00:00"/>
+                    <Slider x:Name="VideoProgress" Grid.Column="6" Thumb.DragStarted="VideoSeekingStarted" Thumb.DragCompleted="VideoSeekingCompleted" ValueChanged="VideoSeeking"/>
                     <TextBlock x:Name="DurationText" Grid.Column="8" Text="00:00:00"/>
                 </Grid>
             </Grid>

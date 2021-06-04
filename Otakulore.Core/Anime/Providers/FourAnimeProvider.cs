@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using HtmlAgilityPack;
 
-namespace Otakulore.Core.Services.Scrapers
+namespace Otakulore.Core.Anime.Providers
 {
 
-    public static class FourAnimeScraper
+    public static class FourAnimeProvider
     {
 
         private static string BaseEndpoint => "https://4anime.to";
