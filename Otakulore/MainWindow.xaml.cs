@@ -11,7 +11,7 @@ namespace Otakulore
         public MainWindow()
         {
             InitializeComponent();
-            NavigateTrending(null, null);
+            NavigateTrending(null!, null!);
         }
 
         private void NavigateBack(object sender, ExecutedRoutedEventArgs args)
@@ -54,6 +54,11 @@ namespace Otakulore
         private void NavigateFavorites(object sender, RoutedEventArgs args)
         {
             App.NavigateSinglePage(new FavoritesView());
+        }
+
+        private void NavigateSettings(object sender, RoutedEventArgs args)
+        {
+            App.NavigateSinglePage(new SettingsView());
         }
 
     }

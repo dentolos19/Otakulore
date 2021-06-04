@@ -35,8 +35,8 @@ namespace Otakulore.Views
             StartingDateText.Text = data.Attributes.StartingDate ?? "TBA";
             EndingDateText.Text = data.Attributes.EndingDate ?? "Unknown";
             SynopsisText.Text = data.Attributes.Synopsis;
-            FavoriteButton.Content = App.Settings.FavoritesList.Contains(_data.Id) ? "\xE00B" : "\xE006";
-            FavoriteButton.ToolTip = App.Settings.FavoritesList.Contains(_data.Id) ? "Remove From Favorites" : "Add To Favorites";
+            FavoriteButton.Content = App.UserPreferences.FavoritesList.Contains(_data.Id) ? "\xE00B" : "\xE006";
+            FavoriteButton.ToolTip = App.UserPreferences.FavoritesList.Contains(_data.Id) ? "Remove From Favorites" : "Add To Favorites";
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 using var client = new WebClient();
@@ -56,17 +56,15 @@ namespace Otakulore.Views
 
         private void ToggleFavorite(object sender, RoutedEventArgs args)
         {
-            if (App.Settings.FavoritesList.Contains(_data.Id))
+            if (App.UserPreferences.FavoritesList.Contains(_data.Id))
             {
-                App.Settings.FavoritesList.Remove(_data.Id);
-                App.Settings.SaveData();
+                App.UserPreferences.FavoritesList.Remove(_data.Id);
                 FavoriteButton.Content = "\xE006";
                 FavoriteButton.ToolTip = "Add To Favorites";
             }
             else
             {
-                App.Settings.FavoritesList.Add(_data.Id);
-                App.Settings.SaveData();
+                App.UserPreferences.FavoritesList.Add(_data.Id);
                 FavoriteButton.Content = "\xE00B";
                 FavoriteButton.ToolTip = "Remove From Favorites";
             }

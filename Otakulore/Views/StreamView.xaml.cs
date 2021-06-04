@@ -22,8 +22,9 @@ namespace Otakulore.Views
         private readonly AnimeProvider _service;
         private readonly BackgroundWorker _worker;
         private readonly DispatcherTimer _timer;
-
+        
         private bool _isVideoSeeking;
+        private DateTime _videoStartTime;
 
         public StreamDetailsView(string title, string url, AnimeProvider service)
         {
@@ -107,6 +108,8 @@ namespace Otakulore.Views
                     MediaPlayer.Source = new Uri(sourceUrl);
                     MediaControl.Header = $"{_title} | {_service.Humanize()} | {model.EpisodeName}";
                     MediaPlayer.Play();
+                    _videoStartTime = DateTime.Now;
+                    App.RichPresence?.SetWatchingState(_title, model.EpisodeName);
                 });
             });
         }
@@ -160,6 +163,7 @@ namespace Otakulore.Views
         private void StopVideo(object sender, RoutedEventArgs args)
         {
             MediaPlayer.Pause();
+            App.RichPresence?.SetInitialState();
         }
 
     }

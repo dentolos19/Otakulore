@@ -22,7 +22,7 @@ namespace Otakulore.Views
 
         private async void LoadFavorites(object sender, DoWorkEventArgs args)
         {
-            foreach (var id in App.Settings.FavoritesList)
+            foreach (var id in App.UserPreferences.FavoritesList)
             {
                 var data = await KitsuApi.GetAnimeAsync(id);
                 await Dispatcher.BeginInvoke(() => FavoritesList.Items.Add(new ShelfItemModel

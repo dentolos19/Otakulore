@@ -12,6 +12,7 @@ namespace Otakulore.Core
         private static readonly string SourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Otakulore.usrdat");
         private static readonly XmlSerializer DataSerializer = new(typeof(UserData));
 
+        public bool EnableDiscordRpc { get; set; } = true;
         public List<string> FavoritesList { get; set; } = new();
 
         public void SaveData()

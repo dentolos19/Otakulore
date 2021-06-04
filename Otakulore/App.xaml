@@ -1,17 +1,17 @@
 ﻿<Application x:Class="Otakulore.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml" Startup="SetupApp" Exit="DisposeInstance">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <!-- Internal Resources -->
+                <!-- internal resources -->
 
                 <ResourceDictionary Source="Resources/Dictionaries/Converters.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionaries/Templates.xaml"/>
 
-                <!-- External Resources -->
+                <!-- external resources -->
 
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI;component/ColorSchemes/Light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml"/>
