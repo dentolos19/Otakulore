@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
+using System.Text.Json;
 
 namespace Otakulore.Core
 {
@@ -9,8 +9,8 @@ namespace Otakulore.Core
     public class UserData
     {
 
-        private static readonly string SourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Otakulore.usrdat");
-        private static readonly XmlSerializer DataSerializer = new(typeof(UserData));
+        private static readonly string UserDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Otakulore." + Environment.UserName + ".userdata");
+        private static readonly JsonSerializerOptions SerializationOptions = new() { WriteIndented = true };
 
         public bool EnableDarkMode { get; set; }
         public bool EnableDiscordRichPresence { get; set; } = true;
@@ -18,19 +18,16 @@ namespace Otakulore.Core
 
         public void SaveData()
         {
-            var stream = new FileStream(SourcePath, FileMode.Create);
-            DataSerializer.Serialize(stream, this);
-            stream.Close();
+            var jsonData = JsonSerializer.Serialize(this, SerializationOptions);
+            File.WriteAllText(UserDataPath, jsonData);
         }
 
         public static UserData LoadData()
         {
-            if (!File.Exists(SourcePath))
+            if (!File.Exists(UserDataPath))
                 return new UserData();
-            var stream = new FileStream(SourcePath, FileMode.Open);
-            var result = (UserData)DataSerializer.Deserialize(stream)!;
-            stream.Close();
-            return result;
+            var jsonData = File.ReadAllText(UserDataPath);
+            return JsonSerializer.Deserialize<UserData>(jsonData)!;
         }
 
     }

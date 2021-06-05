@@ -28,7 +28,7 @@ namespace Otakulore.Views
         public StreamDetailsView(string title, string url, AnimeProvider service)
         {
             InitializeComponent();
-            MediaTitle.Text = $"{title} | {service.Humanize()} | Select a episode to stream from the list on the left.";
+            MediaGroup.Header = $"{title} | {service.Humanize()} | Select a episode from the list on the left to start watching.";
             _title = title;
             _url = url;
             _service = service;
@@ -90,7 +90,7 @@ namespace Otakulore.Views
                         return;
                     }
                     MediaPlayer.Source = new Uri(sourceUrl);
-                    MediaTitle.Text = $"{_title} | {_service.Humanize()} | {model.EpisodeName}";
+                    MediaGroup.Header = $"{_title} | {_service.Humanize()} | {model.EpisodeName}";
                     MediaPlayer.Play();
                     App.RichPresence?.SetWatchingState(_title, model.EpisodeName);
                 });
@@ -157,16 +157,6 @@ namespace Otakulore.Views
         {
             MediaPlayer.Pause();
             App.RichPresence?.SetInitialState();
-        }
-
-        private void DownloadEpisode(object sender, RoutedEventArgs args)
-        {
-            // TODO: download episode
-        }
-
-        private void DownloadEpisodes(object sender, RoutedEventArgs args)
-        {
-            // TODO: download all episodes
         }
 
     }

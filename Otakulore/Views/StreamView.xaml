@@ -18,17 +18,7 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Grid.Column="0">
-            <GroupBox.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="MediaTitle" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Button Grid.Column="1" Content="&#xE896;" ToolTip="Download Episode" FontFamily="Segoe MDL2 Assets" Click="DownloadEpisode"/>
-                </Grid>
-            </GroupBox.Header>
+        <GroupBox x:Name="MediaGroup" Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -66,17 +56,7 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Column="2">
-            <GroupBox.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Episodes" VerticalAlignment="Center"/>
-                    <Button Grid.Column="1" Content="&#xE896;" ToolTip="Download All Episodes" FontFamily="Segoe MDL2 Assets" Click="DownloadEpisodes"/>
-                </Grid>
-            </GroupBox.Header>
+        <GroupBox Grid.Column="2" Header="Episodes">
             <Grid>
                 <Grid>
                     <ListBox x:Name="EpisodeList" MouseDoubleClick="PlayEpisode">
@@ -88,7 +68,7 @@
                                         <ColumnDefinition Width="10"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="&#xE25D;" FontFamily="Segoe MDL2 Assets"/>
+                                    <TextBlock Grid.Column="0" Text="&#xE25D;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="2" Text="{Binding Path=EpisodeName}"/>
                                 </Grid>
                             </DataTemplate>

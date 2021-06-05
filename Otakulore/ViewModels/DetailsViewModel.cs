@@ -10,11 +10,13 @@ namespace Otakulore.ViewModels
         public string ImageUrl { get; init; }
         public string Title { get; init; }
         public string Subtitle { get; init; }
+
         public string Format { get; init; }
         public string Status { get; init; }
         public string Episodes { get; init; }
         public string StartingDate { get; init; }
         public string EndingDate { get; init; }
+
         public string Synopsis { get; init; }
 
         public static DetailsViewModel CreateModel(KitsuData data)

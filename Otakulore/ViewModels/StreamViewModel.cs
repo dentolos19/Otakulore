@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 
 namespace Otakulore.ViewModels
@@ -19,14 +20,19 @@ namespace Otakulore.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private void InvokeAllPropertiesChanged()
+        {
+            var properties = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+            foreach (var property in properties)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property.Name));
+        }
+
         public void CollapseEpisodeLoading()
         {
             EpisodeLoadingPanelVisibility = Visibility.Collapsed;
             EpisodeLoadingTextVisibility = Visibility.Collapsed;
             EpisodeLoadingIndicatorVisibility = Visibility.Collapsed;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingPanelVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingTextVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingIndicatorVisibility)));
+            InvokeAllPropertiesChanged();
         }
 
         public void NotifyEpisodeLoading(string message)
@@ -35,10 +41,7 @@ namespace Otakulore.ViewModels
             EpisodeLoadingPanelVisibility = Visibility.Visible;
             EpisodeLoadingTextVisibility = Visibility.Visible;
             EpisodeLoadingIndicatorVisibility = Visibility.Collapsed;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingPanelVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingTextVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingIndicatorVisibility)));
+            InvokeAllPropertiesChanged();
         }
 
         public void ShowEpisodeLoading()
@@ -46,9 +49,7 @@ namespace Otakulore.ViewModels
             EpisodeLoadingPanelVisibility = Visibility.Visible;
             EpisodeLoadingTextVisibility = Visibility.Collapsed;
             EpisodeLoadingIndicatorVisibility = Visibility.Visible;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingPanelVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingTextVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EpisodeLoadingIndicatorVisibility)));
+            InvokeAllPropertiesChanged();
         }
 
         public void CollapseVideoLoading()
@@ -56,9 +57,7 @@ namespace Otakulore.ViewModels
             VideoLoadingPanelVisibility = Visibility.Collapsed;
             VideoLoadingTextVisibility = Visibility.Collapsed;
             VideoLoadingIndicatorVisibility = Visibility.Collapsed;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingPanelVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingTextVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingIndicatorVisibility)));
+            InvokeAllPropertiesChanged();
         }
 
         public void NotifyVideoLoading(string message)
@@ -67,10 +66,7 @@ namespace Otakulore.ViewModels
             VideoLoadingPanelVisibility = Visibility.Visible;
             VideoLoadingTextVisibility = Visibility.Visible;
             VideoLoadingIndicatorVisibility = Visibility.Collapsed;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingPanelVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingTextVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingIndicatorVisibility)));
+            InvokeAllPropertiesChanged();
         }
 
         public void ShowVideoLoading()
@@ -78,9 +74,7 @@ namespace Otakulore.ViewModels
             VideoLoadingPanelVisibility = Visibility.Visible;
             VideoLoadingTextVisibility = Visibility.Collapsed;
             VideoLoadingIndicatorVisibility = Visibility.Visible;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingPanelVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingTextVisibility)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoLoadingIndicatorVisibility)));
+            InvokeAllPropertiesChanged();
         }
 
     }

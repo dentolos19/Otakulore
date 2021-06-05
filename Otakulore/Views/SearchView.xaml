@@ -28,7 +28,6 @@
                     <Button Grid.Column="4" Content="&#xE00F;" ToolTip="Next" FontFamily="Segoe MDL2 Assets" Command="NextPage"/>
                 </Grid>
             </Grid>
-            <ContentControl Grid.Row="0" ContentTemplate="{DynamicResource ResourceKey={x:Static Member=ui:Templates.LoadingBars}}" HorizontalAlignment="Center" Width="30" VerticalAlignment="Center" Height="30" Visibility="{Binding Path=LoadingVisibility}"/>
         </Grid>
     </GroupBox>
 </Page>
