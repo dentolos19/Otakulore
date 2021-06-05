@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:c="clr-namespace:Otakulore.Converters">
+                    xmlns:c="clr-namespace:Otakulore.Core.Converters;assembly=Otakulore.Core">
     <c:ImageUrlConverter x:Key="ImageUrlConverter"/>
 </ResourceDictionary>

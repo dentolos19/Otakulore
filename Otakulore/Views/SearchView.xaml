@@ -1,6 +1,7 @@
 ﻿<Page x:Class="Otakulore.Views.SearchView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI">
     <Page.CommandBindings>
         <CommandBinding Command="PreviousPage" Executed="GoPreviousPage" CanExecute="CanGoPreviousPage"/>
         <CommandBinding Command="NextPage" Executed="GoNextPage"/>
@@ -27,6 +28,7 @@
                     <Button Grid.Column="4" Content="&#xE00F;" ToolTip="Next" FontFamily="Segoe MDL2 Assets" Command="NextPage"/>
                 </Grid>
             </Grid>
+            <ContentControl Grid.Row="0" ContentTemplate="{DynamicResource ResourceKey={x:Static Member=ui:Templates.LoadingBars}}" HorizontalAlignment="Center" Width="30" VerticalAlignment="Center" Height="30" Visibility="{Binding Path=LoadingVisibility}"/>
         </Grid>
     </GroupBox>
 </Page>

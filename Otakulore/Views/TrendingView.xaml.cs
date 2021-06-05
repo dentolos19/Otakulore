@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
+using Otakulore.ViewModels;
 using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
 namespace Otakulore.Views
@@ -30,19 +31,22 @@ namespace Otakulore.Views
             }
             catch
             {
-                AdonisMessageBox.Show("An error had occurred while getting trending content.", "Otakulore");
+                await Dispatcher.BeginInvoke(() => AdonisMessageBox.Show("An error had occurred while getting trending content.", "Otakulore"));
                 return;
             }
-            await Dispatcher.BeginInvoke(() => TrendingList.Items.Clear());
-            foreach (var data in trendingResults)
+            await Dispatcher.BeginInvoke(() =>
             {
-                await Dispatcher.BeginInvoke(() => TrendingList.Items.Add(new ShelfItemModel
+                TrendingList.Items.Clear();
+                foreach (var data in trendingResults)
                 {
-                    ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
-                    Title = data.Attributes.CanonicalTitle,
-                    Data = data
-                }));
-            }
+                    TrendingList.Items.Add(new ShelfItemModel
+                    {
+                        ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
+                        Title = data.Attributes.CanonicalTitle,
+                        Data = data
+                    });
+                }
+            });
         }
 
         private void ShowDetails(object sender, MouseButtonEventArgs args)

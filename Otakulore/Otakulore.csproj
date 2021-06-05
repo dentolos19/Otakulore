@@ -5,7 +5,6 @@
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
-		<Authors>Dennise Catolos</Authors>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AdonisUI" Version="1.17.0"/>

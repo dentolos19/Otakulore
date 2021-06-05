@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace Otakulore.Converters
+namespace Otakulore.Core.Converters
 {
 
     public class ImageUrlConverter : IValueConverter

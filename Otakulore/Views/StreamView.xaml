@@ -2,7 +2,12 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:m="clr-namespace:Otakulore.Models"
+      xmlns:v="clr-namespace:Otakulore.ViewModels"
+      xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
       Unloaded="StopVideo">
+    <Page.DataContext>
+        <v:StreamViewModel/>
+    </Page.DataContext>
     <Page.CommandBindings>
         <CommandBinding Command="Play" Executed="PlayVideo" CanExecute="CanInteractVideo"/>
         <CommandBinding Command="Pause" Executed="PauseVideo" CanExecute="CanInteractVideo"/>
@@ -32,7 +37,15 @@
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <MediaElement x:Name="MediaPlayer" Grid.Row="2" LoadedBehavior="Manual" UnloadedBehavior="Manual"/>
+                <Grid Grid.Row="2">
+                    <Grid>
+                        <MediaElement x:Name="MediaPlayer" LoadedBehavior="Manual" UnloadedBehavior="Manual" BufferingStarted="VideoBufferingStarted" BufferingEnded="VideoBufferingEnded"/>
+                    </Grid>
+                    <Grid Visibility="{Binding Path=VideoLoadingPanelVisibility}">
+                        <ContentControl ContentTemplate="{DynamicResource ResourceKey={x:Static Member=ui:Templates.LoadingBars}}" HorizontalAlignment="Center" Width="30" VerticalAlignment="Center" Height="30" Visibility="{Binding Path=VideoLoadingIndicatorVisibility}"/>
+                        <TextBlock Text="{Binding Path=VideoLoadingText}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=VideoLoadingTextVisibility}"/>
+                    </Grid>
+                </Grid>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -82,8 +95,9 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-                <Grid x:Name="EpisodeLoadingPanel">
-                    <TextBlock x:Name="EpisodeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Visibility="{Binding Path=EpisodeLoadingPanelVisibility}">
+                    <ContentControl ContentTemplate="{DynamicResource ResourceKey={x:Static Member=ui:Templates.LoadingBars}}" HorizontalAlignment="Center" Width="30" VerticalAlignment="Center" Height="30" Visibility="{Binding Path=EpisodeLoadingIndicatorVisibility}"/>
+                    <TextBlock Text="{Binding Path=EpisodeLoadingText}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=EpisodeLoadingTextVisibility}"/>
                 </Grid>
             </Grid>
         </GroupBox>

@@ -58,7 +58,7 @@ namespace Otakulore
 
         private void NavigateDownloads(object sender, RoutedEventArgs args)
         {
-            App.NavigateSinglePage(new DownloadsView());
+            App.NavigateSinglePage(App.DownloadsViewPage);
         }
 
         private void NavigateSettings(object sender, RoutedEventArgs args)

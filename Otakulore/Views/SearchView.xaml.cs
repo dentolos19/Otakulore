@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Otakulore.Core.Anime;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 using AdonisMessageBox = AdonisUI.Controls.MessageBox;

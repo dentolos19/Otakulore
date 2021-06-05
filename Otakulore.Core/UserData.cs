@@ -14,7 +14,7 @@ namespace Otakulore.Core
 
         public bool EnableDarkMode { get; set; }
         public bool EnableDiscordRichPresence { get; set; } = true;
-        public List<string> FavoritesList { get; set; } = new();
+        public List<string>? FavoritesList { get; set; } = new();
 
         public void SaveData()
         {

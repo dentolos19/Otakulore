@@ -16,11 +16,11 @@ namespace Otakulore.Models
             get
             {
                 var subtitle = string.Empty;
-                subtitle += Data.Attributes.StartingDate?.Substring(0, 4) ?? "Unknown Year";
-                subtitle += " | ";
                 subtitle += Data.Attributes.Format.Humanize();
                 subtitle += " | ";
-                subtitle += Data.Attributes.Status.Transform(To.TitleCase);
+                subtitle += Data.Attributes.StartingDate?.Substring(0, 4) ?? "Unknown";
+                subtitle += " | ";
+                subtitle += Data.Attributes.Status.Humanize();
                 return subtitle;
             }
         }

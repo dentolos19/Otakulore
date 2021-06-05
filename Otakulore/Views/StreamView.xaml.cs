@@ -9,7 +9,7 @@ using Humanizer;
 using Otakulore.Core.Anime;
 using Otakulore.Core.Anime.Providers;
 using Otakulore.Models;
-using AdonisMessageBox = AdonisUI.Controls.MessageBox;
+using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
@@ -53,7 +53,7 @@ namespace Otakulore.Views
             {
                 if (episodes == null)
                 {
-                    EpisodeLoadingIndicator.Text = "Failed to scrape content.";
+                    ((StreamViewModel)DataContext).NotifyEpisodeLoading("Failed to retrieve episode data.");
                     return;
                 }
                 foreach (var episode in episodes)
@@ -64,7 +64,7 @@ namespace Otakulore.Views
                         WatchUrl = episode.WatchUrl
                     });
                 }
-                EpisodeLoadingPanel.Visibility = Visibility.Collapsed;
+                ((StreamViewModel)DataContext).CollapseEpisodeLoading();
             });
         }
 
@@ -72,9 +72,11 @@ namespace Otakulore.Views
         {
             if (EpisodeList.SelectedItem is not EpisodeItemModel model)
                 return;
+            MediaPlayer.Stop();
+            ((StreamViewModel)DataContext).ShowVideoLoading();
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                string? sourceUrl = _service switch
+                var sourceUrl = _service switch
                 {
                     AnimeProvider.FourAnime => FourAnimeProvider.ScrapeVideoSource(model.WatchUrl),
                     AnimeProvider.Gogoanime => GogoanimeProvider.ScrapeVideoSource(model.WatchUrl),
@@ -84,7 +86,7 @@ namespace Otakulore.Views
                 {
                     if (string.IsNullOrEmpty(sourceUrl))
                     {
-                        AdonisMessageBox.Show("Sorry, the providers are unable to find a working video source.", "Otakulore");
+                        ((StreamViewModel)DataContext).NotifyVideoLoading("Sorry, the providers are unable to find a working video source.");
                         return;
                     }
                     MediaPlayer.Source = new Uri(sourceUrl);
@@ -139,6 +141,16 @@ namespace Otakulore.Views
             _isVideoSeeking = false;
             MediaPlayer.Position = TimeSpan.FromSeconds(VideoProgress.Value);
             MediaPlayer.Play();
+        }
+
+        private void VideoBufferingStarted(object sender, RoutedEventArgs args)
+        {
+            ((StreamViewModel)DataContext).ShowVideoLoading();
+        }
+
+        private void VideoBufferingEnded(object sender, RoutedEventArgs args)
+        {
+            ((StreamViewModel)DataContext).CollapseVideoLoading();
         }
 
         private void StopVideo(object sender, RoutedEventArgs args)
