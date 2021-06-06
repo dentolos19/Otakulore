@@ -13,7 +13,7 @@ namespace Otakulore
         internal static TrendingView TrendingViewPage { get; } = new();
         internal static FavoritesView FavoritesViewPage { get; } = new();
         internal static DownloadsView DownloadsViewPage { get; } = new();
-        internal static SettingsView SettingsViewPage { get; } = new();
+        internal static PreferencesView PreferencesViewPage { get; } = new();
 
         internal static DiscordRichPresence? RichPresence { get; set; }
         internal static UserData UserPreferences { get; set; }

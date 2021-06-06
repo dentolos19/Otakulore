@@ -92,7 +92,7 @@ namespace Otakulore.Core.Anime.Providers
                 var javaScriptSource = document.DocumentNode.SelectSingleNode("//div[@class='wrapper']/div/script").InnerText;
                 if (javaScriptSource == null)
                     return null;
-                return javaScriptSource.Substrings("file: '", "',label");
+                return javaScriptSource.GetStringBetween("file: '", "',label");
             }
             catch
             {

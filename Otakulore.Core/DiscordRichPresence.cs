@@ -7,6 +7,8 @@ namespace Otakulore.Core
     public class DiscordRichPresence : IDisposable
     {
         
+        public bool IsDisposed { get; private set; }
+
         private DiscordRpcClient? _client;
 
         public void InitializeRpc(string id)
@@ -33,6 +35,7 @@ namespace Otakulore.Core
         public void Dispose()
         {
             _client?.Dispose();
+            IsDisposed = true;
         }
 
     }

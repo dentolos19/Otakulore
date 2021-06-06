@@ -63,7 +63,7 @@ namespace Otakulore
 
         private void NavigateSettings(object sender, RoutedEventArgs args)
         {
-            App.NavigateSinglePage(App.SettingsViewPage);
+            App.NavigateSinglePage(App.PreferencesViewPage);
         }
 
     }

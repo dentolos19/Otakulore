@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace Otakulore.Core.Converters
+namespace Otakulore.Converters
 {
 
     public class ImageUrlConverter : IValueConverter
@@ -20,9 +20,9 @@ namespace Otakulore.Core.Converters
             return image;
         }
 
-        public object ConvertBack(object value, Type type, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type type, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
     }

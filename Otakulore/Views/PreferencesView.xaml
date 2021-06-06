@@ -1,0 +1,14 @@
+﻿<Page x:Class="Otakulore.Views.PreferencesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
+      Loaded="LoadSettings">
+    <StackPanel>
+        <GroupBox Header="General Preferences">
+            <StackPanel>
+                <CheckBox x:Name="EnableDarkBox" Content="Enable Dark Mode" Style="{DynamicResource ResourceKey={x:Static Member=ui:Styles.ToggleSwitch}}" Click="SavePreferences"/>
+                <CheckBox x:Name="EnableDiscordBox" Content="Enable Discord Rich Presence" Style="{DynamicResource ResourceKey={x:Static Member=ui:Styles.ToggleSwitch}}" Click="SavePreferences"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</Page>
