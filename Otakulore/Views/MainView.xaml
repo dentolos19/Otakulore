@@ -12,12 +12,12 @@
                     <FontIcon Glyph="&#xE734;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Favorites">
+            <NavigationViewItem Content="Favorites" Tag="FavoritesView">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xEB51;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Downloads">
+            <NavigationViewItem Content="Downloads" Tag="DownloadsView">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE896;"/>
                 </NavigationViewItem.Icon>

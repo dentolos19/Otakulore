@@ -27,7 +27,7 @@ namespace Otakulore.Core
             _hashListOfFoundElements = new Dictionary<object, int>();
         }
 
-        public static string Dump(object element, int depth = 4, int indentSize = 2, char indentChar = ' ')
+        public static string DumpObject(object element, int depth = 4, int indentSize = 2, char indentChar = ' ')
         {
             var instance = new ObjectDumper(depth, indentSize, indentChar);
             return instance.DumpElement(element, true);
@@ -37,10 +37,9 @@ namespace Otakulore.Core
         {
             if (value == null)
                 return false;
-            int lineNo;
-            if (_hashListOfFoundElements.TryGetValue(value, out lineNo))
+            if (_hashListOfFoundElements.TryGetValue(value, out var lineNumber))
             {
-                Write("(reference already dumped - line:{0})", lineNo);
+                WriteElement("(reference already dumped - line:{0})", lineNumber);
                 return true;
             }
             _hashListOfFoundElements.Add(value, _currentLine);
@@ -51,36 +50,37 @@ namespace Otakulore.Core
         {
             if (_currentIndent > _depth)
                 return null;
-            if (element == null || element is string)
+            switch (element)
             {
-                Write(FormatValue(element));
-            }
-            else if (element is ValueType)
-            {
-                var objectType = element.GetType();
-                var isWritten = false;
-                if (objectType.GetTypeInfo().IsGenericType)
+                case null:
+                case string _:
+                    WriteElement(FormatValue(element));
+                    break;
+                case ValueType _:
                 {
-                    var baseType = objectType.GetGenericTypeDefinition();
-                    if (baseType == typeof(KeyValuePair<,>))
+                    var objectType = element.GetType();
+                    var isWritten = false;
+                    if (objectType.GetTypeInfo().IsGenericType)
                     {
-                        isWritten = true;
-                        Write("Key:");
-                        _currentIndent++;
-                        DumpElement(objectType.GetProperty("Key").GetValue(element, null));
-                        _currentIndent--;
-                        Write("Value:");
-                        _currentIndent++;
-                        DumpElement(objectType.GetProperty("Value").GetValue(element, null));
-                        _currentIndent--;
+                        var baseType = objectType.GetGenericTypeDefinition();
+                        if (baseType == typeof(KeyValuePair<,>))
+                        {
+                            isWritten = true;
+                            WriteElement("Key:");
+                            _currentIndent++;
+                            DumpElement(objectType.GetProperty("Key").GetValue(element, null));
+                            _currentIndent--;
+                            WriteElement("Value:");
+                            _currentIndent++;
+                            DumpElement(objectType.GetProperty("Value").GetValue(element, null));
+                            _currentIndent--;
+                        }
                     }
+                    if (!isWritten)
+                        WriteElement(FormatValue(element));
+                    break;
                 }
-                if (!isWritten)
-                    Write(FormatValue(element));
-            }
-            else
-            {
-                if (element is IEnumerable enumerableElement)
+                case IEnumerable enumerableElement:
                 {
                     foreach (var item in enumerableElement)
                     {
@@ -95,11 +95,12 @@ namespace Otakulore.Core
                             DumpElement(item);
                         }
                     }
+                    break;
                 }
-                else
+                default:
                 {
                     var objectType = element.GetType();
-                    Write("{{{0}(HashCode:{1})}}", objectType.FullName, element.GetHashCode());
+                    WriteElement("{{{0}(HashCode:{1})}}", objectType.FullName, element.GetHashCode());
                     if (AlreadyDumped(element))
                         return isTopOfTree ? _stringBuilder.ToString() : null;
                     _currentIndent++;
@@ -118,24 +119,25 @@ namespace Otakulore.Core
                         }
                         catch (Exception e)
                         {
-                            Write("{0} failed with:{1}", memberInfo.Name, (e.GetBaseException() ?? e).Message);
+                            WriteElement("{0} failed with:{1}", memberInfo.Name, (e.GetBaseException() ?? e).Message);
                             continue;
                         }
 
                         if (type.GetTypeInfo().IsValueType || type == typeof(string))
                         {
-                            Write("{0}: {1}", memberInfo.Name, FormatValue(value));
+                            WriteElement("{0}: {1}", memberInfo.Name, FormatValue(value));
                         }
                         else
                         {
                             var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
-                            Write("{0}: {1}", memberInfo.Name, isEnumerable ? "..." : "{ }");
+                            WriteElement("{0}: {1}", memberInfo.Name, isEnumerable ? "..." : "{ }");
                             _currentIndent++;
                             DumpElement(value);
                             _currentIndent--;
                         }
                     }
                     _currentIndent--;
+                    break;
                 }
             }
 
@@ -165,7 +167,7 @@ namespace Otakulore.Core
             }
         }
 
-        private void Write(string value, params object[] args)
+        private void WriteElement(string value, params object[] args)
         {
             var space = new string(_indentChar, _currentIndent * _indentSize);
             if (args != null)
