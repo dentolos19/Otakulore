@@ -1,102 +1,121 @@
 ﻿<Page x:Class="Otakulore.Views.DetailsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:v="clr-namespace:Otakulore.ViewModels">
+      xmlns:models="using:Otakulore.Models"
+      xmlns:viewModels="using:Otakulore.ViewModels"
+      Background="{ThemeResource ResourceKey=ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <v:DetailsViewModel/>
+        <viewModels:DetailsViewModel/>
     </Page.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="{Binding Path=ImageUrl, Converter={StaticResource ResourceKey=ImageUrlConverter}, IsAsync=True}"/>
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="FavoriteButton" Grid.Column="1" Content="&#xE006;" ToolTip="Favorite" FontFamily="Segoe MDL2 Assets" Click="ToggleFavorite"/>
-                </Grid>
-                <Border Grid.Row="1">
-                    <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Bottom" FontSize="24"/>
-                </Border>
-                <Border Grid.Row="2">
-                    <TextBlock Text="{Binding Path=Subtitle}" VerticalAlignment="Center"/>
-                </Border>
-            </Grid>
-        </Grid>
-        <TabControl Grid.Row="2">
-            <TabItem Header="Overview">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
-                        <StackPanel>
-                            <GroupBox Header="Format" Margin="0,0,0,10">
-                                <TextBlock Text="{Binding Path=Format}"/>
-                            </GroupBox>
-                            <GroupBox Header="Status" Margin="0,0,0,10">
-                                <TextBlock Text="{Binding Path=Status}"/>
-                            </GroupBox>
-                            <GroupBox Header="Episodes" Margin="0,0,0,10">
-                                <TextBlock Text="{Binding Path=Episodes}"/>
-                            </GroupBox>
-                            <GroupBox Header="Starting Date" Margin="0,0,0,10">
-                                <TextBlock Text="{Binding Path=StartingDate}"/>
-                            </GroupBox>
-                            <GroupBox Header="Ending Date">
-                                <TextBlock Text="{Binding Path=EndingDate}"/>
-                            </GroupBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                    <GroupBox Grid.Column="2" Header="Synopsis" Padding="10">
-                        <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap"/>
-                    </GroupBox>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Stream">
-                <ScrollViewer>
-                    <StackPanel>
-                        <Expander Header="4Anime" Margin="0,0,0,10" Expanded="FourAnimeSectionExpanded">
-                            <Grid>
-                                <Grid>
-                                    <ListBox x:Name="FourAnimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamFourAnime"/>
-                                </Grid>
-                                <Grid x:Name="FourAnimeLoadingPanel">
-                                    <TextBlock x:Name="FourAnimeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
+    <NavigationView x:Name="NavigationBar" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Padding="10,10,10,10" SelectionChanged="SwitchView">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Overview">
+                <NavigationViewItem.Tag>
+                    <Grid Margin="10,10,10,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
+                                </Image.Source>
+                            </Image>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="1" Text="{Binding Path=Title}" FontSize="24" FontWeight="Bold"/>
                             </Grid>
-                        </Expander>
-                        <Expander Header="Gogoanime" Expanded="GogoanimeSectionExpanded">
-                            <Grid>
-                                <Grid>
-                                    <ListBox x:Name="GogoanimeList" ItemTemplate="{StaticResource ResourceKey=StreamItemTemplate}" MouseDoubleClick="StreamGogoanime"/>
-                                </Grid>
-                                <Grid x:Name="GogoanimeLoadingPanel">
-                                    <TextBlock x:Name="GogoanimeLoadingIndicator" Text="Loading" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Grid>
-                        </Expander>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
-        </TabControl>
-    </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Spacing="5">
+                                <StackPanel>
+                                    <TextBlock Text="Format" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Path=Format}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Status" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Path=Status}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Episodes" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Path=Episodes}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Starting Date" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Path=StartingDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Ending Date" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Path=EndingDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Spacing="5">
+                                <TextBlock Text="Synopsis" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </NavigationViewItem.Tag>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Watch">
+                <NavigationViewItem.Tag>
+                    <Grid Margin="10,10,10,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered"/>
+                            <ComboBox x:Name="ProviderSelection" Grid.Column="2" SelectionChanged="UpdateWatchContent">
+                                <ComboBoxItem Content="4anime.to" Tag="4a"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+                            <ListView x:Name="WatchContentList" IsItemClickEnabled="True" ItemClick="WatchSelectedContent">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:WatchItemModel">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Width="50">
+                                                <Image.Source>
+                                                    <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
+                                                </Image.Source>
+                                            </Image>
+                                            <TextBlock Grid.Column="2" Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Grid>
+                </NavigationViewItem.Tag>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+    </NavigationView>
 </Page>

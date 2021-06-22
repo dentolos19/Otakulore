@@ -1,33 +1,13 @@
 ﻿<Page x:Class="Otakulore.Views.SearchView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI">
-    <Page.CommandBindings>
-        <CommandBinding Command="PreviousPage" Executed="GoPreviousPage" CanExecute="CanGoPreviousPage"/>
-        <CommandBinding Command="NextPage" Executed="GoNextPage"/>
-    </Page.CommandBindings>
-    <GroupBox Header="Search Results">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <ListBox x:Name="ContentList" Grid.Row="0" ItemTemplate="{StaticResource ResourceKey=ShelfItemTemplate}" MouseDoubleClick="ShowDetails"/>
-            <Grid Grid.Row="2">
-                <Grid HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="&#xE00E;" ToolTip="Previous" FontFamily="Segoe MDL2 Assets" Command="PreviousPage"/>
-                    <TextBlock x:Name="PageNumberText" Grid.Column="2" Text="1" VerticalAlignment="Center"/>
-                    <Button Grid.Column="4" Content="&#xE00F;" ToolTip="Next" FontFamily="Segoe MDL2 Assets" Command="NextPage"/>
-                </Grid>
-            </Grid>
-        </Grid>
-    </GroupBox>
+      xmlns:viewModels="using:Otakulore.ViewModels"
+      Background="{ThemeResource ResourceKey=ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <viewModels:LoadingViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+        <ListView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
+    </Grid>
 </Page>

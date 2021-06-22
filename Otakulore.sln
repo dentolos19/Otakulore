@@ -1,37 +1,57 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore", "Otakulore\Otakulore.csproj", "{03B4DC97-23F5-4E3F-93B8-B0C3C63F5D56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore", "Otakulore\Otakulore.csproj", "{66311210-41A1-4514-976F-3CC23A6BFC0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core.Kitsu", "Otakulore.Core.Kitsu\Otakulore.Core.Kitsu.csproj", "{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{03B9E0B8-C85C-4A2D-812F-CC268CD8F215}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8A6C073E-AA22-4052-ACBD-C3D3B7AA47CE}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{03B4DC97-23F5-4E3F-93B8-B0C3C63F5D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03B4DC97-23F5-4E3F-93B8-B0C3C63F5D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03B4DC97-23F5-4E3F-93B8-B0C3C63F5D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03B4DC97-23F5-4E3F-93B8-B0C3C63F5D56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCAC8736-5663-4C8A-A435-A4CAD0BD1D50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03B9E0B8-C85C-4A2D-812F-CC268CD8F215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03B9E0B8-C85C-4A2D-812F-CC268CD8F215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03B9E0B8-C85C-4A2D-812F-CC268CD8F215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03B9E0B8-C85C-4A2D-812F-CC268CD8F215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|ARM.Build.0 = Debug|ARM
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|ARM.Deploy.0 = Debug|ARM
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|ARM64.Build.0 = Debug|ARM64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|x64.ActiveCfg = Debug|x64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|x64.Build.0 = Debug|x64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|x64.Deploy.0 = Debug|x64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|x86.ActiveCfg = Debug|x86
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|x86.Build.0 = Debug|x86
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Debug|x86.Deploy.0 = Debug|x86
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|ARM.ActiveCfg = Release|ARM
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|ARM.Build.0 = Release|ARM
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|ARM.Deploy.0 = Release|ARM
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|ARM64.ActiveCfg = Release|ARM64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|ARM64.Build.0 = Release|ARM64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|ARM64.Deploy.0 = Release|ARM64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|x64.ActiveCfg = Release|x64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|x64.Build.0 = Release|x64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|x64.Deploy.0 = Release|x64
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|x86.ActiveCfg = Release|x86
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|x86.Build.0 = Release|x86
+		{66311210-41A1-4514-976F-3CC23A6BFC0E}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FF460E38-74EC-4F09-AFC7-622E5248EFA7}
+		SolutionGuid = {7D9A934E-7DAD-40B1-B1A4-E1F733CA799F}
 	EndGlobalSection
 EndGlobal

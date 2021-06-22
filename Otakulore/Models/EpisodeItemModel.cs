@@ -4,8 +4,8 @@
     public class EpisodeItemModel
     {
 
-        public string EpisodeName { get; init; }
-        public string WatchUrl { get; init; }
+        public string EpisodeName { get; set; }
+        public string WatchUrl { get; set; }
 
     }
 

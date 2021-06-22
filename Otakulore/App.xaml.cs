@@ -1,51 +1,52 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using AdonisUI;
-using Otakulore.Core;
+﻿using System;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using Otakulore.Views;
 
 namespace Otakulore
 {
-
-    public partial class App
+    
+    public sealed partial class App
     {
-
-        internal static TrendingView TrendingViewPage { get; } = new();
-        internal static FavoritesView FavoritesViewPage { get; } = new();
-        internal static DownloadsView DownloadsViewPage { get; } = new();
-        internal static PreferencesView PreferencesViewPage { get; } = new();
-
-        internal static DiscordRichPresence? RichPresence { get; set; }
-        internal static UserData UserPreferences { get; set; }
         
-        private void SetupApp(object sender, StartupEventArgs args)
+        public App()
         {
-            UserPreferences = UserData.LoadData();
-            if (UserPreferences.EnableDiscordRichPresence)
+            InitializeComponent();
+            Suspending += OnSuspending;
+        }
+        
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            if (!(Window.Current.Content is Frame rootFrame))
             {
-                try
+                rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    RichPresence = new DiscordRichPresence();
-                    RichPresence.InitializeRpc("850203114560159774");
+                    // TODO: load state from previously suspended application
                 }
-                catch
-                {
-                    // do nothing
-                }
+                Window.Current.Content = rootFrame;
             }
-            ResourceLocator.SetColorScheme(Current.Resources, UserPreferences.EnableDarkMode ? ResourceLocator.DarkColorScheme : ResourceLocator.LightColorScheme);
+            if (args.PrelaunchActivated)
+                return;
+            if (rootFrame.Content == null)
+                rootFrame.Navigate(typeof(MainView), args.Arguments);
+            Window.Current.Activate();
         }
-
-        private void DisposeInstances(object sender, ExitEventArgs args)
+        
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs args)
         {
-            RichPresence?.Dispose();
-            UserPreferences.SaveData();
+            throw new Exception("Failed to load Page " + args.SourcePageType.FullName);
         }
-
-        public static void NavigateSinglePage(Page view)
+        
+        private void OnSuspending(object sender, SuspendingEventArgs args)
         {
-            if (Current.MainWindow is MainWindow window)
-                window.View.Navigate(view);
+            var deferral = args.SuspendingOperation.GetDeferral();
+            // TODO: save application state and stop any background activity
+            deferral.Complete();
         }
 
     }

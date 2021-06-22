@@ -1,7 +1,12 @@
-﻿using System.Threading;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using Windows.System;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using Otakulore.Core.Anime;
 using Otakulore.Core.Anime.Providers;
 using Otakulore.Core.Kitsu;
@@ -10,115 +15,97 @@ using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
-
-    public partial class DetailsView
+    
+    public sealed partial class DetailsView
     {
 
-        private readonly KitsuData _data;
-
-        private bool _isFourAnimeLoaded;
-        private bool _isGogoanimeLoaded;
-
-        public DetailsView(KitsuData data)
+        public DetailsView()
         {
             InitializeComponent();
-            _data = data;
-            DataContext = DetailsViewModel.CreateModel(_data);
-            FavoriteButton.Content = App.UserPreferences.FavoritesList.Contains(_data.Id) ? "\xE00B" : "\xE006";
+            NavigationBar.SelectedItem = NavigationBar.MenuItems.OfType<NavigationViewItem>().First();
         }
 
-        private void ToggleFavorite(object sender, RoutedEventArgs args)
+        protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (App.UserPreferences.FavoritesList.Contains(_data.Id))
-            {
-                App.UserPreferences.FavoritesList.Remove(_data.Id);
-                App.UserPreferences.SaveData();
-                FavoriteButton.Content = "\xE006";
-                FavoriteButton.ToolTip = "Add To Favorites";
-            }
-            else
-            {
-                App.UserPreferences.FavoritesList.Add(_data.Id);
-                App.UserPreferences.SaveData();
-                FavoriteButton.Content = "\xE00B";
-                FavoriteButton.ToolTip = "Remove From Favorites";
-            }
-        }
-
-        private void StreamFourAnime(object sender, MouseButtonEventArgs args)
-        {
-            if (FourAnimeList.SelectedItem is StreamItemModel model)
-                App.NavigateSinglePage(new StreamDetailsView(model.Title, model.EpisodesUrl, model.Service));
-        }
-
-        private void StreamGogoanime(object sender, MouseButtonEventArgs args)
-        {
-            if (GogoanimeList.SelectedItem is StreamItemModel model)
-                App.NavigateSinglePage(new StreamDetailsView(model.Title, model.EpisodesUrl, model.Service));
-        }
-
-        private void FourAnimeSectionExpanded(object sender, RoutedEventArgs args)
-        {
-            if (_isFourAnimeLoaded)
+            if (!(args.Parameter is KitsuData data))
                 return;
-            ThreadPool.QueueUserWorkItem(_ =>
+            DataContext = DetailsViewModel.CreateViewModel(data);
+            ContentSearchInput.Text = data.Attributes.CanonicalTitle;
+        }
+
+        private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if (!(args.SelectedItem is NavigationViewItem selectedItem))
+                return;
+            if (selectedItem.Content.ToString() == "Watch" && ProviderSelection.SelectedIndex < 0)
+                ProviderSelection.SelectedIndex = 0;
+            NavigationBar.Content = selectedItem.Tag;
+        }
+
+        private void ContentSearchEntered(object sender, KeyRoutedEventArgs args)
+        {
+            if (args.Key != VirtualKey.Enter)
+                return;
+            var query = ContentSearchInput.Text;
+            if (string.IsNullOrEmpty(query))
+                return;
+            UpdateWatchContent(null, null);
+        }
+
+        private void UpdateWatchContent(object sender, SelectionChangedEventArgs args)
+        {
+            if (!(ProviderSelection.SelectedItem is ComboBoxItem item))
+                return;
+            var query = ContentSearchInput.Text;
+            if (string.IsNullOrEmpty(query))
+                return;
+            var serviceCode = (string)item.Tag;
+            ThreadPool.QueueUserWorkItem(async _ =>
             {
-                var posters = FourAnimeProvider.SearchAnime(_data.Attributes.CanonicalTitle);
-                if (posters == null)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = true);
+                AnimeInfo[] content;
+                AnimeProvider provider;
+                if (serviceCode == "4a")
                 {
-                    Dispatcher.BeginInvoke(() => FourAnimeLoadingIndicator.Text = "Failed to scrape content.");
-                    return;
+                    content = FourAnimeProvider.ScrapeSearchAnime(query);
+                    provider = AnimeProvider.FourAnime;
                 }
-                if (posters.Length <= 0)
+                else
                 {
-                    Dispatcher.BeginInvoke(() => FourAnimeLoadingIndicator.Text = "No content found.");
-                    return;
-                }
-                foreach (var poster in posters)
-                {
-                    Dispatcher.BeginInvoke(() => FourAnimeList.Items.Add(new StreamItemModel
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                     {
-                        ImageUrl = poster.ImageUrl,
-                        Title = poster.Title,
-                        Service = AnimeProvider.FourAnime,
-                        EpisodesUrl = poster.EpisodesUrl
-                    }));
+                        ((DetailsViewModel)DataContext).IsLoading = false;
+                        await new MessageDialog("The selected provider is unavailable.").ShowAsync();
+                    });
+                    return;
                 }
-                Dispatcher.BeginInvoke(() => FourAnimeLoadingPanel.Visibility = Visibility.Collapsed);
-                _isFourAnimeLoaded = true;
+                if (content != null && content.Length > 0)
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        WatchContentList.Items.Clear();
+                        foreach (var channel in content)
+                            WatchContentList.Items.Add(new WatchItemModel
+                            {
+                                ImageUrl = channel.ImageUrl,
+                                Title = channel.Title,
+                                EpisodesUrl = channel.EpisodesUrl,
+                                Provider = provider
+                            });
+                    });
+                }
+                else
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to find available content with the current provider.").ShowAsync());
+                }
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = false);
             });
         }
 
-        private void GogoanimeSectionExpanded(object sender, RoutedEventArgs args)
+        private void WatchSelectedContent(object sender, ItemClickEventArgs args)
         {
-            if (_isGogoanimeLoaded)
-                return;
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                var posters = GogoanimeProvider.SearchAnime(_data.Attributes.CanonicalTitle);
-                if (posters == null)
-                {
-                    Dispatcher.BeginInvoke(() => GogoanimeLoadingIndicator.Text = "Failed to scrape content.");
-                    return;
-                }
-                if (posters.Length <= 0)
-                {
-                    Dispatcher.BeginInvoke(() => GogoanimeLoadingIndicator.Text = "No content found.");
-                    return;
-                }
-                foreach (var poster in posters)
-                {
-                    Dispatcher.BeginInvoke(() => GogoanimeList.Items.Add(new StreamItemModel
-                    {
-                        ImageUrl = poster.ImageUrl,
-                        Title = poster.Title,
-                        Service = AnimeProvider.Gogoanime,
-                        EpisodesUrl = poster.EpisodesUrl
-                    }));
-                }
-                Dispatcher.BeginInvoke(() => GogoanimeLoadingPanel.Visibility = Visibility.Collapsed);
-                _isGogoanimeLoaded = true;
-            });
+            if (args.ClickedItem is WatchItemModel model)
+                Frame.Navigate(typeof(WatchView), model);
         }
 
     }

@@ -1,37 +1,50 @@
-﻿using Humanizer;
+﻿using System.ComponentModel;
+using Humanizer;
 using Otakulore.Core.Kitsu;
 
 namespace Otakulore.ViewModels
 {
 
-    public class DetailsViewModel
+    public class DetailsViewModel : INotifyPropertyChanged
     {
 
-        public string ImageUrl { get; init; }
-        public string Title { get; init; }
-        public string Subtitle { get; init; }
+        private bool _isLoading;
 
-        public string Format { get; init; }
-        public string Status { get; init; }
-        public string Episodes { get; init; }
-        public string StartingDate { get; init; }
-        public string EndingDate { get; init; }
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public string Synopsis { get; set; }
 
-        public string Synopsis { get; init; }
+        public string Format { get; set; }
+        public string Status { get; set; }
+        public string Episodes { get; set; }
+        public string StartingDate { get; set; }
+        public string EndingDate { get; set; }
 
-        public static DetailsViewModel CreateModel(KitsuData data)
+        public bool IsLoading
         {
-            return new()
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLoading)));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public static DetailsViewModel CreateViewModel(KitsuData data)
+        {
+            return new DetailsViewModel
             {
                 ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
                 Title = data.Attributes.CanonicalTitle,
-                Subtitle = data.Attributes.StartingDate?.Substring(0, 4) ?? "Unknown",
+                Synopsis = data.Attributes.Synopsis,
+                
                 Format = data.Attributes.Format.Humanize(),
                 Status = data.Attributes.Status.Humanize(),
-                Episodes = data.Attributes.EpisodeCount.HasValue ? data.Attributes.EpisodeCount.ToString()! : "Unknown",
-                StartingDate = data.Attributes.StartingDate ?? "TBA",
-                EndingDate = data.Attributes.EndingDate ?? "Unknown",
-                Synopsis = data.Attributes.Synopsis
+                Episodes = data.Attributes.EpisodeCount?.ToString() ?? "???",
+                StartingDate = string.IsNullOrEmpty(data.Attributes.StartingDate) ? "TBA" : data.Attributes.StartingDate,
+                EndingDate = string.IsNullOrEmpty(data.Attributes.EndingDate) ? "TBA" : data.Attributes.EndingDate
             };
         }
 

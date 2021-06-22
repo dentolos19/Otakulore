@@ -1,146 +1,63 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
-using System.Windows.Threading;
+﻿using System;
+using System.ComponentModel;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
-using AdonisMessageBox = AdonisUI.Controls.MessageBox;
+using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
 
-    public partial class SearchView
+    public sealed partial class SearchView
     {
 
-        private readonly string _query;
-        private readonly BackgroundWorker _worker;
-
-        private int _currentPage = 1;
-
-        public SearchView(string query)
+        private readonly BackgroundWorker _searchWorker;
+        
+        public SearchView()
         {
             InitializeComponent();
-            _query = query;
-            _worker = new BackgroundWorker();
-            _worker.DoWork += LoadContent;
-            _worker.RunWorkerAsync();
+            _searchWorker = new BackgroundWorker();
+            _searchWorker.DoWork += SearchWork;
         }
 
-        private async void LoadContent(object? sender, DoWorkEventArgs args)
+        protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            _currentPage = 1;
-            KitsuData[] searchResults;
-            try
-            {
-                searchResults = await KitsuApi.SearchAnimeAsync(_query, _currentPage);
-            }
-            catch
-            {
-                AdonisMessageBox.Show("An error had occurred while searching for content.", "Otakulore");
+            if (args.Parameter is string query)
+                _searchWorker.RunWorkerAsync(query);
+        }
+
+        private async void SearchWork(object sender, DoWorkEventArgs args)
+        {
+            if (!(args.Argument is string query))
                 return;
-            }
-            if (!(searchResults.Length > 0))
+            var results = await KitsuApi.SearchAnimeAsync(query);
+            if (results != null && results.Length > 0)
             {
-                AdonisMessageBox.Show("No content has matched your query.", "Otakulore");
-                return;
-            }
-            await Dispatcher.BeginInvoke(() =>
-            {
-                foreach (var data in searchResults)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    ContentList.Items.Add(new ShelfItemModel
-                    {
-                        ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
-                        Title = data.Attributes.CanonicalTitle,
-                        Data = data
-                    });
-                }
-            });
-        }
-
-        private void ShowDetails(object sender, MouseButtonEventArgs args)
-        {
-            if (ContentList.SelectedItem is not ShelfItemModel model)
-                return;
-            App.NavigateSinglePage(new DetailsView(model.Data));
-        }
-
-        private async void GoPreviousPage(object sender, ExecutedRoutedEventArgs args)
-        {
-            _currentPage--;
-            KitsuData[] searchResults;
-            try
-            {
-                searchResults = await KitsuApi.SearchAnimeAsync(_query, _currentPage);
+                    ((LoadingViewModel)DataContext).IsLoading = false;
+                    foreach (var data in results)
+                        ContentList.Items.Add(ContentItemModel.CreateModel(data));
+                });
             }
-            catch
+            else
             {
-                AdonisMessageBox.Show("An error had occurred while turning a page.", "Otakulore");
-                _currentPage++;
-                return;
-            }
-            if (!(searchResults.Length > 0))
-            {
-                AdonisMessageBox.Show("No more content on the previous page.", "Otakulore");
-                _currentPage++;
-                return;
-            }
-            await Dispatcher.BeginInvoke(() =>
-            {
-                ContentList.Items.Clear();
-                foreach (var data in searchResults)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                 {
-                    ContentList.Items.Add(new ShelfItemModel
-                    {
-                        ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
-                        Title = data.Attributes.CanonicalTitle,
-                        Data = data
-                    });
-                }
-                PageNumberText.Text = _currentPage.ToString();
-            });
+                    if (Frame.CanGoBack)
+                        Frame.GoBack();
+                    await new MessageDialog("No results were found matching your query.").ShowAsync();
+                });
+            }
         }
 
-        private async void GoNextPage(object sender, ExecutedRoutedEventArgs args)
+        private void ShowDetails(object sender, ItemClickEventArgs args)
         {
-            _currentPage++;
-            KitsuData[] searchResults;
-            try
-            {
-                searchResults = await KitsuApi.SearchAnimeAsync(_query, _currentPage);
-            }
-            catch
-            {
-                AdonisMessageBox.Show("An error had occurred while turning a page.", "Otakulore");
-                _currentPage++;
-                return;
-            }
-            if (!(searchResults.Length > 0))
-            {
-                AdonisMessageBox.Show("No more content on the next page.", "Otakulore");
-                _currentPage++;
-                return;
-            }
-            await Dispatcher.BeginInvoke(() =>
-            {
-                ContentList.Items.Clear();
-                foreach (var data in searchResults)
-                {
-                    ContentList.Items.Add(new ShelfItemModel
-                    {
-                        ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
-                        Title = data.Attributes.CanonicalTitle,
-                        Data = data
-                    });
-                }
-                PageNumberText.Text = _currentPage.ToString();
-            });
-        }
-
-        private void CanGoPreviousPage(object sender, CanExecuteRoutedEventArgs args)
-        {
-            if (!IsInitialized)
-                return;
-            args.CanExecute = _currentPage > 1;
+            if (args.ClickedItem is ContentItemModel model)
+                Frame.Navigate(typeof(DetailsView), model.Data);
         }
 
     }

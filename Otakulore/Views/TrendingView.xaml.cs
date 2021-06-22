@@ -1,59 +1,47 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
-using System.Windows.Threading;
+﻿using System;
+using System.ComponentModel;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 using Otakulore.ViewModels;
-using AdonisMessageBox = AdonisUI.Controls.MessageBox;
 
 namespace Otakulore.Views
 {
-
-    public partial class TrendingView
+    
+    public sealed partial class TrendingView
     {
 
-        private readonly BackgroundWorker _worker;
+        private readonly BackgroundWorker _contentWorker;
 
         public TrendingView()
         {
             InitializeComponent();
-            _worker = new BackgroundWorker();
-            _worker.DoWork += AddContent;
-            _worker.RunWorkerAsync();
+            _contentWorker = new BackgroundWorker();
+            _contentWorker.DoWork += ContentWork;
         }
 
-        private async void AddContent(object? sender, DoWorkEventArgs args)
+        protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            KitsuData[] trendingResults;
-            try
+            _contentWorker.RunWorkerAsync();
+        }
+
+        private async void ContentWork(object sender, DoWorkEventArgs args)
+        {
+            var results = await KitsuApi.GetTrendingAnimeAsync();
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                trendingResults = await KitsuApi.GetTrendingAnimeAsync();
-            }
-            catch
-            {
-                await Dispatcher.BeginInvoke(() => AdonisMessageBox.Show("An error had occurred while getting trending content.", "Otakulore"));
-                return;
-            }
-            await Dispatcher.BeginInvoke(() =>
-            {
-                TrendingList.Items.Clear();
-                foreach (var data in trendingResults)
-                {
-                    TrendingList.Items.Add(new ShelfItemModel
-                    {
-                        ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
-                        Title = data.Attributes.CanonicalTitle,
-                        Data = data
-                    });
-                }
+                ((LoadingViewModel)DataContext).IsLoading = false;
+                foreach (var data in results)
+                    ContentList.Items.Add(ContentItemModel.CreateModel(data));
             });
         }
 
-        private void ShowDetails(object sender, MouseButtonEventArgs args)
+        private void ShowDetails(object sender, ItemClickEventArgs args)
         {
-            if (TrendingList.SelectedItem is not ShelfItemModel model)
-                return;
-            App.NavigateSinglePage(new DetailsView(model.Data));
+            if (args.ClickedItem is ContentItemModel model)
+                Frame.Navigate(typeof(DetailsView), model.Data);
         }
 
     }
