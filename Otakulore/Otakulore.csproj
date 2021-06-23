@@ -18,6 +18,13 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -123,7 +130,8 @@
     <Compile Include="Core\Anime\AnimeInfo.cs" />
     <Compile Include="Core\Anime\AnimeProvider.cs" />
     <Compile Include="Core\Anime\Providers\FourAnimeProvider.cs" />
-    <Compile Include="Core\DebugLogger.cs" />
+    <Compile Include="Core\Anime\Providers\GogoanimeProvider.cs" />
+    <Compile Include="Core\CoreUtilities.cs" />
     <Compile Include="Core\Kitsu\KitsuApi.cs" />
     <Compile Include="Core\Kitsu\KitsuData.cs" />
     <Compile Include="Core\Kitsu\KitsuImage.cs" />
@@ -132,8 +140,7 @@
     <Compile Include="Core\Kitsu\KitsuMediaFormat.cs" />
     <Compile Include="Core\Kitsu\KitsuResponse.cs" />
     <Compile Include="Core\Kitsu\KitsuResponses.cs" />
-    <Compile Include="Core\LoggerStatus.cs" />
-    <Compile Include="Core\ObjectDumper.cs" />
+    <Compile Include="Core\WebDriver.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
     <Compile Include="Models\EpisodeItemModel.cs" />
     <Compile Include="Models\WatchItemModel.cs" />
@@ -173,32 +180,56 @@
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Resources\Assets\LargeTile.scale-100.png" />
+    <Content Include="Resources\Assets\LargeTile.scale-125.png" />
+    <Content Include="Resources\Assets\LargeTile.scale-150.png" />
     <Content Include="Resources\Assets\LargeTile.scale-200.png" />
     <Content Include="Resources\Assets\LargeTile.scale-400.png" />
     <Content Include="Resources\Assets\SmallTile.scale-100.png" />
+    <Content Include="Resources\Assets\SmallTile.scale-125.png" />
+    <Content Include="Resources\Assets\SmallTile.scale-150.png" />
     <Content Include="Resources\Assets\SmallTile.scale-200.png" />
     <Content Include="Resources\Assets\SmallTile.scale-400.png" />
     <Content Include="Resources\Assets\SplashScreen.scale-100.png" />
+    <Content Include="Resources\Assets\SplashScreen.scale-125.png" />
+    <Content Include="Resources\Assets\SplashScreen.scale-150.png" />
     <Content Include="Resources\Assets\SplashScreen.scale-200.png" />
     <Content Include="Resources\Assets\SplashScreen.scale-400.png" />
     <Content Include="Resources\Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Resources\Assets\Square150x150Logo.scale-125.png" />
+    <Content Include="Resources\Assets\Square150x150Logo.scale-150.png" />
     <Content Include="Resources\Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Resources\Assets\Square150x150Logo.scale-400.png" />
     <Content Include="Resources\Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
     <Content Include="Resources\Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
     <Content Include="Resources\Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
     <Content Include="Resources\Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Resources\Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
     <Content Include="Resources\Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
     <Content Include="Resources\Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.scale-150.png" />
     <Content Include="Resources\Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Resources\Assets\Square44x44Logo.scale-400.png" />
     <Content Include="Resources\Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.targetsize-24.png" />
     <Content Include="Resources\Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Resources\Assets\Square44x44Logo.targetsize-32.png" />
     <Content Include="Resources\Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Resources\Assets\StoreLogo.scale-100.png" />
+    <Content Include="Resources\Assets\StoreLogo.scale-125.png" />
+    <Content Include="Resources\Assets\StoreLogo.scale-150.png" />
     <Content Include="Resources\Assets\StoreLogo.scale-200.png" />
     <Content Include="Resources\Assets\StoreLogo.scale-400.png" />
+    <Content Include="Resources\Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Resources\Assets\Wide310x150Logo.scale-125.png" />
+    <Content Include="Resources\Assets\Wide310x150Logo.scale-150.png" />
+    <Content Include="Resources\Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Resources\Assets\Wide310x150Logo.scale-400.png" />
+    <EmbeddedResource Include="Resources\EdgeWebDriver.exe" />
     <Content Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +279,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
+    </PackageReference>
+    <PackageReference Include="Selenium.WebDriver">
+      <Version>4.0.0-beta2</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
       <Version>5.0.2</Version>

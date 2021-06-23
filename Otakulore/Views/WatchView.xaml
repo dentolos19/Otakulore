@@ -12,6 +12,7 @@
         <Grid Margin="10,10,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -28,7 +29,11 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <MediaPlayerElement x:Name="MediaPlayer" Grid.Row="1" AutoPlay="True" AreTransportControlsEnabled="True"/>
+            <MediaPlayerElement x:Name="MediaPlayer" Grid.Row="2" AutoPlay="True" AreTransportControlsEnabled="True">
+                <MediaPlayerElement.TransportControls>
+                    <MediaTransportControls IsZoomButtonVisible="False" IsSkipBackwardButtonVisible="True" IsSkipForwardButtonVisible="True" IsSkipBackwardEnabled="True" IsSkipForwardEnabled="True"/>
+                </MediaPlayerElement.TransportControls>
+            </MediaPlayerElement>
         </Grid>
     </Grid>
 </Page>

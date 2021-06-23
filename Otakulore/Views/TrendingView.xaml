@@ -6,8 +6,16 @@
     <Page.DataContext>
         <viewModels:LoadingViewModel/>
     </Page.DataContext>
-    <Grid>
-        <ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-        <ListView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
+    <Grid Margin="10,10,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Trending" FontWeight="Bold" FontSize="24"/>
+        <Grid Grid.Row="2">
+            <ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+            <ListView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
+        </Grid>
     </Grid>
 </Page>

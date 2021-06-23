@@ -55,7 +55,7 @@ namespace Otakulore.Core.Anime.Providers
                     if (root == null)
                         continue;
                     int? episodeNumber = null;
-                    if (int.TryParse(root.InnerText, out int result))
+                    if (int.TryParse(root.InnerText, out var result))
                         episodeNumber = result;
                     list.Add(new AnimeEpisode
                     {

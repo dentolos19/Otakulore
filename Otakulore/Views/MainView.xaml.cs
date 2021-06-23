@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -14,7 +16,7 @@ namespace Otakulore.Views
         public MainView()
         {
             InitializeComponent();
-            NavigationBar.SelectedItem = NavigationBar.MenuItems.OfType<NavigationViewItem>().First();
+            NavigationView.SelectedItem = NavigationView.MenuItems.OfType<NavigationViewItem>().First();
         }
 
         private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -51,7 +53,7 @@ namespace Otakulore.Views
 
         private void ViewNavigated(object sender, NavigationEventArgs args)
         {
-            NavigationBar.IsBackEnabled = ContentFrame.CanGoBack;
+            NavigationView.IsBackEnabled = ContentFrame.CanGoBack;
         }
 
     }

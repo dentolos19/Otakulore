@@ -35,6 +35,8 @@ namespace Otakulore.Views
                 AnimeEpisode[] episodes = null;
                 if (model.Provider == AnimeProvider.FourAnime)
                     episodes = FourAnimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
+                else if (model.Provider == AnimeProvider.Gogoanime)
+                    episodes = GogoanimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
                 if (episodes != null && episodes.Length > 0)
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -72,6 +74,11 @@ namespace Otakulore.Views
             });
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs args)
+        {
+            MediaPlayer.Source = null;
+        }
+
         private void EpisodeChanged(object sender, SelectionChangedEventArgs args)
         {
             if (!(EpisodeList.SelectedItem is EpisodeItemModel model))
@@ -82,6 +89,8 @@ namespace Otakulore.Views
                 string videoUrl = null;
                 if (_provider == AnimeProvider.FourAnime)
                     videoUrl = FourAnimeProvider.ScrapeVideoUrl(model.WatchUrl);
+                else if (_provider == AnimeProvider.Gogoanime)
+                    videoUrl = GogoanimeProvider.ScrapeVideoUrl(model.WatchUrl);
                 if (!string.IsNullOrEmpty(videoUrl))
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaPlayer.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(videoUrl)) }));

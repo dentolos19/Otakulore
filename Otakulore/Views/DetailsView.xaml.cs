@@ -22,7 +22,7 @@ namespace Otakulore.Views
         public DetailsView()
         {
             InitializeComponent();
-            NavigationBar.SelectedItem = NavigationBar.MenuItems.OfType<NavigationViewItem>().First();
+            NavigationView.SelectedItem = NavigationView.MenuItems.OfType<NavigationViewItem>().First();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -39,7 +39,7 @@ namespace Otakulore.Views
                 return;
             if (selectedItem.Content.ToString() == "Watch" && ProviderSelection.SelectedIndex < 0)
                 ProviderSelection.SelectedIndex = 0;
-            NavigationBar.Content = selectedItem.Tag;
+            NavigationView.Content = selectedItem.Tag;
         }
 
         private void ContentSearchEntered(object sender, KeyRoutedEventArgs args)
@@ -69,6 +69,11 @@ namespace Otakulore.Views
                 {
                     content = FourAnimeProvider.ScrapeSearchAnime(query);
                     provider = AnimeProvider.FourAnime;
+                }
+                else if (serviceCode == "ggo")
+                {
+                    content = GogoanimeProvider.ScrapeSearchAnime(query);
+                    provider = AnimeProvider.Gogoanime;
                 }
                 else
                 {

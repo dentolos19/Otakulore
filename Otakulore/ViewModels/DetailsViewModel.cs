@@ -13,7 +13,6 @@ namespace Otakulore.ViewModels
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public string Synopsis { get; set; }
-
         public string Format { get; set; }
         public string Status { get; set; }
         public string Episodes { get; set; }

@@ -4,7 +4,8 @@
     public enum AnimeProvider
     {
 
-        FourAnime
+        FourAnime,
+        Gogoanime
 
     }
 

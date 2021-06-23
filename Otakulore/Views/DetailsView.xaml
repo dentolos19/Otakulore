@@ -7,7 +7,7 @@
     <Page.DataContext>
         <viewModels:DetailsViewModel/>
     </Page.DataContext>
-    <NavigationView x:Name="NavigationBar" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Padding="10,10,10,10" SelectionChanged="SwitchView">
+    <NavigationView x:Name="NavigationView" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Padding="10,10,10,10" SelectionChanged="SwitchView">
         <NavigationView.MenuItems>
             <NavigationViewItem Content="Overview">
                 <NavigationViewItem.Tag>
@@ -89,6 +89,7 @@
                             <TextBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered"/>
                             <ComboBox x:Name="ProviderSelection" Grid.Column="2" SelectionChanged="UpdateWatchContent">
                                 <ComboBoxItem Content="4anime.to" Tag="4a"/>
+                                <ComboBoxItem Content="gogoanime.io" Tag="ggo"/>
                             </ComboBox>
                         </Grid>
                         <Grid Grid.Row="2">

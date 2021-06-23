@@ -9,7 +9,7 @@
   <Identity
     Name="4fdb59d0-9e02-4e06-a06c-e6a0eb7dbf8e"
     Publisher="CN=dento"
-    Version="1.0.0.0" />
+    Version="0.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="4fdb59d0-9e02-4e06-a06c-e6a0eb7dbf8e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -37,7 +37,7 @@
         Square44x44Logo="Resources\Assets\Square44x44Logo.png"
         Description="Otakulore"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Resources\Assets\Application\Wide310x150Logo.png" Square71x71Logo="Resources\Assets\SmallTile.png" Square310x310Logo="Resources\Assets\LargeTile.png"/>
+        <uap:DefaultTile Wide310x150Logo="Resources\Assets\Wide310x150Logo.png" Square71x71Logo="Resources\Assets\SmallTile.png" Square310x310Logo="Resources\Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Resources\Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

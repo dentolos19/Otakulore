@@ -25,8 +25,10 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (args.Parameter is string query)
-                _searchWorker.RunWorkerAsync(query);
+            if (!(args.Parameter is string query))
+                return;
+            QueryText.Text = query;
+            _searchWorker.RunWorkerAsync(query);
         }
 
         private async void SearchWork(object sender, DoWorkEventArgs args)
@@ -38,9 +40,9 @@ namespace Otakulore.Views
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    ((LoadingViewModel)DataContext).IsLoading = false;
                     foreach (var data in results)
                         ContentList.Items.Add(ContentItemModel.CreateModel(data));
+                    ((LoadingViewModel)DataContext).IsLoading = false;
                 });
             }
             else
