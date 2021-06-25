@@ -9,7 +9,8 @@ namespace Otakulore.ViewModels
     {
 
         private bool _isLoading;
-
+        private bool _isFavored;
+        
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public string Synopsis { get; set; }

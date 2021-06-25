@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -14,7 +12,9 @@ namespace Otakulore
     
     public sealed partial class App
     {
-        
+
+        internal static UserData Settings { get; } = UserData.LoadData();
+
         public App()
         {
             InitializeComponent();
@@ -23,13 +23,7 @@ namespace Otakulore
         
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            var webDriverPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "EdgeWebDriver.exe");
-            if (!File.Exists(webDriverPath))
-            {
-                var stream = CoreUtilities.GetResourceStream("EdgeWebDriver.exe");
-                File.WriteAllBytes(webDriverPath, stream.ToByteArray());
-                stream.Close();
-            }
+            WebDriver.EnsureDriverExists();
             if (!(Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();
@@ -55,7 +49,7 @@ namespace Otakulore
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
             var deferral = args.SuspendingOperation.GetDeferral();
-            // TODO: save application state and stop any background activity
+            Settings.SaveData();
             deferral.Complete();
         }
 

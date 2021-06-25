@@ -30,10 +30,12 @@
                             </Image>
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="1" Text="{Binding Path=Title}" FontSize="24" FontWeight="Bold"/>
+                                <ToggleButton x:Name="FavoriteButton" Grid.Row="0" Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Click="UpdateFavorites"/>
+                                <TextBlock Grid.Row="2" Text="{Binding Path=Title}" FontSize="24" FontWeight="Bold"/>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">

@@ -6,6 +6,7 @@ using System.Threading;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -20,6 +21,8 @@ namespace Otakulore.Views
     
     public sealed partial class DetailsView
     {
+
+        private string _id;
         
         public DetailsView()
         {
@@ -32,6 +35,8 @@ namespace Otakulore.Views
             if (!(args.Parameter is KitsuData data))
                 return;
             DataContext = DetailsViewModel.CreateViewModel(data);
+            _id = data.Id;
+            FavoriteButton.IsChecked = App.Settings.FavoriteList.Contains(_id);
             ContentSearchInput.Text = data.Attributes.CanonicalTitle;
             var titles = new List<TitleItemModel>();
             foreach (var (languageCode, title) in data.Attributes.Titles)
@@ -65,6 +70,21 @@ namespace Otakulore.Views
             if (selectedItem.Content.ToString() == "Watch" && ProviderSelection.SelectedIndex < 0)
                 ProviderSelection.SelectedIndex = 0;
             NavigationView.Content = selectedItem.Tag;
+        }
+
+        private void UpdateFavorites(object sender, RoutedEventArgs args)
+        {
+            if (FavoriteButton.IsChecked == true)
+            {
+                if (!App.Settings.FavoriteList.Contains(_id))
+                    App.Settings.FavoriteList.Add(_id);
+            }
+            else
+            {
+                if (App.Settings.FavoriteList.Contains(_id))
+                    App.Settings.FavoriteList.Remove(_id);
+            }
+            
         }
 
         private void ContentSearchEntered(object sender, KeyRoutedEventArgs args)

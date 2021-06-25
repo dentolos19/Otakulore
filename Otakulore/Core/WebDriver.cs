@@ -9,13 +9,16 @@ namespace Otakulore.Core
     public static class WebDriver
     {
 
+        private static string WebDriverHomePath => ApplicationData.Current.LocalFolder.Path;
+        private static string WebDriverFilePath => Path.Combine(WebDriverHomePath, "webdriver.exe");
+
         private static EdgeDriver _webDriver;
 
         public static EdgeDriver GetWebDriver()
         {
             if (_webDriver != null)
                 return _webDriver;
-            var service = EdgeDriverService.CreateChromiumService(ApplicationData.Current.LocalFolder.Path, Path.Combine(ApplicationData.Current.LocalFolder.Path, "EdgeWebDriver.exe"));
+            var service = EdgeDriverService.CreateChromiumService(WebDriverHomePath, WebDriverFilePath);
             service.HideCommandPromptWindow = true;
             var options = new EdgeOptions { UseChromium = true };
             options.AddArgument("headless");
@@ -29,6 +32,15 @@ namespace Otakulore.Core
             _webDriver = new EdgeDriver(service, options);
             _webDriver.Manage().Window.Size = new Size(1920, 1080);
             return _webDriver;
+        }
+
+        public static void EnsureDriverExists()
+        {
+            if (File.Exists(WebDriverFilePath))
+                return;
+            var stream = CoreUtilities.GetResourceStream("EdgeWebDriver.exe");
+            File.WriteAllBytes(WebDriverFilePath, stream.ToByteArray());
+            stream.Close();
         }
 
     }
