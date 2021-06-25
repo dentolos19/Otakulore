@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml.Navigation;
-
-namespace Otakulore.Views
+﻿namespace Otakulore.Views
 {
     
     public sealed partial class SettingsView
@@ -9,11 +7,6 @@ namespace Otakulore.Views
         public SettingsView()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs args)
-        {
-            // TODO
         }
 
     }

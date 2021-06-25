@@ -5,7 +5,8 @@
     {
 
         FourAnime,
-        Gogoanime
+        Gogoanime,
+        AnimeKisa
 
     }
 

@@ -11,8 +11,8 @@ namespace Otakulore.Core
         public static string GetStringBetween(this string @string, string fromString, string toString)
         {
             var fromIndex = @string.IndexOf(fromString) + fromString.Length;
-            var toIndex = @string.IndexOf(toString);
-            return @string.Substring(fromIndex, toIndex - fromIndex);
+            @string = @string.Substring(fromIndex);
+            return @string.Remove(@string.IndexOf(toString));
         }
 
         public static byte[] ToByteArray(this Stream stream)

@@ -9,7 +9,7 @@
   <Identity
     Name="4fdb59d0-9e02-4e06-a06c-e6a0eb7dbf8e"
     Publisher="CN=dento"
-    Version="0.1.0.0" />
+    Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="4fdb59d0-9e02-4e06-a06c-e6a0eb7dbf8e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

@@ -5,32 +5,35 @@ using HtmlAgilityPack;
 namespace Otakulore.Core.Anime.Providers
 {
 
-    public static class FourAnimeProvider
+    public class AnimeKisaProvider
     {
 
-        private static string BaseEndpoint => "https://4anime.to";
-        private static string SearchAnimeEndpoint => BaseEndpoint + "/?s={0}";
+        private static string BaseEndpoint => "https://animekisa.tv";
+        private static string SearchAnimeEndpoint => BaseEndpoint + "/search?q={0}";
 
         public static AnimeInfo[] ScrapeSearchAnime(string query)
         {
             try
             {
                 var document = new HtmlWeb().Load(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query)));
-                var nodes = document.DocumentNode.SelectNodes("//div[@class='container']/div[@id='headerDIV_2']");
-                if (nodes == null)
+                var parentNodes = document.DocumentNode.SelectNodes("//div[@class='lisbox22']/div[@class='similarboxmain']");
+                if (parentNodes == null)
                     return null;
                 var list = new List<AnimeInfo>();
-                foreach (var node in nodes)
+                foreach (var parentNode in parentNodes)
                 {
-                    var root = node.SelectSingleNode("./div/a");
-                    if (root == null)
+                    var nodes = parentNode.SelectNodes("./div/a[@class='an']");
+                    if (nodes == null)
                         continue;
-                    list.Add(new AnimeInfo
+                    foreach (var node in nodes)
                     {
-                        ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
-                        Title = root.SelectSingleNode("./div").InnerText,
-                        EpisodesUrl = root.Attributes["href"].Value
-                    });
+                        list.Add(new AnimeInfo
+                        {
+                            ImageUrl = BaseEndpoint + node.SelectSingleNode("./div/div/div[@class='similarpic']/img").Attributes["src"].Value,
+                            Title = node.SelectSingleNode("./div/div/div[@class='similard']/div/div[@class='similardd']").InnerText.Trim(),
+                            EpisodesUrl = BaseEndpoint + node.Attributes["href"].Value
+                        });
+                    }
                 }
                 return list.ToArray();
             }
@@ -46,24 +49,22 @@ namespace Otakulore.Core.Anime.Providers
             try
             {
                 var document = new HtmlWeb().Load(url);
-                var nodes = document.DocumentNode.SelectNodes("//div[@class='watchpage']//li");
+                var nodes = document.DocumentNode.SelectNodes("//div[@class='infoepboxmain']/div[@class='infoepbox']/a[@class='infovan']");
                 if (nodes == null)
                     return null;
                 var list = new List<AnimeEpisode>();
                 foreach (var node in nodes)
                 {
-                    var root = node.SelectSingleNode("./a");
-                    if (root == null)
-                        continue;
                     int? episodeNumber = null;
-                    if (int.TryParse(root.InnerText, out var result))
+                    if (int.TryParse(node.SelectSingleNode("./div/div/div/div[@class='infoept2']/div").InnerText, out var result))
                         episodeNumber = result;
                     list.Add(new AnimeEpisode
                     {
                         EpisodeNumber = episodeNumber,
-                        WatchUrl = root.Attributes["href"].Value
+                        WatchUrl = BaseEndpoint + "/" + node.Attributes["href"].Value
                     });
                 }
+                list.Reverse();
                 return list.ToArray();
             }
             catch (Exception exception)
@@ -78,8 +79,8 @@ namespace Otakulore.Core.Anime.Providers
             try
             {
                 var document = new HtmlWeb().Load(url);
-                var node = document.DocumentNode.SelectSingleNode("//video/source");
-                return node?.Attributes["src"].Value;
+                document = new HtmlWeb().Load(document.DocumentNode.SelectNodes("//div[@id='main']/script")[1].InnerText.GetStringBetween("VidStreaming = \"", "\""));
+                return document.DocumentNode.SelectSingleNode("//div[@class='videocontent']/script").InnerText?.GetStringBetween("file: '", "'");
             }
             catch (Exception exception)
             {

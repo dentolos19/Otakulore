@@ -38,12 +38,11 @@ namespace Otakulore.ViewModels
                 ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
                 Title = data.Attributes.CanonicalTitle,
                 Synopsis = data.Attributes.Synopsis,
-                
                 Format = data.Attributes.Format.Humanize(),
                 Status = data.Attributes.Status.Humanize(),
                 Episodes = data.Attributes.EpisodeCount?.ToString() ?? "???",
                 StartingDate = string.IsNullOrEmpty(data.Attributes.StartingDate) ? "TBA" : data.Attributes.StartingDate,
-                EndingDate = string.IsNullOrEmpty(data.Attributes.EndingDate) ? "TBA" : data.Attributes.EndingDate
+                EndingDate = string.IsNullOrEmpty(data.Attributes.EndingDate) ? "???" : data.Attributes.EndingDate
             };
         }
 

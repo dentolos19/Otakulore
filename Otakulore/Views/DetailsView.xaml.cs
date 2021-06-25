@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Windows.System;
@@ -18,7 +20,7 @@ namespace Otakulore.Views
     
     public sealed partial class DetailsView
     {
-
+        
         public DetailsView()
         {
             InitializeComponent();
@@ -31,6 +33,29 @@ namespace Otakulore.Views
                 return;
             DataContext = DetailsViewModel.CreateViewModel(data);
             ContentSearchInput.Text = data.Attributes.CanonicalTitle;
+            var titles = new List<TitleItemModel>();
+            foreach (var (languageCode, title) in data.Attributes.Titles)
+            {
+                if (string.IsNullOrEmpty(languageCode) || string.IsNullOrEmpty(title))
+                    return;
+                string languageName = null;
+                try
+                {
+                    languageName = CultureInfo.GetCultureInfo(languageCode).DisplayName;
+                }
+                catch
+                {
+                    // do nothing
+                }
+                if (string.IsNullOrEmpty(languageName))
+                    languageName = languageCode;
+                titles.Add(new TitleItemModel
+                {
+                    LanguageName = languageName,
+                    Title = title
+                });
+            }
+            ContentSearchInput.ItemsSource = titles;
         }
 
         private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -46,9 +71,14 @@ namespace Otakulore.Views
         {
             if (args.Key != VirtualKey.Enter)
                 return;
-            var query = ContentSearchInput.Text;
-            if (string.IsNullOrEmpty(query))
+            UpdateWatchContent(null, null);
+        }
+
+        private void ContentSearchChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            if (!(args.SelectedItem is TitleItemModel model))
                 return;
+            sender.Text = model.Title;
             UpdateWatchContent(null, null);
         }
 
@@ -74,6 +104,11 @@ namespace Otakulore.Views
                 {
                     content = GogoanimeProvider.ScrapeSearchAnime(query);
                     provider = AnimeProvider.Gogoanime;
+                }
+                else if (serviceCode == "ak")
+                {
+                    content = AnimeKisaProvider.ScrapeSearchAnime(query);
+                    provider = AnimeProvider.AnimeKisa;
                 }
                 else
                 {

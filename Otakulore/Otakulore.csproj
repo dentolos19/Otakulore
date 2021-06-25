@@ -129,9 +129,11 @@
     <Compile Include="Core\Anime\AnimeEpisode.cs" />
     <Compile Include="Core\Anime\AnimeInfo.cs" />
     <Compile Include="Core\Anime\AnimeProvider.cs" />
+    <Compile Include="Core\Anime\Providers\AnimeKisaProvider.cs" />
     <Compile Include="Core\Anime\Providers\FourAnimeProvider.cs" />
     <Compile Include="Core\Anime\Providers\GogoanimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
+    <Compile Include="Core\DebugLogger.cs" />
     <Compile Include="Core\Kitsu\KitsuApi.cs" />
     <Compile Include="Core\Kitsu\KitsuData.cs" />
     <Compile Include="Core\Kitsu\KitsuImage.cs" />
@@ -140,9 +142,12 @@
     <Compile Include="Core\Kitsu\KitsuMediaFormat.cs" />
     <Compile Include="Core\Kitsu\KitsuResponse.cs" />
     <Compile Include="Core\Kitsu\KitsuResponses.cs" />
+    <Compile Include="Core\LoggerStatus.cs" />
+    <Compile Include="Core\ObjectDumper.cs" />
     <Compile Include="Core\WebDriver.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
     <Compile Include="Models\EpisodeItemModel.cs" />
+    <Compile Include="Models\TitleItemModel.cs" />
     <Compile Include="Models\WatchItemModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\LoadingViewModel.cs" />

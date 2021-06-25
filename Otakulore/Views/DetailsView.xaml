@@ -86,10 +86,17 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered"/>
+                            <AutoSuggestBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered" SuggestionChosen="ContentSearchChosen">
+                                <AutoSuggestBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:TitleItemModel">
+                                        <TextBlock Text="{Binding Path=Title}" ToolTipService.ToolTip="{Binding Path=LanguageName}"/>
+                                    </DataTemplate>
+                                </AutoSuggestBox.ItemTemplate>
+                            </AutoSuggestBox>
                             <ComboBox x:Name="ProviderSelection" Grid.Column="2" SelectionChanged="UpdateWatchContent">
-                                <ComboBoxItem Content="4anime.to" Tag="4a"/>
-                                <ComboBoxItem Content="gogoanime.io" Tag="ggo"/>
+                                <ComboBoxItem Content="4Anime" Tag="4a"/>
+                                <ComboBoxItem Content="Gogoanime" Tag="ggo"/>
+                                <ComboBoxItem Content="AnimeKisa" Tag="ak"/>
                             </ComboBox>
                         </Grid>
                         <Grid Grid.Row="2">

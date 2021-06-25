@@ -32,8 +32,9 @@ namespace Otakulore.Core.Anime.Providers
                 }
                 return list.ToArray();
             }
-            catch
+            catch (Exception exception)
             {
+                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -76,8 +77,9 @@ namespace Otakulore.Core.Anime.Providers
                 }
                 return list.ToArray();
             }
-            catch
+            catch (Exception exception)
             {
+                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -87,13 +89,12 @@ namespace Otakulore.Core.Anime.Providers
             try
             {
                 var document = new HtmlWeb().Load(url);
-                var playerUrl = "https:" + document.DocumentNode.SelectSingleNode("//div[@class='anime_muti_link']/ul/li[@class='vidcdn']/a").Attributes["data-video"].Value;
-                document = new HtmlWeb().Load(playerUrl);
-                var sourceCode = document.DocumentNode.SelectSingleNode("//div[@class='wrapper']/div/script").InnerText;
-                return sourceCode?.GetStringBetween("file: '", "',label");
+                document = new HtmlWeb().Load("https:" + document.DocumentNode.SelectSingleNode("//div[@class='anime_muti_link']/ul/li[@class='vidcdn']/a").Attributes["data-video"].Value);
+                return document.DocumentNode.SelectSingleNode("//div[@class='videocontent']/script").InnerText?.GetStringBetween("file: '", "'");
             }
-            catch
+            catch (Exception exception)
             {
+                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
