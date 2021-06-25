@@ -38,7 +38,7 @@ namespace Otakulore.Core
         {
             if (File.Exists(WebDriverFilePath))
                 return;
-            var stream = CoreUtilities.GetResourceStream("EdgeWebDriver.exe");
+            var stream = CoreUtilities.GetResourceStream("WebDriver.exe");
             File.WriteAllBytes(WebDriverFilePath, stream.ToByteArray());
             stream.Close();
         }

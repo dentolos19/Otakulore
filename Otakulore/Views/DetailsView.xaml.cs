@@ -15,6 +15,9 @@ using Otakulore.Core.Anime.Providers;
 using Otakulore.Core.Kitsu;
 using Otakulore.Models;
 using Otakulore.ViewModels;
+using NavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
+using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
+using NavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs;
 
 namespace Otakulore.Views
 {

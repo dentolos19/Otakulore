@@ -1,12 +1,14 @@
-﻿namespace Otakulore.Core.Anime
+﻿using System.ComponentModel;
+
+namespace Otakulore.Core.Anime
 {
 
     public enum AnimeProvider
     {
 
-        FourAnime,
-        Gogoanime,
-        AnimeKisa
+        [Description("4Anime")] FourAnime,
+        [Description("Gogoanime")] Gogoanime,
+        [Description("AnimeKisa")] AnimeKisa
 
     }
 

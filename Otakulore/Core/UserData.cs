@@ -9,7 +9,7 @@ namespace Otakulore.Core
     public class UserData
     {
 
-        private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "user.data");
+        private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "userdata.json");
 
         public List<string> FavoriteList { get; set; } = new List<string>();
 

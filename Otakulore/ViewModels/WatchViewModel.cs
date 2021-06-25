@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Humanizer;
 using Otakulore.Models;
 
 namespace Otakulore.ViewModels
@@ -29,7 +30,7 @@ namespace Otakulore.ViewModels
         {
             return new WatchViewModel
             {
-                Title = model.Title
+                Title = model.Title + " | " + model.Provider.Humanize()
             };
         }
 
