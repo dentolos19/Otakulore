@@ -21,3 +21,5 @@ This project is currently work-in-progress!
 ![](./.github/screenshots/1.png)
 ![](./.github/screenshots/2.png)
 ![](./.github/screenshots/3.png)
+![](./.github/screenshots/4.png)
+![](./.github/screenshots/5.png)
