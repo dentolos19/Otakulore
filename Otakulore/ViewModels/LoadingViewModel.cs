@@ -7,7 +7,7 @@ namespace Otakulore.ViewModels
     {
 
         private bool _isLoading = true;
-        
+
         public bool IsLoading
         {
             get => _isLoading;
@@ -19,7 +19,7 @@ namespace Otakulore.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
     }
 
 }

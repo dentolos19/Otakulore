@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Otakulore.Core.Kitsu
+namespace Otakulore.Core.Services.Kitsu
 {
 
     public enum KitsuMediaFormat

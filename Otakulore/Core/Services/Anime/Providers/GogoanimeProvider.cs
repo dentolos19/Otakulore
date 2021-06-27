@@ -1,8 +1,9 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Otakulore.Core.Helpers;
+using System;
 using System.Collections.Generic;
-using HtmlAgilityPack;
 
-namespace Otakulore.Core.Anime.Providers
+namespace Otakulore.Core.Services.Anime.Providers
 {
 
     public static class GogoanimeProvider
@@ -10,7 +11,7 @@ namespace Otakulore.Core.Anime.Providers
 
         private static string BaseEndpoint => "https://www1.gogoanime.ai";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/search.html?keyword={0}";
-        
+
         public static AnimeInfo[] ScrapeSearchAnime(string query)
         {
             try
@@ -34,7 +35,7 @@ namespace Otakulore.Core.Anime.Providers
             }
             catch (Exception exception)
             {
-                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
+                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -79,7 +80,7 @@ namespace Otakulore.Core.Anime.Providers
             }
             catch (Exception exception)
             {
-                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
+                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -94,7 +95,7 @@ namespace Otakulore.Core.Anime.Providers
             }
             catch (Exception exception)
             {
-                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
+                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

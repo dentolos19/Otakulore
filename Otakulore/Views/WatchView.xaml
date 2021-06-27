@@ -30,7 +30,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <MediaPlayerElement x:Name="MediaPlayer" Grid.Row="2" AutoPlay="True" AreTransportControlsEnabled="True">
+            <MediaPlayerElement x:Name="MediaElement" Grid.Row="2" AutoPlay="True" AreTransportControlsEnabled="True">
                 <MediaPlayerElement.TransportControls>
                     <MediaTransportControls IsZoomButtonVisible="False" IsSkipBackwardButtonVisible="True" IsSkipForwardButtonVisible="True" IsSkipBackwardEnabled="True" IsSkipForwardEnabled="True"/>
                 </MediaPlayerElement.TransportControls>

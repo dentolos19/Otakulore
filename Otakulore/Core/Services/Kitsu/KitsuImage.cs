@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Otakulore.Core.Kitsu
+namespace Otakulore.Core.Services.Kitsu
 {
 
     public class KitsuImage

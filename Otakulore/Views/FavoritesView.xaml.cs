@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Kitsu;
+using Otakulore.Models;
+using Otakulore.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Kitsu;
-using Otakulore.Models;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
-    
+
     public sealed partial class FavoritesView
     {
 

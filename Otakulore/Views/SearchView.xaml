@@ -18,7 +18,7 @@
         </TextBlock>
         <Grid Grid.Row="2">
             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            <ListView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
+            <GridView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
         </Grid>
     </Grid>
 </Page>

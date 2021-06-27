@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Otakulore.Core;
+using Otakulore.Views;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core;
-using Otakulore.Views;
 
 namespace Otakulore
 {
-    
+
     public sealed partial class App
     {
 
@@ -20,7 +20,7 @@ namespace Otakulore
             InitializeComponent();
             Suspending += OnSuspending;
         }
-        
+
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             WebDriver.EnsureDriverExists();
@@ -28,10 +28,6 @@ namespace Otakulore
             {
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
-                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // TODO: load state from previously suspended application
-                }
                 Window.Current.Content = rootFrame;
             }
             if (args.PrelaunchActivated)
@@ -40,12 +36,12 @@ namespace Otakulore
                 rootFrame.Navigate(typeof(MainView), args.Arguments);
             Window.Current.Activate();
         }
-        
+
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs args)
         {
             throw new Exception("Failed to load Page " + args.SourcePageType.FullName);
         }
-        
+
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
             var deferral = args.SuspendingOperation.GetDeferral();

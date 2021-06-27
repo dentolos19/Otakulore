@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Otakulore.Core.Anime
+namespace Otakulore.Core.Services.Anime
 {
 
     public enum AnimeProvider

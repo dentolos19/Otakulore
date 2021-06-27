@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Anime;
+using Otakulore.Core.Services.Anime.Providers;
+using Otakulore.Core.Services.Kitsu;
+using Otakulore.Models;
+using Otakulore.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,23 +15,18 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Anime;
-using Otakulore.Core.Anime.Providers;
-using Otakulore.Core.Kitsu;
-using Otakulore.Models;
-using Otakulore.ViewModels;
 using NavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs;
 
 namespace Otakulore.Views
 {
-    
+
     public sealed partial class DetailsView
     {
 
         private string _id;
-        
+
         public DetailsView()
         {
             InitializeComponent();
@@ -87,7 +87,7 @@ namespace Otakulore.Views
                 if (App.Settings.FavoriteList.Contains(_id))
                     App.Settings.FavoriteList.Remove(_id);
             }
-            
+
         }
 
         private void ContentSearchEntered(object sender, KeyRoutedEventArgs args)

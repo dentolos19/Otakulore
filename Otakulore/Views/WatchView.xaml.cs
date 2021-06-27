@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Anime;
+using Otakulore.Core.Services.Anime.Providers;
+using Otakulore.Models;
+using Otakulore.ViewModels;
+using System;
 using System.Threading;
 using Windows.Media.Core;
 using Windows.Media.Playback;
@@ -6,10 +10,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Anime;
-using Otakulore.Core.Anime.Providers;
-using Otakulore.Models;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
@@ -78,8 +78,8 @@ namespace Otakulore.Views
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs args)
         {
-            if (MediaPlayer.MediaPlayer.PlaybackSession.CanPause)
-                MediaPlayer.MediaPlayer.Pause();
+            if (MediaElement.MediaPlayer.PlaybackSession.CanPause)
+                MediaElement.MediaPlayer.Pause();
         }
 
         private void EpisodeChanged(object sender, SelectionChangedEventArgs args)
@@ -98,7 +98,7 @@ namespace Otakulore.Views
                     videoUrl = AnimeKisaProvider.ScrapeVideoUrl(model.WatchUrl);
                 if (!string.IsNullOrEmpty(videoUrl))
                 {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaPlayer.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(videoUrl)) }));
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(videoUrl)) }));
                 }
                 else
                 {

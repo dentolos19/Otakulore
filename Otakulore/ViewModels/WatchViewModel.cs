@@ -1,7 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Humanizer;
+﻿using Humanizer;
 using Otakulore.Models;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Otakulore.ViewModels
 {

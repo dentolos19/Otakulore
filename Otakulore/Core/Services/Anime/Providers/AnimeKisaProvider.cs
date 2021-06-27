@@ -1,8 +1,9 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Otakulore.Core.Helpers;
+using System;
 using System.Collections.Generic;
-using HtmlAgilityPack;
 
-namespace Otakulore.Core.Anime.Providers
+namespace Otakulore.Core.Services.Anime.Providers
 {
 
     public class AnimeKisaProvider
@@ -39,7 +40,7 @@ namespace Otakulore.Core.Anime.Providers
             }
             catch (Exception exception)
             {
-                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
+                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -69,7 +70,7 @@ namespace Otakulore.Core.Anime.Providers
             }
             catch (Exception exception)
             {
-                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
+                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -84,7 +85,7 @@ namespace Otakulore.Core.Anime.Providers
             }
             catch (Exception exception)
             {
-                DebugLogger.PostLine(exception.Message, LoggerStatus.Error);
+                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

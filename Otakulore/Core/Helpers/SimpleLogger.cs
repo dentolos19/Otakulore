@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.Diagnostics;
-using Humanizer;
 
-namespace Otakulore.Core
+namespace Otakulore.Core.Helpers
 {
 
-    public class DebugLogger
+    public static class SimpleLogger
     {
 
         private static string Time => $"{DateTime.Now:yyyy-MM-dd @ HH:mm:ss}";

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Otakulore.Core.Kitsu
+namespace Otakulore.Core.Services.Kitsu
 {
 
     public static class KitsuApi

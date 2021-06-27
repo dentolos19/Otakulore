@@ -1,7 +1,7 @@
-﻿using System.Drawing;
+﻿using OpenQA.Selenium.Edge;
+using System.Drawing;
 using System.IO;
 using Windows.Storage;
-using OpenQA.Selenium.Edge;
 
 namespace Otakulore.Core
 {

@@ -1,5 +1,5 @@
 ﻿using Humanizer;
-using Otakulore.Core.Kitsu;
+using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.Models
 {

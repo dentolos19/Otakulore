@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
-using Humanizer;
-using Otakulore.Core.Kitsu;
+﻿using Humanizer;
+using Otakulore.Core.Services.Kitsu;
+using System.ComponentModel;
 
 namespace Otakulore.ViewModels
 {

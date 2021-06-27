@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Kitsu;
+using Otakulore.Models;
+using Otakulore.ViewModels;
+using System;
 using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Kitsu;
-using Otakulore.Models;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {
@@ -15,7 +15,7 @@ namespace Otakulore.Views
     {
 
         private readonly BackgroundWorker _searchWorker;
-        
+
         public SearchView()
         {
             InitializeComponent();

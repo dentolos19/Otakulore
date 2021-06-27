@@ -126,24 +126,23 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Anime\AnimeEpisode.cs" />
-    <Compile Include="Core\Anime\AnimeInfo.cs" />
-    <Compile Include="Core\Anime\AnimeProvider.cs" />
-    <Compile Include="Core\Anime\Providers\AnimeKisaProvider.cs" />
-    <Compile Include="Core\Anime\Providers\FourAnimeProvider.cs" />
-    <Compile Include="Core\Anime\Providers\GogoanimeProvider.cs" />
+    <Compile Include="Core\Services\Anime\AnimeEpisode.cs" />
+    <Compile Include="Core\Services\Anime\AnimeInfo.cs" />
+    <Compile Include="Core\Services\Anime\AnimeProvider.cs" />
+    <Compile Include="Core\Services\Anime\Providers\AnimeKisaProvider.cs" />
+    <Compile Include="Core\Services\Anime\Providers\FourAnimeProvider.cs" />
+    <Compile Include="Core\Services\Anime\Providers\GogoanimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
-    <Compile Include="Core\DebugLogger.cs" />
-    <Compile Include="Core\Kitsu\KitsuApi.cs" />
-    <Compile Include="Core\Kitsu\KitsuData.cs" />
-    <Compile Include="Core\Kitsu\KitsuImage.cs" />
-    <Compile Include="Core\Kitsu\KitsuLinks.cs" />
-    <Compile Include="Core\Kitsu\KitsuMediaAttributes.cs" />
-    <Compile Include="Core\Kitsu\KitsuMediaFormat.cs" />
-    <Compile Include="Core\Kitsu\KitsuResponse.cs" />
-    <Compile Include="Core\Kitsu\KitsuResponses.cs" />
-    <Compile Include="Core\LoggerStatus.cs" />
-    <Compile Include="Core\ObjectDumper.cs" />
+    <Compile Include="Core\Helpers\SimpleLogger.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuApi.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuData.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuImage.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuMediaAttributes.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuMediaFormat.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuResponse.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuResponses.cs" />
+    <Compile Include="Core\Helpers\LoggerStatus.cs" />
+    <Compile Include="Core\Helpers\ObjectDumper.cs" />
     <Compile Include="Core\UserData.cs" />
     <Compile Include="Core\WebDriver.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
@@ -300,7 +299,6 @@
       <Version>5.0.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

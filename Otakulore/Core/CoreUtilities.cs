@@ -31,7 +31,6 @@ namespace Otakulore.Core
                 while ((bytesRead = stream.Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
                 {
                     totalBytesRead += bytesRead;
-
                     if (totalBytesRead != readBuffer.Length)
                         continue;
                     var nextByte = stream.ReadByte();

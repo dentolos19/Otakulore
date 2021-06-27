@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Linq;
 using Windows.System;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Controls;
 
 namespace Otakulore.Views
 {
-    
+
     public sealed partial class MainView
     {
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Otakulore.Core
+namespace Otakulore.Core.Helpers
 {
 
     public enum LoggerStatus
