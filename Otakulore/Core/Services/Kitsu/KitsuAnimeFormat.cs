@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public enum KitsuMediaFormat
+    public enum KitsuAnimeFormat
     {
 
         [EnumMember(Value = "ONA")] [Description("ONA")] Ona,

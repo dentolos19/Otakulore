@@ -35,7 +35,7 @@ namespace Otakulore.Views
 
         private async void ContentWork(object sender, DoWorkEventArgs args)
         {
-            var favorites = new List<KitsuData>();
+            var favorites = new List<KitsuData<KitsuAnimeAttributes>>();
             foreach (var favoriteId in App.Settings.FavoriteList)
                 favorites.Add(await KitsuApi.GetAnimeAsync(favoriteId));
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>

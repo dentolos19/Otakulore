@@ -13,7 +13,12 @@
 
 </div>
 
-This project is currently work-in-progress!
+
+* Has multiple streaming providers
+  * [4Anime](https://4anime.to)
+  * [Gogoanime](https://gogoanime.io) (Outdated)
+  * [Animekisa](https://animekisa.tv)
+* Has a favorite system
 
 ## Screenshots
 

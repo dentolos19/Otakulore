@@ -1,4 +1,6 @@
-﻿using Humanizer;
+﻿using System;
+using Windows.UI.Xaml;
+using Humanizer;
 using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.Models
@@ -7,22 +9,32 @@ namespace Otakulore.Models
     public class ContentItemModel
     {
 
+        public Visibility RatingVisibility { get; set; }
+
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
-        public KitsuData Data { get; set; }
+        public string Synopsis { get; set; }
+        public double Rating { get; set; }
+        public KitsuData<KitsuAnimeAttributes> Data { get; set; }
 
-        public static ContentItemModel CreateModel(KitsuData data)
+        public static ContentItemModel CreateModel(KitsuData<KitsuAnimeAttributes> data)
         {
-            return new ContentItemModel
+            var model = new ContentItemModel
             {
                 ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
                 Title = data.Attributes.CanonicalTitle,
                 Subtitle = $"{data.Attributes.Format.Humanize()} | " +
                            $"{data.Attributes.StartingDate?.Substring(0, 4) ?? "????"} | " +
                            data.Attributes.Status.Humanize(),
+                Synopsis = data.Attributes.Synopsis,
                 Data = data
             };
+            if (double.TryParse(data.Attributes.AverageRating, out var rating))
+                model.Rating = rating / 20;
+            else
+                model.RatingVisibility = Visibility.Collapsed;
+            return model;
         }
 
     }

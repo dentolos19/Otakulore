@@ -31,7 +31,7 @@ namespace Otakulore.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static DetailsViewModel CreateViewModel(KitsuData data)
+        public static DetailsViewModel CreateViewModel(KitsuData<KitsuAnimeAttributes> data)
         {
             return new DetailsViewModel
             {

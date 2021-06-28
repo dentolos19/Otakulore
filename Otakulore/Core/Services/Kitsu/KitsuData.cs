@@ -3,11 +3,11 @@
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public class KitsuData
+    public class KitsuData<T>
     {
 
         [JsonPropertyName("id")] public string Id { get; set; } // int
-        [JsonPropertyName("attributes")] public KitsuMediaAttributes Attributes { get; set; }
+        [JsonPropertyName("attributes")] public T Attributes { get; set; }
 
     }
 

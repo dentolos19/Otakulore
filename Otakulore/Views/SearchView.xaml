@@ -7,7 +7,7 @@
     <Page.DataContext>
         <viewModels:LoadingViewModel/>
     </Page.DataContext>
-    <Grid Margin="10,10,10,10">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>

@@ -11,9 +11,11 @@ using System.Threading;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using NavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
@@ -35,7 +37,7 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (!(args.Parameter is KitsuData data))
+            if (!(args.Parameter is KitsuData<KitsuAnimeAttributes> data))
                 return;
             DataContext = DetailsViewModel.CreateViewModel(data);
             _id = data.Id;
@@ -64,6 +66,31 @@ namespace Otakulore.Views
                 });
             }
             ContentSearchInput.ItemsSource = titles;
+            ThreadPool.QueueUserWorkItem(async _ =>
+            {
+                var genres = await KitsuApi.GetAnimeGenresAsync(_id);
+                if (genres != null && genres.Length > 0)
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        foreach (var genre in genres)
+                        {
+                            GenreStack.Children.Add(new Border
+                            {
+                                Background = (SolidColorBrush)Application.Current.Resources["GenreBackgroundColor"],
+                                CornerRadius = new CornerRadius(10),
+                                Padding = new Thickness(10, 2, 10, 2),
+                                Child = new TextBlock
+                                {
+                                    Text = genre.Attributes.Name,
+                                    Foreground = (SolidColorBrush)Application.Current.Resources["GenreForegroundColor"],
+                                    FontWeight = FontWeights.Bold
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
 
         private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

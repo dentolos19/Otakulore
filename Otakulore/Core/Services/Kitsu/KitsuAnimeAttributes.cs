@@ -4,14 +4,12 @@ using System.Text.Json.Serialization;
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public class KitsuMediaAttributes
+    public class KitsuAnimeAttributes
     {
 
-        [JsonPropertyName("slug")] public string SlugTitle { get; set; }
         [JsonPropertyName("synopsis")] public string Synopsis { get; set; }
         [JsonPropertyName("titles")] public IDictionary<string, string> Titles { get; set; }
         [JsonPropertyName("canonicalTitle")] public string CanonicalTitle { get; set; }
-        [JsonPropertyName("abbreviatedTitles")] public string[] AbbreviatedTitles { get; set; }
         [JsonPropertyName("averageRating")] public string AverageRating { get; set; } // double
         [JsonPropertyName("startDate")] public string StartingDate { get; set; } // DateTime
         [JsonPropertyName("endDate")] public string EndingDate { get; set; } // DateTime
@@ -24,7 +22,7 @@ namespace Otakulore.Core.Services.Kitsu
 
         [JsonPropertyName("showType")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public KitsuMediaFormat Format { get; set; }
+        public KitsuAnimeFormat Format { get; set; }
 
     }
 

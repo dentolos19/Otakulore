@@ -8,11 +8,11 @@
     <Page.DataContext>
         <viewModels:DetailsViewModel/>
     </Page.DataContext>
-    <controls:NavigationView x:Name="NavigationView" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Padding="10,10,10,10" SelectionChanged="SwitchView">
+    <controls:NavigationView x:Name="NavigationView" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Padding="10" SelectionChanged="SwitchView">
         <controls:NavigationView.MenuItems>
             <controls:NavigationViewItem Content="Overview">
                 <controls:NavigationViewItem.Tag>
-                    <Grid Margin="10,10,10,10">
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
@@ -36,7 +36,10 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <ToggleButton x:Name="FavoriteButton" Grid.Row="0" Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Click="UpdateFavorites"/>
-                                <TextBlock Grid.Row="2" Text="{Binding Path=Title}" FontSize="24" FontWeight="Bold"/>
+                                <StackPanel Grid.Row="2" Spacing="2">
+                                    <TextBlock Text="{Binding Path=Title}" FontSize="24" FontWeight="Bold"/>
+                                    <StackPanel x:Name="GenreStack" Orientation="Horizontal" Spacing="5"/>
+                                </StackPanel>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">
@@ -77,7 +80,7 @@
             </controls:NavigationViewItem>
             <controls:NavigationViewItem Content="Watch">
                 <controls:NavigationViewItem.Tag>
-                    <Grid Margin="10,10,10,10">
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>

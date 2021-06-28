@@ -136,9 +136,11 @@
     <Compile Include="Core\Helpers\SimpleLogger.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuApi.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuData.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuEpisodeAttributes.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuGenreAttributes.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuImage.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMediaAttributes.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMediaFormat.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuAnimeAttributes.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuAnimeFormat.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuResponse.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuResponses.cs" />
     <Compile Include="Core\Helpers\LoggerStatus.cs" />
@@ -242,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

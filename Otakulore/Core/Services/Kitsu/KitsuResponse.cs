@@ -3,10 +3,10 @@
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public class KitsuResponse
+    public class KitsuResponse<T>
     {
 
-        [JsonPropertyName("data")] public KitsuData Data { get; set; }
+        [JsonPropertyName("data")] public KitsuData<T> Data { get; set; }
 
     }
 
