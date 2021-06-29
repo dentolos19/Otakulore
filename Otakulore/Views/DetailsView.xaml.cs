@@ -5,6 +5,7 @@ using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -27,11 +28,15 @@ namespace Otakulore.Views
     public sealed partial class DetailsView
     {
 
+        private readonly BackgroundWorker _genreLoader;
+
         private string _id;
 
         public DetailsView()
         {
             InitializeComponent();
+            _genreLoader = new BackgroundWorker();
+            _genreLoader.DoWork += LoadGenres;
             NavigationView.SelectedItem = NavigationView.MenuItems.OfType<NavigationViewItem>().First();
         }
 
@@ -66,31 +71,33 @@ namespace Otakulore.Views
                 });
             }
             ContentSearchInput.ItemsSource = titles;
-            ThreadPool.QueueUserWorkItem(async _ =>
+            _genreLoader.RunWorkerAsync();
+        }
+
+        private async void LoadGenres(object sender, DoWorkEventArgs args)
+        {
+            var genres = await KitsuApi.GetAnimeGenresAsync(_id);
+            if (genres != null && genres.Length > 0)
             {
-                var genres = await KitsuApi.GetAnimeGenresAsync(_id);
-                if (genres != null && genres.Length > 0)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    foreach (var genre in genres)
                     {
-                        foreach (var genre in genres)
+                        GenreStack.Children.Add(new Border
                         {
-                            GenreStack.Children.Add(new Border
+                            Background = (SolidColorBrush)Application.Current.Resources["GenreBackgroundColor"],
+                            CornerRadius = new CornerRadius(10),
+                            Padding = new Thickness(10, 2, 10, 2),
+                            Child = new TextBlock
                             {
-                                Background = (SolidColorBrush)Application.Current.Resources["GenreBackgroundColor"],
-                                CornerRadius = new CornerRadius(10),
-                                Padding = new Thickness(10, 2, 10, 2),
-                                Child = new TextBlock
-                                {
-                                    Text = genre.Attributes.Name,
-                                    Foreground = (SolidColorBrush)Application.Current.Resources["GenreForegroundColor"],
-                                    FontWeight = FontWeights.Bold
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+                                Text = genre.Attributes.Name,
+                                Foreground = (SolidColorBrush)Application.Current.Resources["GenreForegroundColor"],
+                                FontWeight = FontWeights.Bold
+                            }
+                        });
+                    }
+                });
+            }
         }
 
         private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

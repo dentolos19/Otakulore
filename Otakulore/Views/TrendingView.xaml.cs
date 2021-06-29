@@ -13,28 +13,28 @@ namespace Otakulore.Views
     public sealed partial class TrendingView
     {
 
-        private readonly BackgroundWorker _contentWorker;
+        private readonly BackgroundWorker _contentLoader;
 
         public TrendingView()
         {
             InitializeComponent();
-            _contentWorker = new BackgroundWorker();
-            _contentWorker.DoWork += ContentWork;
+            _contentLoader = new BackgroundWorker();
+            _contentLoader.DoWork += LoadContent;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            _contentWorker.RunWorkerAsync();
+            _contentLoader.RunWorkerAsync();
         }
 
-        private async void ContentWork(object sender, DoWorkEventArgs args)
+        private async void LoadContent(object sender, DoWorkEventArgs args)
         {
             var results = await KitsuApi.GetTrendingAnimeAsync();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                ((LoadingViewModel)DataContext).IsLoading = false;
                 foreach (var data in results)
                     ContentList.Items.Add(ContentItemModel.CreateModel(data));
+                ((LoadingViewModel)DataContext).IsLoading = false;
             });
         }
 

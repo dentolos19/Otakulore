@@ -6,8 +6,8 @@
                 <ToolTip>
                     <StackPanel Spacing="2">
                         <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" FontSize="14" FontWeight="Bold"/>
-                        <RatingControl Value="{Binding Path=Rating}" HorizontalAlignment="Left" Visibility="{Binding Path=RatingVisibility}"/>
-                        <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="10"/>
+                        <RatingControl Value="{Binding Path=Rating}" Visibility="{Binding Path=RatingVisibility}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=Synopsis}" Visibility="{Binding Path=SynopsisVisibility}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="10"/>
                     </StackPanel>
                 </ToolTip>
             </ToolTipService.ToolTip>

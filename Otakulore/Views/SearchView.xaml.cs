@@ -14,13 +14,13 @@ namespace Otakulore.Views
     public sealed partial class SearchView
     {
 
-        private readonly BackgroundWorker _searchWorker;
+        private readonly BackgroundWorker _contentLoader;
 
         public SearchView()
         {
             InitializeComponent();
-            _searchWorker = new BackgroundWorker();
-            _searchWorker.DoWork += SearchWork;
+            _contentLoader = new BackgroundWorker();
+            _contentLoader.DoWork += LoadContent;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -28,10 +28,10 @@ namespace Otakulore.Views
             if (!(args.Parameter is string query))
                 return;
             QueryText.Text = query;
-            _searchWorker.RunWorkerAsync(query);
+            _contentLoader.RunWorkerAsync(query);
         }
 
-        private async void SearchWork(object sender, DoWorkEventArgs args)
+        private async void LoadContent(object sender, DoWorkEventArgs args)
         {
             if (!(args.Argument is string query))
                 return;

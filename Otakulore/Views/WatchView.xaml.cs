@@ -3,6 +3,7 @@ using Otakulore.Core.Services.Anime.Providers;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Threading;
 using Windows.Media.Core;
 using Windows.Media.Playback;
