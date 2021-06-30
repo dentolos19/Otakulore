@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
@@ -18,9 +18,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using NavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
-using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
-using NavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs;
 
 namespace Otakulore.Views
 {
@@ -37,7 +34,6 @@ namespace Otakulore.Views
             InitializeComponent();
             _genreLoader = new BackgroundWorker();
             _genreLoader.DoWork += LoadGenres;
-            NavigationView.SelectedItem = NavigationView.MenuItems.OfType<NavigationViewItem>().First();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -85,13 +81,13 @@ namespace Otakulore.Views
                     {
                         GenreStack.Children.Add(new Border
                         {
-                            Background = (SolidColorBrush)Application.Current.Resources["GenreBackgroundColor"],
+                            Background = new SolidColorBrush(Colors.DarkSlateGray),
                             CornerRadius = new CornerRadius(10),
                             Padding = new Thickness(10, 2, 10, 2),
                             Child = new TextBlock
                             {
                                 Text = genre.Attributes.Name,
-                                Foreground = (SolidColorBrush)Application.Current.Resources["GenreForegroundColor"],
+                                Foreground = new SolidColorBrush(Colors.White),
                                 FontWeight = FontWeights.Bold
                             }
                         });
@@ -100,13 +96,10 @@ namespace Otakulore.Views
             }
         }
 
-        private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void TabSwitched(object sender, SelectionChangedEventArgs args)
         {
-            if (!(args.SelectedItem is NavigationViewItem selectedItem))
-                return;
-            if (selectedItem.Content.ToString() == "Watch" && ProviderSelection.SelectedIndex < 0)
+            if (TabControl.SelectedIndex == 1 && ProviderSelection.SelectedIndex < 0)
                 ProviderSelection.SelectedIndex = 0;
-            NavigationView.Content = selectedItem.Tag;
         }
 
         private void UpdateFavorites(object sender, RoutedEventArgs args)
@@ -121,7 +114,6 @@ namespace Otakulore.Views
                 if (App.Settings.FavoriteList.Contains(_id))
                     App.Settings.FavoriteList.Remove(_id);
             }
-
         }
 
         private void ContentSearchEntered(object sender, KeyRoutedEventArgs args)
@@ -131,7 +123,7 @@ namespace Otakulore.Views
             UpdateWatchContent(null, null);
         }
 
-        private void ContentSearchChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        private void ContentProviderSelected(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             if (!(args.SelectedItem is TitleItemModel model))
                 return;
@@ -146,8 +138,8 @@ namespace Otakulore.Views
             var query = ContentSearchInput.Text;
             if (string.IsNullOrEmpty(query))
                 return;
-            var serviceCode = (string)item.Tag;
-            ThreadPool.QueueUserWorkItem(async _ =>
+            var serviceCode = item.Tag.ToString();
+            ThreadPool.QueueUserWorkItem(async _ => // TODO: use backgroundworker instead
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = true);
                 AnimeInfo[] content;

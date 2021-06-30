@@ -6,8 +6,33 @@
     <Application.Resources>
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
-                <ResourceDictionary Source="Colors.xaml"/>
-                <ResourceDictionary Source="Templates.xaml"/>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="ContentItemTemplate">
+                        <Grid Width="200" Padding="5">
+                            <ToolTipService.ToolTip>
+                                <ToolTip>
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" FontSize="14" FontWeight="Bold"/>
+                                        <RatingControl Value="{Binding Path=Rating}" Visibility="{Binding Path=RatingVisibility}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Path=Synopsis}" Visibility="{Binding Path=SynopsisVisibility}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="5"/>
+                                    </StackPanel>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Grid.Row="1" Text="{Binding Path=Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="2" Text="{Binding Path=Subtitle}" TextAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ResourceDictionary>
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
     </Application.Resources>

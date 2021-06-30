@@ -1,11 +1,10 @@
 ﻿using Otakulore.Core;
 using Otakulore.Views;
-using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+
 
 namespace Otakulore
 {
@@ -13,7 +12,7 @@ namespace Otakulore
     public sealed partial class App
     {
 
-        internal static UserData Settings { get; } = UserData.LoadData();
+        internal static UserData Settings { get; set; }
 
         public App()
         {
@@ -23,11 +22,11 @@ namespace Otakulore
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            Settings = UserData.LoadData();
             WebDriver.EnsureDriverExists();
             if (!(Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();
-                rootFrame.NavigationFailed += OnNavigationFailed;
                 Window.Current.Content = rootFrame;
             }
             if (args.PrelaunchActivated)
@@ -36,12 +35,7 @@ namespace Otakulore
                 rootFrame.Navigate(typeof(MainView), args.Arguments);
             Window.Current.Activate();
         }
-
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs args)
-        {
-            throw new Exception("Failed to load Page " + args.SourcePageType.FullName);
-        }
-
+        
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
             var deferral = args.SuspendingOperation.GetDeferral();

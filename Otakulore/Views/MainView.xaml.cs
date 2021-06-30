@@ -14,7 +14,7 @@ namespace Otakulore.Views
         public MainView()
         {
             InitializeComponent();
-            NavigationView.SelectedItem = NavigationView.MenuItems.OfType<NavigationViewItem>().First();
+            NavigationControl.SelectedItem = NavigationControl.MenuItems.OfType<NavigationViewItem>().First();
         }
 
         private void SwitchView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -25,11 +25,12 @@ namespace Otakulore.Views
             }
             else
             {
-                var selectedItem = (NavigationViewItem)args.SelectedItem;
-                var viewType = Type.GetType("Otakulore.Views." + (string)selectedItem.Tag);
-                if (viewType == null)
+                if (!(NavigationControl.SelectedItem is NavigationViewItem item))
                     return;
-                ContentFrame.Navigate(viewType);
+                var type = Type.GetType($"Otakulore.Views.{item.Tag}");
+                if (type == null)
+                    return;
+                ContentFrame.Navigate(type);
             }
         }
 
@@ -51,7 +52,12 @@ namespace Otakulore.Views
 
         private void ViewNavigated(object sender, NavigationEventArgs args)
         {
-            NavigationView.IsBackEnabled = ContentFrame.CanGoBack;
+            NavigationControl.IsBackEnabled = ContentFrame.CanGoBack;
+            if (!(NavigationControl.SelectedItem is NavigationViewItem item))
+                return;
+            var type = Type.GetType($"Otakulore.Views.{item.Tag}");
+            if (args.SourcePageType != type)
+                NavigationControl.SelectedItem = null;
         }
 
     }

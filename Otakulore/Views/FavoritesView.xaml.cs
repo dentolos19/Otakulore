@@ -2,10 +2,7 @@
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

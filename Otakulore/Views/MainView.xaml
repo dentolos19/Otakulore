@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:Microsoft.UI.Xaml.Controls"
       Background="{ThemeResource ResourceKey=ApplicationPageBackgroundThemeBrush}">
-    <controls:NavigationView x:Name="NavigationView" PaneTitle="Otakulore" PaneDisplayMode="Left" IsPaneOpen="False" SelectionChanged="SwitchView" BackRequested="BackView">
+    <controls:NavigationView x:Name="NavigationControl" PaneTitle="Otakulore" PaneDisplayMode="Left" IsPaneOpen="False" SelectionChanged="SwitchView" BackRequested="BackView">
         <controls:NavigationView.AutoSuggestBox>
             <AutoSuggestBox x:Name="SearchInput" PlaceholderText="Search" KeyUp="SearchEntered"/>
         </controls:NavigationView.AutoSuggestBox>

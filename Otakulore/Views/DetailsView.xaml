@@ -8,11 +8,13 @@
     <Page.DataContext>
         <viewModels:DetailsViewModel/>
     </Page.DataContext>
-    <controls:NavigationView x:Name="NavigationView" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Padding="10" SelectionChanged="SwitchView">
-        <controls:NavigationView.MenuItems>
-            <controls:NavigationViewItem Content="Overview">
-                <controls:NavigationViewItem.Tag>
-                    <Grid Margin="10">
+    <controls:TabView x:Name="TabControl" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" SelectionChanged="TabSwitched">
+        <controls:TabView.TabItems>
+            <controls:TabViewItem Header="Overview" IsClosable="False">
+                <controls:TabViewItem.IconSource>
+                    <controls:FontIconSource Glyph="&#xE10F;"/>
+                </controls:TabViewItem.IconSource>
+                <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
@@ -76,11 +78,12 @@
                             </StackPanel>
                         </Grid>
                     </Grid>
-                </controls:NavigationViewItem.Tag>
-            </controls:NavigationViewItem>
-            <controls:NavigationViewItem Content="Watch">
-                <controls:NavigationViewItem.Tag>
-                    <Grid Margin="10">
+            </controls:TabViewItem>
+            <controls:TabViewItem Header="Watch" IsClosable="False">
+                <controls:TabViewItem.IconSource>
+                    <controls:FontIconSource Glyph="&#xE116;"/>
+                </controls:TabViewItem.IconSource>
+                <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
@@ -92,7 +95,7 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <AutoSuggestBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered" SuggestionChosen="ContentSearchChosen">
+                            <AutoSuggestBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered" SuggestionChosen="ContentProviderSelected">
                                 <AutoSuggestBox.ItemTemplate>
                                     <DataTemplate x:DataType="models:TitleItemModel">
                                         <TextBlock Text="{Binding Path=Title}" ToolTipService.ToolTip="{Binding Path=LanguageName}"/>
@@ -128,8 +131,7 @@
                             </ListView>
                         </Grid>
                     </Grid>
-                </controls:NavigationViewItem.Tag>
-            </controls:NavigationViewItem>
-        </controls:NavigationView.MenuItems>
-    </controls:NavigationView>
+            </controls:TabViewItem>
+        </controls:TabView.TabItems>
+    </controls:TabView>
 </Page>
