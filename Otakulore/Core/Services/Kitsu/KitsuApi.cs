@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Otakulore.Core.Services.Kitsu
         private static string GetTrendingAnimeEndpoint => BaseEndpoint + "/trending/anime";
         private static string GetAnimeEndpoint => BaseEndpoint + "/anime/{0}";
         private static string GetAnimeGenresEndpoint => BaseEndpoint + "/anime/{0}/genres";
-        private static string GetAnimeEpisodesEndpoint => BaseEndpoint + "/anime/{0}/episodes";
+        private static string GetAnimeEpisodesEndpoint => BaseEndpoint + "/anime/{0}/episodes?page[limit]=20";
 
         private static HttpClient RestClient => new HttpClient();
 
@@ -59,11 +60,22 @@ namespace Otakulore.Core.Services.Kitsu
 
         public static async Task<KitsuData<KitsuEpisodeAttributes>[]> GetAnimeEpisodesAsync(string id)
         {
-            var response = await RestClient.GetAsync(string.Format(GetAnimeEpisodesEndpoint, id));
-            if (!response.IsSuccessStatusCode)
+            var httpResponse = await RestClient.GetAsync(string.Format(GetAnimeEpisodesEndpoint, id));
+            if (!httpResponse.IsSuccessStatusCode)
                 return null;
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuEpisodeAttributes>>(content).Data;
+            var responseData = JsonSerializer.Deserialize<KitsuResponses<KitsuEpisodeAttributes>>(await httpResponse.Content.ReadAsStringAsync());
+            var episodeList = new List<KitsuData<KitsuEpisodeAttributes>>();
+            AddEpisodes:
+            episodeList.AddRange(responseData.Data);
+            if (!string.IsNullOrEmpty(responseData.Links.NextPaginationUrl))
+            {
+                httpResponse = await RestClient.GetAsync(string.Format(responseData.Links.NextPaginationUrl));
+                if (!httpResponse.IsSuccessStatusCode)
+                    return episodeList.ToArray();
+                responseData = JsonSerializer.Deserialize<KitsuResponses<KitsuEpisodeAttributes>>(await httpResponse.Content.ReadAsStringAsync());
+                goto AddEpisodes;
+            }
+            return episodeList.ToArray();
         }
 
     }

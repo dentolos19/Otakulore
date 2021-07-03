@@ -14,6 +14,10 @@ namespace Otakulore.Views
         public MainView()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs args)
+        {
             NavigationControl.SelectedItem = NavigationControl.MenuItems.OfType<NavigationViewItem>().First();
         }
 

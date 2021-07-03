@@ -9,12 +9,12 @@
         <viewModels:DetailsViewModel/>
     </Page.DataContext>
     <controls:TabView x:Name="TabControl" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent" SelectionChanged="TabSwitched">
-        <controls:TabView.TabItems>
-            <controls:TabViewItem Header="Overview" IsClosable="False">
-                <controls:TabViewItem.IconSource>
-                    <controls:FontIconSource Glyph="&#xE10F;"/>
-                </controls:TabViewItem.IconSource>
-                <Grid Margin="10">
+            <controls:TabView.TabItems>
+                <controls:TabViewItem Header="Overview" IsClosable="False">
+                    <controls:TabViewItem.IconSource>
+                        <controls:FontIconSource Glyph="&#xE10F;"/>
+                    </controls:TabViewItem.IconSource>
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
@@ -78,12 +78,12 @@
                             </StackPanel>
                         </Grid>
                     </Grid>
-            </controls:TabViewItem>
-            <controls:TabViewItem Header="Watch" IsClosable="False">
-                <controls:TabViewItem.IconSource>
-                    <controls:FontIconSource Glyph="&#xE116;"/>
-                </controls:TabViewItem.IconSource>
-                <Grid Margin="10">
+                </controls:TabViewItem>
+                <controls:TabViewItem Header="Watch" IsClosable="False">
+                    <controls:TabViewItem.IconSource>
+                        <controls:FontIconSource Glyph="&#xE116;"/>
+                    </controls:TabViewItem.IconSource>
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
@@ -102,24 +102,24 @@
                                     </DataTemplate>
                                 </AutoSuggestBox.ItemTemplate>
                             </AutoSuggestBox>
-                            <ComboBox x:Name="ProviderSelection" Grid.Column="2" SelectionChanged="UpdateWatchContent">
-                                <ComboBoxItem Content="4Anime" Tag="4a"/>
-                                <ComboBoxItem Content="Gogoanime" Tag="ggo"/>
+                            <ComboBox x:Name="ContentProviderSelection" Grid.Column="2" SelectionChanged="UpdateContent">
                                 <ComboBoxItem Content="AnimeKisa" Tag="ak"/>
+                                <ComboBoxItem Content="Gogoanime" Tag="ggo"/>
+                                <ComboBoxItem Content="4Anime" Tag="4a"/>
                             </ComboBox>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <StackPanel Grid.Row="2">
                             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                            <ListView x:Name="WatchContentList" IsItemClickEnabled="True" ItemClick="WatchSelectedContent">
+                            <ListView x:Name="ContentList" IsItemClickEnabled="True" ItemClick="WatchSelectedContent">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:WatchItemModel">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="50"/>
                                                 <ColumnDefinition Width="10"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Image Grid.Column="0" Width="50">
+                                            <Image Grid.Column="0">
                                                 <Image.Source>
                                                     <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
                                                 </Image.Source>
@@ -129,9 +129,9 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                        </Grid>
+                        </StackPanel>
                     </Grid>
-            </controls:TabViewItem>
-        </controls:TabView.TabItems>
-    </controls:TabView>
+                </controls:TabViewItem>
+            </controls:TabView.TabItems>
+        </controls:TabView>
 </Page>

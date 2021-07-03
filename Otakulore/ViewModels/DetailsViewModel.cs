@@ -35,7 +35,7 @@ namespace Otakulore.ViewModels
         {
             return new DetailsViewModel
             {
-                ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
+                ImageUrl = data.Attributes.PosterImage.ImageUrl,
                 Title = data.Attributes.CanonicalTitle,
                 Synopsis = data.Attributes.Synopsis,
                 Format = data.Attributes.Format.Humanize(),

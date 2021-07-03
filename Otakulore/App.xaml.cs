@@ -2,6 +2,8 @@
 using Otakulore.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -24,6 +26,8 @@ namespace Otakulore
         {
             Settings = UserData.LoadData();
             WebDriver.EnsureDriverExists();
+            ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             if (!(Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();

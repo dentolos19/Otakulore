@@ -12,7 +12,7 @@
                             <ToolTipService.ToolTip>
                                 <ToolTip>
                                     <StackPanel Spacing="2">
-                                        <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" FontWeight="Bold" FontSize="14"/>
                                         <RatingControl Value="{Binding Path=Rating}" Visibility="{Binding Path=RatingVisibility}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding Path=Synopsis}" Visibility="{Binding Path=SynopsisVisibility}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="5"/>
                                     </StackPanel>

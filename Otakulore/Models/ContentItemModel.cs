@@ -22,7 +22,7 @@ namespace Otakulore.Models
         {
             var model = new ContentItemModel
             {
-                ImageUrl = data.Attributes.PosterImage.OriginalImageUrl,
+                ImageUrl = data.Attributes.PosterImage.ImageUrl,
                 Title = data.Attributes.CanonicalTitle,
                 Subtitle = $"{data.Attributes.Format.Humanize()} | " +
                            $"{data.Attributes.StartingDate?.Substring(0, 4) ?? "????"} | " +

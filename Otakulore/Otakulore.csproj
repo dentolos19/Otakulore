@@ -141,6 +141,7 @@
     <Compile Include="Core\Services\Kitsu\KitsuImage.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuAnimeAttributes.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuAnimeFormat.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuLinks.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuResponse.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuResponses.cs" />
     <Compile Include="Core\Helpers\LoggerStatus.cs" />

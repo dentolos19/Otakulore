@@ -9,8 +9,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Settings" FontWeight="Bold" FontSize="24"/>
-        <Grid Grid.Row="2">
-            <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
+        <StackPanel Grid.Row="2">
+           <StackPanel>
+               <TextBlock Text="Show Episode Info"/>
+               <ToggleSwitch x:Name="ShowEpisodeInfoSwitch" Toggled="UpdateSettings"/>
+           </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

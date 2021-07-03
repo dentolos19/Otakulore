@@ -12,7 +12,7 @@ namespace Otakulore.ViewModels
         private bool _isLoading = true;
 
         public string Title { get; set; }
-        public ObservableCollection<EpisodeItemModel> EpisodeList { get; set; } = new ObservableCollection<EpisodeItemModel>();
+        public ObservableCollection<EpisodeItemModel> Episodes { get; set; } = new ObservableCollection<EpisodeItemModel>();
 
         public bool IsLoading
         {

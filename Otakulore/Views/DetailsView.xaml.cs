@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Threading;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
@@ -26,6 +25,7 @@ namespace Otakulore.Views
     {
 
         private readonly BackgroundWorker _genreLoader;
+        private readonly BackgroundWorker _contentLoader;
 
         private string _id;
 
@@ -34,6 +34,8 @@ namespace Otakulore.Views
             InitializeComponent();
             _genreLoader = new BackgroundWorker();
             _genreLoader.DoWork += LoadGenres;
+            _contentLoader = new BackgroundWorker();
+            _contentLoader.DoWork += LoadContent;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -70,7 +72,7 @@ namespace Otakulore.Views
             _genreLoader.RunWorkerAsync();
         }
 
-        private async void LoadGenres(object sender, DoWorkEventArgs args)
+        private async void LoadGenres(object sender, DoWorkEventArgs args) // TODO: redo genres
         {
             var genres = await KitsuApi.GetAnimeGenresAsync(_id);
             if (genres != null && genres.Length > 0)
@@ -96,10 +98,49 @@ namespace Otakulore.Views
             }
         }
 
+        private async void LoadContent(object sender, DoWorkEventArgs args)
+        {
+            if (!(args.Argument is KeyValuePair<string, AnimeProvider> parameters))
+                return;
+            var query = parameters.Key;
+            var provider = parameters.Value;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = true);
+            AnimeInfo[] content = null;
+            switch (provider)
+            {
+                case AnimeProvider.AnimeKisa:
+                    content = AnimeKisaProvider.ScrapeSearchAnime(query);
+                    break;
+                case AnimeProvider.Gogoanime:
+                    content = GogoanimeProvider.ScrapeSearchAnime(query);
+                    break;
+                case AnimeProvider.FourAnime:
+                    content = FourAnimeProvider.ScrapeSearchAnime(query);
+                    break;
+            }
+            if (content != null && content.Length > 0)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ContentList.Items.Clear();
+                    foreach (var channel in content)
+                        ContentList.Items.Add(new WatchItemModel
+                        {
+                            Id = _id,
+                            ImageUrl = channel.ImageUrl,
+                            Title = channel.Title,
+                            EpisodesUrl = channel.EpisodesUrl,
+                            Provider = provider
+                        });
+                });
+            else
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to find available content with the current provider.").ShowAsync());
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = false);
+        }
+
         private void TabSwitched(object sender, SelectionChangedEventArgs args)
         {
-            if (TabControl.SelectedIndex == 1 && ProviderSelection.SelectedIndex < 0)
-                ProviderSelection.SelectedIndex = 0;
+            if (TabControl.SelectedIndex == 1 && ContentProviderSelection.SelectedIndex < 0)
+                ContentProviderSelection.SelectedIndex = 0;
         }
 
         private void UpdateFavorites(object sender, RoutedEventArgs args)
@@ -120,7 +161,7 @@ namespace Otakulore.Views
         {
             if (args.Key != VirtualKey.Enter)
                 return;
-            UpdateWatchContent(null, null);
+            UpdateContent(null, null);
         }
 
         private void ContentProviderSelected(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
@@ -128,67 +169,34 @@ namespace Otakulore.Views
             if (!(args.SelectedItem is TitleItemModel model))
                 return;
             sender.Text = model.Title;
-            UpdateWatchContent(null, null);
+            UpdateContent(null, null);
         }
 
-        private void UpdateWatchContent(object sender, SelectionChangedEventArgs args)
+        private async void UpdateContent(object sender, SelectionChangedEventArgs args)
         {
-            if (!(ProviderSelection.SelectedItem is ComboBoxItem item))
+            if (!(ContentProviderSelection.SelectedItem is ComboBoxItem item))
                 return;
             var query = ContentSearchInput.Text;
             if (string.IsNullOrEmpty(query))
                 return;
-            var serviceCode = item.Tag.ToString();
-            ThreadPool.QueueUserWorkItem(async _ => // TODO: use backgroundworker instead
+            AnimeProvider provider;
+            switch (item.Tag.ToString())
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = true);
-                AnimeInfo[] content;
-                AnimeProvider provider;
-                if (serviceCode == "4a")
-                {
-                    content = FourAnimeProvider.ScrapeSearchAnime(query);
-                    provider = AnimeProvider.FourAnime;
-                }
-                else if (serviceCode == "ggo")
-                {
-                    content = GogoanimeProvider.ScrapeSearchAnime(query);
-                    provider = AnimeProvider.Gogoanime;
-                }
-                else if (serviceCode == "ak")
-                {
-                    content = AnimeKisaProvider.ScrapeSearchAnime(query);
+                case "ak":
                     provider = AnimeProvider.AnimeKisa;
-                }
-                else
-                {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                    {
-                        ((DetailsViewModel)DataContext).IsLoading = false;
-                        await new MessageDialog("The selected provider is unavailable.").ShowAsync();
-                    });
+                    break;
+                case "ggo":
+                    provider = AnimeProvider.Gogoanime;
+                    break;
+                case "4a":
+                    provider = AnimeProvider.FourAnime;
+                    break;
+                default:
+                    ((DetailsViewModel)DataContext).IsLoading = false;
+                    await new MessageDialog("The selected provider is unavailable.").ShowAsync();
                     return;
-                }
-                if (content != null && content.Length > 0)
-                {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        WatchContentList.Items.Clear();
-                        foreach (var channel in content)
-                            WatchContentList.Items.Add(new WatchItemModel
-                            {
-                                ImageUrl = channel.ImageUrl,
-                                Title = channel.Title,
-                                EpisodesUrl = channel.EpisodesUrl,
-                                Provider = provider
-                            });
-                    });
-                }
-                else
-                {
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to find available content with the current provider.").ShowAsync());
-                }
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = false);
-            });
+            }
+            _contentLoader.RunWorkerAsync(new KeyValuePair<string, AnimeProvider>(query, provider));
         }
 
         private void WatchSelectedContent(object sender, ItemClickEventArgs args)

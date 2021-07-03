@@ -33,7 +33,7 @@ namespace Otakulore.Views
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => ContentList.Items.Add(ContentItemModel.CreateModel(await KitsuApi.GetAnimeAsync(favoriteId))));
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = false);
         }
-
+        
         private void ShowDetails(object sender, ItemClickEventArgs args)
         {
             if (args.ClickedItem is ContentItemModel model)

@@ -3,7 +3,7 @@ using Otakulore.Core.Services.Anime.Providers;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
-using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using Windows.Media.Core;
 using Windows.Media.Playback;
@@ -11,6 +11,7 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.Views
 {
@@ -25,37 +26,34 @@ namespace Otakulore.Views
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs args)
+        protected override async void OnNavigatedTo(NavigationEventArgs args)
         {
             if (!(args.Parameter is WatchItemModel model))
                 return;
             _provider = model.Provider;
             DataContext = WatchViewModel.CreateViewModel(model);
+            KitsuData<KitsuEpisodeAttributes>[] episodeInfoList = null;
+            if (App.Settings.ShowEpisodeInfo)
+                episodeInfoList = await KitsuApi.GetAnimeEpisodesAsync(model.Id);
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                AnimeEpisode[] episodes = null;
+                AnimeEpisode[] episodeList = null;
                 if (model.Provider == AnimeProvider.FourAnime)
-                    episodes = FourAnimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
+                    episodeList = FourAnimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
                 else if (model.Provider == AnimeProvider.Gogoanime)
-                    episodes = GogoanimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
+                    episodeList = GogoanimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
                 else if (model.Provider == AnimeProvider.AnimeKisa)
-                    episodes = AnimeKisaProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
-                if (episodes != null && episodes.Length > 0)
+                    episodeList = AnimeKisaProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
+                if (episodeList != null && episodeList.Length > 0)
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        foreach (var episode in episodes)
+                        foreach (var episode in episodeList)
                         {
-                            var episodeName = "Episode ";
-                            if (episode.EpisodeNumber == null)
-                                episodeName += "Unknown";
-                            else
-                                episodeName += episode.EpisodeNumber;
-                            ((WatchViewModel)DataContext).EpisodeList.Add(new EpisodeItemModel
-                            {
-                                EpisodeName = episodeName,
-                                WatchUrl = episode.WatchUrl
-                            });
+                            KitsuEpisodeAttributes episodeAttributes = null;
+                            if (episodeInfoList != null)
+                                episodeAttributes = episodeInfoList.FirstOrDefault(data => data.Attributes.Episode == episode.EpisodeNumber)?.Attributes;
+                            ((WatchViewModel)DataContext).Episodes.Add(EpisodeItemModel.CreateModel(episode, episodeAttributes));
                         }
                     });
                 }
@@ -98,13 +96,9 @@ namespace Otakulore.Views
                 else if (_provider == AnimeProvider.AnimeKisa)
                     videoUrl = AnimeKisaProvider.ScrapeVideoUrl(model.WatchUrl);
                 if (!string.IsNullOrEmpty(videoUrl))
-                {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(videoUrl)) }));
-                }
                 else
-                {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to scrape episodes with the current provider.").ShowAsync());
-                }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((WatchViewModel)DataContext).IsLoading = false);
             });
         }

@@ -3,7 +3,7 @@
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public class KitsuEpisodeAttributes // TODO: implement episodes info into watching view
+    public class KitsuEpisodeAttributes
     {
 
         [JsonPropertyName("synopsis")] public string Synopsis { get; set; }
@@ -11,7 +11,7 @@ namespace Otakulore.Core.Services.Kitsu
         [JsonPropertyName("seasonNumber")] public int Season { get; set; }
         [JsonPropertyName("number")] public int Episode { get; set; }
         [JsonPropertyName("airDate")] public string AirDate { get; set; } // DateTime
-        [JsonPropertyName("length")] public int Length { get; set; }
+        [JsonPropertyName("thumbnail")] public KitsuImage Thumbnail { get; set; }
 
     }
 

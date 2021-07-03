@@ -1,5 +1,5 @@
 ﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Otakulore.Views
 {
@@ -10,6 +10,16 @@ namespace Otakulore.Views
         public SettingsView()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs args)
+        {
+            ShowEpisodeInfoSwitch.IsOn = App.Settings.ShowEpisodeInfo;
+        }
+
+        private void UpdateSettings(object sender, RoutedEventArgs args)
+        {
+            App.Settings.ShowEpisodeInfo = ShowEpisodeInfoSwitch.IsOn;
         }
 
     }
