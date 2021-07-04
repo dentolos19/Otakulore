@@ -31,7 +31,7 @@ namespace Otakulore.Views
             {
                 if (!(NavigationControl.SelectedItem is NavigationViewItem item))
                     return;
-                var type = Type.GetType($"Otakulore.Views.{item.Tag}");
+                var type = Type.GetType("Otakulore.Views." + item.Tag);
                 if (type == null)
                     return;
                 ContentFrame.Navigate(type);

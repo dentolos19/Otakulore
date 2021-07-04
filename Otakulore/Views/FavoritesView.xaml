@@ -7,14 +7,13 @@
     <Page.DataContext>
         <viewModels:LoadingViewModel/>
     </Page.DataContext>
-    <Grid Margin="10">
+    <Grid Margin="10" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Favorites" FontWeight="Bold" FontSize="24"/>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
             <GridView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
         </Grid>

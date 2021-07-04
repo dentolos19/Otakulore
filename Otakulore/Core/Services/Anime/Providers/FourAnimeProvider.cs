@@ -6,13 +6,16 @@ using System.Collections.Generic;
 namespace Otakulore.Core.Services.Anime.Providers
 {
 
-    public static class FourAnimeProvider
+    public class FourAnimeProvider : IAnimeProvider
     {
+
+        public string ProviderId => "4ato";
+        public string ProviderName => "4anime.to";
 
         private static string BaseEndpoint => "https://4anime.to";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/?s={0}";
 
-        public static AnimeInfo[] ScrapeSearchAnime(string query)
+        public AnimeInfo[] ScrapeAnimes(string query)
         {
             try
             {
@@ -37,12 +40,12 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
 
-        public static AnimeEpisode[] ScrapeAnimeEpisodes(string url)
+        public AnimeEpisode[] ScrapeAnimeEpisodes(string url)
         {
             try
             {
@@ -69,12 +72,12 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
 
-        public static string ScrapeVideoUrl(string url)
+        public string ScrapeEpisodeSource(string url)
         {
             try
             {
@@ -84,7 +87,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

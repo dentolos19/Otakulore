@@ -1,5 +1,4 @@
 ﻿using Otakulore.Core.Services.Anime;
-using Otakulore.Core.Services.Anime.Providers;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
@@ -19,7 +18,7 @@ namespace Otakulore.Views
     public sealed partial class WatchView
     {
 
-        private AnimeProvider _provider;
+        private IAnimeProvider _provider;
 
         public WatchView()
         {
@@ -37,13 +36,7 @@ namespace Otakulore.Views
                 episodeInfoList = await KitsuApi.GetAnimeEpisodesAsync(model.Id);
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                AnimeEpisode[] episodeList = null;
-                if (model.Provider == AnimeProvider.FourAnime)
-                    episodeList = FourAnimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
-                else if (model.Provider == AnimeProvider.Gogoanime)
-                    episodeList = GogoanimeProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
-                else if (model.Provider == AnimeProvider.AnimeKisa)
-                    episodeList = AnimeKisaProvider.ScrapeAnimeEpisodes(model.EpisodesUrl);
+                var episodeList = model.Provider.ScrapeAnimeEpisodes(model.EpisodesUrl);
                 if (episodeList != null && episodeList.Length > 0)
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -88,15 +81,9 @@ namespace Otakulore.Views
             ((WatchViewModel)DataContext).IsLoading = true;
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                string videoUrl = null;
-                if (_provider == AnimeProvider.FourAnime)
-                    videoUrl = FourAnimeProvider.ScrapeVideoUrl(model.WatchUrl);
-                else if (_provider == AnimeProvider.Gogoanime)
-                    videoUrl = GogoanimeProvider.ScrapeVideoUrl(model.WatchUrl);
-                else if (_provider == AnimeProvider.AnimeKisa)
-                    videoUrl = AnimeKisaProvider.ScrapeVideoUrl(model.WatchUrl);
-                if (!string.IsNullOrEmpty(videoUrl))
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(videoUrl)) }));
+                var episodeSource = _provider.ScrapeEpisodeSource(model.WatchUrl);
+                if (!string.IsNullOrEmpty(episodeSource))
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(episodeSource)) }));
                 else
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to scrape episodes with the current provider.").ShowAsync());
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((WatchViewModel)DataContext).IsLoading = false);

@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace Otakulore.Core.Helpers
 {
 
-    public static class SimpleLogger
+    public static class LogPoster
     {
 
         private static string Time => $"{DateTime.Now:yyyy-MM-dd @ HH:mm:ss}";

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
@@ -17,6 +18,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Otakulore.Core;
 
 namespace Otakulore.Views
 {
@@ -45,7 +47,7 @@ namespace Otakulore.Views
             DataContext = DetailsViewModel.CreateViewModel(data);
             _id = data.Id;
             FavoriteButton.IsChecked = App.Settings.FavoriteList.Contains(_id);
-            ContentSearchInput.Text = data.Attributes.CanonicalTitle;
+            SearchInput.Text = data.Attributes.CanonicalTitle;
             var titles = new List<TitleItemModel>();
             foreach (var (languageCode, title) in data.Attributes.Titles)
             {
@@ -68,7 +70,16 @@ namespace Otakulore.Views
                     Title = title
                 });
             }
-            ContentSearchInput.ItemsSource = titles;
+            SearchInput.ItemsSource = titles;
+            foreach (var provider in CoreUtilities.GetAnimeProviders())
+            {
+                var providerItem = new ComboBoxItem
+                {
+                    Content = provider.ProviderName,
+                    Tag = provider
+                };
+                ProviderSelection.Items.Add(providerItem);
+            }
             _genreLoader.RunWorkerAsync();
         }
 
@@ -100,24 +111,12 @@ namespace Otakulore.Views
 
         private async void LoadContent(object sender, DoWorkEventArgs args)
         {
-            if (!(args.Argument is KeyValuePair<string, AnimeProvider> parameters))
+            if (!(args.Argument is KeyValuePair<string, IAnimeProvider> parameters))
                 return;
             var query = parameters.Key;
             var provider = parameters.Value;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((DetailsViewModel)DataContext).IsLoading = true);
-            AnimeInfo[] content = null;
-            switch (provider)
-            {
-                case AnimeProvider.AnimeKisa:
-                    content = AnimeKisaProvider.ScrapeSearchAnime(query);
-                    break;
-                case AnimeProvider.Gogoanime:
-                    content = GogoanimeProvider.ScrapeSearchAnime(query);
-                    break;
-                case AnimeProvider.FourAnime:
-                    content = FourAnimeProvider.ScrapeSearchAnime(query);
-                    break;
-            }
+            var content = provider.ScrapeAnimes(query);
             if (content != null && content.Length > 0)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -139,8 +138,8 @@ namespace Otakulore.Views
 
         private void TabSwitched(object sender, SelectionChangedEventArgs args)
         {
-            if (TabControl.SelectedIndex == 1 && ContentProviderSelection.SelectedIndex < 0)
-                ContentProviderSelection.SelectedIndex = 0;
+            if (TabControl.SelectedIndex == 1 && ProviderSelection.SelectedIndex < 0)
+                ProviderSelection.SelectedItem = ProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).ProviderId == App.Settings.DefaultAnimeProvider);
         }
 
         private void UpdateFavorites(object sender, RoutedEventArgs args)
@@ -157,7 +156,7 @@ namespace Otakulore.Views
             }
         }
 
-        private void ContentSearchEntered(object sender, KeyRoutedEventArgs args)
+        private void SearchEntered(object sender, KeyRoutedEventArgs args)
         {
             if (args.Key != VirtualKey.Enter)
                 return;
@@ -174,32 +173,23 @@ namespace Otakulore.Views
 
         private async void UpdateContent(object sender, SelectionChangedEventArgs args)
         {
-            if (!(ContentProviderSelection.SelectedItem is ComboBoxItem item))
+            if (!(ProviderSelection.SelectedItem is ComboBoxItem item))
                 return;
-            var query = ContentSearchInput.Text;
+            var query = SearchInput.Text;
             if (string.IsNullOrEmpty(query))
                 return;
-            AnimeProvider provider;
-            switch (item.Tag.ToString())
+            if (item.Tag is IAnimeProvider provider)
             {
-                case "ak":
-                    provider = AnimeProvider.AnimeKisa;
-                    break;
-                case "ggo":
-                    provider = AnimeProvider.Gogoanime;
-                    break;
-                case "4a":
-                    provider = AnimeProvider.FourAnime;
-                    break;
-                default:
-                    ((DetailsViewModel)DataContext).IsLoading = false;
-                    await new MessageDialog("The selected provider is unavailable.").ShowAsync();
-                    return;
+                _contentLoader.RunWorkerAsync(new KeyValuePair<string, IAnimeProvider>(query, provider));
             }
-            _contentLoader.RunWorkerAsync(new KeyValuePair<string, AnimeProvider>(query, provider));
+            else
+            {
+                ((DetailsViewModel)DataContext).IsLoading = false;
+                await new MessageDialog("The selected provider is unavailable.").ShowAsync();
+            }
         }
 
-        private void WatchSelectedContent(object sender, ItemClickEventArgs args)
+        private void WatchContent(object sender, ItemClickEventArgs args)
         {
             if (args.ClickedItem is WatchItemModel model)
                 Frame.Navigate(typeof(WatchView), model);

@@ -14,16 +14,14 @@
                     <controls:TabViewItem.IconSource>
                         <controls:FontIconSource Glyph="&#xE10F;"/>
                     </controls:TabViewItem.IconSource>
-                    <Grid Margin="10">
+                    <Grid Margin="10" RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="10"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" ColumnSpacing="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0">
@@ -31,7 +29,7 @@
                                     <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
                                 </Image.Source>
                             </Image>
-                            <Grid Grid.Column="2">
+                            <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
@@ -44,10 +42,9 @@
                                 </StackPanel>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="1" ColumnSpacing="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Spacing="5">
@@ -72,7 +69,7 @@
                                     <TextBlock Text="{Binding Path=EndingDate}"/>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel Grid.Column="2" Spacing="5">
+                            <StackPanel Grid.Column="1" Spacing="5">
                                 <TextBlock Text="Synopsis" FontWeight="Bold"/>
                                 <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap"/>
                             </StackPanel>
@@ -83,53 +80,42 @@
                     <controls:TabViewItem.IconSource>
                         <controls:FontIconSource Glyph="&#xE116;"/>
                     </controls:TabViewItem.IconSource>
-                    <Grid Margin="10">
+                    <Grid Margin="10" RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="10"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" ColumnSpacing="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <AutoSuggestBox x:Name="ContentSearchInput" Grid.Column="0" KeyUp="ContentSearchEntered" SuggestionChosen="ContentProviderSelected">
+                            <AutoSuggestBox x:Name="SearchInput" Grid.Column="0" KeyUp="SearchEntered" SuggestionChosen="ContentProviderSelected">
                                 <AutoSuggestBox.ItemTemplate>
                                     <DataTemplate x:DataType="models:TitleItemModel">
                                         <TextBlock Text="{Binding Path=Title}" ToolTipService.ToolTip="{Binding Path=LanguageName}"/>
                                     </DataTemplate>
                                 </AutoSuggestBox.ItemTemplate>
                             </AutoSuggestBox>
-                            <ComboBox x:Name="ContentProviderSelection" Grid.Column="2" SelectionChanged="UpdateContent">
-                                <ComboBoxItem Content="AnimeKisa" Tag="ak"/>
-                                <ComboBoxItem Content="Gogoanime" Tag="ggo"/>
-                                <ComboBoxItem Content="4Anime" Tag="4a"/>
-                            </ComboBox>
+                            <ComboBox Grid.Column="1" x:Name="ProviderSelection" SelectionChanged="UpdateContent"/>
                         </Grid>
-                        <StackPanel Grid.Row="2">
+                        <Grid Grid.Row="1">
                             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                            <ListView x:Name="ContentList" IsItemClickEnabled="True" ItemClick="WatchSelectedContent">
+                            <ListView x:Name="ContentList" IsItemClickEnabled="True" ItemClick="WatchContent">
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:WatchItemModel">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="50"/>
-                                                <ColumnDefinition Width="10"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Image Grid.Column="0">
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <Image Width="50">
                                                 <Image.Source>
                                                     <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
                                                 </Image.Source>
                                             </Image>
-                                            <TextBlock Grid.Column="2" Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
-                                        </Grid>
+                                            <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                        </StackPanel>
+                        </Grid>
                     </Grid>
                 </controls:TabViewItem>
             </controls:TabView.TabItems>

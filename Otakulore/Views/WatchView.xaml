@@ -10,10 +10,9 @@
     </Page.DataContext>
     <Grid>
         <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-        <Grid Margin="10">
+        <Grid Margin="10" RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="10"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -46,7 +45,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <MediaPlayerElement x:Name="MediaElement" Grid.Row="2" AutoPlay="True" AreTransportControlsEnabled="True">
+            <MediaPlayerElement Grid.Row="1" x:Name="MediaElement" AutoPlay="True" AreTransportControlsEnabled="True">
                 <MediaPlayerElement.TransportControls>
                     <MediaTransportControls IsZoomButtonVisible="False" IsSkipBackwardButtonVisible="True" IsSkipForwardButtonVisible="True" IsSkipBackwardEnabled="True" IsSkipForwardEnabled="True"/>
                 </MediaPlayerElement.TransportControls>

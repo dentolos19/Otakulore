@@ -128,12 +128,12 @@
     </Compile>
     <Compile Include="Core\Services\Anime\AnimeEpisode.cs" />
     <Compile Include="Core\Services\Anime\AnimeInfo.cs" />
-    <Compile Include="Core\Services\Anime\AnimeProvider.cs" />
+    <Compile Include="Core\Services\Anime\IAnimeProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\AnimeKisaProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\FourAnimeProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\GogoanimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
-    <Compile Include="Core\Helpers\SimpleLogger.cs" />
+    <Compile Include="Core\Helpers\LogPoster.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuApi.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuData.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuEpisodeAttributes.cs" />

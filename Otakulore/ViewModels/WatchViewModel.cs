@@ -30,7 +30,7 @@ namespace Otakulore.ViewModels
         {
             return new WatchViewModel
             {
-                Title = model.Title + " | " + model.Provider.Humanize()
+                Title = model.Title + " | " + model.Provider.ProviderName
             };
         }
 

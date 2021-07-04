@@ -6,13 +6,16 @@ using System.Collections.Generic;
 namespace Otakulore.Core.Services.Anime.Providers
 {
 
-    public class AnimeKisaProvider
+    public class AnimeKisaProvider : IAnimeProvider
     {
+
+        public string ProviderId => "aktv";
+        public string ProviderName => "animekisa.tv";
 
         private static string BaseEndpoint => "https://animekisa.tv";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/search?q={0}";
 
-        public static AnimeInfo[] ScrapeSearchAnime(string query)
+        public AnimeInfo[] ScrapeAnimes(string query)
         {
             try
             {
@@ -40,12 +43,12 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
 
-        public static AnimeEpisode[] ScrapeAnimeEpisodes(string url)
+        public AnimeEpisode[] ScrapeAnimeEpisodes(string url)
         {
             try
             {
@@ -70,12 +73,12 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
 
-        public static string ScrapeVideoUrl(string url)
+        public string ScrapeEpisodeSource(string url)
         {
             try
             {
@@ -85,7 +88,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

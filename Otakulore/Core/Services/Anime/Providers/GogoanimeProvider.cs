@@ -6,13 +6,16 @@ using System.Collections.Generic;
 namespace Otakulore.Core.Services.Anime.Providers
 {
 
-    public static class GogoanimeProvider
+    public class GogoanimeProvider : IAnimeProvider
     {
+
+        public string ProviderId => "ggoai";
+        public string ProviderName => "gogoanime.ai";
 
         private static string BaseEndpoint => "https://www1.gogoanime.ai";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/search.html?keyword={0}";
 
-        public static AnimeInfo[] ScrapeSearchAnime(string query)
+        public AnimeInfo[] ScrapeAnimes(string query)
         {
             try
             {
@@ -35,12 +38,12 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
 
-        public static AnimeEpisode[] ScrapeAnimeEpisodes(string url)
+        public AnimeEpisode[] ScrapeAnimeEpisodes(string url)
         {
             try
             {
@@ -80,12 +83,12 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
 
-        public static string ScrapeVideoUrl(string url)
+        public string ScrapeEpisodeSource(string url)
         {
             try
             {
@@ -95,7 +98,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                SimpleLogger.PostLine(exception.Message, LoggerStatus.Error);
+                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

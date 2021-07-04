@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Otakulore.Core.Services.Anime;
 
 namespace Otakulore.Core
 {
@@ -59,6 +61,28 @@ namespace Otakulore.Core
         public static Stream GetResourceStream(string fileName)
         {
             return Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
+        }
+
+        public static IAnimeProvider GetAnimeProvider(string providerId)
+        {
+            var providers = GetAnimeProviders();
+            foreach (var provider in providers)
+                if (provider.ProviderId == providerId)
+                    return provider;
+            return null;
+        }
+
+        public static IAnimeProvider[] GetAnimeProviders()
+        {
+            var providerList = new List<IAnimeProvider>();
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (type.GetInterface(nameof(IAnimeProvider)) == null)
+                    continue;
+                var provider = (IAnimeProvider)Activator.CreateInstance(type);
+                providerList.Add(provider);
+            }
+            return providerList.ToArray();
         }
 
     }

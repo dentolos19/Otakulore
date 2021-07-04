@@ -8,29 +8,24 @@
             <controls:XamlControlsResources.MergedDictionaries>
                 <ResourceDictionary>
                     <DataTemplate x:Key="ContentItemTemplate">
-                        <Grid Width="200" Padding="5">
+                        <StackPanel Width="200" Padding="5">
                             <ToolTipService.ToolTip>
                                 <ToolTip>
                                     <StackPanel Spacing="2">
-                                        <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" FontWeight="Bold" FontSize="14"/>
+                                        <TextBlock Text="{Binding Path=Title}" TextWrapping="Wrap" FontWeight="Bold" FontSize="16"/>
                                         <RatingControl Value="{Binding Path=Rating}" Visibility="{Binding Path=RatingVisibility}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding Path=Synopsis}" Visibility="{Binding Path=SynopsisVisibility}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="5"/>
                                     </StackPanel>
                                 </ToolTip>
                             </ToolTipService.ToolTip>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Image Grid.Row="0">
+                            <Image Height="200">
                                 <Image.Source>
                                     <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
                                 </Image.Source>
                             </Image>
-                            <TextBlock Grid.Row="1" Text="{Binding Path=Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontWeight="Bold"/>
-                            <TextBlock Grid.Row="2" Text="{Binding Path=Subtitle}" TextAlignment="Center"/>
-                        </Grid>
+                            <TextBlock Text="{Binding Path=Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Path=Subtitle}" TextAlignment="Center"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ResourceDictionary>
             </controls:XamlControlsResources.MergedDictionaries>
