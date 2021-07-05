@@ -5,7 +5,11 @@
       Background="{ThemeResource ResourceKey=ApplicationPageBackgroundThemeBrush}">
     <controls:NavigationView x:Name="NavigationControl" PaneTitle="Otakulore" PaneDisplayMode="Left" IsPaneOpen="False" SelectionChanged="SwitchView" BackRequested="BackView">
         <controls:NavigationView.AutoSuggestBox>
-            <AutoSuggestBox x:Name="SearchInput" PlaceholderText="Search" KeyUp="SearchEntered"/>
+            <AutoSuggestBox x:Name="SearchInput" PlaceholderText="Search" QuerySubmitted="SearchEntered">
+                <AutoSuggestBox.QueryIcon>
+                    <FontIcon Glyph="&#xE721;"/>
+                </AutoSuggestBox.QueryIcon>
+            </AutoSuggestBox>
         </controls:NavigationView.AutoSuggestBox>
         <controls:NavigationView.MenuItems>
             <controls:NavigationViewItem Content="Trending" Tag="TrendingView">

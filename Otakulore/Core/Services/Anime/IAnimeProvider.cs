@@ -4,8 +4,8 @@
     public interface IAnimeProvider
     {
 
-        string ProviderId { get; }
-        string ProviderName { get; }
+        string Id { get; }
+        string Name { get; }
 
         AnimeInfo[] ScrapeAnimes(string query);
         AnimeEpisode[] ScrapeAnimeEpisodes(string url);

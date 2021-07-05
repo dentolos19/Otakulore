@@ -46,7 +46,7 @@ namespace Otakulore.Views
                             KitsuEpisodeAttributes episodeAttributes = null;
                             if (episodeInfoList != null)
                                 episodeAttributes = episodeInfoList.FirstOrDefault(data => data.Attributes.Episode == episode.EpisodeNumber)?.Attributes;
-                            ((WatchViewModel)DataContext).Episodes.Add(EpisodeItemModel.CreateModel(episode, episodeAttributes));
+                            ((WatchViewModel)DataContext).EpisodeList.Add(EpisodeItemModel.CreateModel(episode, episodeAttributes));
                         }
                     });
                 }

@@ -9,8 +9,8 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class FourAnimeProvider : IAnimeProvider
     {
 
-        public string ProviderId => "4ato";
-        public string ProviderName => "4anime.to";
+        public string Id => "4ato";
+        public string Name => "4anime.to";
 
         private static string BaseEndpoint => "https://4anime.to";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/?s={0}";
@@ -40,7 +40,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -72,7 +72,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -87,7 +87,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

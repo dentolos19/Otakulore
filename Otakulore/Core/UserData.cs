@@ -12,7 +12,7 @@ namespace Otakulore.Core
 
         private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "userdata.json");
 
-        public string DefaultAnimeProvider { get; set; } = new AnimeKisaProvider().ProviderId;
+        public string DefaultAnimeProvider { get; set; } = new AnimeKisaProvider().Id;
         public bool ShowEpisodeInfo { get; set; } = true;
 
         public List<string> FavoriteList { get; set; } = new List<string>();

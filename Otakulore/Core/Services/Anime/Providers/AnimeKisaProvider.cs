@@ -9,8 +9,8 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class AnimeKisaProvider : IAnimeProvider
     {
 
-        public string ProviderId => "aktv";
-        public string ProviderName => "animekisa.tv";
+        public string Id => "aktv";
+        public string Name => "animekisa.tv";
 
         private static string BaseEndpoint => "https://animekisa.tv";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/search?q={0}";
@@ -43,7 +43,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -73,7 +73,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -88,7 +88,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

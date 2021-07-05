@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using Otakulore.Models;
+﻿using Otakulore.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -12,7 +11,7 @@ namespace Otakulore.ViewModels
         private bool _isLoading = true;
 
         public string Title { get; set; }
-        public ObservableCollection<EpisodeItemModel> Episodes { get; set; } = new ObservableCollection<EpisodeItemModel>();
+        public ObservableCollection<EpisodeItemModel> EpisodeList { get; set; } = new ObservableCollection<EpisodeItemModel>();
 
         public bool IsLoading
         {
@@ -30,7 +29,7 @@ namespace Otakulore.ViewModels
         {
             return new WatchViewModel
             {
-                Title = model.Title + " | " + model.Provider.ProviderName
+                Title = model.Title + " | " + model.Provider.Name
             };
         }
 

@@ -18,7 +18,7 @@ namespace Otakulore.ViewModels
         public string Episodes { get; set; }
         public string StartingDate { get; set; }
         public string EndingDate { get; set; }
-
+        
         public bool IsLoading
         {
             get => _isLoading;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using Otakulore.Core.Services.Anime;
 
@@ -10,15 +9,29 @@ namespace Otakulore.Core
     public static class CoreUtilities
     {
 
-        public static string GetStringBetween(this string @string, string fromString, string toString)
+        public static IAnimeProvider[] GetAnimeProviders()
         {
-            var fromIndex = @string.IndexOf(fromString) + fromString.Length;
-            @string = @string.Substring(fromIndex);
-            return @string.Remove(@string.IndexOf(toString));
+            var providerList = new List<IAnimeProvider>();
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (type.GetInterface(nameof(IAnimeProvider)) == null)
+                    continue;
+                var provider = (IAnimeProvider)Activator.CreateInstance(type);
+                providerList.Add(provider);
+            }
+            return providerList.ToArray();
         }
 
-        public static byte[] ToByteArray(this Stream stream)
+        public static string GetResourceString(string stringName)
         {
+            return Windows.ApplicationModel.Resources.ResourceLoader.GetForCurrentView().GetString(stringName);
+        }
+
+        public static byte[] GetResourceStreamAsByteArray(string fileName)
+        {
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
+            if (stream == null)
+                return null;
             long originalPosition = 0;
             if (stream.CanSeek)
             {
@@ -36,7 +49,7 @@ namespace Otakulore.Core
                     if (totalBytesRead != readBuffer.Length)
                         continue;
                     var nextByte = stream.ReadByte();
-                    if (nextByte == -1)
+                    if (nextByte <= -1)
                         continue;
                     var temp = new byte[readBuffer.Length * 2];
                     Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
@@ -58,31 +71,11 @@ namespace Otakulore.Core
             }
         }
 
-        public static Stream GetResourceStream(string fileName)
+        public static string GetStringBetween(this string @string, string fromString, string toString)
         {
-            return Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
-        }
-
-        public static IAnimeProvider GetAnimeProvider(string providerId)
-        {
-            var providers = GetAnimeProviders();
-            foreach (var provider in providers)
-                if (provider.ProviderId == providerId)
-                    return provider;
-            return null;
-        }
-
-        public static IAnimeProvider[] GetAnimeProviders()
-        {
-            var providerList = new List<IAnimeProvider>();
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                if (type.GetInterface(nameof(IAnimeProvider)) == null)
-                    continue;
-                var provider = (IAnimeProvider)Activator.CreateInstance(type);
-                providerList.Add(provider);
-            }
-            return providerList.ToArray();
+            var fromIndex = @string.IndexOf(fromString) + fromString.Length;
+            @string = @string.Substring(fromIndex);
+            return @string.Remove(@string.IndexOf(toString));
         }
 
     }

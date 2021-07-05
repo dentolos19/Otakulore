@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
-                <ComboBox x:Name="EpisodeList" Grid.Column="1" ItemsSource="{Binding Path=Episodes}" SelectionChanged="EpisodeChanged">
+                <ComboBox x:Name="EpisodeList" Grid.Column="1" ItemsSource="{Binding Path=EpisodeList}" SelectionChanged="EpisodeChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="models:EpisodeItemModel">
                             <Grid>
@@ -35,7 +35,6 @@
                                             </Image>
                                             <TextBlock Text="{Binding Path=EpisodeTitle}" TextWrapping="Wrap" FontWeight="Bold" FontSize="14"/>
                                             <TextBlock Text="{Binding Path=Synopsis}" Visibility="{Binding Path=SynopsisVisibility}" TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding Path=AirDate}" Visibility="{Binding Path=AirDateVisibility}"/>
                                         </StackPanel>
                                     </ToolTip>
                                 </ToolTipService.ToolTip>

@@ -9,14 +9,11 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
 
@@ -75,7 +72,7 @@ namespace Otakulore.Views
             {
                 var providerItem = new ComboBoxItem
                 {
-                    Content = provider.ProviderName,
+                    Content = provider.Name,
                     Tag = provider
                 };
                 ProviderSelection.Items.Add(providerItem);
@@ -83,7 +80,7 @@ namespace Otakulore.Views
             _genreLoader.RunWorkerAsync();
         }
 
-        private async void LoadGenres(object sender, DoWorkEventArgs args) // TODO: redo genres
+        private async void LoadGenres(object sender, DoWorkEventArgs args)
         {
             var genres = await KitsuApi.GetAnimeGenresAsync(_id);
             if (genres != null && genres.Length > 0)
@@ -91,20 +88,10 @@ namespace Otakulore.Views
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     foreach (var genre in genres)
-                    {
-                        GenreStack.Children.Add(new Border
+                        GenreList.Children.Add(new TextBlock
                         {
-                            Background = new SolidColorBrush(Colors.DarkSlateGray),
-                            CornerRadius = new CornerRadius(10),
-                            Padding = new Thickness(10, 2, 10, 2),
-                            Child = new TextBlock
-                            {
-                                Text = genre.Attributes.Name,
-                                Foreground = new SolidColorBrush(Colors.White),
-                                FontWeight = FontWeights.Bold
-                            }
+                            Text = genre.Attributes.Name
                         });
-                    }
                 });
             }
         }
@@ -139,7 +126,7 @@ namespace Otakulore.Views
         private void TabSwitched(object sender, SelectionChangedEventArgs args)
         {
             if (TabControl.SelectedIndex == 1 && ProviderSelection.SelectedIndex < 0)
-                ProviderSelection.SelectedItem = ProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).ProviderId == App.Settings.DefaultAnimeProvider);
+                ProviderSelection.SelectedItem = ProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).Id == App.Settings.DefaultAnimeProvider);
         }
 
         private void UpdateFavorites(object sender, RoutedEventArgs args)

@@ -18,22 +18,22 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            foreach (var provider in CoreUtilities.GetAnimeProviders())
+            foreach (var animeProvider in CoreUtilities.GetAnimeProviders())
             {
                 var providerItem = new ComboBoxItem
                 {
-                    Content = provider.ProviderName,
-                    Tag = provider
+                    Content = animeProvider.Name,
+                    Tag = animeProvider
                 };
-                DefaultProviderSelection.Items.Add(providerItem);
+                DefaultAnimeProviderSelection.Items.Add(providerItem);
             }
-            DefaultProviderSelection.SelectedItem = DefaultProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).ProviderId == App.Settings.DefaultAnimeProvider);
+            DefaultAnimeProviderSelection.SelectedItem = DefaultAnimeProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).Id == App.Settings.DefaultAnimeProvider);
             ShowEpisodeInfoSwitch.IsOn = App.Settings.ShowEpisodeInfo;
         }
 
         private void UpdateSettings(object sender, RoutedEventArgs args)
         {
-            App.Settings.DefaultAnimeProvider = ((IAnimeProvider)((ComboBoxItem)DefaultProviderSelection.SelectedItem).Tag).ProviderId;
+            App.Settings.DefaultAnimeProvider = ((IAnimeProvider)((ComboBoxItem)DefaultAnimeProviderSelection.SelectedItem).Tag).Id;
             App.Settings.ShowEpisodeInfo = ShowEpisodeInfoSwitch.IsOn;
         }
 

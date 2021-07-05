@@ -1,9 +1,13 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using System;
+﻿using System;
 using System.Linq;
 using Windows.System;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using NavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
+using NavigationViewBackRequestedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs;
+using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
+using NavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs;
 
 namespace Otakulore.Views
 {
@@ -43,11 +47,9 @@ namespace Otakulore.Views
             if (ContentFrame.CanGoBack)
                 ContentFrame.GoBack();
         }
-
-        private void SearchEntered(object sender, KeyRoutedEventArgs args)
+        
+        private void SearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (args.Key != VirtualKey.Enter)
-                return;
             var query = SearchInput.Text;
             if (string.IsNullOrEmpty(query))
                 return;

@@ -19,7 +19,7 @@ namespace Otakulore.Core.Services.Kitsu
 
         private static HttpClient RestClient => new HttpClient();
 
-        public static async Task<KitsuData<KitsuAnimeAttributes>[]> SearchAnimeAsync(string query, int pageIndex = 1, int receiveCount = 10)
+        public static async Task<KitsuData<KitsuAnimeAttributes>[]> SearchAnimeAsync(string query, int pageIndex = 1, int receiveCount = 20)
         {
             var pageCount = 0;
             if (pageIndex > 1)

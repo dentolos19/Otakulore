@@ -16,6 +16,7 @@ namespace Otakulore.Models
         public string Subtitle { get; set; }
         public string Synopsis { get; set; }
         public double Rating { get; set; }
+
         public KitsuData<KitsuAnimeAttributes> Data { get; set; }
 
         public static ContentItemModel CreateModel(KitsuData<KitsuAnimeAttributes> data)

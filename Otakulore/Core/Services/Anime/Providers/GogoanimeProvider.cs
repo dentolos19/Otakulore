@@ -9,8 +9,8 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class GogoanimeProvider : IAnimeProvider
     {
 
-        public string ProviderId => "ggoai";
-        public string ProviderName => "gogoanime.ai";
+        public string Id => "ggoai";
+        public string Name => "gogoanime.ai";
 
         private static string BaseEndpoint => "https://www1.gogoanime.ai";
         private static string SearchAnimeEndpoint => BaseEndpoint + "/search.html?keyword={0}";
@@ -38,7 +38,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -83,7 +83,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -98,7 +98,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                LogPoster.PostLine(exception.Message, LoggerStatus.Error);
+                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
