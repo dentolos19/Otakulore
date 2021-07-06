@@ -1,14 +1,11 @@
 ﻿using Humanizer;
 using Otakulore.Core.Services.Kitsu;
-using System.ComponentModel;
 
 namespace Otakulore.ViewModels
 {
 
-    public class DetailsViewModel : INotifyPropertyChanged
+    public class DetailsOverviewViewModel
     {
-
-        private bool _isLoading;
 
         public string ImageUrl { get; set; }
         public string Title { get; set; }
@@ -18,22 +15,10 @@ namespace Otakulore.ViewModels
         public string Episodes { get; set; }
         public string StartingDate { get; set; }
         public string EndingDate { get; set; }
-        
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set
-            {
-                _isLoading = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLoading)));
-            }
-        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public static DetailsViewModel CreateViewModel(KitsuData<KitsuAnimeAttributes> data)
+        public static DetailsOverviewViewModel CreateViewModel(KitsuData<KitsuAnimeAttributes> data)
         {
-            return new DetailsViewModel
+            return new DetailsOverviewViewModel
             {
                 ImageUrl = data.Attributes.PosterImage.ImageUrl,
                 Title = data.Attributes.CanonicalTitle,

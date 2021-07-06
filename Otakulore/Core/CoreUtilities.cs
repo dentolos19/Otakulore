@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Otakulore.Core.Services.Anime;
 
@@ -22,16 +23,19 @@ namespace Otakulore.Core
             return providerList.ToArray();
         }
 
-        public static string GetResourceString(string stringName)
-        {
-            return Windows.ApplicationModel.Resources.ResourceLoader.GetForCurrentView().GetString(stringName);
-        }
-
-        public static byte[] GetResourceStreamAsByteArray(string fileName)
+        public static string GetResourceFileAsString(string fileName)
         {
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
-            if (stream == null)
-                return null;
+            var streamReader = new StreamReader(stream);
+            var resourceString = streamReader.ReadToEnd();
+            streamReader.Close();
+            stream.Close();
+            return resourceString;
+        }
+
+        public static byte[] GetResourceFileAsByteArray(string fileName)
+        {
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
             long originalPosition = 0;
             if (stream.CanSeek)
             {

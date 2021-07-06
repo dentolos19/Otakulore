@@ -22,6 +22,15 @@
                     </StackPanel>
                 </StackPanel>
             </controls:Expander>
+            <controls:Expander Header="About Otakulore" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                <StackPanel Spacing="10">
+                    <TextBlock x:Name="AboutText" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <HyperlinkButton Content="Contribute on GitHub" NavigateUri="https://github.com/dentolos19/Otakulore"/>
+                        <HyperlinkButton Content="Report an Issue" NavigateUri="https://github.com/dentolos19/Otakulore/issues/new"/>
+                    </StackPanel>
+                </StackPanel>
+            </controls:Expander>
         </StackPanel>
     </Grid>
 </Page>

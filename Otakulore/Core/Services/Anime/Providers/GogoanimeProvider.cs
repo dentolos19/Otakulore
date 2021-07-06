@@ -47,7 +47,7 @@ namespace Otakulore.Core.Services.Anime.Providers
         {
             try
             {
-                var driver = WebDriver.GetWebDriver();
+                var driver = WebDriver.GetWebDriver(); // TODO: replace webdriver scraping
                 driver.Url = url;
                 var pages = driver.FindElementsByXPath("//ul[@id='episode_page']/li");
                 if (pages == null)

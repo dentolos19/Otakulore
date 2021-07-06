@@ -14,6 +14,7 @@ namespace Otakulore.Views
         public SettingsView()
         {
             InitializeComponent();
+            AboutText.Text = CoreUtilities.GetResourceFileAsString("About.txt");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)

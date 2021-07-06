@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" FontSize="24">
-            Search results for <Run x:Name="QueryText" FontWeight="Bold"/>
+            Search Results for <Run x:Name="QueryText" FontWeight="Bold"/>
         </TextBlock>
         <Grid Grid.Row="1">
             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
