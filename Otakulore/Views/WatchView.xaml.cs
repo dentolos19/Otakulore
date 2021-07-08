@@ -2,7 +2,6 @@
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
-using System.Linq;
 using System.Threading;
 using Windows.Media.Core;
 using Windows.Media.Playback;
@@ -10,7 +9,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.Views
 {
@@ -25,15 +23,12 @@ namespace Otakulore.Views
             InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs args)
+        protected override void OnNavigatedTo(NavigationEventArgs args)
         {
             if (!(args.Parameter is WatchItemModel model))
                 return;
             _provider = model.Provider;
             DataContext = WatchViewModel.CreateViewModel(model);
-            KitsuData<KitsuEpisodeAttributes>[] episodeInfoList = null;
-            if (App.Settings.ShowEpisodeInfo)
-                episodeInfoList = await KitsuApi.GetAnimeEpisodesAsync(model.Id);
             ThreadPool.QueueUserWorkItem(async _ =>
             {
                 var episodeList = model.Provider.ScrapeAnimeEpisodes(model.EpisodesUrl);
@@ -43,10 +38,7 @@ namespace Otakulore.Views
                     {
                         foreach (var episode in episodeList)
                         {
-                            KitsuEpisodeAttributes episodeAttributes = null;
-                            if (episodeInfoList != null)
-                                episodeAttributes = episodeInfoList.FirstOrDefault(data => data.Attributes.Episode == episode.EpisodeNumber)?.Attributes;
-                            ((WatchViewModel)DataContext).EpisodeList.Add(EpisodeItemModel.CreateModel(episode, episodeAttributes));
+                            ((WatchViewModel)DataContext).EpisodeList.Add(EpisodeItemModel.CreateModel(episode));
                         }
                     });
                 }

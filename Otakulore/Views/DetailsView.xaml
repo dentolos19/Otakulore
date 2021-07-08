@@ -20,6 +20,6 @@
                 </controls:NavigationViewItem.Icon>
             </controls:NavigationViewItem>
         </controls:NavigationView.MenuItems>
-        <Frame x:Name="ContentFrame"/>
+        <Frame x:Name="ContentFrame" Navigated="ViewNavigated"/>
     </controls:NavigationView>
 </Page>

@@ -24,22 +24,7 @@
                 <ComboBox x:Name="EpisodeList" Grid.Column="1" ItemsSource="{Binding Path=EpisodeList}" SelectionChanged="EpisodeChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="models:EpisodeItemModel">
-                            <Grid>
-                                <ToolTipService.ToolTip>
-                                    <ToolTip Visibility="{Binding Path=InfoVisibility}">
-                                        <StackPanel Spacing="5">
-                                            <Image>
-                                                <Image.Source>
-                                                    <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
-                                                </Image.Source>
-                                            </Image>
-                                            <TextBlock Text="{Binding Path=EpisodeTitle}" TextWrapping="Wrap" FontWeight="Bold" FontSize="14"/>
-                                            <TextBlock Text="{Binding Path=Synopsis}" Visibility="{Binding Path=SynopsisVisibility}" TextWrapping="Wrap"/>
-                                        </StackPanel>
-                                    </ToolTip>
-                                </ToolTipService.ToolTip>
-                                <TextBlock Text="{Binding Path=EpisodeNumber}"/>
-                            </Grid>
+                            <TextBlock Text="{Binding Path=EpisodeNumber}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

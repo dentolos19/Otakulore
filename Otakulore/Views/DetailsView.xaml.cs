@@ -35,6 +35,16 @@ namespace Otakulore.Views
             ContentFrame.Navigate(type, _data);
         }
 
+        private void ViewNavigated(object sender, NavigationEventArgs args)
+        {
+            NavigationControl.IsBackEnabled = ContentFrame.CanGoBack;
+            if (!(NavigationControl.SelectedItem is NavigationViewItem item))
+                return;
+            var type = Type.GetType($"Otakulore.Views.{item.Tag}");
+            if (args.SourcePageType != type)
+                NavigationControl.SelectedItem = null;
+        }
+
     }
 
 }

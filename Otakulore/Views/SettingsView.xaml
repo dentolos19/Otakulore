@@ -10,26 +10,34 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Settings" FontWeight="Bold" FontSize="24"/>
         <StackPanel Grid.Row="1" Spacing="10">
+            <controls:Expander Header="General Preferences" HorizontalAlignment="Stretch">
+                <TextBlock Text="Coming Soon!"/>
+            </controls:Expander>
             <controls:Expander Header="Anime Services" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                 <StackPanel Spacing="10">
                     <StackPanel Spacing="5">
                         <TextBlock Text="Default Anime Provider"/>
                         <ComboBox x:Name="DefaultAnimeProviderSelection" SelectionChanged="UpdateSettings"/>
                     </StackPanel>
-                    <StackPanel>
-                        <TextBlock Text="Show Episode Info (via Tooltip)"/>
-                        <ToggleSwitch x:Name="ShowEpisodeInfoSwitch" Toggled="UpdateSettings"/>
-                    </StackPanel>
                 </StackPanel>
             </controls:Expander>
             <controls:Expander Header="About Otakulore" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
-                <StackPanel Spacing="10">
-                    <TextBlock x:Name="AboutText" TextWrapping="Wrap"/>
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <HyperlinkButton Content="Contribute on GitHub" NavigateUri="https://github.com/dentolos19/Otakulore"/>
-                        <HyperlinkButton Content="Report an Issue" NavigateUri="https://github.com/dentolos19/Otakulore/issues/new"/>
+                <Grid ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Spacing="10">
+                        <Image Source="ms-appx:///Resources/Icon.png" HorizontalAlignment="Center" Width="100"/>
+                        <StackPanel>
+                            <TextBlock Text="Otakulore" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="VersionText" FontWeight="SemiBold"  FontSize="8" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <HyperlinkButton Content="Report an Issue" NavigateUri="https://github.com/dentolos19/Otakulore/issues/new" HorizontalAlignment="Center"/>
+                        <HyperlinkButton Content="Contribute on GitHub" NavigateUri="https://github.com/dentolos19/Otakulore" HorizontalAlignment="Center"/>
                     </StackPanel>
-                </StackPanel>
+                    <TextBlock x:Name="AboutText" Grid.Column="1" TextWrapping="Wrap"/>
+                </Grid>
             </controls:Expander>
         </StackPanel>
     </Grid>

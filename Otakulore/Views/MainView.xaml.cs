@@ -46,14 +46,6 @@ namespace Otakulore.Views
                 ContentFrame.GoBack();
         }
         
-        private void SearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            var query = SearchInput.Text;
-            if (string.IsNullOrEmpty(query))
-                return;
-            ContentFrame.Navigate(typeof(SearchView), query);
-        }
-
         private void ViewNavigated(object sender, NavigationEventArgs args)
         {
             NavigationControl.IsBackEnabled = ContentFrame.CanGoBack;
@@ -62,6 +54,14 @@ namespace Otakulore.Views
             var type = Type.GetType($"Otakulore.Views.{item.Tag}");
             if (args.SourcePageType != type)
                 NavigationControl.SelectedItem = null;
+        }
+
+        private void SearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            var query = SearchInput.Text;
+            if (string.IsNullOrEmpty(query))
+                return;
+            ContentFrame.Navigate(typeof(SearchView), query);
         }
 
     }

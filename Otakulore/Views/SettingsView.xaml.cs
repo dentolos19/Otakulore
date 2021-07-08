@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -14,6 +15,11 @@ namespace Otakulore.Views
         public SettingsView()
         {
             InitializeComponent();
+            var packageVersion = Package.Current.Id.Version;
+            VersionText.Text = $"v{packageVersion.Major}.{packageVersion.Minor}";
+            #if DEBUG
+            VersionText.Text += "-DEBUG";
+            #endif
             AboutText.Text = CoreUtilities.GetResourceFileAsString("About.txt");
         }
 
@@ -29,13 +35,11 @@ namespace Otakulore.Views
                 DefaultAnimeProviderSelection.Items.Add(providerItem);
             }
             DefaultAnimeProviderSelection.SelectedItem = DefaultAnimeProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).Id == App.Settings.DefaultAnimeProvider);
-            ShowEpisodeInfoSwitch.IsOn = App.Settings.ShowEpisodeInfo;
         }
 
         private void UpdateSettings(object sender, RoutedEventArgs args)
         {
             App.Settings.DefaultAnimeProvider = ((IAnimeProvider)((ComboBoxItem)DefaultAnimeProviderSelection.SelectedItem).Tag).Id;
-            App.Settings.ShowEpisodeInfo = ShowEpisodeInfoSwitch.IsOn;
         }
 
     }

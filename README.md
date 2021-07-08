@@ -16,9 +16,9 @@
 This project is currently work-in-progress!
 
 * Has multiple streaming providers
-  * [Animekisa](https://animekisa.tv)
-  * [4Anime](https://4anime.to)
-  * [Gogoanime](https://gogoanime.io)
+  * [animekisa.tv](https://animekisa.tv)
+  * [4anime.to](https://4anime.to)
+  * [gogoanime.io](https://gogoanime.io)
 * Has a favorite system
 
 ## Screenshots

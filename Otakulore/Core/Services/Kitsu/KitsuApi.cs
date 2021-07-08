@@ -67,15 +67,13 @@ namespace Otakulore.Core.Services.Kitsu
             var episodeList = new List<KitsuData<KitsuEpisodeAttributes>>();
             AddEpisodes:
             episodeList.AddRange(responseData.Data);
-            if (!string.IsNullOrEmpty(responseData.Links.NextPaginationUrl))
-            {
-                httpResponse = await RestClient.GetAsync(string.Format(responseData.Links.NextPaginationUrl));
-                if (!httpResponse.IsSuccessStatusCode)
-                    return episodeList.ToArray();
-                responseData = JsonSerializer.Deserialize<KitsuResponses<KitsuEpisodeAttributes>>(await httpResponse.Content.ReadAsStringAsync());
-                goto AddEpisodes;
-            }
-            return episodeList.ToArray();
+            if (string.IsNullOrEmpty(responseData.Links.NextPaginationUrl))
+                return episodeList.ToArray();
+            httpResponse = await RestClient.GetAsync(string.Format(responseData.Links.NextPaginationUrl));
+            if (!httpResponse.IsSuccessStatusCode)
+                return episodeList.ToArray();
+            responseData = JsonSerializer.Deserialize<KitsuResponses<KitsuEpisodeAttributes>>(await httpResponse.Content.ReadAsStringAsync());
+            goto AddEpisodes;
         }
 
     }
