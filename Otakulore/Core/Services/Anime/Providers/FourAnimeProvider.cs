@@ -9,17 +9,17 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class FourAnimeProvider : IAnimeProvider
     {
 
-        public string Id => "4ato";
-        public string Name => "4anime.to";
-
         private static string BaseEndpoint => "https://4anime.to";
-        private static string SearchAnimeEndpoint => BaseEndpoint + "/?s={0}";
+        private static string ScrapeAnimesEndpoint => BaseEndpoint + "/?s={0}";
+
+        public string Id => "4a";
+        public string Name => "4Anime";
 
         public AnimeInfo[] ScrapeAnimes(string query)
         {
             try
             {
-                var document = new HtmlWeb().Load(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query)));
+                var document = new HtmlWeb().Load(string.Format(ScrapeAnimesEndpoint, Uri.EscapeDataString(query)));
                 var nodes = document.DocumentNode.SelectNodes("//div[@class='container']/div[@id='headerDIV_2']");
                 if (nodes == null)
                     return null;

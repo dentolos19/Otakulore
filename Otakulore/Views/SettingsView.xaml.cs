@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.Services.Anime;
+using Otakulore.Core.Services.Anime.Providers;
 
 namespace Otakulore.Views
 {

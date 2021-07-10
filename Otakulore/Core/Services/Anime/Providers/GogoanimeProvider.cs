@@ -9,17 +9,17 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class GogoanimeProvider : IAnimeProvider
     {
 
-        public string Id => "ggoai";
-        public string Name => "gogoanime.ai";
+        private static string BaseEndpoint => "https://gogoanime.pe";
+        private static string ScrapeAnimesEndpoint => BaseEndpoint + "/search.html?keyword={0}";
 
-        private static string BaseEndpoint => "https://www1.gogoanime.ai";
-        private static string SearchAnimeEndpoint => BaseEndpoint + "/search.html?keyword={0}";
+        public string Id => "ggo";
+        public string Name => "Gogoanime";
 
         public AnimeInfo[] ScrapeAnimes(string query)
         {
             try
             {
-                var document = new HtmlWeb().Load(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query)));
+                var document = new HtmlWeb().Load(string.Format(ScrapeAnimesEndpoint, Uri.EscapeDataString(query)));
                 var nodes = document.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul[@class='items']/li");
                 if (nodes == null)
                     return null;
