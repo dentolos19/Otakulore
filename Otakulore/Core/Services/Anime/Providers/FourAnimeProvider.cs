@@ -15,7 +15,7 @@ namespace Otakulore.Core.Services.Anime.Providers
         public string Id => "4a";
         public string Name => "4Anime";
 
-        public AnimeInfo[] ScrapeAnimes(string query)
+        public AnimeInfo[] SearchAnime(string query)
         {
             try
             {

@@ -26,7 +26,7 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            foreach (var animeProvider in CoreUtilities.GetAnimeProviders())
+            foreach (var animeProvider in ServiceUtilities.GetAnimeProviders())
             {
                 var providerItem = new ComboBoxItem
                 {

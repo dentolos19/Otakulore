@@ -7,7 +7,7 @@
         string Id { get; }
         string Name { get; }
 
-        AnimeInfo[] ScrapeAnimes(string query);
+        AnimeInfo[] SearchAnime(string query);
         AnimeEpisode[] ScrapeAnimeEpisodes(string url);
         string ScrapeEpisodeSource(string url);
 

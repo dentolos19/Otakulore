@@ -62,7 +62,7 @@ namespace Otakulore.Views
             }
             SearchInput.ItemsSource = titles;
             SearchInput.Text = data.Attributes.CanonicalTitle;
-            foreach (var provider in CoreUtilities.GetAnimeProviders())
+            foreach (var provider in ServiceUtilities.GetAnimeProviders())
             {
                 var providerItem = new ComboBoxItem
                 {
@@ -79,11 +79,10 @@ namespace Otakulore.Views
         {
             if (!(args.Argument is KeyValuePair<string, IAnimeProvider> parameters))
                 return;
-            BasicLogger.PostChunk(ObjectDumper.Dump(parameters));
             var query = parameters.Key;
             var provider = parameters.Value;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = true);
-            var content = provider.ScrapeAnimes(query);
+            var content = provider.SearchAnime(query);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 if (content != null && content.Length > 0)

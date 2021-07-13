@@ -1,27 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Otakulore.Core.Services.Anime;
 
 namespace Otakulore.Core
 {
 
     public static class CoreUtilities
     {
-
-        public static IAnimeProvider[] GetAnimeProviders()
-        {
-            var providerList = new List<IAnimeProvider>();
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                if (type.GetInterface(nameof(IAnimeProvider)) == null)
-                    continue;
-                var provider = (IAnimeProvider)Activator.CreateInstance(type);
-                providerList.Add(provider);
-            }
-            return providerList.ToArray();
-        }
 
         public static string GetResourceFileAsString(string fileName)
         {

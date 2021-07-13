@@ -12,12 +12,13 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class AniMixPlayProvider : IAnimeProvider
     {
 
+        private static string BaseEndpoint => "https://animixplay.to";
         private static string ScrapeAnimesEndpoint => "https://cdn.animixplay.to/api/search";
 
         public string Id => "amp";
         public string Name => "AniMixPlay";
 
-        public AnimeInfo[] ScrapeAnimes(string query)
+        public AnimeInfo[] SearchAnime(string query)
         {
             try
             {
@@ -47,7 +48,7 @@ namespace Otakulore.Core.Services.Anime.Providers
                     {
                         ImageUrl = node.SelectSingleNode("./div[@class='searchimg']/a/img").Attributes["src"].Value,
                         Title = node.SelectSingleNode("./div[@class='details']/p[@class='name']/a").InnerText,
-                        EpisodesUrl = "" // TODO: add episodes url to animixplay
+                        EpisodesUrl = BaseEndpoint + node.SelectSingleNode("./div[@class='searchimg']/a").Attributes["href"].Value
                     });
                 }
                 return list.ToArray();
@@ -61,7 +62,23 @@ namespace Otakulore.Core.Services.Anime.Providers
 
         public AnimeEpisode[] ScrapeAnimeEpisodes(string url)
         {
-            return null;
+            var document = new HtmlWeb().Load(url);
+            var nodes = document.DocumentNode.SelectNodes("//div[@id='epslistplace']/button");
+            if (nodes == null)
+                return null;
+            var list = new List<AnimeEpisode>();
+            foreach (var node in nodes)
+            {
+                int? episodeNumber = null;
+                if (int.TryParse(node.InnerText, out var result))
+                    episodeNumber = result;
+                list.Add(new AnimeEpisode
+                {
+                    EpisodeNumber = episodeNumber,
+                    WatchUrl = url + "/ep" + node.InnerText
+                });
+            }
+            return list.ToArray();
         }
 
         public string ScrapeEpisodeSource(string url)

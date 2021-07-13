@@ -15,11 +15,16 @@
 
 This project is currently work-in-progress!
 
-* Has multiple streaming providers
-  * [animekisa.tv](https://animekisa.tv)
-  * [4anime.to](https://4anime.to)
-  * [gogoanime.io](https://gogoanime.io)
-* Has a favorite system
+* [X] Supports anime streaming
+  * [X] [AnimeKisa](https://animekisa.tv)
+  * [ ] [AniMixPlay](https://animixplay.to)
+  * [X] [4Anime](https://4anime.to)
+  * [X] [Gogoanime](https://gogoanime.pe)
+* [ ] Supports manga reading
+  * [ ] [Manganato](https://manganato.com)
+  * [ ] [FreeWebNovels](https://freewebnovel.com/) (for webnovels)
+* [X] Has a favorite system
+* [ ] Has a download system (offline mode)
 
 ## Screenshots
 

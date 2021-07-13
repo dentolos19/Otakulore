@@ -3,14 +3,14 @@
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public enum KitsuAnimeStatus
+    public enum KitsuMediaStatus
     {
 
         Unknown,
 
         Releasing,
-        Completed,
-        [Description("TBA")] ToBeAired,
+        [Description("Finished")] Completed,
+        [Description("TBA")] Tba,
         Unreleased,
         Upcoming
 

@@ -15,7 +15,7 @@ namespace Otakulore.Core.Services.Anime.Providers
         public string Id => "ggo";
         public string Name => "Gogoanime";
 
-        public AnimeInfo[] ScrapeAnimes(string query)
+        public AnimeInfo[] SearchAnime(string query)
         {
             try
             {

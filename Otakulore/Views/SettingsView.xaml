@@ -21,6 +21,9 @@
                     </StackPanel>
                 </StackPanel>
             </controls:Expander>
+            <controls:Expander Header="Manga Services" HorizontalAlignment="Stretch">
+                <TextBlock Text="Coming Soon!"/>
+            </controls:Expander>
             <controls:Expander Header="About Otakulore" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                 <Grid ColumnSpacing="5">
                     <Grid.ColumnDefinitions>
