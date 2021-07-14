@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Otakulore.Core
@@ -58,6 +60,25 @@ namespace Otakulore.Core
                 if (stream.CanSeek)
                     stream.Position = originalPosition;
             }
+        }
+
+        public static T CastObject<T>(object @object)
+        {
+            var objectType = @object.GetType();
+            var targetType = typeof(T);
+            var instance = Activator.CreateInstance(targetType, false);
+            var objectMembers = from source in objectType.GetMembers().ToList()
+                where source.MemberType == MemberTypes.Property select source;
+            var targetMembers = from source in targetType.GetMembers().ToList() 
+                where source.MemberType == MemberTypes.Property select source;
+            var members = targetMembers.Where(targetMemberInfo => objectMembers.Select(objectMemberInfo => objectMemberInfo.Name).ToList().Contains(targetMemberInfo.Name)).ToList();
+            foreach (var memberInfo in members)
+            {
+                var propertyInfo = typeof(T).GetProperty(memberInfo.Name);
+                var value = @object.GetType().GetProperty(memberInfo.Name).GetValue(@object,null);
+                propertyInfo.SetValue(instance, value, null);
+            } 
+            return (T)instance;
         }
 
         public static string GetStringBetween(this string @string, string fromString, string toString)

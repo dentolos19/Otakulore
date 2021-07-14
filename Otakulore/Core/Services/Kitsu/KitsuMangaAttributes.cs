@@ -3,7 +3,7 @@
 namespace Otakulore.Core.Services.Kitsu
 {
 
-    public class KitsuMangaAttributeses : KitsuMediaAttributes
+    public class KitsuMangaAttributes : KitsuMediaAttributes
     {
 
         [JsonPropertyName("chapterCount")] public int? ChapterCount { get; set; }

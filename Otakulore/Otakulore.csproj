@@ -137,6 +137,8 @@
     <Compile Include="Core\Services\Anime\Providers\GogoanimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
     <Compile Include="Core\Helpers\BasicLogger.cs" />
+    <Compile Include="Core\Services\Common\CommonMediaDetails.cs" />
+    <Compile Include="Core\Services\Common\CommonMediaType.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuApi.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuData.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuGenreAttributes.cs" />
@@ -147,7 +149,7 @@
     <Compile Include="Core\Services\Kitsu\KitsuMangaFormat.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuMediaStatus.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuMediaStatusConverter.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMangaAttributeses.cs" />
+    <Compile Include="Core\Services\Kitsu\KitsuMangaAttributes.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuMediaAttributes.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuResponse.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuResponses.cs" />
