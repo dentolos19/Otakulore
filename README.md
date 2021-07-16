@@ -22,7 +22,7 @@ This project is currently work-in-progress!
   * [X] [Gogoanime](https://gogoanime.pe)
 * [ ] Supports manga reading
   * [ ] [Manganato](https://manganato.com)
-  * [ ] [FreeWebNovels](https://freewebnovel.com/) (for webnovels)
+  * [ ] [Novelhall](https://novelhall.com) (for webnovels)
 * [X] Has a favorite system
 * [ ] Has a download system (offline mode)
 
