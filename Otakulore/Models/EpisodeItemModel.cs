@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml;
-using Otakulore.Core.Services.Anime;
-using Otakulore.Core.Services.Kitsu;
+﻿using Otakulore.Core.Services.Anime;
 
 namespace Otakulore.Models
 {

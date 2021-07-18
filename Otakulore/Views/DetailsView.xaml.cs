@@ -2,7 +2,7 @@
 using System.Linq;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Core.Services.Kitsu;
+using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Views
 {
@@ -10,7 +10,7 @@ namespace Otakulore.Views
     public sealed partial class DetailsView
     {
 
-        private KitsuData<KitsuAnimeAttributes> _data;
+        private CommonMediaDetails _data;
 
         public DetailsView()
         {
@@ -19,7 +19,7 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (!(args.Parameter is KitsuData<KitsuAnimeAttributes> data))
+            if (!(args.Parameter is CommonMediaDetails data))
                 return;
             _data = data;
             NavigationControl.SelectedItem = NavigationControl.MenuItems.OfType<NavigationViewItem>().First();

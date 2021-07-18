@@ -6,6 +6,7 @@ using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Otakulore.Core;
 
 namespace Otakulore.Views
 {
@@ -33,7 +34,7 @@ namespace Otakulore.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 foreach (var data in results)
-                    ContentList.Items.Add(ContentItemModel.CreateModel(data));
+                    ContentList.Items.Add(ContentItemModel.CreateModel(ServiceUtilities.CastCommonMediaDetails(data)));
                 ((LoadingViewModel)DataContext).IsLoading = false;
             });
         }

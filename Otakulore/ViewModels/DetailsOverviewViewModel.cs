@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using Otakulore.Core.Services.Common;
 using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.ViewModels
@@ -16,18 +17,18 @@ namespace Otakulore.ViewModels
         public string StartingDate { get; set; }
         public string EndingDate { get; set; }
 
-        public static DetailsOverviewViewModel CreateViewModel(KitsuData<KitsuAnimeAttributes> data)
+        public static DetailsOverviewViewModel CreateViewModel(CommonMediaDetails data)
         {
             return new DetailsOverviewViewModel
             {
-                ImageUrl = data.Attributes.PosterImage.ImageUrl,
-                Title = data.Attributes.CanonicalTitle,
-                Synopsis = data.Attributes.Synopsis,
-                Format = data.Attributes.Format.Humanize(),
-                Status = data.Attributes.Status.Humanize(),
-                Episodes = data.Attributes.EpisodeCount?.ToString() ?? "???",
-                StartingDate = string.IsNullOrEmpty(data.Attributes.StartingDate) ? "TBA" : data.Attributes.StartingDate,
-                EndingDate = string.IsNullOrEmpty(data.Attributes.EndingDate) ? "???" : data.Attributes.EndingDate
+                ImageUrl = data.ImageUrl,
+                Title = data.CanonicalTitle,
+                Synopsis = data.Synopsis,
+                Format = data.MediaFormat,
+                Status = data.MediaStatus.Humanize(),
+                Episodes = data.EpisodeCount?.ToString() ?? "???",
+                StartingDate = data.StartingDate.HasValue ? $"{data.StartingDate:yyyy-MM-dd}" : "???",
+                EndingDate = data.EndingDate.HasValue ? $"{data.EndingDate:yyyy-MM-dd}" : "???"
             };
         }
 

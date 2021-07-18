@@ -6,6 +6,7 @@ using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Otakulore.Core;
 
 namespace Otakulore.Views
 {
@@ -30,7 +31,7 @@ namespace Otakulore.Views
         private async void LoadContent(object sender, DoWorkEventArgs args)
         {
             foreach (var favoriteId in App.Settings.FavoriteList)
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => ContentList.Items.Add(ContentItemModel.CreateModel(await KitsuApi.GetAnimeAsync(favoriteId))));
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => ContentList.Items.Add(ContentItemModel.CreateModel(ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetAnimeAsync(favoriteId)))));
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = false);
         }
         

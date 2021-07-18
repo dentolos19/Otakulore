@@ -28,16 +28,20 @@ namespace Otakulore.Core
                 var dateIntegers = mediaData.Attributes.EndingDate.Split('-').Select(int.Parse).ToArray();
                 endingDate = new DateTime(dateIntegers[0], dateIntegers[1], dateIntegers[2]);
             }
+            double? averageRating = null;
+            if (double.TryParse(mediaData.Attributes.AverageRating, out var result))
+                averageRating = result / 20;
             return new CommonMediaDetails
             {
                 KitsuId = int.Parse(mediaData.Id),
+                MediaStatus = mediaData.Attributes.Status,
                 ImageUrl = mediaData.Attributes.PosterImage.ImageUrl,
-                CanoncialTitle = mediaData.Attributes.CanonicalTitle,
+                CanonicalTitle = mediaData.Attributes.CanonicalTitle,
                 AlternativeTitles = mediaData.Attributes.Titles,
                 StartingDate = startingDate,
                 EndingDate = endingDate,
                 Synopsis = mediaData.Attributes.Synopsis,
-                AverageRating = double.Parse(mediaData.Attributes.AverageRating) / 20,
+                AverageRating = averageRating
             };
         }
 

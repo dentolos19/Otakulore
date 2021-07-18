@@ -21,7 +21,7 @@ namespace Otakulore.Views
             #if DEBUG
             VersionText.Text += "-DEBUG";
             #endif
-            AboutText.Text = CoreUtilities.GetResourceFileAsString("About.txt");
+            AboutText.Text = CoreUtilities.GetEmbeddedResourceAsString("About.txt");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs args)

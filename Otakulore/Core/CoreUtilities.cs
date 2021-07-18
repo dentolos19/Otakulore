@@ -10,7 +10,7 @@ namespace Otakulore.Core
     public static class CoreUtilities
     {
 
-        public static string GetResourceFileAsString(string fileName)
+        public static string GetEmbeddedResourceAsString(string fileName)
         {
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
             var streamReader = new StreamReader(stream);
@@ -20,7 +20,7 @@ namespace Otakulore.Core
             return resourceString;
         }
 
-        public static byte[] GetResourceFileAsByteArray(string fileName)
+        public static byte[] GetEmbeddedResourceAsByteArray(string fileName)
         {
             var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources." + fileName);
             long originalPosition = 0;

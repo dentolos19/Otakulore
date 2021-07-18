@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.Helpers;
 using Otakulore.Core.Services.Anime;
+using Otakulore.Core.Services.Common;
 using Otakulore.Core.Services.Kitsu;
 using Otakulore.Models;
 using Otakulore.ViewModels;
@@ -35,25 +36,25 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (!(args.Parameter is KitsuData<KitsuAnimeAttributes> data))
+            if (!(args.Parameter is CommonMediaDetails data))
                 return;
-            _id = data.Id;
+            _id = data.KitsuId.ToString();
             var titles = new List<TitleItemModel>();
-            foreach (var (languageCode, title) in data.Attributes.Titles)
+            foreach (var (culture, title) in data.AlternativeTitles)
             {
-                if (string.IsNullOrEmpty(languageCode) || string.IsNullOrEmpty(title))
+                if (string.IsNullOrEmpty(culture) || string.IsNullOrEmpty(title))
                     return;
                 string languageName = null;
                 try
                 {
-                    languageName = CultureInfo.GetCultureInfo(languageCode).DisplayName;
+                    languageName = CultureInfo.GetCultureInfo(culture).DisplayName;
                 }
                 catch
                 {
                     // do nothing
                 }
                 if (string.IsNullOrEmpty(languageName))
-                    languageName = languageCode;
+                    languageName = culture;
                 titles.Add(new TitleItemModel
                 {
                     LanguageName = languageName,
@@ -61,7 +62,7 @@ namespace Otakulore.Views
                 });
             }
             SearchInput.ItemsSource = titles;
-            SearchInput.Text = data.Attributes.CanonicalTitle;
+            SearchInput.Text = data.CanonicalTitle;
             foreach (var provider in ServiceUtilities.GetAnimeProviders())
             {
                 var providerItem = new ComboBoxItem

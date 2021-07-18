@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Humanizer;
-using Otakulore.Core.Services.Kitsu;
+using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Models
 {
@@ -17,25 +17,25 @@ namespace Otakulore.Models
         public string Synopsis { get; set; }
         public double Rating { get; set; }
 
-        public KitsuData<KitsuAnimeAttributes> Data { get; set; }
+        public CommonMediaDetails Data { get; set; }
 
-        public static ContentItemModel CreateModel(KitsuData<KitsuAnimeAttributes> data)
+        public static ContentItemModel CreateModel(CommonMediaDetails data)
         {
             var model = new ContentItemModel
             {
-                ImageUrl = data.Attributes.PosterImage.ImageUrl,
-                Title = data.Attributes.CanonicalTitle,
-                Subtitle = $"{data.Attributes.Format.Humanize()} | " +
-                           $"{data.Attributes.StartingDate?.Substring(0, 4) ?? "????"} | " +
-                           data.Attributes.Status.Humanize(),
+                ImageUrl = data.ImageUrl,
+                Title = data.CanonicalTitle,
+                Subtitle = (data.StartingDate.HasValue ? $"{data.StartingDate:yyyy}" : "????") + " | " +
+                           data.MediaType.Humanize() + " | " +
+                           data.MediaStatus.Humanize(),
                 Data = data
             };
-            if (!string.IsNullOrEmpty(data.Attributes.Synopsis))
-                model.Synopsis = data.Attributes.Synopsis;
+            if (!string.IsNullOrEmpty(data.Synopsis))
+                model.Synopsis = data.Synopsis;
             else
                 model.SynopsisVisibility = Visibility.Collapsed;
-            if (double.TryParse(data.Attributes.AverageRating, out var rating))
-                model.Rating = rating / 20;
+            if (data.AverageRating.HasValue)
+                model.Rating = (double)data.AverageRating;
             else
                 model.RatingVisibility = Visibility.Collapsed;
             return model;

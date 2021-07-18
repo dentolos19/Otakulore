@@ -4,6 +4,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Otakulore.Core.Services.Common;
 using Otakulore.Core.Services.Kitsu;
 using Otakulore.ViewModels;
 
@@ -26,9 +27,9 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (!(args.Parameter is KitsuData<KitsuAnimeAttributes> data))
+            if (!(args.Parameter is CommonMediaDetails data))
                 return;
-            _id = data.Id;
+            _id = data.KitsuId.ToString();
             DataContext = DetailsOverviewViewModel.CreateViewModel(data);
             if (App.Settings.FavoriteList.Contains(_id))
             {
