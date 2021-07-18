@@ -2,12 +2,15 @@
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
+using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Views
 {
@@ -36,13 +39,15 @@ namespace Otakulore.Views
         {
             if (!(args.Argument is string query))
                 return;
-            var results = await KitsuApi.SearchAnimeAsync(query);
-            if (results != null && results.Length > 0)
+            var results = new List<CommonMediaDetails>(); // TODO: add result sorting
+            results.AddRange((await KitsuApi.SearchAnimeAsync(query)).Select(ServiceUtilities.CastCommonMediaDetails));
+            results.AddRange((await KitsuApi.SearchMangaAsync(query)).Select(ServiceUtilities.CastCommonMediaDetails));
+            if (results.Count > 0)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (var data in results)
-                        ContentList.Items.Add(ContentItemModel.CreateModel(ServiceUtilities.CastCommonMediaDetails(data)));
+                    foreach (var details in results)
+                        ContentList.Items.Add(ContentItemModel.CreateModel(details));
                     ((LoadingViewModel)DataContext).IsLoading = false;
                 });
             }

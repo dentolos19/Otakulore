@@ -48,9 +48,17 @@
                     <TextBlock Text="Status" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Path=Status}"/>
                 </StackPanel>
-                <StackPanel>
+                <StackPanel Visibility="{Binding Path=AnimeInfoVisibility}">
                     <TextBlock Text="Episodes" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Path=Episodes}"/>
+                </StackPanel>
+                <StackPanel Visibility="{Binding Path=MangaInfoVisibility}">
+                    <TextBlock Text="Chapters" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Path=Chapters}"/>
+                </StackPanel>
+                <StackPanel Visibility="{Binding Path=MangaInfoVisibility}">
+                    <TextBlock Text="Volumes" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Path=Volumes}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Starting Date" FontWeight="Bold"/>

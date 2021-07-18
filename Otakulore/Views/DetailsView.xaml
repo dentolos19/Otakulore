@@ -14,11 +14,6 @@
                     <FontIcon Glyph="&#xE10F;"/>
                 </controls:NavigationViewItem.Icon>
             </controls:NavigationViewItem>
-            <controls:NavigationViewItem Content="Watch" Tag="DetailsWatchView">
-                <controls:NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xE116;"/>
-                </controls:NavigationViewItem.Icon>
-            </controls:NavigationViewItem>
         </controls:NavigationView.MenuItems>
         <Frame x:Name="ContentFrame" Navigated="ViewNavigated"/>
     </controls:NavigationView>

@@ -2,11 +2,13 @@
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
+using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Views
 {
@@ -30,8 +32,19 @@ namespace Otakulore.Views
 
         private async void LoadContent(object sender, DoWorkEventArgs args)
         {
-            foreach (var favoriteId in App.Settings.FavoriteList)
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => ContentList.Items.Add(ContentItemModel.CreateModel(ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetAnimeAsync(favoriteId)))));
+            foreach (var details in App.Settings.FavoriteList)
+            {
+                if (details.MediaType == CommonMediaType.Anime)
+                {
+                    var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetAnimeAsync(details.KitsuId.ToString()));
+                    ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails));
+                }
+                else
+                {
+                    var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetMangaAsync(details.KitsuId.ToString()));
+                    ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails));
+                }
+            }
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = false);
         }
         

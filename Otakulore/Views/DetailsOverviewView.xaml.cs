@@ -16,7 +16,7 @@ namespace Otakulore.Views
 
         private readonly BackgroundWorker _genreLoader;
 
-        private string _id;
+        private CommonMediaDetails _details;
 
         public DetailsOverviewView()
         {
@@ -27,11 +27,11 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (!(args.Parameter is CommonMediaDetails data))
+            if (!(args.Parameter is CommonMediaDetails details))
                 return;
-            _id = data.KitsuId.ToString();
-            DataContext = DetailsOverviewViewModel.CreateViewModel(data);
-            if (App.Settings.FavoriteList.Contains(_id))
+            _details = details;
+            DataContext = DetailsOverviewViewModel.CreateViewModel(details);
+            if (App.Settings.FavoriteList.Contains(_details))
             {
                 FavoriteButton.IsChecked = true;
                 ToolTipService.SetToolTip(FavoriteButton, new ToolTip { Content = "Remove from Favorites" });
@@ -46,31 +46,36 @@ namespace Otakulore.Views
 
         private async void LoadGenres(object sender, DoWorkEventArgs args)
         {
-            var genres = await KitsuApi.GetAnimeGenresAsync(_id);
-            if (genres != null && genres.Length > 0)
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    foreach (var genre in genres)
-                        GenreList.Children.Add(new TextBlock
-                        {
-                            Text = genre.Attributes.Name
-                        });
-                });
+            KitsuData<KitsuGenreAttributes>[] genres = null;
+            if (_details.MediaType == CommonMediaType.Anime)
+                genres = await KitsuApi.GetAnimeGenresAsync(_details.KitsuId.ToString());
+            else
+                genres = await KitsuApi.GetMangaGenresAsync(_details.KitsuId.ToString());
+            if (!(genres != null && genres.Length > 0))
+                return;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                foreach (var genre in genres)
+                    GenreList.Children.Add(new TextBlock
+                    {
+                        Text = genre.Attributes.Name
+                    });
+            });
         }
 
         private void UpdateFavorites(object sender, RoutedEventArgs args)
         {
             if (FavoriteButton.IsChecked == true)
             {
-                if (!App.Settings.FavoriteList.Contains(_id))
-                    App.Settings.FavoriteList.Add(_id);
+                if (!App.Settings.FavoriteList.Contains(_details))
+                    App.Settings.FavoriteList.Add(_details);
                 FavoriteButton.IsChecked = true;
                 ToolTipService.SetToolTip(FavoriteButton, new ToolTip { Content = "Remove from Favorites" });
             }
             else
             {
-                if (App.Settings.FavoriteList.Contains(_id))
-                    App.Settings.FavoriteList.Remove(_id);
+                if (App.Settings.FavoriteList.Contains(_details))
+                    App.Settings.FavoriteList.Remove(_details);
                 FavoriteButton.IsChecked = false;
                 ToolTipService.SetToolTip(FavoriteButton, new ToolTip { Content = "Add to Favorites" });
             }

@@ -66,6 +66,7 @@ namespace Otakulore.Core.Services.Kitsu
         private static string SearchMangaEndpoint => BaseEndpoint + "/manga?filter[text]={0}&page[limit]={1}&page[offset]={2}";
         private static string GetTrendingMangaEndpoint => BaseEndpoint + "/trending/manga";
         private static string GetMangaEndpoint => BaseEndpoint + "/manga/{0}";
+        private static string GetMangaGenresEndpoint => BaseEndpoint + "/manga/{0}/genres";
 
         public static async Task<KitsuData<KitsuMangaAttributes>[]> SearchMangaAsync(string query, int pageIndex = 1, int receiveCount = 20)
         {
@@ -95,6 +96,15 @@ namespace Otakulore.Core.Services.Kitsu
                 return null;
             var responseContent = await httpResponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<KitsuResponse<KitsuMangaAttributes>>(responseContent).Data;
+        }
+
+        public static async Task<KitsuData<KitsuGenreAttributes>[]> GetMangaGenresAsync(string id)
+        {
+            var httpResponse = await HttpClient.GetAsync(string.Format(GetMangaGenresEndpoint, id));
+            if (!httpResponse.IsSuccessStatusCode)
+                return null;
+            var responseContent = await httpResponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
         }
 
         #endregion
