@@ -22,41 +22,65 @@ namespace Otakulore.Core.Services.Kitsu
 
         public static async Task<KitsuData<KitsuAnimeAttributes>[]> SearchAnimeAsync(string query, int pageIndex = 1, int receiveCount = 20)
         {
-            var pageCount = 0;
-            if (pageIndex > 1)
-                pageCount = receiveCount * pageIndex;
-            var httpResponse = await HttpClient.GetAsync(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query), receiveCount, pageCount));
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var pageCount = 0;
+                if (pageIndex > 1)
+                    pageCount = receiveCount * pageIndex;
+                var httpResponse = await HttpClient.GetAsync(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query), receiveCount, pageCount));
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponses<KitsuAnimeAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuAnimeAttributes>>(responseContent).Data;
+            }
         }
 
         public static async Task<KitsuData<KitsuAnimeAttributes>[]> GetTrendingAnimeAsync()
         {
-            var httpResponse = await HttpClient.GetAsync(GetTrendingAnimeEndpoint);
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var httpResponse = await HttpClient.GetAsync(GetTrendingAnimeEndpoint);
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponses<KitsuAnimeAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuAnimeAttributes>>(responseContent).Data;
+            }
         }
 
         public static async Task<KitsuData<KitsuAnimeAttributes>> GetAnimeAsync(string id)
         {
-            var httpResponse = await HttpClient.GetAsync(string.Format(GetAnimeEndpoint, id));
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var httpResponse = await HttpClient.GetAsync(string.Format(GetAnimeEndpoint, id));
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponse<KitsuAnimeAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponse<KitsuAnimeAttributes>>(responseContent).Data;
+            }
         }
 
         public static async Task<KitsuData<KitsuGenreAttributes>[]> GetAnimeGenresAsync(string id)
         {
-            var httpResponse = await HttpClient.GetAsync(string.Format(GetAnimeGenresEndpoint, id));
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var httpResponse = await HttpClient.GetAsync(string.Format(GetAnimeGenresEndpoint, id));
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
+            }
         }
 
         #endregion
@@ -70,41 +94,65 @@ namespace Otakulore.Core.Services.Kitsu
 
         public static async Task<KitsuData<KitsuMangaAttributes>[]> SearchMangaAsync(string query, int pageIndex = 1, int receiveCount = 20)
         {
-            var pageCount = 0;
-            if (pageIndex > 1)
-                pageCount = receiveCount * pageIndex;
-            var httpResponse = await HttpClient.GetAsync(string.Format(SearchMangaEndpoint, Uri.EscapeDataString(query), receiveCount, pageCount));
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var pageCount = 0;
+                if (pageIndex > 1)
+                    pageCount = receiveCount * pageIndex;
+                var httpResponse = await HttpClient.GetAsync(string.Format(SearchMangaEndpoint, Uri.EscapeDataString(query), receiveCount, pageCount));
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponses<KitsuMangaAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuMangaAttributes>>(responseContent).Data;
+            }
         }
 
         public static async Task<KitsuData<KitsuMangaAttributes>[]> GetTrendingMangaAsync()
         {
-            var httpResponse = await HttpClient.GetAsync(GetTrendingMangaEndpoint);
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var httpResponse = await HttpClient.GetAsync(GetTrendingMangaEndpoint);
+                httpResponse.EnsureSuccessStatusCode();
+                var content = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponses<KitsuMangaAttributes>>(content).Data;
+            }
+            catch
+            {
                 return null;
-            var content = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuMangaAttributes>>(content).Data;
+            }
         }
 
         public static async Task<KitsuData<KitsuMangaAttributes>> GetMangaAsync(string id)
         {
-            var httpResponse = await HttpClient.GetAsync(string.Format(GetMangaEndpoint, id));
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var httpResponse = await HttpClient.GetAsync(string.Format(GetMangaEndpoint, id));
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponse<KitsuMangaAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponse<KitsuMangaAttributes>>(responseContent).Data;
+            }
         }
 
         public static async Task<KitsuData<KitsuGenreAttributes>[]> GetMangaGenresAsync(string id)
         {
-            var httpResponse = await HttpClient.GetAsync(string.Format(GetMangaGenresEndpoint, id));
-            if (!httpResponse.IsSuccessStatusCode)
+            try
+            {
+                var httpResponse = await HttpClient.GetAsync(string.Format(GetMangaGenresEndpoint, id));
+                httpResponse.EnsureSuccessStatusCode();
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
+            }
+            catch
+            {
                 return null;
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
+            }
         }
 
         #endregion

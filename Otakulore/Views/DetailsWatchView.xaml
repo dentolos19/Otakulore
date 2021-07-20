@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <AutoSuggestBox x:Name="SearchInput" Grid.Column="0" KeyUp="SearchEntered" SuggestionChosen="ProviderSelected">
+            <AutoSuggestBox x:Name="SearchInput" Grid.Column="0" QuerySubmitted="SearchEntered" SuggestionChosen="ProviderSelected">
                 <AutoSuggestBox.ItemTemplate>
                     <DataTemplate x:DataType="models:TitleItemModel">
                         <TextBlock Text="{Binding Path=Title}" ToolTipService.ToolTip="{Binding Path=LanguageName}"/>
@@ -29,20 +29,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-            <ListView x:Name="ContentList" IsItemClickEnabled="True" ItemClick="WatchContent">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:WatchItemModel">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Image Width="50">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
-                                </Image.Source>
-                            </Image>
-                            <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <ListView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ChannelItemTemplate}" IsItemClickEnabled="True" ItemClick="WatchContent"/>
         </Grid>
     </Grid>
 </Page>

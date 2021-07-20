@@ -37,12 +37,12 @@ namespace Otakulore.Views
                 if (details.MediaType == CommonMediaType.Anime)
                 {
                     var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetAnimeAsync(details.KitsuId.ToString()));
-                    ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails));
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails)));
                 }
                 else
                 {
                     var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetMangaAsync(details.KitsuId.ToString()));
-                    ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails));
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails)));
                 }
             }
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = false);

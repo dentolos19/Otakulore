@@ -26,7 +26,7 @@ namespace Otakulore.Models
                 ImageUrl = data.ImageUrl,
                 Title = data.CanonicalTitle,
                 Subtitle = (data.StartingDate.HasValue ? $"{data.StartingDate:yyyy}" : "????") + " | " +
-                           data.MediaType.Humanize() + " | " +
+                           data.MediaFormat + " | " +
                            data.MediaStatus.Humanize(),
                 Data = data
             };

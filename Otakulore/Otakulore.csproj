@@ -156,13 +156,15 @@
     <Compile Include="Core\Helpers\LoggerStatus.cs" />
     <Compile Include="Core\Helpers\ObjectDumper.cs" />
     <Compile Include="Core\Services\Manga\IMangaProvider.cs" />
+    <Compile Include="Core\Services\Manga\MangaInfo.cs" />
+    <Compile Include="Core\Services\Manga\Providers\ManganatoProvider.cs" />
     <Compile Include="Core\ServiceUtilities.cs" />
     <Compile Include="Core\UserData.cs" />
     <Compile Include="Core\WebDriver.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
     <Compile Include="Models\EpisodeItemModel.cs" />
     <Compile Include="Models\TitleItemModel.cs" />
-    <Compile Include="Models\WatchItemModel.cs" />
+    <Compile Include="Models\ChannelItemModel.cs" />
     <Compile Include="ViewModels\DetailsOverviewViewModel.cs" />
     <Compile Include="ViewModels\LoadingViewModel.cs" />
     <Compile Include="ViewModels\WatchViewModel.cs" />

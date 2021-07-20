@@ -27,6 +27,16 @@
                             <TextBlock Text="{Binding Path=Subtitle}" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
+                    <DataTemplate x:Key="ChannelItemTemplate">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Width="50">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding Path=ImageUrl}"/>
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" FontSize="16"/>
+                        </StackPanel>
+                    </DataTemplate>
                 </ResourceDictionary>
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>

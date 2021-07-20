@@ -21,8 +21,13 @@
                     </StackPanel>
                 </StackPanel>
             </controls:Expander>
-            <controls:Expander Header="Manga Services" HorizontalAlignment="Stretch">
-                <TextBlock Text="Coming Soon!"/>
+            <controls:Expander Header="Manga Services" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                <StackPanel Spacing="10">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Default Manga Provider"/>
+                        <ComboBox x:Name="DefaultMangaProviderSelection" SelectionChanged="UpdateSettings"/>
+                    </StackPanel>
+                </StackPanel>
             </controls:Expander>
             <controls:Expander Header="About Otakulore" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                 <Grid ColumnSpacing="5">

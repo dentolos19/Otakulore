@@ -10,10 +10,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
-using Otakulore.Core.Helpers;
 using Otakulore.Core.Services.Anime;
 using Otakulore.Core.Services.Common;
-using Otakulore.Core.Services.Kitsu;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 
@@ -90,13 +88,13 @@ namespace Otakulore.Views
                 {
                     ContentList.Items.Clear();
                     foreach (var channel in content)
-                        ContentList.Items.Add(new WatchItemModel
+                        ContentList.Items.Add(new ChannelItemModel
                         {
                             Id = _id,
                             ImageUrl = channel.ImageUrl,
                             Title = channel.Title,
-                            EpisodesUrl = channel.EpisodesUrl,
-                            Provider = provider
+                            Url = channel.EpisodesUrl,
+                            AnimeProvider = provider
                         });
                 }
                 else
@@ -107,10 +105,8 @@ namespace Otakulore.Views
             });
         }
 
-        private void SearchEntered(object sender, KeyRoutedEventArgs args)
+        private void SearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (args.Key != VirtualKey.Enter)
-                return;
             UpdateContent(null, null);
         }
 
@@ -142,7 +138,7 @@ namespace Otakulore.Views
 
         private void WatchContent(object sender, ItemClickEventArgs args)
         {
-            if (args.ClickedItem is WatchItemModel model)
+            if (args.ClickedItem is ChannelItemModel model)
                 Frame.Navigate(typeof(WatchView), model);
         }
 

@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.Services.Anime;
 using Otakulore.Core.Services.Anime.Providers;
+using Otakulore.Core.Services.Manga;
 
 namespace Otakulore.Views
 {
@@ -22,10 +23,6 @@ namespace Otakulore.Views
             VersionText.Text += "-DEBUG";
             #endif
             AboutText.Text = CoreUtilities.GetEmbeddedResourceAsString("About.txt");
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs args)
-        {
             foreach (var animeProvider in ServiceUtilities.GetAnimeProviders())
             {
                 var providerItem = new ComboBoxItem
@@ -35,12 +32,29 @@ namespace Otakulore.Views
                 };
                 DefaultAnimeProviderSelection.Items.Add(providerItem);
             }
+            foreach (var mangaProvider in ServiceUtilities.GetMangaProviders())
+            {
+                var providerItem = new ComboBoxItem
+                {
+                    Content = mangaProvider.Name,
+                    Tag = mangaProvider
+                };
+                DefaultMangaProviderSelection.Items.Add(providerItem);
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs args)
+        {
             DefaultAnimeProviderSelection.SelectedItem = DefaultAnimeProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IAnimeProvider)item.Tag).Id == App.Settings.DefaultAnimeProvider);
+            DefaultMangaProviderSelection.SelectedItem = DefaultMangaProviderSelection.Items.OfType<ComboBoxItem>().FirstOrDefault(item => ((IMangaProvider)item.Tag).Id == App.Settings.DefaultMangaProvider);
         }
 
         private void UpdateSettings(object sender, RoutedEventArgs args)
         {
-            App.Settings.DefaultAnimeProvider = ((IAnimeProvider)((ComboBoxItem)DefaultAnimeProviderSelection.SelectedItem).Tag).Id;
+            if (DefaultAnimeProviderSelection.SelectedItem != null)
+                App.Settings.DefaultAnimeProvider = ((IAnimeProvider)((ComboBoxItem)DefaultAnimeProviderSelection.SelectedItem).Tag).Id;
+            if (DefaultMangaProviderSelection.SelectedItem != null)
+                App.Settings.DefaultMangaProvider = ((IMangaProvider)((ComboBoxItem)DefaultMangaProviderSelection.SelectedItem).Tag).Id;
         }
 
     }

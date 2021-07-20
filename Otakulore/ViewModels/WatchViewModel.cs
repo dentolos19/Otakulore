@@ -10,11 +10,11 @@ namespace Otakulore.ViewModels
         public string Title { get; set; }
         public ObservableCollection<EpisodeItemModel> EpisodeList { get; set; } = new ObservableCollection<EpisodeItemModel>();
 
-        public static WatchViewModel CreateViewModel(WatchItemModel model)
+        public static WatchViewModel CreateViewModel(ChannelItemModel model)
         {
             return new WatchViewModel
             {
-                Title = model.Title + " | " + model.Provider.Name
+                Title = model.Title + " | " + model.AnimeProvider.Name
             };
         }
 

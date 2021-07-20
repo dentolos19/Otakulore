@@ -10,7 +10,7 @@ namespace Otakulore.Core.Services.Anime.Providers
     {
 
         private static string BaseEndpoint => "https://animekisa.tv";
-        private static string ScrapeAnimeEndpoint => BaseEndpoint + "/search?q={0}";
+        private static string SearchAnimeEndpoint => BaseEndpoint + "/search?q={0}";
 
         public string Id => "ak";
         public string Name => "AnimeKisa";
@@ -19,7 +19,7 @@ namespace Otakulore.Core.Services.Anime.Providers
         {
             try
             {
-                var document = new HtmlWeb().Load(string.Format(ScrapeAnimeEndpoint, Uri.EscapeDataString(query)));
+                var document = new HtmlWeb().Load(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query)));
                 var parentNodes = document.DocumentNode.SelectNodes("//div[@class='lisbox22']/div[@class='similarboxmain']");
                 if (parentNodes == null)
                     return null;

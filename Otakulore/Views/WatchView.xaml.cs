@@ -25,13 +25,13 @@ namespace Otakulore.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
-            if (!(args.Parameter is WatchItemModel model))
+            if (!(args.Parameter is ChannelItemModel model))
                 return;
-            _provider = model.Provider;
+            _provider = model.AnimeProvider;
             DataContext = WatchViewModel.CreateViewModel(model);
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                var episodeList = model.Provider.ScrapeAnimeEpisodes(model.EpisodesUrl);
+                var episodeList = model.AnimeProvider.ScrapeAnimeEpisodes(model.Url);
                 if (episodeList != null && episodeList.Length > 0)
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
