@@ -1,9 +1,13 @@
-﻿using Otakulore.Core;
+﻿using System;
+using System.IO;
+using Otakulore.Core;
 using Otakulore.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Otakulore.Core.Helpers;
 
 
 namespace Otakulore
@@ -22,6 +26,7 @@ namespace Otakulore
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            CoreLogger.PostLine("App was started!");
             Settings = UserData.LoadData();
             WebDriver.EnsureDriverExists();
             if (!(Window.Current.Content is Frame rootFrame))
@@ -40,6 +45,7 @@ namespace Otakulore
         {
             var deferral = args.SuspendingOperation.GetDeferral();
             Settings.SaveData();
+            CoreLogger.SaveToFile(Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, $"{DateTime.Now:yyyyMMdd-HHmmss}.log"));
             deferral.Complete();
         }
 

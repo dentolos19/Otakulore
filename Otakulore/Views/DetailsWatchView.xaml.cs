@@ -93,7 +93,7 @@ namespace Otakulore.Views
                             Id = _id,
                             ImageUrl = channel.ImageUrl,
                             Title = channel.Title,
-                            Url = channel.EpisodesUrl,
+                            Url = channel.Url,
                             AnimeProvider = provider
                         });
                 }
@@ -139,7 +139,7 @@ namespace Otakulore.Views
         private void WatchContent(object sender, ItemClickEventArgs args)
         {
             if (args.ClickedItem is ChannelItemModel model)
-                Frame.Navigate(typeof(WatchView), model);
+                Frame.Navigate(typeof(AnimePlayerView), model);
         }
 
     }

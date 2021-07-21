@@ -13,12 +13,12 @@ using Windows.UI.Xaml.Navigation;
 namespace Otakulore.Views
 {
 
-    public sealed partial class WatchView
+    public sealed partial class AnimePlayerView
     {
 
         private IAnimeProvider _provider;
 
-        public WatchView()
+        public AnimePlayerView()
         {
             InitializeComponent();
         }
@@ -28,17 +28,17 @@ namespace Otakulore.Views
             if (!(args.Parameter is ChannelItemModel model))
                 return;
             _provider = model.AnimeProvider;
-            DataContext = WatchViewModel.CreateViewModel(model);
+            DataContext = PlayerReaderViewModel.CreateViewModel(model);
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                var episodeList = model.AnimeProvider.ScrapeAnimeEpisodes(model.Url);
+                var episodeList = _provider.ScrapeAnimeEpisodes(model.Url);
                 if (episodeList != null && episodeList.Length > 0)
                 {
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         foreach (var episode in episodeList)
                         {
-                            ((WatchViewModel)DataContext).EpisodeList.Add(EpisodeItemModel.CreateModel(episode));
+                            ((PlayerReaderViewModel)DataContext).EpisodeChapterList.Add(EpisodeChapterItemModel.CreateModel(episode));
                         }
                     });
                 }
@@ -54,7 +54,7 @@ namespace Otakulore.Views
                 }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    ((WatchViewModel)DataContext).IsLoading = false;
+                    ((PlayerReaderViewModel)DataContext).IsLoading = false;
                     EpisodeList.SelectedIndex = 0;
                 });
             });
@@ -68,17 +68,17 @@ namespace Otakulore.Views
 
         private void EpisodeChanged(object sender, SelectionChangedEventArgs args)
         {
-            if (!(EpisodeList.SelectedItem is EpisodeItemModel model))
+            if (!(EpisodeList.SelectedItem is EpisodeChapterItemModel model))
                 return;
-            ((WatchViewModel)DataContext).IsLoading = true;
+            ((PlayerReaderViewModel)DataContext).IsLoading = true;
             ThreadPool.QueueUserWorkItem(async _ =>
             {
-                var episodeSource = _provider.ScrapeEpisodeSource(model.WatchUrl);
+                var episodeSource = _provider.ScrapeEpisodeSource(model.Url);
                 if (!string.IsNullOrEmpty(episodeSource))
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(episodeSource)) }));
                 else
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to scrape episodes with the current provider.").ShowAsync());
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((WatchViewModel)DataContext).IsLoading = false);
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((PlayerReaderViewModel)DataContext).IsLoading = false);
             });
         }
 

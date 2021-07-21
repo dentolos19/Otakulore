@@ -12,7 +12,7 @@ namespace Otakulore.Core
     public class UserData
     {
 
-        private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "userdata.json");
+        private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "userdata.json");
         
         public string DefaultAnimeProvider { get; set; } = new AnimeKisaProvider().Id;
         public string DefaultMangaProvider { get; set; } = new ManganatoProvider().Id;
@@ -20,14 +20,18 @@ namespace Otakulore.Core
 
         public void SaveData()
         {
-            File.WriteAllText(DataFilePath, JsonSerializer.Serialize(this));
+            var data = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(DataFilePath, data);
         }
 
         public static UserData LoadData()
         {
             try
             {
-                return !File.Exists(DataFilePath) ? new UserData() : JsonSerializer.Deserialize<UserData>(File.ReadAllText(DataFilePath));
+                if (!File.Exists(DataFilePath))
+                    return new UserData();
+                var data = File.ReadAllText(DataFilePath);
+                return JsonSerializer.Deserialize<UserData>(data);
             }
             catch
             {

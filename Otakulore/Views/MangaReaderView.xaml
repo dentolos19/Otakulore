@@ -1,4 +1,4 @@
-﻿<Page x:Class="Otakulore.Views.WatchView"
+﻿<Page x:Class="Otakulore.Views.MangaReaderView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:Microsoft.UI.Xaml.Controls"
@@ -6,7 +6,7 @@
       xmlns:viewModels="using:Otakulore.ViewModels"
       Background="{ThemeResource ResourceKey=ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <viewModels:WatchViewModel/>
+        <viewModels:PlayerReaderViewModel/>
     </Page.DataContext>
     <Grid>
         <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
@@ -21,19 +21,17 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
-                <ComboBox x:Name="EpisodeList" Grid.Column="1" ItemsSource="{Binding Path=EpisodeList}" SelectionChanged="EpisodeChanged">
+                <ComboBox x:Name="ChapterList" Grid.Column="1" ItemsSource="{Binding Path=EpisodeChapterList}" SelectionChanged="ChapterChanged">
                     <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="models:EpisodeItemModel">
-                            <TextBlock Text="{Binding Path=EpisodeNumber}"/>
+                        <DataTemplate x:DataType="models:EpisodeChapterItemModel">
+                            <TextBlock Text="{Binding Path=Text}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <MediaPlayerElement Grid.Row="1" x:Name="MediaElement" AutoPlay="True" AreTransportControlsEnabled="True">
-                <MediaPlayerElement.TransportControls>
-                    <MediaTransportControls IsZoomButtonVisible="False" IsSkipBackwardButtonVisible="True" IsSkipForwardButtonVisible="True" IsSkipBackwardEnabled="True" IsSkipForwardEnabled="True"/>
-                </MediaPlayerElement.TransportControls>
-            </MediaPlayerElement>
+            <Grid Grid.Row="1">
+                <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

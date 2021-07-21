@@ -15,13 +15,13 @@
 
 This project is currently work-in-progress!
 
-* [-] Supports anime streaming
+* [X] Supports anime streaming
   * [X] [AnimeKisa](https://animekisa.tv)
-  * [-] [AniMixPlay](https://animixplay.to)
+  * [ ] [AniMixPlay](https://animixplay.to)
   * [X] [4Anime](https://4anime.to)
   * [X] [Gogoanime](https://gogoanime.pe)
-* [-] Supports manga reading
-  * [-] [Manganato](https://manganato.com)
+* [ ] Supports manga reading
+  * [ ] [Manganato](https://manganato.com)
   * [ ] [Novelhall](https://novelhall.com) (for webnovels)
 * [X] Has a favorite system
 * [ ] Has a download system (offline mode)

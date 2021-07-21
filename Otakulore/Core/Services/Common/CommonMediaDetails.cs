@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.Core.Services.Common
@@ -10,20 +11,20 @@ namespace Otakulore.Core.Services.Common
 
         public int KitsuId { get; set; }
         public CommonMediaType MediaType { get; set; }
-        public string MediaFormat { get; set; }
-        public KitsuMediaStatus MediaStatus { get; set; }
+        [JsonIgnore] public string MediaFormat { get; set; }
+        [JsonIgnore] public KitsuMediaStatus MediaStatus { get; set; }
 
-        public string ImageUrl { get; set; }
-        public string CanonicalTitle { get; set; }
-        public IDictionary<string, string> AlternativeTitles { get; set; }
-        public DateTime? StartingDate { get; set; }
-        public DateTime? EndingDate { get; set; }
-        public string Synopsis { get; set; }
-        public double? AverageRating { get; set; }
+        [JsonIgnore] public string ImageUrl { get; set; }
+        [JsonIgnore] public string CanonicalTitle { get; set; }
+        [JsonIgnore] public IDictionary<string, string> AlternativeTitles { get; set; }
+        [JsonIgnore] public DateTime? StartingDate { get; set; }
+        [JsonIgnore] public DateTime? EndingDate { get; set; }
+        [JsonIgnore] public string Synopsis { get; set; }
+        [JsonIgnore] public double? AverageRating { get; set; }
 
-        public int? EpisodeCount { get; set; }
-        public int? ChapterCount { get; set; }
-        public int? VolumeCount { get; set; }
+        [JsonIgnore] public int? EpisodeCount { get; set; }
+        [JsonIgnore] public int? ChapterCount { get; set; }
+        [JsonIgnore] public int? VolumeCount { get; set; }
 
     }
 

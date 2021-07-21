@@ -48,14 +48,14 @@ namespace Otakulore.Core.Services.Anime.Providers
                     {
                         ImageUrl = node.SelectSingleNode("./div[@class='searchimg']/a/img").Attributes["src"].Value,
                         Title = node.SelectSingleNode("./div[@class='details']/p[@class='name']/a").InnerText,
-                        EpisodesUrl = BaseEndpoint + node.SelectSingleNode("./div[@class='searchimg']/a").Attributes["href"].Value
+                        Url = BaseEndpoint + node.SelectSingleNode("./div[@class='searchimg']/a").Attributes["href"].Value
                     });
                 }
                 return list.ToArray();
             }
             catch (Exception exception)
             {
-                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -76,15 +76,15 @@ namespace Otakulore.Core.Services.Anime.Providers
                         episodeNumber = result;
                     list.Add(new AnimeEpisode
                     {
-                        EpisodeNumber = episodeNumber,
-                        WatchUrl = url + "/ep" + node.InnerText
+                        Number = episodeNumber,
+                        Url = url + "/ep" + node.InnerText
                     });
                 }
                 return list.ToArray();
             }
             catch (Exception exception)
             {
-                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -97,7 +97,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

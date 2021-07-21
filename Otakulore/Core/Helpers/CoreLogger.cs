@@ -6,18 +6,18 @@ using System.IO;
 namespace Otakulore.Core.Helpers
 {
 
-    public static class BasicLogger
+    public static class CoreLogger
     {
 
         private static string Time => $"{DateTime.Now:yyyy-MM-dd @ HH:mm:ss}";
 
-        private static string LogData { get; set; }
+        private static string LogHistory { get; set; }
 
         public static void PostLine(string message, LoggerStatus status = LoggerStatus.Information)
         {
             var content = $"[{Time} * {status.Humanize()}] {message}";
             Debug.WriteLine(content);
-            LogData += Environment.NewLine + content;
+            LogHistory += Environment.NewLine + content;
         }
 
         public static void PostChunk(string chunk)
@@ -26,12 +26,13 @@ namespace Otakulore.Core.Helpers
                           chunk + Environment.NewLine +
                           "=================================";
             Debug.WriteLine(content);
-            LogData += Environment.NewLine + content;
+            LogHistory += Environment.NewLine + content;
         }
 
         public static void SaveToFile(string filePath)
         {
-            File.WriteAllText(filePath, LogData);
+            PostLine("Saved log file to " + filePath);
+            File.WriteAllText(filePath, LogHistory);
         }
 
     }

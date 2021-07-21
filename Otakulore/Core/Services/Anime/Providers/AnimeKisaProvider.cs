@@ -21,8 +21,6 @@ namespace Otakulore.Core.Services.Anime.Providers
             {
                 var document = new HtmlWeb().Load(string.Format(SearchAnimeEndpoint, Uri.EscapeDataString(query)));
                 var parentNodes = document.DocumentNode.SelectNodes("//div[@class='lisbox22']/div[@class='similarboxmain']");
-                if (parentNodes == null)
-                    return null;
                 var list = new List<AnimeInfo>();
                 foreach (var parentNode in parentNodes)
                 {
@@ -35,7 +33,7 @@ namespace Otakulore.Core.Services.Anime.Providers
                         {
                             ImageUrl = BaseEndpoint + node.SelectSingleNode("./div/div/div[@class='similarpic']/img").Attributes["src"].Value,
                             Title = node.SelectSingleNode("./div/div/div[@class='similard']/div/div[@class='similardd']").InnerText.Trim(),
-                            EpisodesUrl = BaseEndpoint + node.Attributes["href"].Value
+                            Url = BaseEndpoint + node.Attributes["href"].Value
                         });
                     }
                 }
@@ -43,7 +41,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -54,8 +52,6 @@ namespace Otakulore.Core.Services.Anime.Providers
             {
                 var document = new HtmlWeb().Load(url);
                 var nodes = document.DocumentNode.SelectNodes("//div[@class='infoepboxmain']/div[@class='infoepbox']/a[@class='infovan']");
-                if (nodes == null)
-                    return null;
                 var list = new List<AnimeEpisode>();
                 foreach (var node in nodes)
                 {
@@ -64,8 +60,8 @@ namespace Otakulore.Core.Services.Anime.Providers
                         episodeNumber = result;
                     list.Add(new AnimeEpisode
                     {
-                        EpisodeNumber = episodeNumber,
-                        WatchUrl = BaseEndpoint + "/" + node.Attributes["href"].Value
+                        Number = episodeNumber,
+                        Url = BaseEndpoint + "/" + node.Attributes["href"].Value
                     });
                 }
                 list.Reverse();
@@ -73,7 +69,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -88,7 +84,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
             catch (Exception exception)
             {
-                BasicLogger.PostLine(exception.Message, LoggerStatus.Error);
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

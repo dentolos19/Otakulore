@@ -136,7 +136,7 @@
     <Compile Include="Core\Services\Anime\Providers\FourAnimeProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\GogoanimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
-    <Compile Include="Core\Helpers\BasicLogger.cs" />
+    <Compile Include="Core\Helpers\CoreLogger.cs" />
     <Compile Include="Core\Services\Common\CommonMediaDetails.cs" />
     <Compile Include="Core\Services\Common\CommonMediaType.cs" />
     <Compile Include="Core\Services\Kitsu\KitsuApi.cs" />
@@ -156,18 +156,19 @@
     <Compile Include="Core\Helpers\LoggerStatus.cs" />
     <Compile Include="Core\Helpers\ObjectDumper.cs" />
     <Compile Include="Core\Services\Manga\IMangaProvider.cs" />
+    <Compile Include="Core\Services\Manga\MangaChapter.cs" />
     <Compile Include="Core\Services\Manga\MangaInfo.cs" />
     <Compile Include="Core\Services\Manga\Providers\ManganatoProvider.cs" />
     <Compile Include="Core\ServiceUtilities.cs" />
     <Compile Include="Core\UserData.cs" />
     <Compile Include="Core\WebDriver.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
-    <Compile Include="Models\EpisodeItemModel.cs" />
+    <Compile Include="Models\EpisodeChapterItemModel.cs" />
     <Compile Include="Models\TitleItemModel.cs" />
     <Compile Include="Models\ChannelItemModel.cs" />
     <Compile Include="ViewModels\DetailsOverviewViewModel.cs" />
     <Compile Include="ViewModels\LoadingViewModel.cs" />
-    <Compile Include="ViewModels\WatchViewModel.cs" />
+    <Compile Include="ViewModels\PlayerReaderViewModel.cs" />
     <Compile Include="Views\DetailsReadView.xaml.cs">
       <DependentUpon>DetailsReadView.xaml</DependentUpon>
     </Compile>
@@ -182,6 +183,9 @@
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MangaReaderView.xaml.cs">
+      <DependentUpon>MangaReaderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
@@ -198,8 +202,8 @@
     <Compile Include="Views\TrendingView.xaml.cs">
       <DependentUpon>TrendingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WatchView.xaml.cs">
-      <DependentUpon>WatchView.xaml</DependentUpon>
+    <Compile Include="Views\AnimePlayerView.xaml.cs">
+      <DependentUpon>AnimePlayerView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MangaReaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -308,7 +316,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WatchView.xaml">
+    <Page Include="Views\AnimePlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

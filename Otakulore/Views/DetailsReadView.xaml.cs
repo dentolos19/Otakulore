@@ -136,10 +136,8 @@ namespace Otakulore.Views
 
         private void ReadContent(object sender, ItemClickEventArgs args)
         {
-            /* TODO
             if (args.ClickedItem is ChannelItemModel model)
-                Frame.Navigate(typeof(WatchView), model);
-            */
+                Frame.Navigate(typeof(MangaReaderView), model);
         }
 
     }

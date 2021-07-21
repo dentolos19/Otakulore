@@ -8,7 +8,7 @@
         string Name { get; }
 
         MangaInfo[] SearchManga(string query);
-        object[] ScrapeMangaChapters(string url);
+        MangaChapter[] ScrapeMangaChapters(string url);
         string[] ScrapeChapterSources(string url);
 
     }

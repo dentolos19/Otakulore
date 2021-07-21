@@ -1,11 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Windows.ApplicationModel;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.Services.Anime;
-using Otakulore.Core.Services.Anime.Providers;
 using Otakulore.Core.Services.Manga;
 
 namespace Otakulore.Views
@@ -55,6 +57,16 @@ namespace Otakulore.Views
                 App.Settings.DefaultAnimeProvider = ((IAnimeProvider)((ComboBoxItem)DefaultAnimeProviderSelection.SelectedItem).Tag).Id;
             if (DefaultMangaProviderSelection.SelectedItem != null)
                 App.Settings.DefaultMangaProvider = ((IMangaProvider)((ComboBoxItem)DefaultMangaProviderSelection.SelectedItem).Tag).Id;
+        }
+
+        private async void OpenLocalFolder(object sender, RoutedEventArgs args)
+        {
+            await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
+        }
+
+        private async void OpenCacheFolder(object sender, RoutedEventArgs args)
+        {
+            await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalCacheFolder);
         }
 
     }

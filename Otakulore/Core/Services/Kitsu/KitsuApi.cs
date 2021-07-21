@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.Services.Kitsu
 {
@@ -32,8 +33,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponses<KitsuAnimeAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -47,8 +49,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponses<KitsuAnimeAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -62,8 +65,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponse<KitsuAnimeAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -77,8 +81,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -104,8 +109,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponses<KitsuMangaAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -119,8 +125,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var content = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponses<KitsuMangaAttributes>>(content).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -134,8 +141,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponse<KitsuMangaAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }
@@ -149,8 +157,9 @@ namespace Otakulore.Core.Services.Kitsu
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<KitsuResponses<KitsuGenreAttributes>>(responseContent).Data;
             }
-            catch
+            catch (Exception exception)
             {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
                 return null;
             }
         }

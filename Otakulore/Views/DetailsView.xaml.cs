@@ -40,7 +40,7 @@ namespace Otakulore.Views
                 {
                     Content = "Read",
                     Tag = nameof(DetailsReadView),
-                    Icon = new FontIcon { Glyph = "\xE79E" }
+                    Icon = new FontIcon { Glyph = "\xE736" }
                 });
             }
             NavigationControl.SelectedItem = NavigationControl.MenuItems.OfType<NewNavigationViewItem>().First();
