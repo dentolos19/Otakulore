@@ -20,8 +20,8 @@ This project is currently work-in-progress!
   * [ ] [AniMixPlay](https://animixplay.to)
   * [X] [4Anime](https://4anime.to)
   * [X] [Gogoanime](https://gogoanime.pe)
-* [ ] Supports manga reading
-  * [ ] [Manganato](https://manganato.com)
+* [X] Supports manga reading
+  * [X] [Manganelo](https://manganelo.tv)
   * [ ] [Novelhall](https://novelhall.com) (for webnovels)
 * [X] Has a favorite system
 * [ ] Has a download system (offline mode)
@@ -34,3 +34,4 @@ This project is currently work-in-progress!
 ![](./.github/screenshots/3.png)
 ![](./.github/screenshots/4.png)
 ![](./.github/screenshots/5.png)
+![](./.github/screenshots/6.png)

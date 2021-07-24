@@ -74,11 +74,14 @@ namespace Otakulore.Views
             ThreadPool.QueueUserWorkItem(async _ =>
             {
                 var episodeSource = _provider.ScrapeEpisodeSource(model.Url);
-                if (!string.IsNullOrEmpty(episodeSource))
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(episodeSource)) }));
-                else
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog("Unable to scrape episodes with the current provider.").ShowAsync());
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((PlayerReaderViewModel)DataContext).IsLoading = false);
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    if (!string.IsNullOrEmpty(episodeSource))
+                        MediaElement.SetMediaPlayer(new MediaPlayer { Source = MediaSource.CreateFromUri(new Uri(episodeSource)) });
+                    else
+                        await new MessageDialog("Unable to scrape episodes with the current provider.").ShowAsync();
+                    ((PlayerReaderViewModel)DataContext).IsLoading = false;
+                });
             });
         }
 

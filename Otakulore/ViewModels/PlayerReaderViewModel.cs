@@ -8,7 +8,9 @@ namespace Otakulore.ViewModels
     {
         
         public string Title { get; set; }
+
         public ObservableCollection<EpisodeChapterItemModel> EpisodeChapterList { get; set; } = new ObservableCollection<EpisodeChapterItemModel>();
+        public ObservableCollection<ChapterSourceItemModel> ChapterSourceList { get; set; } = new ObservableCollection<ChapterSourceItemModel>();
 
         public static PlayerReaderViewModel CreateViewModel(ChannelItemModel model)
         {

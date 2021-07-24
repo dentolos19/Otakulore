@@ -15,7 +15,8 @@ namespace Otakulore.Core
         private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "userdata.json");
         
         public string DefaultAnimeProvider { get; set; } = new AnimeKisaProvider().Id;
-        public string DefaultMangaProvider { get; set; } = new ManganatoProvider().Id;
+        public string DefaultMangaProvider { get; set; } = new ManganeloProvider().Id;
+        public float DefaultZoomFactor { get; set; } = 0.5f;
         public List<CommonMediaDetails> FavoriteList { get; set; } = new List<CommonMediaDetails>();
 
         public void SaveData()
