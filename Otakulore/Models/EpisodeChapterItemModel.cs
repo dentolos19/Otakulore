@@ -6,7 +6,7 @@ namespace Otakulore.Models
 
     public class EpisodeChapterItemModel
     {
-        
+
         public string Text { get; set; }
         public string Url { get; set; }
 

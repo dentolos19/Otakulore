@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Otakulore.Core.Helpers;
+using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.Services.Kitsu
 {

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Humanizer;
+﻿using Humanizer;
 using Otakulore.Core.Services.Anime;
 using Otakulore.Core.Services.Common;
 using Otakulore.Core.Services.Kitsu;
 using Otakulore.Core.Services.Manga;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Otakulore.Core
 {

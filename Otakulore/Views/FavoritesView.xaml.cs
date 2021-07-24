@@ -1,14 +1,13 @@
-﻿using Otakulore.Core.Services.Kitsu;
+﻿using Otakulore.Core;
+using Otakulore.Core.Services.Common;
+using Otakulore.Core.Services.Kitsu;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core;
-using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Views
 {
@@ -47,7 +46,7 @@ namespace Otakulore.Views
             }
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = false);
         }
-        
+
         private void ShowDetails(object sender, ItemClickEventArgs args)
         {
             if (args.ClickedItem is ContentItemModel model)

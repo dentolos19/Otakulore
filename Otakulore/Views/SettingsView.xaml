@@ -11,25 +11,17 @@
         <TextBlock Grid.Row="0" Text="Settings" FontWeight="Bold" FontSize="24"/>
         <StackPanel Grid.Row="1" Spacing="10">
             <controls:Expander Header="General Preferences" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
-                <StackPanel Spacing="10">
-                    <Button Content="Open Local Folder" Click="OpenLocalFolder"/>
-                    <Button Content="Open Cache Folder" Click="OpenCacheFolder"/>
-                </StackPanel>
-            </controls:Expander>
-            <controls:Expander Header="Anime Services" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
-                <StackPanel Spacing="10">
+                <StackPanel Spacing="20">
                     <StackPanel Spacing="5">
                         <TextBlock Text="Default Anime Provider"/>
                         <ComboBox x:Name="DefaultAnimeProviderSelection" SelectionChanged="UpdateSettings"/>
                     </StackPanel>
-                </StackPanel>
-            </controls:Expander>
-            <controls:Expander Header="Manga Services" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
-                <StackPanel Spacing="10">
                     <StackPanel Spacing="5">
                         <TextBlock Text="Default Manga Provider"/>
                         <ComboBox x:Name="DefaultMangaProviderSelection" SelectionChanged="UpdateSettings"/>
                     </StackPanel>
+                    <Button Content="Open Local Folder" Click="OpenLocalFolder"/>
+                    <Button Content="Open Cache Folder" Click="OpenCacheFolder"/>
                 </StackPanel>
             </controls:Expander>
             <controls:Expander Header="About Otakulore" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">

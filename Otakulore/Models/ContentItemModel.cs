@@ -1,6 +1,7 @@
-﻿using Windows.UI.Xaml;
-using Humanizer;
+﻿using Humanizer;
 using Otakulore.Core.Services.Common;
+using Windows.UI.Xaml;
+using Otakulore.Core;
 
 namespace Otakulore.Models
 {
@@ -17,8 +18,9 @@ namespace Otakulore.Models
         public string Synopsis { get; set; }
         public double Rating { get; set; }
 
+        public int LevenshteinDistance { get; set; }
         public CommonMediaDetails Data { get; set; }
-
+        
         public static ContentItemModel CreateModel(CommonMediaDetails data)
         {
             var model = new ContentItemModel

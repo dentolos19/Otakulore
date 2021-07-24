@@ -1,6 +1,6 @@
-﻿using Windows.UI.Xaml;
-using Humanizer;
+﻿using Humanizer;
 using Otakulore.Core.Services.Common;
+using Windows.UI.Xaml;
 
 namespace Otakulore.ViewModels
 {

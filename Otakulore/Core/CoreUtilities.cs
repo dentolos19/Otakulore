@@ -67,16 +67,18 @@ namespace Otakulore.Core
             var targetType = typeof(T);
             var instance = Activator.CreateInstance(targetType, false);
             var objectMembers = from source in objectType.GetMembers().ToList()
-                where source.MemberType == MemberTypes.Property select source;
-            var targetMembers = from source in targetType.GetMembers().ToList() 
-                where source.MemberType == MemberTypes.Property select source;
+                                where source.MemberType == MemberTypes.Property
+                                select source;
+            var targetMembers = from source in targetType.GetMembers().ToList()
+                                where source.MemberType == MemberTypes.Property
+                                select source;
             var members = targetMembers.Where(targetMemberInfo => objectMembers.Select(objectMemberInfo => objectMemberInfo.Name).ToList().Contains(targetMemberInfo.Name)).ToList();
             foreach (var memberInfo in members)
             {
                 var propertyInfo = typeof(T).GetProperty(memberInfo.Name);
-                var value = @object.GetType().GetProperty(memberInfo.Name).GetValue(@object,null);
+                var value = @object.GetType().GetProperty(memberInfo.Name).GetValue(@object, null);
                 propertyInfo.SetValue(instance, value, null);
-            } 
+            }
             return (T)instance;
         }
 
@@ -85,6 +87,32 @@ namespace Otakulore.Core
             var fromIndex = @string.IndexOf(fromString) + fromString.Length;
             @string = @string.Substring(fromIndex);
             return @string.Remove(@string.IndexOf(toString));
+        }
+
+        public static int ComputeLevenshteinDistance(this string @string, string comparison)
+        {
+            if (@string == comparison)
+                return 0;
+            if (@string.Length == 0)
+                return comparison.Length;
+            if (comparison.Length == 0)
+                return @string.Length;
+            var temp0 = new int[comparison.Length + 1];
+            var temp1 = new int[comparison.Length + 1];
+            for (int i = 0; i < temp0.Length; i++)
+                temp0[i] = i;
+            for (int i = 0; i < @string.Length; i++)
+            {
+                temp1[0] = i + 1;
+                for (var j = 0; j < comparison.Length; j++)
+                {
+                    var cost = @string[i] == comparison[j] ? 0 : 1;
+                    temp1[j + 1] = Math.Min(temp1[j] + 1, Math.Min(temp0[j + 1] + 1, temp0[j] + cost));
+                }
+                for (var j = 0; j < temp0.Length; j++)
+                    temp0[j] = temp1[j];
+            }
+            return temp1[comparison.Length];
         }
 
     }

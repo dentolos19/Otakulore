@@ -58,86 +58,86 @@ namespace Otakulore.Core.Helpers
                     WriteElement(FormatValue(element));
                     break;
                 case ValueType _:
-                {
-                    var objectType = element.GetType();
-                    var isWritten = false;
-                    if (objectType.GetTypeInfo().IsGenericType)
                     {
-                        var baseType = objectType.GetGenericTypeDefinition();
-                        if (baseType == typeof(KeyValuePair<,>))
+                        var objectType = element.GetType();
+                        var isWritten = false;
+                        if (objectType.GetTypeInfo().IsGenericType)
                         {
-                            isWritten = true;
-                            WriteElement("Key:");
-                            _currentIndent++;
-                            DumpElement(objectType.GetProperty("Key").GetValue(element, null));
-                            _currentIndent--;
-                            WriteElement("Value:");
-                            _currentIndent++;
-                            DumpElement(objectType.GetProperty("Value").GetValue(element, null));
-                            _currentIndent--;
+                            var baseType = objectType.GetGenericTypeDefinition();
+                            if (baseType == typeof(KeyValuePair<,>))
+                            {
+                                isWritten = true;
+                                WriteElement("Key:");
+                                _currentIndent++;
+                                DumpElement(objectType.GetProperty("Key").GetValue(element, null));
+                                _currentIndent--;
+                                WriteElement("Value:");
+                                _currentIndent++;
+                                DumpElement(objectType.GetProperty("Value").GetValue(element, null));
+                                _currentIndent--;
+                            }
                         }
+                        if (!isWritten)
+                            WriteElement(FormatValue(element));
+                        break;
                     }
-                    if (!isWritten)
-                        WriteElement(FormatValue(element));
-                    break;
-                }
                 case IEnumerable enumerableElement:
-                {
-                    foreach (var item in enumerableElement)
-                        if (item is IEnumerable && !(item is string))
-                        {
-                            _currentIndent++;
-                            DumpElement(item);
-                            _currentIndent--;
-                        }
-                        else
-                        {
-                            DumpElement(item);
-                        }
-                    break;
-                }
-                default:
-                {
-                    var objectType = element.GetType();
-                    WriteElement("{{{0}(HashCode:{1})}}", objectType.FullName, element.GetHashCode());
-                    if (AlreadyDumped(element))
-                        return isTopOfTree ? _stringBuilder.ToString() : null;
-                    _currentIndent++;
-                    var members = objectType.GetMembers(BindingFlags.Public | BindingFlags.Instance);
-                    foreach (var memberInfo in members)
                     {
-                        var fieldInfo = memberInfo as FieldInfo;
-                        var propertyInfo = memberInfo as PropertyInfo;
-                        if (fieldInfo == null && (propertyInfo == null || !propertyInfo.CanRead || propertyInfo.GetIndexParameters().Length > 0))
-                            continue;
-                        var type = fieldInfo != null ? fieldInfo.FieldType : propertyInfo.PropertyType;
-                        object value;
-                        try
-                        {
-                            value = fieldInfo != null ? fieldInfo.GetValue(element) : propertyInfo.GetValue(element, null);
-                        }
-                        catch (Exception e)
-                        {
-                            WriteElement("{0} Failed With:{1}", memberInfo.Name, (e.GetBaseException() ?? e).Message);
-                            continue;
-                        }
-
-                        if (type.GetTypeInfo().IsValueType || type == typeof(string))
-                        {
-                            WriteElement("{0}: {1}", memberInfo.Name, FormatValue(value));
-                        }
-                        else
-                        {
-                            var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
-                            WriteElement("{0}: {1}", memberInfo.Name, isEnumerable ? "..." : "{ }");
-                            _currentIndent++;
-                            DumpElement(value);
-                            _currentIndent--;
-                        }
+                        foreach (var item in enumerableElement)
+                            if (item is IEnumerable && !(item is string))
+                            {
+                                _currentIndent++;
+                                DumpElement(item);
+                                _currentIndent--;
+                            }
+                            else
+                            {
+                                DumpElement(item);
+                            }
+                        break;
                     }
-                    _currentIndent--;
-                    break;
-                }
+                default:
+                    {
+                        var objectType = element.GetType();
+                        WriteElement("{{{0}(HashCode:{1})}}", objectType.FullName, element.GetHashCode());
+                        if (AlreadyDumped(element))
+                            return isTopOfTree ? _stringBuilder.ToString() : null;
+                        _currentIndent++;
+                        var members = objectType.GetMembers(BindingFlags.Public | BindingFlags.Instance);
+                        foreach (var memberInfo in members)
+                        {
+                            var fieldInfo = memberInfo as FieldInfo;
+                            var propertyInfo = memberInfo as PropertyInfo;
+                            if (fieldInfo == null && (propertyInfo == null || !propertyInfo.CanRead || propertyInfo.GetIndexParameters().Length > 0))
+                                continue;
+                            var type = fieldInfo != null ? fieldInfo.FieldType : propertyInfo.PropertyType;
+                            object value;
+                            try
+                            {
+                                value = fieldInfo != null ? fieldInfo.GetValue(element) : propertyInfo.GetValue(element, null);
+                            }
+                            catch (Exception e)
+                            {
+                                WriteElement("{0} Failed With:{1}", memberInfo.Name, (e.GetBaseException() ?? e).Message);
+                                continue;
+                            }
+
+                            if (type.GetTypeInfo().IsValueType || type == typeof(string))
+                            {
+                                WriteElement("{0}: {1}", memberInfo.Name, FormatValue(value));
+                            }
+                            else
+                            {
+                                var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
+                                WriteElement("{0}: {1}", memberInfo.Name, isEnumerable ? "..." : "{ }");
+                                _currentIndent++;
+                                DumpElement(value);
+                                _currentIndent--;
+                            }
+                        }
+                        _currentIndent--;
+                        break;
+                    }
             }
 
             return isTopOfTree ? _stringBuilder.ToString() : null;

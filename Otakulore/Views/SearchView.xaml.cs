@@ -1,4 +1,6 @@
-﻿using Otakulore.Core.Services.Kitsu;
+using Otakulore.Core;
+using Otakulore.Core.Services.Common;
+using Otakulore.Core.Services.Kitsu;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System;
@@ -9,8 +11,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core;
-using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Views
 {
@@ -39,15 +39,18 @@ namespace Otakulore.Views
         {
             if (!(args.Argument is string query))
                 return;
-            var results = new List<CommonMediaDetails>(); // TODO: add result sorting
+            var results = new List<CommonMediaDetails>();
             results.AddRange((await KitsuApi.SearchAnimeAsync(query)).Select(ServiceUtilities.CastCommonMediaDetails));
             results.AddRange((await KitsuApi.SearchMangaAsync(query)).Select(ServiceUtilities.CastCommonMediaDetails));
             if (results.Count > 0)
             {
+                var models = results.Select(ContentItemModel.CreateModel).ToArray();
+                foreach (var model in models)
+                    model.LevenshteinDistance = query.ComputeLevenshteinDistance(model.Title);
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (var details in results)
-                        ContentList.Items.Add(ContentItemModel.CreateModel(details));
+                    foreach (var model in models.OrderBy(item => item.LevenshteinDistance))
+                        ContentList.Items.Add(model);
                     ((LoadingViewModel)DataContext).IsLoading = false;
                 });
             }

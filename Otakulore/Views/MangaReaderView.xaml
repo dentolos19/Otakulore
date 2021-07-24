@@ -19,14 +19,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
-                <ComboBox x:Name="ReadMode" Grid.Column="1" SelectionChanged="ModeChanged">
-                    <ComboBoxItem Content="Manga" Tag="mg"/>
-                    <ComboBoxItem Content="Webtoon" Tag="wt"/>
-                </ComboBox>
-                <ComboBox x:Name="ChapterList" Grid.Column="2" ItemsSource="{Binding Path=EpisodeChapterList}" SelectionChanged="ChapterChanged">
+                <ComboBox x:Name="ChapterList" Grid.Column="1" ItemsSource="{Binding Path=EpisodeChapterList}" SelectionChanged="ChapterChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="models:EpisodeChapterItemModel">
                             <TextBlock Text="{Binding Path=Text}"/>
@@ -34,34 +29,19 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <Grid Grid.Row="1">
-                <FlipView x:Name="MangaViewer" ItemsSource="{Binding Path=ChapterSourceList}">
-                    <FlipView.ItemTemplate>
+            <ScrollViewer Grid.Row="1" ZoomMode="Enabled" MinZoomFactor="0.2" MaxZoomFactor="1.0">
+                <ItemsControl ItemsSource="{Binding Path=ChapterSourceList}">
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="models:ChapterSourceItemModel">
-                            <ScrollViewer ZoomMode="Enabled" Loaded="SetZoomFactor">
-                                <Image>
-                                    <Image.Source>
-                                        <BitmapImage UriSource="{Binding Path=Url}"/>
-                                    </Image.Source>
-                                </Image>
-                            </ScrollViewer>
+                            <Image>
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding Path=Url}"/>
+                                </Image.Source>
+                            </Image>
                         </DataTemplate>
-                    </FlipView.ItemTemplate>
-                </FlipView>
-                <ScrollViewer x:Name="WebtoonViewer" ZoomMode="Enabled" Loaded="SetZoomFactor">
-                    <ItemsControl ItemsSource="{Binding Path=ChapterSourceList}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="models:ChapterSourceItemModel">
-                                <Image>
-                                    <Image.Source>
-                                        <BitmapImage UriSource="{Binding Path=Url}"/>
-                                    </Image.Source>
-                                </Image>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Otakulore.Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text.Json;
-using HtmlAgilityPack;
-using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.Services.Anime.Providers
 {
@@ -60,7 +60,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             }
         }
 
-        public AnimeEpisode[] ScrapeAnimeEpisodes(string url) // TODO: continue working on this
+        public AnimeEpisode[] ScrapeAnimeEpisodes(string url) // TODO: continue working on scraping episodes from animixplay
         {
             try
             {
@@ -93,7 +93,7 @@ namespace Otakulore.Core.Services.Anime.Providers
         {
             try
             {
-                return null; // TODO
+                return null; // TODO: scrape episode source from animixplay
             }
             catch (Exception exception)
             {

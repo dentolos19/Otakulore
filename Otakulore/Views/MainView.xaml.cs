@@ -45,7 +45,7 @@ namespace Otakulore.Views
             if (ContentFrame.CanGoBack)
                 ContentFrame.GoBack();
         }
-        
+
         private void ViewNavigated(object sender, NavigationEventArgs args)
         {
             NavigationControl.IsBackEnabled = ContentFrame.CanGoBack;

@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using Windows.System;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
-using Otakulore.Core;
+﻿using Otakulore.Core;
 using Otakulore.Core.Services.Anime;
 using Otakulore.Core.Services.Common;
 using Otakulore.Models;
 using Otakulore.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Otakulore.Views
 {

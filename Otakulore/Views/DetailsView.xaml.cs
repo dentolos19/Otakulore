@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Common;
+using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Services.Common;
 using NewNavigationView = Microsoft.UI.Xaml.Controls.NavigationView;
 using NewNavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NewNavigationViewSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs;

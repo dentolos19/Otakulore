@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Otakulore.Core;
+using Otakulore.Core.Services.Anime;
+using Otakulore.Core.Services.Manga;
+using System;
 using System.Linq;
 using Windows.ApplicationModel;
 using Windows.Storage;
@@ -6,9 +9,6 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core;
-using Otakulore.Core.Services.Anime;
-using Otakulore.Core.Services.Manga;
 
 namespace Otakulore.Views
 {
@@ -21,9 +21,9 @@ namespace Otakulore.Views
             InitializeComponent();
             var packageVersion = Package.Current.Id.Version;
             VersionText.Text = $"v{packageVersion.Major}.{packageVersion.Minor}";
-            #if DEBUG
+#if DEBUG
             VersionText.Text += "-DEBUG";
-            #endif
+#endif
             AboutText.Text = CoreUtilities.GetEmbeddedResourceAsString("About.txt");
             foreach (var animeProvider in ServiceUtilities.GetAnimeProviders())
             {

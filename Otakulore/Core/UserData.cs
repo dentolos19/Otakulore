@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Otakulore.Core.Services.Anime.Providers;
+using Otakulore.Core.Services.Common;
+using Otakulore.Core.Services.Manga.Providers;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Windows.Storage;
-using Otakulore.Core.Services.Anime.Providers;
-using Otakulore.Core.Services.Manga.Providers;
-using Otakulore.Core.Services.Common;
 
 namespace Otakulore.Core
 {
@@ -13,10 +13,9 @@ namespace Otakulore.Core
     {
 
         private static readonly string DataFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "userdata.json");
-        
+
         public string DefaultAnimeProvider { get; set; } = new AnimeKisaProvider().Id;
         public string DefaultMangaProvider { get; set; } = new ManganeloProvider().Id;
-        public float DefaultZoomFactor { get; set; } = 0.5f;
         public List<CommonMediaDetails> FavoriteList { get; set; } = new List<CommonMediaDetails>();
 
         public void SaveData()

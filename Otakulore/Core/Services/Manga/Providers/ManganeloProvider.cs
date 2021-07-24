@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Otakulore.Core.Helpers;
+using System;
+using System.Linq;
 
 namespace Otakulore.Core.Services.Manga.Providers
 {

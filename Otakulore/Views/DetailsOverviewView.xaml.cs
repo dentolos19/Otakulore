@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Common;
+using Otakulore.Core.Services.Kitsu;
+using Otakulore.ViewModels;
+using System;
 using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Otakulore.Core.Services.Common;
-using Otakulore.Core.Services.Kitsu;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views
 {

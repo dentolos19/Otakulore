@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Otakulore.Core.Services.Kitsu;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Otakulore.Core.Services.Kitsu;
 
 namespace Otakulore.Core.Services.Common
 {

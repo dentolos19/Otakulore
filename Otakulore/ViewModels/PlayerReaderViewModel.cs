@@ -6,7 +6,7 @@ namespace Otakulore.ViewModels
 
     public class PlayerReaderViewModel : LoadingViewModel
     {
-        
+
         public string Title { get; set; }
 
         public ObservableCollection<EpisodeChapterItemModel> EpisodeChapterList { get; set; } = new ObservableCollection<EpisodeChapterItemModel>();

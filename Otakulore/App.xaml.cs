@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using Otakulore.Core;
+﻿using Otakulore.Core;
+using Otakulore.Core.Helpers;
 using Otakulore.Views;
+using System;
+using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Otakulore.Core.Helpers;
 
 
 namespace Otakulore
@@ -40,7 +40,7 @@ namespace Otakulore
                 rootFrame.Navigate(typeof(MainView), args.Arguments);
             Window.Current.Activate();
         }
-        
+
         private void OnSuspending(object sender, SuspendingEventArgs args)
         {
             var deferral = args.SuspendingOperation.GetDeferral();
