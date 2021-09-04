@@ -1,28 +1,19 @@
-<div align="center">
-
-<img src="./.github/icon.png" width="100"/>
-
-</div>
-
-<h1 align="center">Otakulore</h1>
-
-<div align="center">
+# <img src="./.github/icon.png" width="24"/> Otakulore
 
 [![](https://img.shields.io/badge/Powered%20By-.NET-blue?logo=microsoft&style=flat-square)](https://dotnet.microsoft.com)
 [![](https://img.shields.io/badge/Made%20With-Visual%20Studio-blue?logo=visual-studio&style=flat-square)](https://visualstudio.microsoft.com)
 
-</div>
+Otakulore an entertainment app for watching anime and reading manga. This project was made with learning purposes and the interest of people who loves watching anime and reading manga.
 
-This project is currently work-in-progress!
+## Features
 
 * [X] Supports anime streaming
   * [X] [AnimeKisa](https://animekisa.tv)
-  * [ ] [AniMixPlay](https://animixplay.to)
   * [X] [4Anime](https://4anime.to)
   * [X] [Gogoanime](https://gogoanime.pe)
 * [X] Supports manga reading
   * [X] [Manganelo](https://manganelo.tv)
-  * [ ] [Novelhall](https://novelhall.com) (for webnovels)
+  * [ ] [MangaDex](https://mangadex.tv)
 * [X] Has a favorite system
 * [ ] Has a download system (offline mode)
 
@@ -35,3 +26,7 @@ This project is currently work-in-progress!
 ![](./.github/screenshots/4.png)
 ![](./.github/screenshots/5.png)
 ![](./.github/screenshots/6.png)
+
+## Usage
+
+This project is currently work-in-progress!

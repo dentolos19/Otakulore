@@ -1,5 +1,3 @@
-﻿This app was during the free time by Dennise Catolos. The purpose of creating this app is so that otaku people, those loves to watch anime & read manga, enjoys one place to enjoy all their daily entertainment. The name was conceived through combining the two words, "Otaku" & "Lore". The word, otaku, that describes people with comsuming interest, particularly in anime and manga. And the word, lore, meaning the body of knowledge on a particular subject.
+﻿Otakulore an entertainment app for watching anime and reading manga. This project was made with learning purposes and the interest of people who loves watching anime and reading manga.
 
-This app is created by one person. There may be some bugs or improvements needed, so if you want to contibute to the project, press the button at the left side of this panel.
-
-This app was created by Dennise Catolos with the GPL-3.0 License.
+Created by Dennise Catolos.

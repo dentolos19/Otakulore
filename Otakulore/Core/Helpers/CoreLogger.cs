@@ -17,7 +17,7 @@ namespace Otakulore.Core.Helpers
         {
             var content = $"[{Time} * {status.Humanize()}] {message}";
             Debug.WriteLine(content);
-            LogHistory += Environment.NewLine + content;
+            LogHistory += content + Environment.NewLine;
         }
 
         public static void PostChunk(string chunk)
@@ -26,7 +26,7 @@ namespace Otakulore.Core.Helpers
                           chunk + Environment.NewLine +
                           "=================================";
             Debug.WriteLine(content);
-            LogHistory += Environment.NewLine + content;
+            LogHistory += content + Environment.NewLine;
         }
 
         public static void SaveToFile(string filePath)
