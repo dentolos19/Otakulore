@@ -28,7 +28,6 @@ namespace Otakulore
         {
             CoreLogger.PostLine("App was started!");
             Settings = UserData.LoadData();
-            WebDriver.EnsureDriverExists();
             if (!(Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();

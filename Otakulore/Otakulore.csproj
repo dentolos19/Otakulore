@@ -133,7 +133,6 @@
     <Compile Include="Core\Services\Anime\IAnimeProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\AnimeKisaProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\FourAnimeProvider.cs" />
-    <Compile Include="Core\Services\Anime\Providers\GogoanimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
     <Compile Include="Core\Helpers\CoreLogger.cs" />
     <Compile Include="Core\Services\Common\CommonMediaDetails.cs" />
@@ -160,7 +159,6 @@
     <Compile Include="Core\Services\Manga\Providers\ManganeloProvider.cs" />
     <Compile Include="Core\ServiceUtilities.cs" />
     <Compile Include="Core\UserData.cs" />
-    <Compile Include="Core\WebDriver.cs" />
     <Compile Include="Models\ChapterSourceItemModel.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
     <Compile Include="Models\EpisodeChapterItemModel.cs" />
@@ -333,9 +331,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.6.2</Version>
-    </PackageReference>
-    <PackageReference Include="Selenium.WebDriver">
-      <Version>4.0.0-beta2</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
       <Version>5.0.2</Version>
