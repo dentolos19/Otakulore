@@ -16,6 +16,7 @@
         <Grid Grid.Row="1">
             <controls:ProgressRing IsActive="{Binding Path=IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
             <GridView x:Name="ContentList" ItemTemplate="{StaticResource ResourceKey=ContentItemTemplate}" IsItemClickEnabled="True" ItemClick="ShowDetails"/>
+            <TextBlock x:Name="EmptyPlaceholderText" Text="Boo! You don't have any favorites?!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Page>

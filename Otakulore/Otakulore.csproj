@@ -156,6 +156,7 @@
     <Compile Include="Core\Services\Manga\IMangaProvider.cs" />
     <Compile Include="Core\Services\Manga\MangaChapter.cs" />
     <Compile Include="Core\Services\Manga\MangaInfo.cs" />
+    <Compile Include="Core\Services\Manga\Providers\MangaDexProvider.cs" />
     <Compile Include="Core\Services\Manga\Providers\ManganeloProvider.cs" />
     <Compile Include="Core\ServiceUtilities.cs" />
     <Compile Include="Core\UserData.cs" />

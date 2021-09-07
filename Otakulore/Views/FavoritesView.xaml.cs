@@ -6,6 +6,7 @@ using Otakulore.ViewModels;
 using System;
 using System.ComponentModel;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -31,18 +32,26 @@ namespace Otakulore.Views
 
         private async void LoadContent(object sender, DoWorkEventArgs args)
         {
-            foreach (var details in App.Settings.FavoriteList)
+            if (App.Settings.FavoriteList.Count > 0)
             {
-                if (details.MediaType == CommonMediaType.Anime)
+                foreach (var details in App.Settings.FavoriteList)
                 {
-                    var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetAnimeAsync(details.KitsuId.ToString()));
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails)));
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => EmptyPlaceholderText.Visibility = Visibility.Collapsed);
+                    if (details.MediaType == CommonMediaType.Anime)
+                    {
+                        var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetAnimeAsync(details.KitsuId.ToString()));
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails)));
+                    }
+                    else
+                    {
+                        var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetMangaAsync(details.KitsuId.ToString()));
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails)));
+                    }
                 }
-                else
-                {
-                    var reloadedDetails = ServiceUtilities.CastCommonMediaDetails(await KitsuApi.GetMangaAsync(details.KitsuId.ToString()));
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Items.Add(ContentItemModel.CreateModel(reloadedDetails)));
-                }
+            }
+            else
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ContentList.Visibility = Visibility.Collapsed);
             }
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ((LoadingViewModel)DataContext).IsLoading = false);
         }

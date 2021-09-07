@@ -99,9 +99,9 @@ namespace Otakulore.Core
                 return @string.Length;
             var temp0 = new int[comparison.Length + 1];
             var temp1 = new int[comparison.Length + 1];
-            for (int i = 0; i < temp0.Length; i++)
+            for (var i = 0; i < temp0.Length; i++)
                 temp0[i] = i;
-            for (int i = 0; i < @string.Length; i++)
+            for (var i = 0; i < @string.Length; i++)
             {
                 temp1[0] = i + 1;
                 for (var j = 0; j < comparison.Length; j++)
