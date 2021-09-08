@@ -9,8 +9,8 @@ namespace Otakulore.Core.Services.Anime.Providers
     public class FourAnimeProvider : IAnimeProvider
     {
 
-        private static string BaseEndpoint => "https://4anime.to";
-        private static string SearchAnimeEndpoint => BaseEndpoint + "/?s={0}";
+        private static string BaseEndpoint => "https://4animes.org";
+        private static string SearchAnimeEndpoint => BaseEndpoint + "/search?s={0}";
 
         public string Id => "4a";
         public string Name => "4Anime";
@@ -29,9 +29,9 @@ namespace Otakulore.Core.Services.Anime.Providers
                         continue;
                     list.Add(new AnimeInfo
                     {
-                        ImageUrl = root.SelectSingleNode("./img").Attributes["src"].Value,
+                        ImageUrl = BaseEndpoint + root.SelectSingleNode("./img").Attributes["src"].Value,
                         Title = root.SelectSingleNode("./div").InnerText,
-                        Url = root.Attributes["href"].Value
+                        Url = BaseEndpoint + root.Attributes["href"].Value
                     });
                 }
                 return list.ToArray();
@@ -48,7 +48,7 @@ namespace Otakulore.Core.Services.Anime.Providers
             try
             {
                 var document = new HtmlWeb().Load(url);
-                var nodes = document.DocumentNode.SelectNodes("//div[@class='watchpage']//li");
+                var nodes = document.DocumentNode.SelectNodes("//section[@class='single-anime-category']/div[@class='watchpage']/div/div/div/ul/li");
                 var list = new List<AnimeEpisode>();
                 foreach (var node in nodes)
                 {
@@ -61,7 +61,7 @@ namespace Otakulore.Core.Services.Anime.Providers
                     list.Add(new AnimeEpisode
                     {
                         Number = episodeNumber,
-                        Url = root.Attributes["href"].Value
+                        Url = BaseEndpoint + root.Attributes["href"].Value
                     });
                 }
                 return list.ToArray();
