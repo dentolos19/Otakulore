@@ -132,7 +132,6 @@
     <Compile Include="Core\Services\Anime\AnimeInfo.cs" />
     <Compile Include="Core\Services\Anime\IAnimeProvider.cs" />
     <Compile Include="Core\Services\Anime\Providers\AnimeKisaProvider.cs" />
-    <Compile Include="Core\Services\Anime\Providers\FourAnimeProvider.cs" />
     <Compile Include="Core\CoreUtilities.cs" />
     <Compile Include="Core\Helpers\CoreLogger.cs" />
     <Compile Include="Core\Services\Common\CommonMediaDetails.cs" />

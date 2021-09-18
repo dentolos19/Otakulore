@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HtmlAgilityPack;
 using Otakulore.Core.Helpers;
 
@@ -73,7 +74,17 @@ namespace Otakulore.Core.Services.Manga.Providers
 
         public string[] ScrapeChapterSources(string url)
         {
-            return null; // TODO: add mangadex scraping
+            try
+            {
+                var document = new HtmlWeb().Load(url);
+                var nodes = document.DocumentNode.SelectNodes("//div[@class='reader-image-wrapper']");
+                return nodes.Select(node => node.SelectSingleNode("./img")).Select(imgElement => imgElement.Attributes["data-src"].Value).ToArray();
+            }
+            catch (Exception exception)
+            {
+                CoreLogger.PostLine(exception.Message, LoggerStatus.Error);
+                return null;
+            }
         }
 
     }
