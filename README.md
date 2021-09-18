@@ -9,7 +9,6 @@ Otakulore is an entertainment app for watching anime and reading manga! This pro
 
 * [X] Supports anime streaming
   * [X] [AnimeKisa](https://animekisa.tv)
-  * [X] [4Anime](https://4anime.to)
 * [X] Supports manga reading
   * [X] [Manganelo](https://manganelo.tv)
   * [ ] [MangaDex](https://mangadex.tv)
