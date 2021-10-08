@@ -24,7 +24,3 @@ Otakulore is an entertainment app for watching anime and reading manga! This pro
 ![](./.github/screenshots/4.png)
 ![](./.github/screenshots/5.png)
 ![](./.github/screenshots/6.png)
-
-## Usage
-
-This project is currently paused-in-development!
