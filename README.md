@@ -5,6 +5,8 @@
 
 Otakulore is an entertainment app for watching anime and reading manga! This project was made with learning purposes and the interest of people who loves watching anime and reading manga.
 
+> **NOTE**: This project development will continue after [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) is released!
+
 ## Features
 
 * [X] Supports anime streaming
