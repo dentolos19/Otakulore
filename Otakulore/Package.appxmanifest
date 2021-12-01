@@ -1,49 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Package
-	xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-	xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-	xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-	IgnorableNamespaces="uap mp">
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
 
-	<Identity
-		Name="4fdb59d0-9e02-4e06-a06c-e6a0eb7dbf8e"
-		Publisher="CN=dento"
-		Version="1.0.0.0" />
+  <Identity
+    Name="d9e49bde-1b2e-421d-9bf6-6039dc6e05ee"
+    Publisher="CN=dento"
+    Version="1.0.0.0" />
 
-	<mp:PhoneIdentity PhoneProductId="4fdb59d0-9e02-4e06-a06c-e6a0eb7dbf8e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="d9e49bde-1b2e-421d-9bf6-6039dc6e05ee" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
-	<Properties>
-		<DisplayName>Otakulore</DisplayName>
-		<PublisherDisplayName>Dennise Catolos</PublisherDisplayName>
-		<Logo>Resources\Assets\StoreLogo.png</Logo>
-	</Properties>
+  <Properties>
+    <DisplayName>Otakulore</DisplayName>
+    <PublisherDisplayName>dento</PublisherDisplayName>
+    <Logo>Resources\Assets\StoreLogo.png</Logo>
+  </Properties>
 
-	<Dependencies>
-		<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
-	</Dependencies>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
 
-	<Resources>
-		<Resource Language="x-generate"/>
-	</Resources>
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
 
-	<Applications>
-		<Application Id="App"
-		             Executable="$targetnametoken$.exe"
-		             EntryPoint="Otakulore.App">
-			<uap:VisualElements
-				DisplayName="Otakulore"
-				Square150x150Logo="Resources\Assets\Square150x150Logo.png"
-				Square44x44Logo="Resources\Assets\Square44x44Logo.png"
-				Description="Otakulore"
-				BackgroundColor="transparent">
-				<uap:DefaultTile Wide310x150Logo="Resources\Assets\Wide310x150Logo.png" Square71x71Logo="Resources\Assets\SmallTile.png" Square310x310Logo="Resources\Assets\LargeTile.png"/>
-				<uap:SplashScreen Image="Resources\Assets\SplashScreen.png" />
-			</uap:VisualElements>
-		</Application>
-	</Applications>
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Otakulore.App">
+      <uap:VisualElements
+        DisplayName="Otakulore"
+        Square150x150Logo="Resources\Assets\Square150x150Logo.png"
+        Square44x44Logo="Resources\Assets\Square44x44Logo.png"
+        Description="Otakulore"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Resources\Assets\Wide310x150Logo.png" Square71x71Logo="Resources\Assets\SmallTile.png" Square310x310Logo="Resources\Assets\LargeTile.png"/>
+        <uap:SplashScreen Image="Resources\Assets\SplashScreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
 
-	<Capabilities>
-		<Capability Name="internetClient" />
-	</Capabilities>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
 </Package>

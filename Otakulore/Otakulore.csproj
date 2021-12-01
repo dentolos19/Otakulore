@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{66311210-41A1-4514-976F-3CC23A6BFC0E}</ProjectGuid>
+    <ProjectGuid>{579B72E8-E9F2-4ACF-AADE-E19795B0E744}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Otakulore</RootNamespace>
@@ -17,16 +17,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>538E2C276588ECE8DF735E8529A87F31D02E7458</PackageCertificateThumbprint>
-    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -128,81 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Services\Anime\AnimeEpisode.cs" />
-    <Compile Include="Core\Services\Anime\AnimeInfo.cs" />
-    <Compile Include="Core\Services\Anime\IAnimeProvider.cs" />
-    <Compile Include="Core\Services\Anime\Providers\AnimeKisaProvider.cs" />
-    <Compile Include="Core\CoreUtilities.cs" />
-    <Compile Include="Core\Helpers\CoreLogger.cs" />
-    <Compile Include="Core\Services\Common\CommonMediaDetails.cs" />
-    <Compile Include="Core\Services\Common\CommonMediaType.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuApi.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuData.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuGenreAttributes.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuImage.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuAnimeAttributes.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuAnimeFormat.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuLinks.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMangaFormat.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMediaStatus.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMediaStatusConverter.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMangaAttributes.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuMediaAttributes.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuResponse.cs" />
-    <Compile Include="Core\Services\Kitsu\KitsuResponses.cs" />
-    <Compile Include="Core\Helpers\LoggerStatus.cs" />
-    <Compile Include="Core\Helpers\ObjectDumper.cs" />
-    <Compile Include="Core\Services\Manga\IMangaProvider.cs" />
-    <Compile Include="Core\Services\Manga\MangaChapter.cs" />
-    <Compile Include="Core\Services\Manga\MangaInfo.cs" />
-    <Compile Include="Core\Services\Manga\Providers\MangaDexProvider.cs" />
-    <Compile Include="Core\Services\Manga\Providers\ManganeloProvider.cs" />
-    <Compile Include="Core\ServiceUtilities.cs" />
-    <Compile Include="Core\UserData.cs" />
-    <Compile Include="Models\ChapterSourceItemModel.cs" />
-    <Compile Include="Models\ContentItemModel.cs" />
-    <Compile Include="Models\EpisodeChapterItemModel.cs" />
-    <Compile Include="Models\TitleItemModel.cs" />
-    <Compile Include="Models\ChannelItemModel.cs" />
-    <Compile Include="ViewModels\DetailsOverviewViewModel.cs" />
-    <Compile Include="ViewModels\LoadingViewModel.cs" />
-    <Compile Include="ViewModels\PlayerReaderViewModel.cs" />
-    <Compile Include="Views\DetailsReadView.xaml.cs">
-      <DependentUpon>DetailsReadView.xaml</DependentUpon>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DetailsView.xaml.cs">
-      <DependentUpon>DetailsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DownloadsView.xaml.cs">
-      <DependentUpon>DownloadsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FavoritesView.xaml.cs">
-      <DependentUpon>FavoritesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MangaReaderView.xaml.cs">
-      <DependentUpon>MangaReaderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SearchView.xaml.cs">
-      <DependentUpon>SearchView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DetailsOverviewView.xaml.cs">
-      <DependentUpon>DetailsOverviewView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DetailsWatchView.xaml.cs">
-      <DependentUpon>DetailsWatchView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TrendingView.xaml.cs">
-      <DependentUpon>TrendingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AnimePlayerView.xaml.cs">
-      <DependentUpon>AnimePlayerView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -211,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
-    <EmbeddedResource Include="Resources\About.txt" />
     <Content Include="Resources\Assets\LargeTile.scale-100.png" />
     <Content Include="Resources\Assets\LargeTile.scale-125.png" />
     <Content Include="Resources\Assets\LargeTile.scale-150.png" />
@@ -262,7 +181,6 @@
     <Content Include="Resources\Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Resources\Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Resources\Assets\Wide310x150Logo.scale-400.png" />
-    <EmbeddedResource Include="Resources\WebDriver.exe" />
     <Content Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -270,70 +188,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\DetailsReadView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DetailsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DownloadsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FavoritesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainView.xaml">
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MangaReaderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SearchView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DetailsOverviewView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DetailsWatchView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TrendingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AnimePlayerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.11.36</Version>
-    </PackageReference>
-    <PackageReference Include="Humanizer.Core">
-      <Version>2.11.10</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.2</Version>
-    </PackageReference>
-    <PackageReference Include="System.Text.Json">
-      <Version>5.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
