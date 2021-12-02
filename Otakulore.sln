@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore", "Otakulore\Otakulore.csproj", "{579B72E8-E9F2-4ACF-AADE-E19795B0E744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore", "Otakulore\Otakulore.csproj", "{E1ED2B57-DBE1-490E-9C67-F201C943C674}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{F417BC75-228D-428F-B0EE-48F6D7F166AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{6F69A2AE-5B44-4F31-8FC6-789EA7BCA4AE}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
@@ -13,45 +13,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM = Debug|ARM
-		Debug|ARM64 = Debug|ARM64
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|ARM = Release|ARM
-		Release|ARM64 = Release|ARM64
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|ARM.ActiveCfg = Debug|ARM
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|ARM.Build.0 = Debug|ARM
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|ARM.Deploy.0 = Debug|ARM
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|ARM64.Build.0 = Debug|ARM64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|ARM64.Deploy.0 = Debug|ARM64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|x64.ActiveCfg = Debug|x64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|x64.Build.0 = Debug|x64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|x64.Deploy.0 = Debug|x64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|x86.ActiveCfg = Debug|x86
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|x86.Build.0 = Debug|x86
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Debug|x86.Deploy.0 = Debug|x86
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|ARM.ActiveCfg = Release|ARM
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|ARM.Build.0 = Release|ARM
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|ARM.Deploy.0 = Release|ARM
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|ARM64.ActiveCfg = Release|ARM64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|ARM64.Build.0 = Release|ARM64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|ARM64.Deploy.0 = Release|ARM64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|x64.ActiveCfg = Release|x64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|x64.Build.0 = Release|x64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|x64.Deploy.0 = Release|x64
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|x86.ActiveCfg = Release|x86
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|x86.Build.0 = Release|x86
-		{579B72E8-E9F2-4ACF-AADE-E19795B0E744}.Release|x86.Deploy.0 = Release|x86
+		{E1ED2B57-DBE1-490E-9C67-F201C943C674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1ED2B57-DBE1-490E-9C67-F201C943C674}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1ED2B57-DBE1-490E-9C67-F201C943C674}.Release|Any CPU.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3100F621-CB21-4C88-887A-42B662E5DBAD}
+		SolutionGuid = {BBB16781-278F-4939-B51D-77DE3036651B}
 	EndGlobalSection
 EndGlobal
