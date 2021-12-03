@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using JikanDotNet;
 
 namespace Otakulore.Views;
 
@@ -22,31 +23,40 @@ public partial class SearchPage
         _searchWorker.WorkerSupportsCancellation = true;
         _searchWorker.DoWork += async (_, args) =>
         {
-            if (args.Argument is not KeyValuePair<int, string> pair)
+            if (args.Argument is not KeyValuePair<MediaType, string>(var type, var query))
                 return;
             Dispatcher.Invoke(() =>
             {
                 ViewModel.HasNoSearchResult = false;
                 ViewModel.SearchItems.Clear();
             });
-            if (pair.Key == 1)
+            if (type == MediaType.Anime)
             {
-                var searchResults = await App.JikanService.SearchManga(pair.Value);
+                AnimeSearchResult? searchResults = null;
+                try
+                {
+                    searchResults = await App.JikanService.SearchAnime(query);
+                }
+                catch
+                {
+                    Dispatcher.Invoke(() => ViewModel.HasNoSearchResult = true);
+                }
                 Dispatcher.Invoke(() =>
                 {
-                    if (searchResults.Results.Count > 0)
+                    if (searchResults != null && searchResults.Results.Count > 0)
                     {
                         foreach (var searchResult in searchResults.Results)
                         {
                             var searchItem = new SearchItemModel
                             {
-                                Type = SearchType.Manga,
+                                Type = MediaType.Anime,
+                                Id = searchResult.MalId,
                                 ImageUrl = searchResult.ImageURL,
                                 Title = searchResult.Title,
-                                Year = searchResult.StartDate.HasValue ? searchResult.StartDate.Value.Year.ToString() : "????",
-                                Contents = !searchResult.Chapters.HasValue ? "No chapters" : searchResult.Publishing ? "Progressing chapters" : $"{searchResult.Chapters} chapter(s)",
-                                Status = searchResult.Publishing ? "Publishing" : "Finished",
                                 Description = searchResult.Description,
+                                Year = searchResult.StartDate.HasValue ? searchResult.StartDate.Value.Year.ToString() : "????",
+                                Contents = searchResult.Episodes.HasValue ? $"{searchResult.Episodes.Value} episode(s)" : "No episodes",
+                                Status = searchResult.Airing ? "Airing" : "Finished",
                                 Score = searchResult.Score.HasValue ? searchResult.Score.Value / 2 : -1
                             };
                             ViewModel.SearchItems.Add(searchItem);
@@ -58,24 +68,33 @@ public partial class SearchPage
                     }
                 });
             }
-            else
+            else if (type == MediaType.Manga)
             {
-                var searchResults = await App.JikanService.SearchAnime(pair.Value);
+                MangaSearchResult? searchResults = null;
+                try
+                {
+                    searchResults = await App.JikanService.SearchManga(query);
+                }
+                catch
+                {
+                    Dispatcher.Invoke(() => ViewModel.HasNoSearchResult = true);
+                }
                 Dispatcher.Invoke(() =>
                 {
-                    if (searchResults.Results.Count > 0)
+                    if (searchResults != null && searchResults.Results.Count > 0)
                     {
                         foreach (var searchResult in searchResults.Results)
                         {
                             var searchItem = new SearchItemModel
                             {
-                                Type = SearchType.Anime,
+                                Type = MediaType.Manga,
+                                Id = searchResult.MalId,
                                 ImageUrl = searchResult.ImageURL,
                                 Title = searchResult.Title,
-                                Year = searchResult.StartDate.HasValue ? searchResult.StartDate.Value.Year.ToString() : "????",
-                                Contents = searchResult.Episodes.HasValue ? $"{searchResult.Episodes.Value} episode(s)" : "No episodes",
-                                Status = searchResult.Airing ? "Airing" : "Finished",
                                 Description = searchResult.Description,
+                                Year = searchResult.StartDate.HasValue ? searchResult.StartDate.Value.Year.ToString() : "????",
+                                Contents = !searchResult.Chapters.HasValue ? "No chapters" : searchResult.Publishing ? "Progressing chapters" : $"{searchResult.Chapters} chapter(s)",
+                                Status = searchResult.Publishing ? "Publishing" : "Finished",
                                 Score = searchResult.Score.HasValue ? searchResult.Score.Value / 2 : -1
                             };
                             ViewModel.SearchItems.Add(searchItem);
@@ -91,6 +110,12 @@ public partial class SearchPage
         InitializeComponent();
     }
 
+    private void RequestSearch(int typeIndex, string query)
+    {
+        _searchWorker.CancelAsync();
+        _searchWorker.RunWorkerAsync(new KeyValuePair<MediaType, string>((MediaType)typeIndex, query));
+    }
+
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
         if (args.ExtraData is not string query)
@@ -99,22 +124,26 @@ public partial class SearchPage
         CategorySelection.SelectedIndex = 0;
     }
 
+    protected override void OnNavigatedFrom(NavigationEventArgs args)
+    {
+        _searchWorker.CancelAsync();
+    }
+
     private void OnSearchRequest(object sender, KeyEventArgs args)
     {
-        if (args.Key != Key.Enter)
-            return;
-        _searchWorker.CancelAsync();
-        _searchWorker.RunWorkerAsync(new KeyValuePair<int, string>(
-            CategorySelection.SelectedIndex,
-            SearchInput.Text));
+        if (args.Key == Key.Enter)
+            RequestSearch(CategorySelection.SelectedIndex, SearchInput.Text);
     }
 
     private void OnCategoryChange(object sender, SelectionChangedEventArgs args)
     {
-        _searchWorker.CancelAsync();
-        _searchWorker.RunWorkerAsync(new KeyValuePair<int, string>(
-            CategorySelection.SelectedIndex,
-            SearchInput.Text));
+        RequestSearch(CategorySelection.SelectedIndex, SearchInput.Text);
+    }
+
+    private void OnOpenItem(object sender, MouseButtonEventArgs args)
+    {
+        if (SearchList.SelectedItem is SearchItemModel item)
+            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
     }
 
 }

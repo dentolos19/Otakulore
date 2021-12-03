@@ -42,8 +42,7 @@ public partial class MainWindow
         if (SideBar.SelectedItem is not NavigationViewItem item)
             return;
         var type = Type.GetType($"Otakulore.Views.{item.Tag}");
-        if (args.Content.GetType() == type)
-            SideBar.SelectedItem = null;
+        SideBar.SelectedItem = ContentView.CurrentSourcePageType == type ? item : null;
     }
 
 }
