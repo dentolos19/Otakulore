@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using JikanDotNet;
 
 namespace Otakulore.Views;
 
@@ -27,7 +26,7 @@ public partial class SearchPage
                 return;
             Dispatcher.Invoke(() =>
             {
-                ViewModel.HasFinishedSearching = false;
+                ViewModel.HasSearchFinished = false;
                 ViewModel.SearchItems.Clear();
             });
             if (type == MediaType.Anime)
@@ -66,12 +65,12 @@ public partial class SearchPage
                     // do nothing
                 }
             }
-            Dispatcher.Invoke(() => ViewModel.HasFinishedSearching = true);
+            Dispatcher.Invoke(() => ViewModel.HasSearchFinished = true);
         };
         InitializeComponent();
     }
 
-    private void RequestSearch(int typeIndex, string query)
+    private void Search(int typeIndex, string query)
     {
         _searchWorker.CancelAsync();
         _searchWorker.RunWorkerAsync(new KeyValuePair<MediaType, string>((MediaType)typeIndex, query));
@@ -82,7 +81,7 @@ public partial class SearchPage
         if (args.ExtraData is not string query)
             return;
         SearchInput.Text = query;
-        CategorySelection.SelectedIndex = 0;
+        TypeSelection.SelectedIndex = 0;
     }
 
     protected override void OnNavigatedFrom(NavigationEventArgs args)
@@ -90,15 +89,15 @@ public partial class SearchPage
         _searchWorker.CancelAsync();
     }
 
-    private void OnSearchRequest(object sender, KeyEventArgs args)
+    private void OnSearch(object sender, KeyEventArgs args)
     {
         if (args.Key == Key.Enter)
-            RequestSearch(CategorySelection.SelectedIndex, SearchInput.Text);
+            Search(TypeSelection.SelectedIndex, SearchInput.Text);
     }
 
-    private void OnCategoryChange(object sender, SelectionChangedEventArgs args)
+    private void OnTypeChange(object sender, SelectionChangedEventArgs args)
     {
-        RequestSearch(CategorySelection.SelectedIndex, SearchInput.Text);
+        Search(TypeSelection.SelectedIndex, SearchInput.Text);
     }
 
     private void OnOpenMedia(object sender, MouseButtonEventArgs args)

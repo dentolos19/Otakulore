@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
+using JikanDotNet;
 using Otakulore.Core;
+using Otakulore.Models;
 using Otakulore.ViewModels;
 
 namespace Otakulore.Views;
@@ -10,15 +14,17 @@ namespace Otakulore.Views;
 public partial class DetailsPage
 {
 
-    private readonly BackgroundWorker _detailsWorker;
+    private readonly BackgroundWorker _detailsLoader;
+
+    private Anime? _anime;
+    private Manga? _manga;
 
     private DetailsViewModel ViewModel => (DetailsViewModel)DataContext;
 
     public DetailsPage()
     {
-        _detailsWorker = new BackgroundWorker();
-        _detailsWorker.WorkerSupportsCancellation = true;
-        _detailsWorker.DoWork += async (_, args) =>
+        _detailsLoader = new BackgroundWorker();
+        _detailsLoader.DoWork += async (_, args) =>
         {
             if (args.Argument is not KeyValuePair<MediaType, long>(var type, var id))
                 return;
@@ -27,16 +33,16 @@ public partial class DetailsPage
             {
                 try
                 {
-                    var details = await App.Jikan.GetAnime(id);
-                    viewModel.ImageUrl = details.ImageURL;
-                    viewModel.Title = details.Title;
-                    viewModel.Subtitle = details.Premiered;
-                    viewModel.Synopsis = details.Synopsis;
-                    viewModel.Background = details.Background;
-                    viewModel.Format = details.Type;
-                    viewModel.Status = details.Status;
-                    viewModel.Contents = details.Episodes.HasValue ? details.Episodes.Value.ToString() : "Unknown";
-                    viewModel.IsFavorite = App.Settings.AnimeFavorites.Contains(id);
+                    _anime = await App.Jikan.GetAnime(id);
+                    viewModel.ImageUrl = _anime.ImageURL;
+                    viewModel.Title = _anime.Title;
+                    viewModel.Subtitle = _anime.Premiered;
+                    viewModel.Synopsis = _anime.Synopsis;
+                    viewModel.Background = _anime.Background;
+                    viewModel.Format = _anime.Type;
+                    viewModel.Status = _anime.Status;
+                    viewModel.Contents = _anime.Episodes.HasValue ? _anime.Episodes.Value.ToString() : "Unknown";
+                    viewModel.IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == type && item.Id == id) is not null;
                 }
                 catch
                 {
@@ -47,16 +53,16 @@ public partial class DetailsPage
             {
                 try
                 {
-                    var details = await App.Jikan.GetManga(id);
-                    viewModel.ImageUrl = details.ImageURL;
-                    viewModel.Title = details.Title;
-                    viewModel.Subtitle = details.Published.From.HasValue ? details.Published.From.Value.Year.ToString() : "????";
-                    viewModel.Synopsis = details.Synopsis;
-                    viewModel.Background = details.Background;
-                    viewModel.Format = details.Type;
-                    viewModel.Status = details.Status;
-                    viewModel.Contents = details.Chapters.HasValue ? details.Chapters.Value.ToString() : "Unknown";
-                    viewModel.IsFavorite = App.Settings.MangaFavorites.Contains(id);
+                    _manga = await App.Jikan.GetManga(id);
+                    viewModel.ImageUrl = _manga.ImageURL;
+                    viewModel.Title = _manga.Title;
+                    viewModel.Subtitle = _manga.Published.From.HasValue ? _manga.Published.From.Value.Year.ToString() : "????";
+                    viewModel.Synopsis = _manga.Synopsis;
+                    viewModel.Background = _manga.Background;
+                    viewModel.Format = _manga.Type;
+                    viewModel.Status = _manga.Status;
+                    viewModel.Contents = _manga.Chapters.HasValue ? _manga.Chapters.Value.ToString() : "Unknown";
+                    viewModel.IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == type && item.Id == id) is not null;
                 }
                 catch
                 {
@@ -72,51 +78,31 @@ public partial class DetailsPage
     {
         if (args.ExtraData is not KeyValuePair<MediaType, long> data)
             return;
-        _detailsWorker.RunWorkerAsync(data);
-    }
-
-    protected override void OnNavigatedFrom(NavigationEventArgs args)
-    {
-        _detailsWorker.CancelAsync();
+        _detailsLoader.RunWorkerAsync(data);
     }
 
     private void OnFavorite(object sender, RoutedEventArgs args)
     {
         if (ViewModel.IsFavorite)
         {
+            var item = App.Settings.Favorites.FirstOrDefault(item => item.Type == ViewModel.Type && item.Id == ViewModel.Id);
+            if (item is not null)
+                return;
             switch (ViewModel.Type)
             {
                 case MediaType.Anime:
-                {
-                    if (!App.Settings.AnimeFavorites.Contains((long)ViewModel.Id))
-                        App.Settings.AnimeFavorites.Add((long)ViewModel.Id);
+                    App.Settings.Favorites.Add(MediaItemModel.Create(_anime));
                     break;
-                }
                 case MediaType.Manga:
-                {
-                    if (!App.Settings.MangaFavorites.Contains((long)ViewModel.Id))
-                        App.Settings.MangaFavorites.Add((long)ViewModel.Id);
+                    App.Settings.Favorites.Add(MediaItemModel.Create(_manga));
                     break;
-                }
             }
         }
         else
         {
-            switch (ViewModel.Type)
-            {
-                case MediaType.Anime:
-                {
-                    if (App.Settings.AnimeFavorites.Contains((long)ViewModel.Id))
-                        App.Settings.AnimeFavorites.Remove((long)ViewModel.Id);
-                    break;
-                }
-                case MediaType.Manga:
-                {
-                    if (App.Settings.MangaFavorites.Contains((long)ViewModel.Id))
-                        App.Settings.MangaFavorites.Remove((long)ViewModel.Id);
-                    break;
-                }
-            }
+            var item = App.Settings.Favorites.FirstOrDefault(item => item.Type == ViewModel.Type && item.Id == ViewModel.Id);
+            if (item is not null)
+                App.Settings.Favorites.Remove(item);
         }
     }
 

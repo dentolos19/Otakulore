@@ -6,33 +6,12 @@ namespace Otakulore.ViewModels;
 public class FavoriteViewModel : BaseViewModel
 {
 
-    private bool _hasFinishedLoadingAnime;
-    private bool _hasFinishedLoadingManga;
-    private ObservableCollection<MediaItemModel> _animeFavoriteList = new();
-    private ObservableCollection<MediaItemModel> _mangaFavoriteList = new();
+    private ObservableCollection<MediaItemModel> _favoriteList = new();
 
-    public bool HasFinishedLoadingAnime
+    public ObservableCollection<MediaItemModel> FavoriteList
     {
-        get => _hasFinishedLoadingAnime;
-        set => UpdateProperty(ref _hasFinishedLoadingAnime, value);
-    }
-
-    public bool HasFinishedLoadingManga
-    {
-        get => _hasFinishedLoadingManga;
-        set => UpdateProperty(ref _hasFinishedLoadingManga, value);
-    }
-
-    public ObservableCollection<MediaItemModel> AnimeFavoriteList
-    {
-        get => _animeFavoriteList;
-        set => UpdateProperty(ref _animeFavoriteList, value);
-    }
-
-    public ObservableCollection<MediaItemModel> MangaFavoriteList
-    {
-        get => _mangaFavoriteList;
-        set => UpdateProperty(ref _mangaFavoriteList, value);
+        get => _favoriteList;
+        set => UpdateProperty(ref _favoriteList, value);
     }
 
 }

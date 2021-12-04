@@ -37,14 +37,14 @@
                                 <ui:RatingControl.Style>
                                     <Style TargetType="ui:RatingControl">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=Score}" Value="-1">
+                                            <DataTrigger Binding="{Binding Path=Score}" Value="{x:Null}">
                                                 <Setter Property="Visibility" Value="Collapsed"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </ui:RatingControl.Style>
                             </ui:RatingControl>
-                            <TextBlock Text="{Binding Path=Description}" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Grid>
                     </DataTemplate>

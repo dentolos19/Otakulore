@@ -7,36 +7,36 @@
         <vm:DetailsViewModel/>
     </ui:Page.DataContext>
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
-                <Grid Grid.Column="2">
+        <TabControl>
+            <TabItem Header="Overview">
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="10"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
-                        <ToggleButton Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" IsChecked="{Binding Path=IsFavorite}" Click="OnFavorite"/>
-                    </StackPanel>
-                    <TextBlock Grid.Row="2" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
-                    <TextBlock Grid.Row="3" Text="{Binding Path=Subtitle}"/>
-                </Grid>
-            </Grid>
-            <TabControl Grid.Row="2">
-                <TabItem Header="Overview">
-                    <Grid Margin="10">
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
+                                <ToggleButton Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" IsChecked="{Binding Path=IsFavorite}" Click="OnFavorite"/>
+                            </StackPanel>
+                            <TextBlock Grid.Row="2" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
+                            <TextBlock Grid.Row="3" Text="{Binding Path=Subtitle}"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="10"/>
@@ -87,12 +87,9 @@
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-                </TabItem>
-                <TabItem Header="Watch">
-                    <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </TabItem>
-            </TabControl>
-        </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
         <ui:ProgressRing>
             <ui:ProgressRing.Style>
                 <Style TargetType="ui:ProgressRing">

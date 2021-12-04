@@ -1,4 +1,5 @@
-﻿using JikanDotNet;
+﻿using System;
+using JikanDotNet;
 using Otakulore.Core;
 
 namespace Otakulore.Models;
@@ -15,21 +16,24 @@ public class MediaItemModel
     public string Year { get; init; }
     public string Contents { get; init; }
     public string Status { get; init; }
-    public float Score { get; init; }
+    public float? Score { get; init; }
 
     public static MediaItemModel Create(Anime anime)
     {
+        var synopsis = anime.Synopsis;
+        if (synopsis.Length > 200)
+            synopsis = synopsis[..Math.Min(synopsis.Length, 200)] + "...";
         return new MediaItemModel
         {
             Type = MediaType.Anime,
             Id = anime.MalId,
             ImageUrl = anime.ImageURL,
             Title = anime.Title,
-            Description = anime.Synopsis,
+            Description = synopsis,
             Year = anime.Aired.From.HasValue ? anime.Aired.From.Value.Year.ToString() : "????",
             Contents = anime.Episodes.HasValue ? $"{anime.Episodes.Value} Episode(s)" : "No Episodes",
             Status = anime.Airing ? "Airing" : "Finished",
-            Score = anime.Score.HasValue ? anime.Score.Value / 2 : -1
+            Score = anime.Score.HasValue ? anime.Score.Value / 2 : null
         };
     }
 
@@ -45,19 +49,22 @@ public class MediaItemModel
             Year = animeEntry.StartDate.HasValue ? animeEntry.StartDate.Value.Year.ToString() : "????",
             Contents = animeEntry.Episodes.HasValue ? $"{animeEntry.Episodes.Value} Episode(s)" : "No Episodes",
             Status = animeEntry.Airing ? "Airing" : "Finished",
-            Score = animeEntry.Score.HasValue ? animeEntry.Score.Value / 2 : -1
+            Score = animeEntry.Score.HasValue ? animeEntry.Score.Value / 2 : null
         };
     }
 
     public static MediaItemModel Create(Manga manga)
     {
+        var synopsis = manga.Synopsis;
+        if (synopsis.Length > 200)
+            synopsis = synopsis[..Math.Min(synopsis.Length, 200)] + "...";
         return new MediaItemModel
         {
             Type = MediaType.Manga,
             Id = manga.MalId,
             ImageUrl = manga.ImageURL,
             Title = manga.Title,
-            Description = manga.Synopsis,
+            Description = synopsis,
             Year = manga.Published.From.HasValue ? manga.Published.From.Value.Year.ToString() : "????",
             Contents = !manga.Chapters.HasValue ? "No Chapters" : manga.Publishing ? "Progressing Chapters" : $"{manga.Chapters} Chapter(s)",
             Status = manga.Publishing ? "Publishing" : "Finished",

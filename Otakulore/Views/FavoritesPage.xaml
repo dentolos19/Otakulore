@@ -6,72 +6,36 @@
     <Page.DataContext>
         <vm:FavoriteViewModel/>
     </Page.DataContext>
-    <TabControl>
-        <TabItem Header="Anime">
-            <Grid>
-                <ListBox x:Name="AnimeFavoriteList" ItemsSource="{Binding Path=AnimeFavoriteList}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenAnimeMedia"/>
-                <ui:ProgressRing>
-                    <ui:ProgressRing.Style>
-                        <Style TargetType="ui:ProgressRing">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=HasFinishedLoadingAnime}" Value="False">
-                                    <Setter Property="IsActive" Value="True"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="IsActive" Value="False"/>
-                        </Style>
-                    </ui:ProgressRing.Style>
-                </ui:ProgressRing>
-                <TextBlock Text="You have no favorite anime!" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Path=HasFinishedLoadingAnime}" Value="True"/>
-                                        <Condition Binding="{Binding Path=AnimeFavoriteList.Count}" Value="0"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Manga">
-            <Grid>
-                <ListBox x:Name="MangaFavoriteList" ItemsSource="{Binding Path=MangaFavoriteList}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMangaMedia"/>
-                <ui:ProgressRing>
-                    <ui:ProgressRing.Style>
-                        <Style TargetType="ui:ProgressRing">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=HasFinishedLoadingManga}" Value="False">
-                                    <Setter Property="IsActive" Value="True"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="IsActive" Value="False"/>
-                        </Style>
-                    </ui:ProgressRing.Style>
-                </ui:ProgressRing>
-                <TextBlock Text="You have no favorite manga!" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Path=HasFinishedLoadingManga}" Value="True"/>
-                                        <Condition Binding="{Binding Path=MangaFavoriteList.Count}" Value="0"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-        </TabItem>
-    </TabControl>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="FilterInput" Grid.Column="0" TextChanged="OnFilter"/>
+            <ComboBox x:Name="TypeSelection" Grid.Column="2" SelectionChanged="OnTypeChange">
+                <ComboBoxItem>All</ComboBoxItem>
+                <ComboBoxItem>Anime</ComboBoxItem>
+                <ComboBoxItem>Manga</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <ListBox Grid.Row="1" x:Name="FavoriteList" ItemsSource="{Binding Path=FavoriteList}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
+        <TextBlock Grid.Row="1" Text="You have no favorites!" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=FavoriteList.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid>
 </ui:Page>

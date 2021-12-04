@@ -20,6 +20,6 @@
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
         </ui:NavigationView.MenuItems>
-        <ui:Frame x:Name="ContentView" Padding="10" NavigationUIVisibility="Hidden" Navigated="OnViewNavigated"/>
+        <ui:Frame x:Name="ContentView" NavigationUIVisibility="Hidden" Navigated="OnViewNavigated"/>
     </ui:NavigationView>
 </Window>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
+using Otakulore.Models;
 
 namespace Otakulore.Core;
 
@@ -11,8 +12,7 @@ public class Settings
 
     private static readonly string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.settings.json");
 
-    public IList<long> AnimeFavorites { get; set; } = new List<long>();
-    public IList<long> MangaFavorites { get; set; } = new List<long>();
+    public IList<MediaItemModel> Favorites { get; set; } = new List<MediaItemModel>();
 
     public void Save()
     {

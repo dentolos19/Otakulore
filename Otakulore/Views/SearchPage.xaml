@@ -9,27 +9,26 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="SearchInput" Grid.Column="0" KeyDown="OnSearchRequest"/>
-            <ComboBox x:Name="CategorySelection" Grid.Column="2" SelectionChanged="OnCategoryChange">
+            <TextBox x:Name="SearchInput" Grid.Column="0" KeyDown="OnSearch"/>
+            <ComboBox x:Name="TypeSelection" Grid.Column="2" SelectionChanged="OnTypeChange">
                 <ComboBoxItem>Anime</ComboBoxItem>
                 <ComboBoxItem>Manga</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <ListBox x:Name="SearchList" Grid.Row="2" ItemsSource="{Binding Path=SearchItems}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
-        <ui:ProgressRing Grid.Row="2">
+        <ListBox x:Name="SearchList" Grid.Row="1" ItemsSource="{Binding Path=SearchItems}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
+        <ui:ProgressRing Grid.Row="1">
             <ui:ProgressRing.Style>
                 <Style TargetType="ui:ProgressRing">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=HasFinishedSearching}" Value="False">
+                        <DataTrigger Binding="{Binding Path=HasSearchFinished}" Value="False">
                             <Setter Property="IsActive" Value="True"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -37,13 +36,13 @@
                 </Style>
             </ui:ProgressRing.Style>
         </ui:ProgressRing>
-        <TextBlock Grid.Row="2" Text="Search yielded no results!" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Grid.Row="1" Text="Search yielded no results!" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=HasFinishedSearching}" Value="True"/>
+                                <Condition Binding="{Binding Path=HasSearchFinished}" Value="True"/>
                                 <Condition Binding="{Binding Path=SearchItems.Count}" Value="0"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible"/>
