@@ -27,85 +27,46 @@ public partial class SearchPage
                 return;
             Dispatcher.Invoke(() =>
             {
-                ViewModel.HasNoSearchResult = false;
+                ViewModel.HasFinishedSearching = false;
                 ViewModel.SearchItems.Clear();
             });
             if (type == MediaType.Anime)
             {
-                AnimeSearchResult? searchResults = null;
                 try
                 {
-                    searchResults = await App.JikanService.SearchAnime(query);
+                    var searchResults = await App.Jikan.SearchAnime(query);
+                    Dispatcher.Invoke(() =>
+                    {
+                        if (!(searchResults.Results.Count > 0))
+                            return;
+                        foreach (var searchResult in searchResults.Results)
+                            ViewModel.SearchItems.Add(MediaItemModel.Create(searchResult));
+                    });
                 }
                 catch
                 {
-                    Dispatcher.Invoke(() => ViewModel.HasNoSearchResult = true);
+                    // do nothing
                 }
-                Dispatcher.Invoke(() =>
-                {
-                    if (searchResults != null && searchResults.Results.Count > 0)
-                    {
-                        foreach (var searchResult in searchResults.Results)
-                        {
-                            var searchItem = new SearchItemModel
-                            {
-                                Type = MediaType.Anime,
-                                Id = searchResult.MalId,
-                                ImageUrl = searchResult.ImageURL,
-                                Title = searchResult.Title,
-                                Description = searchResult.Description,
-                                Year = searchResult.StartDate.HasValue ? searchResult.StartDate.Value.Year.ToString() : "????",
-                                Contents = searchResult.Episodes.HasValue ? $"{searchResult.Episodes.Value} episode(s)" : "No episodes",
-                                Status = searchResult.Airing ? "Airing" : "Finished",
-                                Score = searchResult.Score.HasValue ? searchResult.Score.Value / 2 : -1
-                            };
-                            ViewModel.SearchItems.Add(searchItem);
-                        }
-                    }
-                    else
-                    {
-                        ViewModel.HasNoSearchResult = true;
-                    }
-                });
             }
             else if (type == MediaType.Manga)
             {
-                MangaSearchResult? searchResults = null;
                 try
                 {
-                    searchResults = await App.JikanService.SearchManga(query);
+                    var searchResults = await App.Jikan.SearchManga(query);
+                    Dispatcher.Invoke(() =>
+                    {
+                        if (!(searchResults.Results.Count > 0))
+                            return;
+                        foreach (var searchResult in searchResults.Results)
+                            ViewModel.SearchItems.Add(MediaItemModel.Create(searchResult));
+                    });
                 }
                 catch
                 {
-                    Dispatcher.Invoke(() => ViewModel.HasNoSearchResult = true);
+                    // do nothing
                 }
-                Dispatcher.Invoke(() =>
-                {
-                    if (searchResults != null && searchResults.Results.Count > 0)
-                    {
-                        foreach (var searchResult in searchResults.Results)
-                        {
-                            var searchItem = new SearchItemModel
-                            {
-                                Type = MediaType.Manga,
-                                Id = searchResult.MalId,
-                                ImageUrl = searchResult.ImageURL,
-                                Title = searchResult.Title,
-                                Description = searchResult.Description,
-                                Year = searchResult.StartDate.HasValue ? searchResult.StartDate.Value.Year.ToString() : "????",
-                                Contents = !searchResult.Chapters.HasValue ? "No chapters" : searchResult.Publishing ? "Progressing chapters" : $"{searchResult.Chapters} chapter(s)",
-                                Status = searchResult.Publishing ? "Publishing" : "Finished",
-                                Score = searchResult.Score.HasValue ? searchResult.Score.Value / 2 : -1
-                            };
-                            ViewModel.SearchItems.Add(searchItem);
-                        }
-                    }
-                    else
-                    {
-                        ViewModel.HasNoSearchResult = true;
-                    }
-                });
             }
+            Dispatcher.Invoke(() => ViewModel.HasFinishedSearching = true);
         };
         InitializeComponent();
     }
@@ -140,9 +101,9 @@ public partial class SearchPage
         RequestSearch(CategorySelection.SelectedIndex, SearchInput.Text);
     }
 
-    private void OnOpenItem(object sender, MouseButtonEventArgs args)
+    private void OnOpenMedia(object sender, MouseButtonEventArgs args)
     {
-        if (SearchList.SelectedItem is SearchItemModel item)
+        if (SearchList.SelectedItem is MediaItemModel item)
             Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
     }
 

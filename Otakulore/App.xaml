@@ -2,12 +2,54 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-             StartupUri="Views/MainWindow.xaml" DispatcherUnhandledException="OnUnhandledException">
+             xmlns:m="clr-namespace:Otakulore.Models"
+             StartupUri="Views/MainWindow.xaml" DispatcherUnhandledException="OnUnhandledException" Exit="OnExit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+
+                <!-- external resources -->
+
                 <ui:ThemeResources RequestedTheme="Light"/>
                 <ui:XamlControlsResources/>
+
+                <!-- internal resources -->
+
+                <ResourceDictionary>
+                    <DataTemplate x:Key="MediaItemTemplate" DataType="m:MediaItemModel">
+                        <Grid Height="150">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="{Binding Path=Title}" TextTrimming="CharacterEllipsis" FontWeight="Bold" FontSize="24"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=Year}"/>
+                                <TextBlock Text="&#x2022;" Margin="5,0"/>
+                                <TextBlock Text="{Binding Path=Contents}"/>
+                                <TextBlock Text="&#x2022;" Margin="5,0"/>
+                                <TextBlock Text="{Binding Path=Status}"/>
+                            </StackPanel>
+                            <ui:RatingControl Value="{Binding Path=Score}" HorizontalAlignment="Left" IsReadOnly="True">
+                                <ui:RatingControl.Style>
+                                    <Style TargetType="ui:RatingControl">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Score}" Value="-1">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ui:RatingControl.Style>
+                            </ui:RatingControl>
+                            <TextBlock Text="{Binding Path=Description}" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                    </DataTemplate>
+                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

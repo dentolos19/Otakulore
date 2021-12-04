@@ -1,6 +1,77 @@
 ﻿<ui:Page x:Class="Otakulore.Views.FavoritesPage"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:ui="http://schemas.modernwpf.com/2019">
-    <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+         xmlns:vm="clr-namespace:Otakulore.ViewModels">
+    <Page.DataContext>
+        <vm:FavoriteViewModel/>
+    </Page.DataContext>
+    <TabControl>
+        <TabItem Header="Anime">
+            <Grid>
+                <ListBox x:Name="AnimeFavoriteList" ItemsSource="{Binding Path=AnimeFavoriteList}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenAnimeMedia"/>
+                <ui:ProgressRing>
+                    <ui:ProgressRing.Style>
+                        <Style TargetType="ui:ProgressRing">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=HasFinishedLoadingAnime}" Value="False">
+                                    <Setter Property="IsActive" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="IsActive" Value="False"/>
+                        </Style>
+                    </ui:ProgressRing.Style>
+                </ui:ProgressRing>
+                <TextBlock Text="You have no favorite anime!" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=HasFinishedLoadingAnime}" Value="True"/>
+                                        <Condition Binding="{Binding Path=AnimeFavoriteList.Count}" Value="0"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Manga">
+            <Grid>
+                <ListBox x:Name="MangaFavoriteList" ItemsSource="{Binding Path=MangaFavoriteList}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMangaMedia"/>
+                <ui:ProgressRing>
+                    <ui:ProgressRing.Style>
+                        <Style TargetType="ui:ProgressRing">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=HasFinishedLoadingManga}" Value="False">
+                                    <Setter Property="IsActive" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="IsActive" Value="False"/>
+                        </Style>
+                    </ui:ProgressRing.Style>
+                </ui:ProgressRing>
+                <TextBlock Text="You have no favorite manga!" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=HasFinishedLoadingManga}" Value="True"/>
+                                        <Condition Binding="{Binding Path=MangaFavoriteList.Count}" Value="0"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </ui:Page>

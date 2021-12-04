@@ -6,16 +6,16 @@ namespace Otakulore.ViewModels;
 public class SearchViewModel : BaseViewModel
 {
 
-    private bool _hasNoSearchResult;
-    private ObservableCollection<SearchItemModel> _searchItems = new();
+    private bool _hasFinishedSearching;
+    private ObservableCollection<MediaItemModel> _searchItems = new();
 
-    public bool HasNoSearchResult
+    public bool HasFinishedSearching
     {
-        get => _hasNoSearchResult;
-        set => UpdateProperty(ref _hasNoSearchResult, value);
+        get => _hasFinishedSearching;
+        set => UpdateProperty(ref _hasFinishedSearching, value);
     }
 
-    public ObservableCollection<SearchItemModel> SearchItems
+    public ObservableCollection<MediaItemModel> SearchItems
     {
         get => _searchItems;
         set => UpdateProperty(ref _searchItems, value);

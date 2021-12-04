@@ -7,62 +7,103 @@
         <vm:DetailsViewModel/>
     </ui:Page.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
-            <TextBlock Grid.Column="2" Text="{Binding Path=Title}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        </Grid>
-        <TabControl Grid.Row="2">
-            <TabItem Header="Overview">
-                <Grid Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="0,-5">
-                        <StackPanel Margin="0,5">
-                            <TextBlock Margin="0,0,0,2" FontWeight="Bold">Format</TextBlock>
-                            <TextBlock Text="{Binding Path=Format}"/>
-                        </StackPanel>
-                        <StackPanel Margin="0,5">
-                            <TextBlock Margin="0,0,0,2" FontWeight="Bold">Status</TextBlock>
-                            <TextBlock Text="{Binding Path=Status}"/>
-                        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <ToggleButton Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" IsChecked="{Binding Path=IsFavorite}" Click="OnFavorite"/>
                     </StackPanel>
-                    <StackPanel Grid.Column="2" Margin="0,-5">
-                        <StackPanel Margin="0,5">
-                            <TextBlock Margin="0,0,0,2" FontWeight="Bold">Synopsis</TextBlock>
-                            <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <StackPanel Margin="0,5">
-                            <StackPanel.Style>
-                                <Style TargetType="StackPanel">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=Background}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Style>
-                            <TextBlock Margin="0,0,0,2" FontWeight="Bold">Background</TextBlock>
-                            <TextBlock Text="{Binding Path=Background}" TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </StackPanel>
+                    <TextBlock Grid.Row="2" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
+                    <TextBlock Grid.Row="3" Text="{Binding Path=Subtitle}"/>
                 </Grid>
-            </TabItem>
-            <TabItem Header="Watch">
-                <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </TabItem>
-        </TabControl>
+            </Grid>
+            <TabControl Grid.Row="2">
+                <TabItem Header="Overview">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,-5">
+                            <StackPanel Margin="0,5">
+                                <TextBlock FontWeight="Bold">Format</TextBlock>
+                                <TextBlock Text="{Binding Path=Format}"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,5">
+                                <TextBlock FontWeight="Bold">Status</TextBlock>
+                                <TextBlock Text="{Binding Path=Status}"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,5">
+                                <TextBlock FontWeight="Bold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=Type}" Value="1">
+                                                    <Setter Property="Text" Value="Chapters"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Text" Value="Episodes"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Path=Contents}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="0,-5">
+                            <StackPanel Margin="0,5">
+                                <TextBlock FontWeight="Bold">Synopsis</TextBlock>
+                                <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,5">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Background}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock FontWeight="Bold">Background</TextBlock>
+                                <TextBlock Text="{Binding Path=Background}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Watch">
+                    <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <ui:ProgressRing>
+            <ui:ProgressRing.Style>
+                <Style TargetType="ui:ProgressRing">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Id}" Value="{x:Null}">
+                            <Setter Property="IsActive" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="IsActive" Value="False"/>
+                </Style>
+            </ui:ProgressRing.Style>
+        </ui:ProgressRing>
     </Grid>
 </ui:Page>
