@@ -6,30 +6,31 @@
     <Page.DataContext>
         <vm:FavoriteViewModel/>
     </Page.DataContext>
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="10">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="FilterInput" Grid.Column="0" TextChanged="OnFilter"/>
-            <ComboBox x:Name="TypeSelection" Grid.Column="2" SelectionChanged="OnTypeChange">
+            <ComboBox x:Name="TypeSelection" Grid.Column="2" SelectionChanged="OnTypeChanged">
                 <ComboBoxItem>All</ComboBoxItem>
                 <ComboBoxItem>Anime</ComboBoxItem>
                 <ComboBoxItem>Manga</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <ListBox Grid.Row="1" x:Name="FavoriteList" ItemsSource="{Binding Path=FavoriteList}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
-        <TextBlock Grid.Row="1" Text="You have no favorites!" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <ListBox x:Name="FavoriteList" Grid.Row="2" ItemsSource="{Binding Path=Favorites}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
+        <TextBlock Grid.Row="2" Text="You have no favorites!" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=FavoriteList.Count}" Value="0">
+                        <DataTrigger Binding="{Binding Path=Favorites.Count}" Value="0">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>

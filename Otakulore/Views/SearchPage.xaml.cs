@@ -19,8 +19,7 @@ public partial class SearchPage
 
     public SearchPage()
     {
-        _searchWorker = new BackgroundWorker();
-        _searchWorker.WorkerSupportsCancellation = true;
+        _searchWorker = new BackgroundWorker { WorkerSupportsCancellation = true };
         _searchWorker.DoWork += async (_, args) =>
         {
             if (args.Argument is not KeyValuePair<MediaType, string>(var type, var query))
@@ -28,7 +27,7 @@ public partial class SearchPage
             Dispatcher.Invoke(() =>
             {
                 ViewModel.HasSearchFinished = false;
-                ViewModel.SearchItems.Clear();
+                ViewModel.SearchResults.Clear();
             });
             if (type == MediaType.Anime)
             {
@@ -40,12 +39,12 @@ public partial class SearchPage
                         if (!(searchResults.Results.Count > 0))
                             return;
                         foreach (var searchResult in searchResults.Results)
-                            ViewModel.SearchItems.Add(MediaItemModel.Create(searchResult));
+                            ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
                     });
                 }
                 catch
                 {
-                    // do nothing
+                    // TODO: notify user of the exception
                 }
             }
             else if (type == MediaType.Manga)
@@ -58,12 +57,12 @@ public partial class SearchPage
                         if (!(searchResults.Results.Count > 0))
                             return;
                         foreach (var searchResult in searchResults.Results)
-                            ViewModel.SearchItems.Add(MediaItemModel.Create(searchResult));
+                            ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
                     });
                 }
                 catch
                 {
-                    // do nothing
+                    // TODO: notify user of the exception
                 }
             }
             Dispatcher.Invoke(() => ViewModel.HasSearchFinished = true);
@@ -95,14 +94,14 @@ public partial class SearchPage
         Search(TypeSelection.SelectedIndex, SearchInput.Text);
     }
 
-    private void OnTypeChange(object sender, SelectionChangedEventArgs args)
+    private void OnTypeChanged(object sender, SelectionChangedEventArgs args)
     {
         Search(TypeSelection.SelectedIndex, SearchInput.Text);
     }
 
     private void OnOpenMedia(object sender, MouseButtonEventArgs args)
     {
-        if (SearchList.SelectedItem is MediaItemModel item)
+        if (ResultList.SelectedItem is MediaItemModel item)
             Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
     }
 }

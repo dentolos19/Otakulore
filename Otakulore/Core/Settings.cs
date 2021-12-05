@@ -12,6 +12,7 @@ public class Settings
 
     private static readonly string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.settings.json");
 
+    public bool UseEnglishTitles { get; set; } = true;
     public IList<MediaItemModel> Favorites { get; set; } = new List<MediaItemModel>();
 
     public void Save()

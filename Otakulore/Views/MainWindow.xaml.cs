@@ -14,7 +14,7 @@ public partial class MainWindow
         SideBar.SelectedItem = SideBar.MenuItems.OfType<NavigationViewItem>().First();
     }
 
-    private void OnSearchRequest(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    private void OnSearch(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         var query = SearchInput.Text;
         if (!string.IsNullOrEmpty(query))
@@ -30,12 +30,6 @@ public partial class MainWindow
             ContentView.Navigate(type);
     }
 
-    private void OnBack(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-    {
-        if (ContentView.CanGoBack)
-            ContentView.GoBack();
-    }
-
     private void OnViewNavigated(object sender, NavigationEventArgs args)
     {
         SideBar.IsBackEnabled = ContentView.CanGoBack;
@@ -43,6 +37,12 @@ public partial class MainWindow
             return;
         var type = Type.GetType($"Otakulore.Views.{item.Tag}");
         SideBar.SelectedItem = ContentView.CurrentSourcePageType == type ? item : null;
+    }
+
+    private void OnBack(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    {
+        if (ContentView.CanGoBack)
+            ContentView.GoBack();
     }
 
 }

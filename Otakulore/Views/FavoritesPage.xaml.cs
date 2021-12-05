@@ -37,7 +37,7 @@ public partial class FavoritesPage
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
         foreach (var mediaItem in App.Settings.Favorites)
-            ViewModel.FavoriteList.Add(mediaItem);
+            ViewModel.Favorites.Add(mediaItem);
         TypeSelection.SelectedIndex = 0;
     }
 
@@ -46,7 +46,7 @@ public partial class FavoritesPage
         CollectionViewSource.GetDefaultView(FavoriteList.ItemsSource).Refresh();
     }
 
-    private void OnTypeChange(object sender, SelectionChangedEventArgs args)
+    private void OnTypeChanged(object sender, SelectionChangedEventArgs args)
     {
         CollectionViewSource.GetDefaultView(FavoriteList.ItemsSource).Refresh();
     }

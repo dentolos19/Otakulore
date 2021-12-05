@@ -7,7 +7,6 @@ public class SearchViewModel : BaseViewModel
 {
 
     private bool _hasSearchFinished;
-    private ObservableCollection<MediaItemModel> _searchItems = new();
 
     public bool HasSearchFinished
     {
@@ -15,10 +14,6 @@ public class SearchViewModel : BaseViewModel
         set => UpdateProperty(ref _hasSearchFinished, value);
     }
 
-    public ObservableCollection<MediaItemModel> SearchItems
-    {
-        get => _searchItems;
-        set => UpdateProperty(ref _searchItems, value);
-    }
+    public ObservableCollection<MediaItemModel> SearchResults { get; } = new();
 
 }
