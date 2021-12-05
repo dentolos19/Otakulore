@@ -4,7 +4,7 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         Title="Otakulore" MinWidth="800" MinHeight="500">
-    <ui:NavigationView x:Name="SideBar" IsPaneOpen="False" IsSettingsVisible="False" SelectionChanged="OnNavigateView" BackRequested="OnBack">
+    <ui:NavigationView x:Name="SideBar" IsPaneOpen="False" IsSettingsVisible="False" SelectionChanged="OnNavigateView"  BackRequested="OnBack">
         <ui:NavigationView.AutoSuggestBox>
             <ui:AutoSuggestBox x:Name="SearchInput" PlaceholderText="Search" QuerySubmitted="OnSearchRequest"/>
         </ui:NavigationView.AutoSuggestBox>
@@ -20,6 +20,13 @@
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
         </ui:NavigationView.MenuItems>
+        <ui:NavigationView.FooterMenuItems>
+            <ui:NavigationViewItem Content="Settings" Tag="SettingsPage">
+                <ui:NavigationViewItem.Icon>
+                    <ui:FontIcon Glyph="&#xF8B0;"/>
+                </ui:NavigationViewItem.Icon>
+            </ui:NavigationViewItem>
+        </ui:NavigationView.FooterMenuItems>
         <ui:Frame x:Name="ContentView" NavigationUIVisibility="Hidden" Navigated="OnViewNavigated"/>
     </ui:NavigationView>
 </Window>

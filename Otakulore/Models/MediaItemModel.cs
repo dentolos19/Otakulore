@@ -30,10 +30,10 @@ public class MediaItemModel
             ImageUrl = anime.ImageURL,
             Title = anime.Title,
             Description = synopsis,
-            Year = anime.Aired.From.HasValue ? anime.Aired.From.Value.Year.ToString() : "????",
+            Year = anime.Aired.From.HasValue ? anime.Aired.From.Value.Year.ToString() : "Unknown Year",
             Contents = anime.Episodes.HasValue ? $"{anime.Episodes.Value} Episode(s)" : "No Episodes",
-            Status = anime.Airing ? "Airing" : "Finished",
-            Score = anime.Score.HasValue ? anime.Score.Value / 2 : null
+            Status = anime.Airing ? "Airing" : anime.Aired.From.HasValue ? "Finished" : "Unreleased",
+            Score = anime.Score / 2
         };
     }
 
@@ -46,10 +46,10 @@ public class MediaItemModel
             ImageUrl = animeEntry.ImageURL,
             Title = animeEntry.Title,
             Description = animeEntry.Description,
-            Year = animeEntry.StartDate.HasValue ? animeEntry.StartDate.Value.Year.ToString() : "????",
+            Year = animeEntry.StartDate.HasValue ? animeEntry.StartDate.Value.Year.ToString() : "Unknown Year",
             Contents = animeEntry.Episodes.HasValue ? $"{animeEntry.Episodes.Value} Episode(s)" : "No Episodes",
-            Status = animeEntry.Airing ? "Airing" : "Finished",
-            Score = animeEntry.Score.HasValue ? animeEntry.Score.Value / 2 : null
+            Status = animeEntry.Airing ? "Airing" : animeEntry.StartDate.HasValue ? "Finished" : "Unreleased",
+            Score = animeEntry.Score / 2
         };
     }
 
@@ -65,10 +65,10 @@ public class MediaItemModel
             ImageUrl = manga.ImageURL,
             Title = manga.Title,
             Description = synopsis,
-            Year = manga.Published.From.HasValue ? manga.Published.From.Value.Year.ToString() : "????",
+            Year = manga.Published.From.HasValue ? manga.Published.From.Value.Year.ToString() : "Unknown Year",
             Contents = !manga.Chapters.HasValue ? "No Chapters" : manga.Publishing ? "Progressing Chapters" : $"{manga.Chapters} Chapter(s)",
-            Status = manga.Publishing ? "Publishing" : "Finished",
-            Score = manga.Score.HasValue ? manga.Score.Value / 2 : -1
+            Status = manga.Publishing ? "Publishing" : manga.Published.From.HasValue ? "Finished" : "Unreleased",
+            Score = manga.Score / 2
         };
     }
 
@@ -81,10 +81,10 @@ public class MediaItemModel
             ImageUrl = mangaEntry.ImageURL,
             Title = mangaEntry.Title,
             Description = mangaEntry.Description,
-            Year = mangaEntry.StartDate.HasValue ? mangaEntry.StartDate.Value.Year.ToString() : "????",
+            Year = mangaEntry.StartDate.HasValue ? mangaEntry.StartDate.Value.Year.ToString() : "Unknown Year",
             Contents = !mangaEntry.Chapters.HasValue ? "No Chapters" : mangaEntry.Publishing ? "Progressing Chapters" : $"{mangaEntry.Chapters} Chapter(s)",
-            Status = mangaEntry.Publishing ? "Publishing" : "Finished",
-            Score = mangaEntry.Score.HasValue ? mangaEntry.Score.Value / 2 : -1
+            Status = mangaEntry.Publishing ? "Publishing" : mangaEntry.StartDate.HasValue ? "Finished" : "Unreleased",
+            Score = mangaEntry.Score / 2
         };
     }
 

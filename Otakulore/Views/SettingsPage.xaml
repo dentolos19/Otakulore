@@ -1,0 +1,33 @@
+﻿<ui:Page x:Class="Otakulore.Views.SettingsPage"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+         xmlns:m="clr-namespace:Otakulore.Models">
+    <Page.Resources>
+        <DataTemplate x:Key="ProviderItemTemplate" DataType="m:ProviderItemModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding Path=Name}" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Text="{Binding Path=Author}"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <TabControl>
+        <TabItem Header="General">
+            <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </TabItem>
+        <TabItem Header="Services">
+            <StackPanel Margin="10,5">
+                <GroupBox Header="Anime Providers" Margin="0,5">
+                    <ListBox x:Name="AnimeProviderList" ItemTemplate="{StaticResource ResourceKey=ProviderItemTemplate}"/>
+                </GroupBox>
+                <GroupBox Header="Manga Provider" Margin="0,5">
+                    <ListBox x:Name="MangaProviderList" ItemTemplate="{StaticResource ResourceKey=ProviderItemTemplate}"/>
+                </GroupBox>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</ui:Page>

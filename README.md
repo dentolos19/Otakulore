@@ -11,13 +11,10 @@ The project has restarted its development for now, however, the development will
 
 ## Features
 
-* [ ] Supports anime streaming
+* [] Supports anime streaming
   * [ ] [AnimeKisa](https://animekisa.tv)
-  * More coming soon!
-* [ ] Supports manga reading
-  * [ ] [Manganelo](https://manganelo.tv)
-  * More coming soon!
-* [ ] Has a plugin system to allow many sources for anime and manga
+* [X] Supports manga reading
+  * [X] [Manganelo](https://manganelo.tv)
 * [X] Has a favorite system to stores all your best anime and manga
 * [ ] Has a download system to allow you to stream and read while offline
 

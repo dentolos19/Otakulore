@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using ModernWpf.Controls;
 
 namespace Otakulore.Views;
 
@@ -89,10 +90,9 @@ public partial class SearchPage
         _searchWorker.CancelAsync();
     }
 
-    private void OnSearch(object sender, KeyEventArgs args)
+    private void OnSearch(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        if (args.Key == Key.Enter)
-            Search(TypeSelection.SelectedIndex, SearchInput.Text);
+        Search(TypeSelection.SelectedIndex, SearchInput.Text);
     }
 
     private void OnTypeChange(object sender, SelectionChangedEventArgs args)
@@ -105,5 +105,4 @@ public partial class SearchPage
         if (SearchList.SelectedItem is MediaItemModel item)
             Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
     }
-
 }

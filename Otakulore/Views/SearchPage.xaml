@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="SearchInput" Grid.Column="0" KeyDown="OnSearch"/>
+            <ui:AutoSuggestBox x:Name="SearchInput" Grid.Column="0" QuerySubmitted="OnSearch"/>
             <ComboBox x:Name="TypeSelection" Grid.Column="2" SelectionChanged="OnTypeChange">
                 <ComboBoxItem>Anime</ComboBoxItem>
                 <ComboBoxItem>Manga</ComboBoxItem>
