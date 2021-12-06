@@ -4,6 +4,6 @@ public interface IMediaContent
 {
 
     int Index { get; }
-    string? Title { get; }
+    string Title { get; }
 
 }

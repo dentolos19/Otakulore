@@ -23,7 +23,7 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
+                            <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -32,10 +32,10 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
-                                    <ToggleButton Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" IsChecked="{Binding Path=IsFavorite}" Click="OnFavorite"/>
+                                    <ToggleButton Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" IsChecked="{Binding IsFavorite}" Click="OnFavorite"/>
                                 </StackPanel>
-                                <TextBlock Grid.Row="2" Text="{Binding Path=Title}" FontWeight="Bold" FontSize="24"/>
-                                <TextBlock Grid.Row="3" Text="{Binding Path=Subtitle}"/>
+                                <TextBlock Grid.Row="2" Text="{Binding Title}" FontWeight="Bold" FontSize="24"/>
+                                <TextBlock Grid.Row="3" Text="{Binding Subtitle}"/>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">
@@ -47,18 +47,18 @@
                             <StackPanel Grid.Column="0" Margin="0,-5">
                                 <StackPanel Margin="0,5">
                                     <TextBlock FontWeight="Bold">Format</TextBlock>
-                                    <TextBlock Text="{Binding Path=Format}"/>
+                                    <TextBlock Text="{Binding Format}"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                     <TextBlock FontWeight="Bold">Status</TextBlock>
-                                    <TextBlock Text="{Binding Path=Status}"/>
+                                    <TextBlock Text="{Binding Status}"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                     <TextBlock FontWeight="Bold">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Path=Type}" Value="1">
+                                                    <DataTrigger Binding="{Binding Type}" Value="1">
                                                         <Setter Property="Text" Value="Chapters"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -66,26 +66,26 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-                                    <TextBlock Text="{Binding Path=Contents}"/>
+                                    <TextBlock Text="{Binding Contents}"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Grid.Column="2" Margin="0,-5">
                                 <StackPanel Margin="0,5">
                                     <TextBlock FontWeight="Bold">Synopsis</TextBlock>
-                                    <TextBlock Text="{Binding Path=Synopsis}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Synopsis}" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=Background}" Value="{x:Null}">
+                                                <DataTrigger Binding="{Binding Background}" Value="{x:Null}">
                                                     <Setter Property="Visibility" Value="Collapsed"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
                                     <TextBlock FontWeight="Bold">Background</TextBlock>
-                                    <TextBlock Text="{Binding Path=Background}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Background}" TextWrapping="Wrap"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -94,7 +94,7 @@
                         <ui:ProgressRing.Style>
                             <Style TargetType="ui:ProgressRing">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Id}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding Id}" Value="{x:Null}">
                                         <Setter Property="IsActive" Value="True"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -104,11 +104,11 @@
                     </ui:ProgressRing>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="SourceTab">
+            <TabItem x:Name="SourcesTab">
                 <TabItem.Style>
-                    <Style TargetType="TabItem" BasedOn="{StaticResource ResourceKey={x:Type TypeName=TabItem}}">
+                    <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=Type}" Value="1">
+                            <DataTrigger Binding="{Binding Type}" Value="1">
                                 <Setter Property="Header" Value="Read"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -127,16 +127,16 @@
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox x:Name="TitleSelection" Grid.Column="0" ItemsSource="{Binding Path=Titles}" HorizontalAlignment="Stretch" SelectionChanged="OnSelectionChanged"/>
-                        <ComboBox x:Name="ProviderSelection" Grid.Column="2" ItemsSource="{Binding Path=Providers}" SelectionChanged="OnSelectionChanged">
+                        <ComboBox x:Name="TitleSelection" Grid.Column="0" ItemsSource="{Binding Titles}" HorizontalAlignment="Stretch" SelectionChanged="OnSelectionChanged"/>
+                        <ComboBox x:Name="ProviderSelection" Grid.Column="2" ItemsSource="{Binding Providers}" SelectionChanged="OnSelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="m:ProviderItemModel">
-                                    <TextBlock Text="{Binding Path=Name}"/>
+                                    <TextBlock Text="{Binding Name}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <ListBox Grid.Row="2" ItemsSource="{Binding Path=Sources}" MouseDoubleClick="OnOpenSource">
+                    <ListBox x:Name="SourceList" Grid.Row="2" ItemsSource="{Binding Sources}" MouseDoubleClick="OnOpenSource">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="m:SourceItemModel">
                                 <Grid Height="100">
@@ -145,8 +145,8 @@
                                         <ColumnDefinition Width="10"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Path=ImageUrl}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Path=Title}" VerticalAlignment="Center"/>
+                                    <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Title}" VerticalAlignment="Center"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -155,7 +155,7 @@
                         <ui:ProgressRing.Style>
                             <Style TargetType="ui:ProgressRing">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=HasSourcesLoaded}" Value="False">
+                                    <DataTrigger Binding="{Binding HasSourcesLoaded}" Value="False">
                                         <Setter Property="IsActive" Value="True"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -169,8 +169,8 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=HasSourcesLoaded}" Value="True"/>
-                                            <Condition Binding="{Binding Path=Sources.Count}" Value="0"/>
+                                            <Condition Binding="{Binding HasSourcesLoaded}" Value="True"/>
+                                            <Condition Binding="{Binding Sources.Count}" Value="0"/>
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </MultiDataTrigger>

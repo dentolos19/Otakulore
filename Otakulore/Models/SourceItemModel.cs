@@ -11,4 +11,15 @@ public class SourceItemModel
     public string Title { get; init; }
     public IMediaInfo Info { get; init; }
 
+    public static SourceItemModel Create(IMediaInfo info, MediaType type)
+    {
+        return new SourceItemModel
+        {
+            Type = type,
+            ImageUrl = info.ImageUrl,
+            Title = info.Title,
+            Info = info
+        };
+    }
+
 }

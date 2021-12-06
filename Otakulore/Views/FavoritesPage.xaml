@@ -25,12 +25,12 @@
                 <ComboBoxItem>Manga</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <ListBox x:Name="FavoriteList" Grid.Row="2" ItemsSource="{Binding Path=Favorites}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
+        <ListBox x:Name="FavoriteList" Grid.Row="2" ItemsSource="{Binding Favorites}" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
         <TextBlock Grid.Row="2" Text="You have no favorites!" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=Favorites.Count}" Value="0">
+                        <DataTrigger Binding="{Binding Favorites.Count}" Value="0">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>

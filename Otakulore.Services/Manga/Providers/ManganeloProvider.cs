@@ -48,7 +48,7 @@ public class ManganeloProvider : IMangaProvider
             throw new ArgumentException(null, nameof(mediaContent));
         var document = new HtmlWeb().Load(chapter.Url);
         var nodes = document.DocumentNode.SelectNodes("//div[@class='container-chapter-reader']/img");
-        return nodes.Select(node => node.Attributes["data-src"].Value).ToArray();
+        return nodes.Select(node => node.Attributes["src"].Value).ToArray();
     }
 
 }

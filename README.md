@@ -11,7 +11,7 @@ The project has restarted its development for now, however, the development will
 
 ## Features
 
-* [] Supports anime streaming
+* [ ] Supports anime streaming
   * [ ] [AnimeKisa](https://animekisa.tv)
 * [X] Supports manga reading
   * [X] [Manganelo](https://manganelo.tv)

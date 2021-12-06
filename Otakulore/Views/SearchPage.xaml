@@ -24,12 +24,12 @@
                 <ComboBoxItem>Manga</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <ListBox x:Name="ResultList" Grid.Row="2" ItemsSource="{Binding Path=SearchResults}" ItemTemplate="{StaticResource ResourceKey=MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
+        <ListBox x:Name="ResultList" Grid.Row="2" ItemsSource="{Binding SearchResults}" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
         <ui:ProgressRing Grid.Row="2">
             <ui:ProgressRing.Style>
                 <Style TargetType="ui:ProgressRing">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=HasSearchFinished}" Value="False">
+                        <DataTrigger Binding="{Binding HasSearchFinished}" Value="False">
                             <Setter Property="IsActive" Value="True"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -43,8 +43,8 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=HasSearchFinished}" Value="True"/>
-                                <Condition Binding="{Binding Path=SearchResults.Count}" Value="0"/>
+                                <Condition Binding="{Binding HasSearchFinished}" Value="True"/>
+                                <Condition Binding="{Binding SearchResults.Count}" Value="0"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible"/>
                         </MultiDataTrigger>

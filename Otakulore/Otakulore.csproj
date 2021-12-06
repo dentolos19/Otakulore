@@ -9,16 +9,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="JikanDotNet" Version="1.6.0"/>
-		<PackageReference Include="ModernWpfUI" Version="0.9.4"/>
+		<PackageReference Include="JikanDotNet" Version="1.6.0" />
+		<PackageReference Include="MdXaml" Version="1.12.0" />
+		<PackageReference Include="ModernWpfUI" Version="0.9.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Otakulore.Services\Otakulore.Services.csproj"/>
+		<ProjectReference Include="..\Otakulore.Services\Otakulore.Services.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\Assets\Icon.png"/>
+		<Resource Include="Resources\Assets\Icon.png" />
 	</ItemGroup>
 
 </Project>

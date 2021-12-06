@@ -20,16 +20,16 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{Binding Path=Name}" FontWeight="Bold"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Path=Author}"/>
+                            <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Author}"/>
                         </Grid>
                     </DataTemplate>
                 </StackPanel.Resources>
                 <GroupBox Header="Anime Providers" Margin="0,5">
-                    <ListBox ItemsSource="{Binding Path=AnimeProviders}" ItemTemplate="{StaticResource ResourceKey=ProviderItemTemplate}"/>
+                    <ListBox ItemsSource="{Binding AnimeProviders}" ItemTemplate="{StaticResource ProviderItemTemplate}"/>
                 </GroupBox>
                 <GroupBox Header="Manga Provider" Margin="0,5">
-                    <ListBox ItemsSource="{Binding Path=MangaProviders}" ItemTemplate="{StaticResource ResourceKey=ProviderItemTemplate}"/>
+                    <ListBox ItemsSource="{Binding MangaProviders}" ItemTemplate="{StaticResource ProviderItemTemplate}"/>
                 </GroupBox>
             </StackPanel>
         </TabItem>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -6,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using JikanDotNet;
+using ModernWpf.Controls;
 using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.Services;
@@ -57,9 +59,9 @@ public partial class DetailsPage
                     foreach (var provider in App.AnimeProviders)
                         viewModel.Providers.Add(ProviderItemModel.Create(provider));
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: notify user of the exception
+                    await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
             else if (type == MediaType.Manga)
@@ -86,9 +88,9 @@ public partial class DetailsPage
                     foreach (var provider in App.MangaProviders)
                         viewModel.Providers.Add(ProviderItemModel.Create(provider));
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: notify user of the exception
+                    Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
             Dispatcher.Invoke(() => DataContext = viewModel);
@@ -110,18 +112,12 @@ public partial class DetailsPage
                     Dispatcher.Invoke(() =>
                     {
                         foreach (var anime in animeList)
-                            ViewModel.Sources.Add(new SourceItemModel
-                            {
-                                Type = MediaType.Anime,
-                                ImageUrl = anime.ImageUrl,
-                                Title = anime.Title,
-                                Info = anime
-                            });
+                            ViewModel.Sources.Add(SourceItemModel.Create(anime, MediaType.Anime));
                     });
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: notify user of the exception
+                    Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "The provider returned an exception!").ShowAsync());
                 }
             }
             else if (provider is IMangaProvider mangaProvider)
@@ -132,17 +128,12 @@ public partial class DetailsPage
                     Dispatcher.Invoke(() =>
                     {
                         foreach (var manga in mangaList)
-                            ViewModel.Sources.Add(new SourceItemModel
-                            {
-                                Type = MediaType.Manga,
-                                ImageUrl = manga.ImageUrl,
-                                Title = manga.Title
-                            });
+                            ViewModel.Sources.Add(SourceItemModel.Create(manga, MediaType.Manga));
                     });
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: notify user of the exception
+                    Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "The provider returned an exception!").ShowAsync());
                 }
             }
             Dispatcher.Invoke(() => ViewModel.HasSourcesLoaded = true);
@@ -186,7 +177,7 @@ public partial class DetailsPage
 
     private void OnTabChanged(object sender, SelectionChangedEventArgs args)
     {
-        if (!SourceTab.IsSelected)
+        if (!SourcesTab.IsSelected)
             return;
         if (TitleSelection.SelectedIndex < 0)
             TitleSelection.SelectedIndex = 0;
@@ -206,7 +197,14 @@ public partial class DetailsPage
 
     private void OnOpenSource(object sender, MouseButtonEventArgs args)
     {
-        // TODO: open source
+        if (SourceList.SelectedItem is not SourceItemModel sourceItem)
+            return;
+        if (ProviderSelection.SelectedItem is not ProviderItemModel providerItem)
+            return;
+        if (sourceItem.Type == MediaType.Anime)
+            Frame.Navigate(typeof(AnimePlayerPage), new KeyValuePair<IAnimeProvider, IMediaInfo>((IAnimeProvider)providerItem.Provider, sourceItem.Info));
+        else if (sourceItem.Type == MediaType.Manga)
+            Frame.Navigate(typeof(MangaReaderPage), new KeyValuePair<IMangaProvider, IMediaInfo>((IMangaProvider)providerItem.Provider, sourceItem.Info));
     }
 
 }

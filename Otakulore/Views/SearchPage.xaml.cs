@@ -1,4 +1,5 @@
-﻿using Otakulore.Core;
+﻿using System;
+using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System.Collections.Generic;
@@ -42,9 +43,9 @@ public partial class SearchPage
                             ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
                     });
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: notify user of the exception
+                    await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
             else if (type == MediaType.Manga)
@@ -60,9 +61,9 @@ public partial class SearchPage
                             ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
                     });
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: notify user of the exception
+                    await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
             Dispatcher.Invoke(() => ViewModel.HasSearchFinished = true);
