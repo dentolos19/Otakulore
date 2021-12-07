@@ -1,6 +1,4 @@
-﻿using HtmlAgilityPack;
-
-namespace Otakulore.Services.Manga.Providers;
+﻿namespace Otakulore.Services.Manga.Providers;
 
 public class BatotoProvider : IMangaProvider
 {
@@ -12,7 +10,7 @@ public class BatotoProvider : IMangaProvider
     public IEnumerable<IMediaInfo> SearchManga(string query)
     {
         query = query.Replace(' ', '+');
-        var website = new HtmlWeb().Load($"{Website}/search?word={query}");
+        var website = ScrapingServices.HtmlWeb.Load($"{Website}/search?word={query}");
         var mangaElements = website.DocumentNode.SelectNodes("//div[@class='series-list']/div");
         if (mangaElements is null)
             return Array.Empty<IMediaInfo>();

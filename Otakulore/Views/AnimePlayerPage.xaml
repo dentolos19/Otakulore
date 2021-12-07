@@ -28,7 +28,25 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        <MediaElement Grid.Row="2"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <MediaElement x:Name="VideoPlayer" Grid.Row="0" Source="{Binding Path=VideoSource}" LoadedBehavior="Play" UnloadedBehavior="Stop"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="OnPlay">Play</Button>
+                <Button Grid.Column="2" Click="OnPause">Pause</Button>
+            </Grid>
+        </Grid>
         <ui:ProgressRing Grid.Row="2">
             <ui:ProgressRing.Style>
                 <Style TargetType="ui:ProgressRing">

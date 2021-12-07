@@ -3,25 +3,26 @@
 [![](https://img.shields.io/badge/Powered%20By-.NET-blue?logo=microsoft&style=flat-square)](https://dotnet.microsoft.com)
 [![](https://img.shields.io/badge/Made%20With-Visual%20Studio-blue?logo=visual-studio&style=flat-square)](https://visualstudio.microsoft.com)
 
-A multi-purpose app for watching anime, reading manga and feeding news!
+A multi-purpose app for tracking anime/manga, watching/reading content and feeding the latest news!
 
-The project has restarted its development for now, however, the development will be slow as I work on it on my free time!
+> **Note**: For how this app works when users want to watch anime or read manga: The app gathers search results from all types of websites and presents them to the user, this allows an easier way to search without googling.
 
-> **NOTE**: This project is currently work-in-progress and doesn't contain all the planned features. See below for more info. This project will migrate to [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) as soon as it is released. [Click here](https://github.com/dentolos19/Otakulore/tree/ec3786389e8745e9dc521eaa4282886e59b0fdee) to the previous working version before the current refreshed version.
+> **Note**: This project is currently work-in-progress and doesn't contain all the planned features. See below for more info.
 
 ## Features
 
-* [ ] Supports running on multiple operating systems
-  * [X] Windows (the current project is built on WPF)
+* [ ] Runs on multiple operating systems
+  * [X] Windows
   * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
-* [ ] Supports anime streaming
-  * [ ] [Gogoanime](https://gogoanime.wiki)
-  * [ ] [AnimeKisa](https://animekisa.tv)
-* [X] Supports manga reading
-  * [X] [Mangakakalot](https://mangakakalot.com)
-  * [ ] [Batoto](https://bato.to)
-* [X] Has a favorite system to stores all your best anime and manga
-* [ ] Has a download system to allow you to stream and read while offline
+  * [ ] macOS (planned; see above)
+  * [ ] iOS (planned; see above)
+* [ ] Enables tracking for multiple services
+  * [ ] MyAnimeList
+  * [ ] AniList
+* [ ] Gathers content from multiple sources
+  * [X] Gogoanime (Anime)
+  * [X] Mangakakalot (Manga)
+  * [ ] More sources coming soon...
 
 ## Screenshots
 

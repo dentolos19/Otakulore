@@ -12,6 +12,7 @@
 		<PackageReference Include="JikanDotNet" Version="1.6.0"/>
 		<PackageReference Include="MdXaml" Version="1.12.0"/>
 		<PackageReference Include="ModernWpfUI" Version="0.9.4"/>
+		<PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="96.0.1054.26"/>
 	</ItemGroup>
 
 	<ItemGroup>

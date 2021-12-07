@@ -1,6 +1,6 @@
-﻿namespace Otakulore.Services.Manga;
+﻿namespace Otakulore.Services.Anime;
 
-public class MangaChapter : IMediaContent
+public class AnimeEpisode : IMediaContent
 {
 
     public string Name { get; init; }

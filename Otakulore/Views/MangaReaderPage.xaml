@@ -28,6 +28,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
+        <!-- TODO: enable zoom for scroll -->
         <ScrollViewer Grid.Row="2">
             <ItemsControl ItemsSource="{Binding ImageSources}">
                 <ItemsControl.ItemTemplate>

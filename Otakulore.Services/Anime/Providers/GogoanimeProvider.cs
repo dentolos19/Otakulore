@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using OpenQA.Selenium;
 
 namespace Otakulore.Services.Anime.Providers;
 
@@ -12,8 +13,10 @@ public class GogoanimeProvider : IAnimeProvider
     public IEnumerable<IMediaInfo> SearchAnime(string query)
     {
         query = Uri.EscapeDataString(query);
-        var website = new HtmlWeb().Load($"{Website}/search.html?keyword={query}");
+        var website = ScrapingServices.HtmlWeb.Load($"{Website}/search.html?keyword={query}");
         var animeElements = website.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
+        if (animeElements is not { Count: > 0 })
+            return Array.Empty<AnimeInfo>();
         var animeList = new List<AnimeInfo>();
         foreach (var animeElement in animeElements)
         {
@@ -30,12 +33,56 @@ public class GogoanimeProvider : IAnimeProvider
 
     public IEnumerable<IMediaContent> GetAnimeEpisodes(IMediaInfo info)
     {
-        throw new NotImplementedException();
+        if (info is not AnimeInfo animeInfo)
+            return Array.Empty<AnimeEpisode>(); // TODO: throw exception
+        var webDriver = ScrapingServices.WebDriver;
+        webDriver.Navigate().GoToUrl(animeInfo.Url);
+        var pages = webDriver.FindElements(By.XPath("//ul[@id='episode_page']/li"));
+        var animeEpisodes = new List<AnimeEpisode>();
+        foreach (var page in pages)
+        {
+            page.Click();
+            var website = new HtmlDocument();
+            website.LoadHtml(webDriver.PageSource);
+            var episodeElements = website.DocumentNode.SelectNodes("//ul[@id='episode_related']/li");
+            if (episodeElements is null)
+                continue;
+            var subAnimeEpisodes = new List<AnimeEpisode>();
+            foreach (var episodeElement in episodeElements)
+            {
+                var linkElement = episodeElement.SelectSingleNode("./a");
+                var episodeNumber = int.Parse(linkElement.SelectSingleNode("./div[@class='name']").InnerText.Trim()[3..]);
+                subAnimeEpisodes.Add(new AnimeEpisode
+                {
+                    Name = $"Episode {episodeNumber}",
+                    Url = Website + linkElement.Attributes["href"].Value.Trim()
+                });
+            }
+            subAnimeEpisodes.Reverse();
+            animeEpisodes.AddRange(subAnimeEpisodes);
+        }
+        return animeEpisodes;
     }
 
     public string GetAnimeEpisodeSource(IMediaContent content)
     {
-        throw new NotImplementedException();
+        if (content is not AnimeEpisode animeEpisode)
+            return string.Empty; // TODO: throw exception
+        var website = ScrapingServices.HtmlWeb.Load(animeEpisode.Url);
+        var linkElement = website.DocumentNode.SelectSingleNode("//div[@class='anime_muti_link']/ul/li[@class='vidcdn']/a");
+        var videoEmbedLink = "https:" + linkElement.Attributes["data-video"].Value;
+        website = ScrapingServices.HtmlWeb.Load(videoEmbedLink);
+        var scriptCode = website.DocumentNode.SelectSingleNode("//div[@class='videocontent']/script").InnerText;
+        var videoSource = ExtractVideoSource(scriptCode);
+        return videoSource;
+    }
+
+    private static string ExtractVideoSource(string code)
+    {
+        var prefixString = "file: '";
+        var postfixString = "'";
+        var prefixIndex = code.IndexOf(prefixString, StringComparison.Ordinal) + postfixString.Length;
+        return code[prefixIndex..].Remove(code.IndexOf(postfixString, StringComparison.Ordinal));
     }
 
 }
