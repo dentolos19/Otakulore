@@ -5,7 +5,6 @@ public interface IProvider
 
     string Name { get; }
     string Author { get; }
-
-    void Initialize();
+    string Website { get; }
 
 }

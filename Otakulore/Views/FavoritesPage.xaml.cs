@@ -54,7 +54,7 @@ public partial class FavoritesPage
     private void OnOpenMedia(object sender, MouseButtonEventArgs args)
     {
         if (FavoriteList.SelectedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
+            Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
     }
 
 }

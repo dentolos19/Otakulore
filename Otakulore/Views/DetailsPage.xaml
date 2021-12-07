@@ -3,7 +3,8 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:ui="http://schemas.modernwpf.com/2019"
          xmlns:m="clr-namespace:Otakulore.Models"
-         xmlns:vm="clr-namespace:Otakulore.ViewModels">
+         xmlns:vm="clr-namespace:Otakulore.ViewModels"
+         KeepAlive="True">
     <ui:Page.DataContext>
         <vm:DetailsViewModel/>
     </ui:Page.DataContext>
@@ -131,12 +132,12 @@
                         <ComboBox x:Name="ProviderSelection" Grid.Column="2" ItemsSource="{Binding Providers}" SelectionChanged="OnSelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="m:ProviderItemModel">
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Provider.Name}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <ListBox x:Name="SourceList" Grid.Row="2" ItemsSource="{Binding Sources}" MouseDoubleClick="OnOpenSource">
+                    <ListBox x:Name="SourceList" Grid.Row="2" ItemsSource="{Binding Sources}" ScrollViewer.CanContentScroll="False" MouseDoubleClick="OnOpenSource">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="m:SourceItemModel">
                                 <Grid Height="100">

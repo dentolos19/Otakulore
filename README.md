@@ -11,10 +11,14 @@ The project has restarted its development for now, however, the development will
 
 ## Features
 
+* [ ] Supports running on multiple operating systems
+  * [X] Windows (the current project is built on WPF)
+  * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
 * [ ] Supports anime streaming
+  * [ ] [AnimeKisa](https://gogoanime.wiki)
   * [ ] [AnimeKisa](https://animekisa.tv)
 * [X] Supports manga reading
-  * [X] [Manganelo](https://manganelo.tv)
+  * [X] [Mangakakalot](https://mangakakalot.com)
 * [X] Has a favorite system to stores all your best anime and manga
 * [ ] Has a download system to allow you to stream and read while offline
 

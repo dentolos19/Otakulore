@@ -12,26 +12,20 @@
             <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </TabItem>
         <TabItem Header="Services">
-            <StackPanel Margin="10,5">
-                <StackPanel.Resources>
-                    <DataTemplate x:Key="ProviderItemTemplate" DataType="m:ProviderItemModel">
+            <ListBox x:Name="ProviderList" Margin="10" MouseDoubleClick="OnOpenProvider">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="m:ProviderItemModel">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="Bold"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Author}"/>
+                            <TextBlock Grid.Row="0" Text="{Binding Provider.Name}" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Provider.Author}"/>
                         </Grid>
                     </DataTemplate>
-                </StackPanel.Resources>
-                <GroupBox Header="Anime Providers" Margin="0,5">
-                    <ListBox ItemsSource="{Binding AnimeProviders}" ItemTemplate="{StaticResource ProviderItemTemplate}"/>
-                </GroupBox>
-                <GroupBox Header="Manga Provider" Margin="0,5">
-                    <ListBox ItemsSource="{Binding MangaProviders}" ItemTemplate="{StaticResource ProviderItemTemplate}"/>
-                </GroupBox>
-            </StackPanel>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </TabItem>
     </TabControl>
 </ui:Page>

@@ -26,6 +26,6 @@
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
         </ui:NavigationView.FooterMenuItems>
-        <ui:Frame x:Name="ContentView" NavigationUIVisibility="Hidden" Navigated="OnViewNavigated"/>
+        <ui:Frame x:Name="ContentView" Navigated="OnViewNavigated"/>
     </ui:NavigationView>
 </Window>

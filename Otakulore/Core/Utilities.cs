@@ -10,6 +10,7 @@ namespace Otakulore.Core;
 public static class Utilities
 {
 
+    // TODO: remake exception handler
     public static ContentDialog CreateExceptionDialog(Exception exception, string? message = null)
     {
         var markdown =

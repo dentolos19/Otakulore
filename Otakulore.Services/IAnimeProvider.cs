@@ -3,8 +3,8 @@
 public interface IAnimeProvider : IProvider
 {
 
-    IList<IMediaInfo> SearchAnime(string query);
-    IList<IMediaContent> GetAnimeEpisodes(IMediaInfo mediaInfo);
-    string GetAnimeEpisodeSource(IMediaContent mediaContent);
+    IEnumerable<IMediaInfo> SearchAnime(string query);
+    IEnumerable<IMediaContent> GetAnimeEpisodes(IMediaInfo info);
+    string GetAnimeEpisodeSource(IMediaContent content);
 
 }

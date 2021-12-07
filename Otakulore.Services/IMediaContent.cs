@@ -3,7 +3,6 @@
 public interface IMediaContent
 {
 
-    int Index { get; }
-    string Title { get; }
+    string Name { get; }
 
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -7,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using JikanDotNet;
-using ModernWpf.Controls;
 using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.Services;
@@ -32,14 +30,14 @@ public partial class DetailsPage
         _sourceLoader = new BackgroundWorker { WorkerSupportsCancellation = true };
         _detailsLoader.DoWork += async (_, args) =>
         {
-            if (args.Argument is not KeyValuePair<MediaType, long>(var type, var id))
+            if (args.Argument is not ObjectData data)
                 return;
-            var viewModel = new DetailsViewModel { Type = type, Id = id };
-            if (type == MediaType.Anime)
+            var viewModel = new DetailsViewModel { Type = (MediaType)data.MediaType, Id = data.Id };
+            if (data.MediaType == MediaType.Anime)
             {
                 try
                 {
-                    _anime = await App.Jikan.GetAnime(id);
+                    _anime = await App.Jikan.GetAnime((long)data.Id);
 
                     viewModel.ImageUrl = _anime.ImageURL;
                     viewModel.Title = _anime.Title;
@@ -49,7 +47,7 @@ public partial class DetailsPage
                     viewModel.Format = _anime.Type;
                     viewModel.Status = _anime.Status;
                     viewModel.Contents = _anime.Episodes.HasValue ? _anime.Episodes.Value.ToString() : "Unknown";
-                    viewModel.IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == type && item.Id == id) is not null;
+                    viewModel.IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == data.MediaType && item.Id == data.Id) is not null;
 
                     viewModel.Titles.Add(_anime.Title);
                     viewModel.Titles.Add(_anime.TitleEnglish);
@@ -64,11 +62,11 @@ public partial class DetailsPage
                     await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
-            else if (type == MediaType.Manga)
+            else if (data.MediaType == MediaType.Manga)
             {
                 try
                 {
-                    _manga = await App.Jikan.GetManga(id);
+                    _manga = await App.Jikan.GetManga((long)data.Id);
 
                     viewModel.ImageUrl = _manga.ImageURL;
                     viewModel.Title = _manga.Title;
@@ -78,7 +76,7 @@ public partial class DetailsPage
                     viewModel.Format = _manga.Type;
                     viewModel.Status = _manga.Status;
                     viewModel.Contents = _manga.Chapters.HasValue ? _manga.Chapters.Value.ToString() : "Unknown";
-                    viewModel.IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == type && item.Id == id) is not null;
+                    viewModel.IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == data.MediaType && item.Id == data.Id) is not null;
 
                     viewModel.Titles.Add(_manga.Title);
                     viewModel.Titles.Add(_manga.TitleEnglish);
@@ -90,25 +88,25 @@ public partial class DetailsPage
                 }
                 catch (Exception exception)
                 {
-                    Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
+                    await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
             Dispatcher.Invoke(() => DataContext = viewModel);
         };
         _sourceLoader.DoWork += (_, args) =>
         {
-            if (args.Argument is not KeyValuePair<string, IProvider>(var query, var provider))
+            if (args.Argument is not ObjectData data)
                 return;
             Dispatcher.Invoke(() =>
             {
                 ViewModel.HasSourcesLoaded = false;
                 ViewModel.Sources.Clear();
             });
-            if (provider is IAnimeProvider animeProvider)
+            if (data.Provider is IAnimeProvider animeProvider)
             {
                 try
                 {
-                    var animeList = animeProvider.SearchAnime(query);
+                    var animeList = animeProvider.SearchAnime(data.Query);
                     Dispatcher.Invoke(() =>
                     {
                         foreach (var anime in animeList)
@@ -120,11 +118,11 @@ public partial class DetailsPage
                     Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "The provider returned an exception!").ShowAsync());
                 }
             }
-            else if (provider is IMangaProvider mangaProvider)
+            else if (data.Provider is IMangaProvider mangaProvider)
             {
                 try
                 {
-                    var mangaList = mangaProvider.SearchManga(query);
+                    var mangaList = mangaProvider.SearchManga(data.Query);
                     Dispatcher.Invoke(() =>
                     {
                         foreach (var manga in mangaList)
@@ -143,9 +141,8 @@ public partial class DetailsPage
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.ExtraData is not KeyValuePair<MediaType, long> data)
-            return;
-        _detailsLoader.RunWorkerAsync(data);
+        if (args.ExtraData is ObjectData data)
+            _detailsLoader.RunWorkerAsync(data);
     }
 
     private void OnFavorite(object sender, RoutedEventArgs args)
@@ -192,7 +189,7 @@ public partial class DetailsPage
         if (ProviderSelection.SelectedItem is not ProviderItemModel providerItem)
             return;
         _sourceLoader.CancelAsync();
-        _sourceLoader.RunWorkerAsync(new KeyValuePair<string, IProvider>(title, providerItem.Provider));
+        _sourceLoader.RunWorkerAsync(new ObjectData { Query = title, Provider = providerItem.Provider });
     }
 
     private void OnOpenSource(object sender, MouseButtonEventArgs args)
@@ -201,10 +198,15 @@ public partial class DetailsPage
             return;
         if (ProviderSelection.SelectedItem is not ProviderItemModel providerItem)
             return;
-        if (sourceItem.Type == MediaType.Anime)
-            Frame.Navigate(typeof(AnimePlayerPage), new KeyValuePair<IAnimeProvider, IMediaInfo>((IAnimeProvider)providerItem.Provider, sourceItem.Info));
-        else if (sourceItem.Type == MediaType.Manga)
-            Frame.Navigate(typeof(MangaReaderPage), new KeyValuePair<IMangaProvider, IMediaInfo>((IMangaProvider)providerItem.Provider, sourceItem.Info));
+        switch (sourceItem.Type)
+        {
+            case MediaType.Anime:
+                Frame.Navigate(typeof(AnimePlayerPage), new ObjectData { Provider = providerItem.Provider, MediaInfo = sourceItem.Info });
+                break;
+            case MediaType.Manga:
+                Frame.Navigate(typeof(MangaReaderPage), new ObjectData { Provider = providerItem.Provider, MediaInfo = sourceItem.Info });
+                break;
+        }
     }
 
 }

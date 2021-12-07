@@ -70,11 +70,11 @@ public partial class MangaReaderPage
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.ExtraData is not KeyValuePair<IMangaProvider, IMediaInfo>(var provider, var info))
+        if (args.ExtraData is not ObjectData data)
             return;
-        _provider = provider;
-        ViewModel.Title = info.Title;
-        _contentLoader.RunWorkerAsync(info);
+        ViewModel.Title = data.MediaInfo.Title;
+        _provider = (IMangaProvider)data.Provider;
+        _contentLoader.RunWorkerAsync(data.MediaInfo);
     }
 
     private void OnChapterChanged(object sender, SelectionChangedEventArgs args)

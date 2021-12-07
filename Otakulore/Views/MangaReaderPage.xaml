@@ -18,28 +18,25 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="{Binding Title}" FontSize="16"/>
-            <ComboBox Grid.Column="2" SelectedIndex="0">
-                <ComboBoxItem>Manga</ComboBoxItem>
-            </ComboBox>
-            <ComboBox x:Name="ChapterSelection" Grid.Column="4" ItemsSource="{Binding Chapters}" SelectionChanged="OnChapterChanged">
+            <ComboBox x:Name="ChapterSelection" Grid.Column="2" ItemsSource="{Binding Chapters}" SelectionChanged="OnChapterChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate DataType="m:ContentItemModel">
-                        <TextBlock Text="{Binding Title}"/>
+                        <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        <ListBox Grid.Row="2" ItemsSource="{Binding ImageSources}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="m:StringItemModel">
-                    <Image Source="{Binding Value}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ScrollViewer Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding ImageSources}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="m:StringItemModel">
+                        <Image Source="{Binding Value}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <ui:ProgressRing Grid.Row="2">
             <ui:ProgressRing.Style>
                 <Style TargetType="ui:ProgressRing">

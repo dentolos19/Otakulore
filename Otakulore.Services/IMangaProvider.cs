@@ -3,8 +3,8 @@
 public interface IMangaProvider : IProvider
 {
 
-    IList<IMediaInfo> SearchManga(string query);
-    IList<IMediaContent> GetMangaChapters(IMediaInfo mediaInfo);
-    IList<string> GetMangaChapterSource(IMediaContent mediaContent);
+    IEnumerable<IMediaInfo> SearchManga(string query);
+    IEnumerable<IMediaContent> GetMangaChapters(IMediaInfo info);
+    IEnumerable<string> GetMangaChapterSource(IMediaContent content);
 
 }

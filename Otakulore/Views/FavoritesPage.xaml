@@ -25,7 +25,7 @@
                 <ComboBoxItem>Manga</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <ListBox x:Name="FavoriteList" Grid.Row="2" ItemsSource="{Binding Favorites}" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenMedia"/>
+        <ListBox x:Name="FavoriteList" Grid.Row="2" ItemsSource="{Binding Favorites}" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.CanContentScroll="False" MouseDoubleClick="OnOpenMedia"/>
         <TextBlock Grid.Row="2" Text="You have no favorites!" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">

@@ -2,7 +2,6 @@
 using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.ViewModels;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,18 +22,18 @@ public partial class SearchPage
         _searchWorker = new BackgroundWorker { WorkerSupportsCancellation = true };
         _searchWorker.DoWork += async (_, args) =>
         {
-            if (args.Argument is not KeyValuePair<MediaType, string>(var type, var query))
+            if (args.Argument is not ObjectData data)
                 return;
             Dispatcher.Invoke(() =>
             {
                 ViewModel.HasSearchFinished = false;
                 ViewModel.SearchResults.Clear();
             });
-            if (type == MediaType.Anime)
+            if (data.MediaType == MediaType.Anime)
             {
                 try
                 {
-                    var searchResults = await App.Jikan.SearchAnime(query);
+                    var searchResults = await App.Jikan.SearchAnime(data.Query);
                     Dispatcher.Invoke(() =>
                     {
                         if (!(searchResults.Results.Count > 0))
@@ -48,11 +47,11 @@ public partial class SearchPage
                     await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
                 }
             }
-            else if (type == MediaType.Manga)
+            else if (data.MediaType == MediaType.Manga)
             {
                 try
                 {
-                    var searchResults = await App.Jikan.SearchManga(query);
+                    var searchResults = await App.Jikan.SearchManga(data.Query);
                     Dispatcher.Invoke(() =>
                     {
                         if (!(searchResults.Results.Count > 0))
@@ -74,14 +73,14 @@ public partial class SearchPage
     private void Search(int typeIndex, string query)
     {
         _searchWorker.CancelAsync();
-        _searchWorker.RunWorkerAsync(new KeyValuePair<MediaType, string>((MediaType)typeIndex, query));
+        _searchWorker.RunWorkerAsync(new ObjectData { MediaType = (MediaType)typeIndex, Query = query });
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.ExtraData is not string query)
+        if (args.ExtraData is not ObjectData data)
             return;
-        SearchInput.Text = query;
+        SearchInput.Text = data.Query;
         TypeSelection.SelectedIndex = 0;
     }
 
@@ -103,6 +102,6 @@ public partial class SearchPage
     private void OnOpenMedia(object sender, MouseButtonEventArgs args)
     {
         if (ResultList.SelectedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
+            Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
     }
 }

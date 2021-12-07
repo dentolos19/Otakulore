@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using JikanDotNet;
 using System.Windows;
-using System.Windows.Threading;
+using JikanDotNet;
 using Otakulore.Core;
 using Otakulore.Services;
+using Otakulore.Views;
 
 namespace Otakulore;
 
 public partial class App
 {
 
+    public static readonly IList<IAnimeProvider> AnimeProviders = new List<IAnimeProvider>();
+    public static readonly IList<IMangaProvider> MangaProviders = new List<IMangaProvider>();
+
     public static Settings Settings { get; } = Settings.Load();
     public static IJikan Jikan { get; } = new Jikan();
-
-    public static IList<IAnimeProvider> AnimeProviders = new List<IAnimeProvider>();
-    public static IList<IMangaProvider> MangaProviders = new List<IMangaProvider>();
 
     private void OnStartup(object sender, StartupEventArgs args)
     {
@@ -28,24 +28,12 @@ public partial class App
         {
             var interfaces = provider.GetInterfaces();
             if (interfaces.Contains(typeof(IAnimeProvider)))
-            {
-                var animeProvider = (IAnimeProvider)Activator.CreateInstance(provider);
-                animeProvider.Initialize();
-                AnimeProviders.Add(animeProvider);
-            }
+                AnimeProviders.Add((IAnimeProvider)Activator.CreateInstance(provider));
             else if (interfaces.Contains(typeof(IMangaProvider)))
-            {
-                var mangaProvider = (IMangaProvider)Activator.CreateInstance(provider);
-                mangaProvider.Initialize();
-                MangaProviders.Add(mangaProvider);
-            }
+                MangaProviders.Add((IMangaProvider)Activator.CreateInstance(provider));
         }
-    }
-
-    private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
-    {
-        MessageBox.Show("An unhandled exception occurred! " + args.Exception.Message, "Otakulore");
-        args.Handled = true;
+        MainWindow = new MainWindow();
+        MainWindow.Show();
     }
 
     private void OnExit(object sender, ExitEventArgs args)
