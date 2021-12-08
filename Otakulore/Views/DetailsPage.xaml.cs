@@ -198,6 +198,7 @@ public partial class DetailsPage
             return;
         if (ProviderSelection.SelectedItem is not ProviderItemModel providerItem)
             return;
+        /*
         switch (sourceItem.Type)
         {
             case MediaType.Anime:
@@ -207,6 +208,7 @@ public partial class DetailsPage
                 Frame.Navigate(typeof(MangaReaderPage), new ObjectData { Provider = providerItem.Provider, MediaInfo = sourceItem.Info });
                 break;
         }
+        */
     }
 
 }

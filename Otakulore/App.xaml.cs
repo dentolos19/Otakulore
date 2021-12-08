@@ -21,9 +21,7 @@ public partial class App
 
     private void OnStartup(object sender, StartupEventArgs args)
     {
-        var providers = Assembly.GetEntryAssembly().GetReferencedAssemblies().Select(Assembly.Load)
-            .SelectMany(assembly => assembly.GetTypes())
-            .Where(type => type.IsClass && type.GetInterfaces().Contains(typeof(IProvider)));
+        var providers = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.IsClass && type.GetInterfaces().Contains(typeof(IProvider)));
         foreach (var provider in providers)
         {
             var interfaces = provider.GetInterfaces();

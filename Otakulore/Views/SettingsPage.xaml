@@ -12,7 +12,7 @@
             <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </TabItem>
         <TabItem Header="Services">
-            <ListBox x:Name="ProviderList" Margin="10" MouseDoubleClick="OnOpenProvider">
+            <ListBox x:Name="ProviderList" ItemsSource="{Binding Providers}" MouseDoubleClick="OnOpenProvider">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="m:ProviderItemModel">
                         <Grid>

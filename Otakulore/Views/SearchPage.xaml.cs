@@ -1,5 +1,4 @@
-﻿using System;
-using Otakulore.Core;
+﻿using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.ViewModels;
 using System.ComponentModel;
@@ -29,41 +28,32 @@ public partial class SearchPage
                 ViewModel.HasSearchFinished = false;
                 ViewModel.SearchResults.Clear();
             });
-            if (data.MediaType == MediaType.Anime)
+            try
             {
-                try
+                if (data.MediaType == MediaType.Anime)
                 {
                     var searchResults = await App.Jikan.SearchAnime(data.Query);
                     Dispatcher.Invoke(() =>
                     {
-                        if (!(searchResults.Results.Count > 0))
-                            return;
-                        foreach (var searchResult in searchResults.Results)
-                            ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
+                        if (searchResults != null && searchResults.Results.Count > 0)
+                            foreach (var searchResult in searchResults.Results)
+                                ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
                     });
                 }
-                catch (Exception exception)
-                {
-                    await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
-                }
-            }
-            else if (data.MediaType == MediaType.Manga)
-            {
-                try
+                else if (data.MediaType == MediaType.Manga)
                 {
                     var searchResults = await App.Jikan.SearchManga(data.Query);
                     Dispatcher.Invoke(() =>
                     {
-                        if (!(searchResults.Results.Count > 0))
-                            return;
-                        foreach (var searchResult in searchResults.Results)
-                            ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
+                        if (searchResults != null && searchResults.Results.Count > 0)
+                            foreach (var searchResult in searchResults.Results)
+                                ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
                     });
                 }
-                catch (Exception exception)
-                {
-                    await Dispatcher.Invoke(async () => await Utilities.CreateExceptionDialog(exception, "Jikan returned an exception!").ShowAsync());
-                }
+            }
+            catch
+            {
+                // do nothing
             }
             Dispatcher.Invoke(() => ViewModel.HasSearchFinished = true);
         };
@@ -104,4 +94,5 @@ public partial class SearchPage
         if (ResultList.SelectedItem is MediaItemModel item)
             Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
     }
+
 }

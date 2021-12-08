@@ -37,19 +37,30 @@ public class MediaItemModel
         };
     }
 
-    public static MediaItemModel Create(AnimeSearchEntry animeEntry)
+    public static MediaItemModel Create(AnimeSearchEntry anime)
     {
         return new MediaItemModel
         {
             Type = MediaType.Anime,
-            Id = animeEntry.MalId,
-            ImageUrl = animeEntry.ImageURL,
-            Title = animeEntry.Title,
-            Description = animeEntry.Description,
-            Year = animeEntry.StartDate.HasValue ? animeEntry.StartDate.Value.Year.ToString() : "Unknown Year",
-            Contents = animeEntry.Episodes.HasValue ? $"{animeEntry.Episodes.Value} Episode(s)" : "No Episodes",
-            Status = animeEntry.Airing ? "Airing" : animeEntry.StartDate.HasValue ? "Finished" : "Unreleased",
-            Score = animeEntry.Score / 2
+            Id = anime.MalId,
+            ImageUrl = anime.ImageURL,
+            Title = anime.Title,
+            Description = anime.Description,
+            Year = anime.StartDate.HasValue ? anime.StartDate.Value.Year.ToString() : "Unknown Year",
+            Contents = anime.Episodes.HasValue ? $"{anime.Episodes.Value} Episode(s)" : "No Episodes",
+            Status = anime.Airing ? "Airing" : anime.StartDate.HasValue ? "Finished" : "Unreleased",
+            Score = anime.Score / 2
+        };
+    }
+
+    public static MediaItemModel Create(AnimeTopEntry anime)
+    {
+        return new MediaItemModel
+        {
+            Type = MediaType.Anime,
+            Id = anime.MalId,
+            ImageUrl = anime.ImageURL,
+            Title = anime.Title,
         };
     }
 
@@ -72,19 +83,30 @@ public class MediaItemModel
         };
     }
 
-    public static MediaItemModel Create(MangaSearchEntry mangaEntry)
+    public static MediaItemModel Create(MangaSearchEntry manga)
     {
         return new MediaItemModel
         {
             Type = MediaType.Manga,
-            Id = mangaEntry.MalId,
-            ImageUrl = mangaEntry.ImageURL,
-            Title = mangaEntry.Title,
-            Description = mangaEntry.Description,
-            Year = mangaEntry.StartDate.HasValue ? mangaEntry.StartDate.Value.Year.ToString() : "Unknown Year",
-            Contents = !mangaEntry.Chapters.HasValue ? "No Chapters" : mangaEntry.Publishing ? "Progressing Chapters" : $"{mangaEntry.Chapters} Chapter(s)",
-            Status = mangaEntry.Publishing ? "Publishing" : mangaEntry.StartDate.HasValue ? "Finished" : "Unreleased",
-            Score = mangaEntry.Score / 2
+            Id = manga.MalId,
+            ImageUrl = manga.ImageURL,
+            Title = manga.Title,
+            Description = manga.Description,
+            Year = manga.StartDate.HasValue ? manga.StartDate.Value.Year.ToString() : "Unknown Year",
+            Contents = !manga.Chapters.HasValue ? "No Chapters" : manga.Publishing ? "Progressing Chapters" : $"{manga.Chapters} Chapter(s)",
+            Status = manga.Publishing ? "Publishing" : manga.StartDate.HasValue ? "Finished" : "Unreleased",
+            Score = manga.Score / 2
+        };
+    }
+
+    public static MediaItemModel Create(MangaTopEntry manga)
+    {
+        return new MediaItemModel
+        {
+            Type = MediaType.Manga,
+            Id = manga.MalId,
+            ImageUrl = manga.ImageURL,
+            Title = manga.Title
         };
     }
 

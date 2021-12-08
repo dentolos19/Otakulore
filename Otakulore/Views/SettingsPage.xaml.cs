@@ -19,15 +19,9 @@ public partial class SettingsPage
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
         foreach (var animeProvider in App.AnimeProviders)
-        {
-            var providerItem = ProviderItemModel.Create(animeProvider);
-            ProviderList.Items.Add(providerItem);
-        }
+            ViewModel.Providers.Add(ProviderItemModel.Create(animeProvider));
         foreach (var mangaProvider in App.MangaProviders)
-        {
-            var providerItem = ProviderItemModel.Create(mangaProvider);
-            ProviderList.Items.Add(providerItem);
-        }
+            ViewModel.Providers.Add(ProviderItemModel.Create(mangaProvider));
     }
 
     private void OnOpenProvider(object sender, MouseButtonEventArgs args)

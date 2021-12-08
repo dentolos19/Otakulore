@@ -1,3 +1,11 @@
-﻿namespace Otakulore.ViewModels;
+﻿using System.Collections.ObjectModel;
+using Otakulore.Models;
 
-public class SettingsViewModel : BaseViewModel { }
+namespace Otakulore.ViewModels;
+
+public class SettingsViewModel : BaseViewModel
+{
+
+    public ObservableCollection<ProviderItemModel> Providers { get; } = new();
+
+}
