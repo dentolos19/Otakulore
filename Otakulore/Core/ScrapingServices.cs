@@ -3,7 +3,7 @@ using OpenQA.Selenium.Edge;
 
 namespace Otakulore.Core;
 
-public static class ScrapingServices
+public class ScrapingServices
 {
 
     private static EdgeDriver? _webDriverInstance;

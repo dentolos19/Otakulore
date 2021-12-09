@@ -1,98 +1,64 @@
-﻿using Otakulore.Core;
-using Otakulore.Models;
-using Otakulore.ViewModels;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
-using ModernWpf.Controls;
+using Otakulore.Models;
+using Otakulore.ViewModels;
 
 namespace Otakulore.Views;
 
 public partial class SearchPage
 {
 
-    private readonly BackgroundWorker _searchWorker;
+    private readonly BackgroundWorker _animeSearcher;
+    private readonly BackgroundWorker _mangaSearcher;
 
     private SearchViewModel ViewModel => (SearchViewModel)DataContext;
 
-    public SearchPage()
+    public SearchPage(string query)
     {
-        _searchWorker = new BackgroundWorker { WorkerSupportsCancellation = true };
-        _searchWorker.DoWork += async (_, args) =>
+        _animeSearcher = new BackgroundWorker();
+        _mangaSearcher = new BackgroundWorker();
+        _animeSearcher.DoWork += async (_, _) =>
         {
-            if (args.Argument is not ObjectData data)
-                return;
+            var animeResults = await App.Jikan.SearchAnime(query);
             Dispatcher.Invoke(() =>
             {
-                ViewModel.HasSearchFinished = false;
-                ViewModel.SearchResults.Clear();
+                foreach (var animeResult in animeResults.Results)
+                    AnimeSearchList.Items.Add(MediaItemModel.Create(animeResult));
+                ViewModel.HasAnimeSearched = true;
             });
-            try
+        };
+        _animeSearcher.DoWork += async (_, _) =>
+        {
+            var mangaResults = await App.Jikan.SearchManga(query);
+            Dispatcher.Invoke(() =>
             {
-                if (data.MediaType == MediaType.Anime)
-                {
-                    var searchResults = await App.Jikan.SearchAnime(data.Query);
-                    Dispatcher.Invoke(() =>
-                    {
-                        if (searchResults != null && searchResults.Results.Count > 0)
-                            foreach (var searchResult in searchResults.Results)
-                                ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
-                    });
-                }
-                else if (data.MediaType == MediaType.Manga)
-                {
-                    var searchResults = await App.Jikan.SearchManga(data.Query);
-                    Dispatcher.Invoke(() =>
-                    {
-                        if (searchResults != null && searchResults.Results.Count > 0)
-                            foreach (var searchResult in searchResults.Results)
-                                ViewModel.SearchResults.Add(MediaItemModel.Create(searchResult));
-                    });
-                }
-            }
-            catch
-            {
-                // do nothing
-            }
-            Dispatcher.Invoke(() => ViewModel.HasSearchFinished = true);
+                foreach (var mangaResult in mangaResults.Results)
+                    MangaSearchList.Items.Add(MediaItemModel.Create(mangaResult));
+                ViewModel.HasMangaSearched = true;
+            });
         };
         InitializeComponent();
     }
 
-    private void Search(int typeIndex, string query)
+    private void OnTabChanged(object sender, SelectionChangedEventArgs args)
     {
-        _searchWorker.CancelAsync();
-        _searchWorker.RunWorkerAsync(new ObjectData { MediaType = (MediaType)typeIndex, Query = query });
+        if (AnimeTab.IsSelected && !ViewModel.HasAnimeSearched)
+            _animeSearcher.RunWorkerAsync();
+        if (MangaTab.IsSelected && !ViewModel.HasMangaSearched)
+            _mangaSearcher.RunWorkerAsync();
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs args)
+    private void OnOpenAnime(object sender, MouseButtonEventArgs args)
     {
-        if (args.ExtraData is not ObjectData data)
-            return;
-        SearchInput.Text = data.Query;
-        TypeSelection.SelectedIndex = 0;
+        if (AnimeSearchList.SelectedItem is MediaItemModel item)
+            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
     }
 
-    protected override void OnNavigatedFrom(NavigationEventArgs args)
+    private void OnOpenManga(object sender, MouseButtonEventArgs args)
     {
-        _searchWorker.CancelAsync();
-    }
-
-    private void OnSearch(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        Search(TypeSelection.SelectedIndex, SearchInput.Text);
-    }
-
-    private void OnTypeChanged(object sender, SelectionChangedEventArgs args)
-    {
-        Search(TypeSelection.SelectedIndex, SearchInput.Text);
-    }
-
-    private void OnOpenMedia(object sender, MouseButtonEventArgs args)
-    {
-        if (ResultList.SelectedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
+        if (AnimeSearchList.SelectedItem is MediaItemModel item)
+            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
     }
 
 }

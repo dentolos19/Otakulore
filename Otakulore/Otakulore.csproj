@@ -2,23 +2,19 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net6.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\Assets\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AdonisUI" Version="1.17.1"/>
+		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1"/>
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.39"/>
 		<PackageReference Include="JikanDotNet" Version="1.6.0"/>
-		<PackageReference Include="MdXaml" Version="1.12.0"/>
-		<PackageReference Include="ModernWpfUI" Version="0.9.4"/>
 		<PackageReference Include="Selenium.WebDriver" Version="4.1.0"/>
 		<PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="96.0.1054.26"/>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Resource Include="Resources\Assets\Icon.png"/>
 	</ItemGroup>
 
 </Project>

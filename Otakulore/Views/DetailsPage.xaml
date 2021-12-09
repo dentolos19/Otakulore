@@ -1,187 +1,115 @@
-﻿<ui:Page x:Class="Otakulore.Views.DetailsPage"
-         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:ui="http://schemas.modernwpf.com/2019"
-         xmlns:m="clr-namespace:Otakulore.Models"
-         xmlns:vm="clr-namespace:Otakulore.ViewModels"
-         KeepAlive="True">
-    <ui:Page.DataContext>
-        <vm:DetailsViewModel/>
-    </ui:Page.DataContext>
+﻿<Page x:Class="Otakulore.Views.DetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:adonis="clr-namespace:AdonisUI;assembly=AdonisUI"
+      xmlns:viewModels="clr-namespace:Otakulore.ViewModels">
+    <Page.DataContext>
+        <viewModels:DetailsViewModel/>
+    </Page.DataContext>
     <Grid>
-        <TabControl SelectionChanged="OnTabChanged">
-            <TabItem Header="Overview">
-                <Grid>
-                    <Grid Margin="10">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                    <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                            <Grid Grid.Column="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
-                                    <ToggleButton Content="&#xEB51;" FontFamily="Segoe MDL2 Assets" IsChecked="{Binding IsFavorite}" Click="OnFavorite"/>
-                                </StackPanel>
-                                <TextBlock Grid.Row="2" Text="{Binding Title}" FontWeight="Bold" FontSize="24"/>
-                                <TextBlock Grid.Row="3" Text="{Binding Subtitle}"/>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Margin="0,-5">
-                                <StackPanel Margin="0,5">
-                                    <TextBlock FontWeight="Bold">Format</TextBlock>
-                                    <TextBlock Text="{Binding Format}"/>
-                                </StackPanel>
-                                <StackPanel Margin="0,5">
-                                    <TextBlock FontWeight="Bold">Status</TextBlock>
-                                    <TextBlock Text="{Binding Status}"/>
-                                </StackPanel>
-                                <StackPanel Margin="0,5">
-                                    <TextBlock FontWeight="Bold">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Type}" Value="1">
-                                                        <Setter Property="Text" Value="Chapters"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                                <Setter Property="Text" Value="Episodes"/>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding Contents}"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" Margin="0,-5">
-                                <StackPanel Margin="0,5">
-                                    <TextBlock FontWeight="Bold">Synopsis</TextBlock>
-                                    <TextBlock Text="{Binding Synopsis}" TextWrapping="Wrap"/>
-                                </StackPanel>
-                                <StackPanel Margin="0,5">
-                                    <StackPanel.Style>
-                                        <Style TargetType="StackPanel">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Background}" Value="{x:Null}">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </StackPanel.Style>
-                                    <TextBlock FontWeight="Bold">Background</TextBlock>
-                                    <TextBlock Text="{Binding Background}" TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Grid>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
+                            <Button FontFamily="Segoe MDL2 Assets" Click="OnFavorite">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                                                <Setter Property="Content" Value="&#xE735;"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Content" Value="&#xE734;"/>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Text="{Binding Title}" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Row="3" Text="{Binding Subtitle}"/>
                     </Grid>
-                    <ui:ProgressRing>
-                        <ui:ProgressRing.Style>
-                            <Style TargetType="ui:ProgressRing">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Id}" Value="{x:Null}">
-                                        <Setter Property="IsActive" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="IsActive" Value="False"/>
-                            </Style>
-                        </ui:ProgressRing.Style>
-                    </ui:ProgressRing>
                 </Grid>
-            </TabItem>
-            <TabItem x:Name="SourcesTab">
-                <TabItem.Style>
-                    <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Type}" Value="1">
-                                <Setter Property="Header" Value="Read"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Header" Value="Watch"/>
-                    </Style>
-                </TabItem.Style>
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <ComboBox x:Name="TitleSelection" Grid.Column="0" ItemsSource="{Binding Titles}" HorizontalAlignment="Stretch" SelectionChanged="OnSelectionChanged"/>
-                        <ComboBox x:Name="ProviderSelection" Grid.Column="2" ItemsSource="{Binding Providers}" SelectionChanged="OnSelectionChanged">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="m:ProviderItemModel">
-                                    <TextBlock Text="{Binding Provider.Name}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-                    <ListBox x:Name="SourceList" Grid.Row="2" ItemsSource="{Binding Sources}" ScrollViewer.CanContentScroll="False" MouseDoubleClick="OnOpenSource">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="m:SourceItemModel">
-                                <Grid Height="100">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Title}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <ui:ProgressRing Grid.Row="2">
-                        <ui:ProgressRing.Style>
-                            <Style TargetType="ui:ProgressRing">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding HasSourcesLoaded}" Value="False">
-                                        <Setter Property="IsActive" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="IsActive" Value="False"/>
-                            </Style>
-                        </ui:ProgressRing.Style>
-                    </ui:ProgressRing>
-                    <TextBlock Grid.Row="2" Text="Provider yielded no sources!" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding HasSourcesLoaded}" Value="True"/>
-                                            <Condition Binding="{Binding Sources.Count}" Value="0"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,-2.5">
+                        <StackPanel Margin="0,2.5">
+                            <TextBlock FontWeight="Bold">Format</TextBlock>
+                            <TextBlock Text="{Binding Format}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,2.5">
+                            <TextBlock FontWeight="Bold">Status</TextBlock>
+                            <TextBlock Text="{Binding Status}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,2.5">
+                            <TextBlock FontWeight="Bold">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Type}" Value="1">
+                                                <Setter Property="Text" Value="Chapters"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Text" Value="Episodes"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding Contents}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="0,-2.5">
+                        <StackPanel Margin="0,2.5">
+                            <TextBlock FontWeight="Bold">Synopsis</TextBlock>
+                            <TextBlock Text="{Binding Synopsis}" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,2.5">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Background}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock FontWeight="Bold">Background</TextBlock>
+                            <TextBlock Text="{Binding Background}" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
-            </TabItem>
-        </TabControl>
+            </Grid>
+        </ScrollViewer>
+        <ContentControl ContentTemplate="{DynamicResource {x:Static adonis:Templates.LoadingBars}}" Width="25">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Id}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
     </Grid>
-</ui:Page>
+</Page>

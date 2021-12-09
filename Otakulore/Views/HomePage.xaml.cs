@@ -1,50 +1,60 @@
 ﻿using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
-using Otakulore.Core;
 using Otakulore.Models;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views;
 
 public partial class HomePage
 {
 
-    private readonly BackgroundWorker _contentLoader;
-
-    private HomeViewModel ViewModel => (HomeViewModel)DataContext;
+    private readonly BackgroundWorker _topAnimeLoader;
+    private readonly BackgroundWorker _topMangaLoader;
 
     public HomePage()
     {
-        _contentLoader = new BackgroundWorker();
-        _contentLoader.DoWork += async (_, _) =>
+        _topAnimeLoader = new BackgroundWorker();
+        _topMangaLoader = new BackgroundWorker();
+        _topAnimeLoader.DoWork += async (_, _) =>
         {
-            var topAnimes = await App.Jikan.GetAnimeTop();
-            // var topMangas = await App.Jikan.GetMangaTop();
+            var topAnime = await App.Jikan.GetAnimeTop();
             Dispatcher.Invoke(() =>
             {
-                foreach (var topAnime in topAnimes.Top)
-                    ViewModel.TopAnimes.Add(MediaItemModel.Create(topAnime));
+                foreach (var anime in topAnime.Top)
+                    TopAnimeList.Items.Add(MediaItemModel.Create(anime));
+            });
+        };
+        _topAnimeLoader.DoWork += async (_, _) =>
+        {
+            var topManga = await App.Jikan.GetMangaTop();
+            Dispatcher.Invoke(() =>
+            {
+                foreach (var manga in topManga.Top)
+                    TopMangaList.Items.Add(MediaItemModel.Create(manga));
             });
         };
         InitializeComponent();
+
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs args)
+    private void OnTabChanged(object sender, SelectionChangedEventArgs args)
     {
-        _contentLoader.RunWorkerAsync();
+        if (TopAnimeTab.IsSelected && !(TopAnimeList.Items.Count > 0))
+            _topAnimeLoader.RunWorkerAsync();
+        if (TopMangaTab.IsSelected && !(TopMangaList.Items.Count > 0))
+            _topMangaLoader.RunWorkerAsync();
     }
 
     private void OnOpenAnime(object sender, MouseButtonEventArgs args)
     {
         if (TopAnimeList.SelectedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
+            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
     }
 
     private void OnOpenManga(object sender, MouseButtonEventArgs args)
     {
         if (TopMangaList.SelectedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
+            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
     }
 
 }

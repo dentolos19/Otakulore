@@ -1,60 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
-using Otakulore.Core;
 using Otakulore.Models;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views;
 
 public partial class FavoritesPage
 {
 
-    private FavoriteViewModel ViewModel => (FavoriteViewModel)DataContext;
-
     public FavoritesPage()
     {
         InitializeComponent();
-        ((CollectionView)CollectionViewSource.GetDefaultView(FavoriteList.ItemsSource)).Filter = FilterFavorite;
     }
 
-    private bool FilterFavorite(object item)
+    private void OnLoaded(object sender, RoutedEventArgs args)
     {
-        if (item is not MediaItemModel mediaItem)
-            return false;
-        var filter = FilterInput.Text;
-        return TypeSelection.SelectedIndex switch
-        {
-            1 => mediaItem.Title.Contains(filter, StringComparison.OrdinalIgnoreCase) && mediaItem.Type == MediaType.Anime,
-            2 => mediaItem.Title.Contains(filter, StringComparison.OrdinalIgnoreCase) && mediaItem.Type == MediaType.Manga,
-            _ => mediaItem.Title.Contains(filter, StringComparison.OrdinalIgnoreCase)
-        };
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs args)
-    {
-        foreach (var mediaItem in App.Settings.Favorites)
-            ViewModel.Favorites.Add(mediaItem);
-        TypeSelection.SelectedIndex = 0;
-    }
-
-    private void OnFilter(object sender, TextChangedEventArgs args)
-    {
-        CollectionViewSource.GetDefaultView(FavoriteList.ItemsSource).Refresh();
-    }
-
-    private void OnTypeChanged(object sender, SelectionChangedEventArgs args)
-    {
-        CollectionViewSource.GetDefaultView(FavoriteList.ItemsSource).Refresh();
+        FavoriteList.Items.Clear();
+        foreach (var favoriteItem in App.Settings.Favorites)
+            FavoriteList.Items.Add(favoriteItem);
     }
 
     private void OnOpenMedia(object sender, MouseButtonEventArgs args)
     {
         if (FavoriteList.SelectedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new ObjectData { MediaType = item.Type, Id = item.Id });
+            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
     }
-
 }

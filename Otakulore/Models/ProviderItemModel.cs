@@ -1,15 +1,15 @@
-﻿using Otakulore.Services;
+﻿using Otakulore.Core;
 
 namespace Otakulore.Models;
 
 public class ProviderItemModel
 {
 
-    public IProvider Provider { get; init; }
+    public IProvider Provider { get; }
 
-    public static ProviderItemModel Create(IProvider provider)
+    public ProviderItemModel(IProvider provider)
     {
-        return new ProviderItemModel { Provider = provider };
+        Provider = provider;
     }
 
 }

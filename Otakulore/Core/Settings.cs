@@ -12,21 +12,18 @@ public class Settings
 
     private static readonly string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.settings.json");
 
-    public bool UseEnglishTitles { get; set; } = true;
     public IList<MediaItemModel> Favorites { get; set; } = new List<MediaItemModel>();
 
     public void Save()
     {
-        var fileContent = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(FilePath, fileContent);
+        File.WriteAllText(FilePath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
     }
 
     public static Settings Load()
     {
-        if (!File.Exists(FilePath))
-            return new Settings();
-        var fileContent = File.ReadAllText(FilePath);
-        return JsonSerializer.Deserialize<Settings>(fileContent);
+        return !File.Exists(FilePath)
+            ? new Settings()
+            : JsonSerializer.Deserialize<Settings>(File.ReadAllText(FilePath));
     }
 
 }

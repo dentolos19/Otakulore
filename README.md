@@ -9,11 +9,11 @@ Ever wanted to have everything in one place? Watching anime, tracking your progr
 
 Also, this project development will be slow as I only work on it during my free time!  (studying for exams succ :<)...
 
-> **Note**: This project is currently work-in-progress and doesn't contain all the planned features. See below for more info...
-
 ## Features
 
-* [ ] Runs on multiple operating systems
+> **Note**: This project is currently work-in-progress and doesn't contain all the planned features. See below for more info...
+
+* [ ] Runs on multiple platforms
   * [X] Windows
   * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) next year)
 * [ ] Enables tracking for multiple services
@@ -27,6 +27,7 @@ Also, this project development will be slow as I only work on it during my free 
   * [X] Mangakakalot (Manga)
   * [ ] More sources coming soon...
 * [ ] Never miss an episode with the built-in anime schedule
+* [ ] Let your friends know what you're watching/reading through Discord
 
 ## Screenshots
 

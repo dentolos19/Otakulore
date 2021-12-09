@@ -1,49 +1,50 @@
-﻿using ModernWpf.Controls;
-using System;
-using System.Linq;
-using System.Windows.Navigation;
-using Otakulore.Core;
+﻿using System.Windows;
+using Otakulore.Views;
 
-namespace Otakulore.Views;
+namespace Otakulore;
 
 public partial class MainWindow
 {
 
+    private HomePage? _homePageInstance;
+    private FavoritesPage? _favoritesPageInstance;
+    private SettingsPage? _settingsPageInstance;
+
     public MainWindow()
     {
         InitializeComponent();
-        SideBar.SelectedItem = SideBar.MenuItems.OfType<NavigationViewItem>().First();
+        OnNavigateHome(null, null);
     }
 
-    private void OnSearch(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        var query = SearchInput.Text;
-        if (!string.IsNullOrEmpty(query))
-            ContentView.Navigate(typeof(SearchPage), new ObjectData { Query = query });
-    }
-
-    private void OnNavigateView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-    {
-        if (SideBar.SelectedItem is not NavigationViewItem item)
-            return;
-        var type = Type.GetType("Otakulore.Views." + item.Tag);
-        if (type is not null)
-            ContentView.Navigate(type);
-    }
-
-    private void OnViewNavigated(object sender, NavigationEventArgs args)
-    {
-        SideBar.IsBackEnabled = ContentView.CanGoBack;
-        if (SideBar.SelectedItem is not NavigationViewItem item)
-            return;
-        var type = Type.GetType($"Otakulore.Views.{item.Tag}");
-        SideBar.SelectedItem = ContentView.CurrentSourcePageType == type;
-    }
-
-    private void OnBack(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    private void OnNavigateBack(object sender, RoutedEventArgs args)
     {
         if (ContentView.CanGoBack)
             ContentView.GoBack();
+    }
+
+    private void OnNavigateSearch(object sender, RoutedEventArgs args)
+    {
+        var query = SearchInput.Text;
+        if (!string.IsNullOrEmpty(query) && query.Length >= 3)
+            ContentView.Navigate(new SearchPage(query));
+    }
+
+    private void OnNavigateHome(object sender, RoutedEventArgs args)
+    {
+        _homePageInstance ??= new HomePage();
+        ContentView.Navigate(_homePageInstance);
+    }
+
+    private void OnNavigateFavorites(object sender, RoutedEventArgs args)
+    {
+        _favoritesPageInstance ??= new FavoritesPage();
+        ContentView.Navigate(_favoritesPageInstance);
+    }
+
+    private void OnNavigateSettings(object sender, RoutedEventArgs args)
+    {
+        _settingsPageInstance ??= new SettingsPage();
+        ContentView.Navigate(_settingsPageInstance);
     }
 
 }

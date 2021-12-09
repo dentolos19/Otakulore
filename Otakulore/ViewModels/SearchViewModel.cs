@@ -1,19 +1,21 @@
-﻿using Otakulore.Models;
-using System.Collections.ObjectModel;
-
-namespace Otakulore.ViewModels;
+﻿namespace Otakulore.ViewModels;
 
 public class SearchViewModel : BaseViewModel
 {
 
-    private bool _hasSearchFinished;
+    private bool _hasAnimeSearched;
+    private bool _hasMangaSearched;
 
-    public bool HasSearchFinished
+    public bool HasAnimeSearched
     {
-        get => _hasSearchFinished;
-        set => UpdateProperty(ref _hasSearchFinished, value);
+        get => _hasAnimeSearched;
+        set => UpdateProperty(ref _hasAnimeSearched, value);
     }
 
-    public ObservableCollection<MediaItemModel> SearchResults { get; } = new();
+    public bool HasMangaSearched
+    {
+        get => _hasMangaSearched;
+        set => UpdateProperty(ref _hasMangaSearched, value);
+    }
 
 }
