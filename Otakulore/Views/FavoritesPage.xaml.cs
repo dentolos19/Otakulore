@@ -15,8 +15,8 @@ public partial class FavoritesPage
     private void OnLoaded(object sender, RoutedEventArgs args)
     {
         FavoriteList.Items.Clear();
-        foreach (var favoriteItem in App.Settings.Favorites)
-            FavoriteList.Items.Add(favoriteItem);
+        foreach (var item in App.Settings.Favorites)
+            FavoriteList.Items.Add(item);
     }
 
     private void OnOpenMedia(object sender, MouseButtonEventArgs args)

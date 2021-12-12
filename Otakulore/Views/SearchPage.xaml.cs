@@ -20,23 +20,37 @@ public partial class SearchPage
         _mangaSearcher = new BackgroundWorker();
         _animeSearcher.DoWork += async (_, _) =>
         {
-            var animeResults = await App.Jikan.SearchAnime(query);
-            Dispatcher.Invoke(() =>
+            try
             {
-                foreach (var animeResult in animeResults.Results)
-                    AnimeSearchList.Items.Add(MediaItemModel.Create(animeResult));
-                ViewModel.HasAnimeSearched = true;
-            });
+                var animeResults = await App.Jikan.SearchAnime(query);
+                Dispatcher.Invoke(() =>
+                {
+                    foreach (var animeResult in animeResults.Results)
+                        AnimeSearchList.Items.Add(MediaItemModel.Create(animeResult));
+                    ViewModel.HasAnimeSearched = true;
+                });
+            }
+            catch
+            {
+                // do nothing
+            }
         };
         _animeSearcher.DoWork += async (_, _) =>
         {
-            var mangaResults = await App.Jikan.SearchManga(query);
-            Dispatcher.Invoke(() =>
+            try
             {
-                foreach (var mangaResult in mangaResults.Results)
-                    MangaSearchList.Items.Add(MediaItemModel.Create(mangaResult));
-                ViewModel.HasMangaSearched = true;
-            });
+                var mangaResults = await App.Jikan.SearchManga(query);
+                Dispatcher.Invoke(() =>
+                {
+                    foreach (var mangaResult in mangaResults.Results)
+                        MangaSearchList.Items.Add(MediaItemModel.Create(mangaResult));
+                    ViewModel.HasMangaSearched = true;
+                });
+            }
+            catch
+            {
+                // do nothing
+            }
         };
         InitializeComponent();
     }

@@ -3,6 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:models="clr-namespace:Otakulore.Models">
     <TabControl>
+        <TabItem Header="General">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Coming Soon!</TextBlock>
+        </TabItem>
         <TabItem Header="Services">
             <ListBox x:Name="ProviderList">
                 <ListBox.ItemContainerStyle>
@@ -24,8 +27,8 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="{Binding Provider.ImageUrl}"/>
                             <TextBlock Grid.Column="2" Text="{Binding Provider.Name}" FontSize="16" VerticalAlignment="Center"/>
-                            <Button Grid.Column="4" Content="&#xE721;" FontFamily="Segoe MDL2 Assets"/>
-                            <Button Grid.Column="6" Content="&#xE8F1;" FontFamily="Segoe MDL2 Assets"/>
+                            <Button Grid.Column="4" Content="&#xE721;" FontFamily="Segoe MDL2 Assets" Tag="{Binding Provider}" Click="OnOpenProvider"/>
+                            <Button Grid.Column="6" Content="&#xE8F1;" FontFamily="Segoe MDL2 Assets" Tag="{Binding Provider.Url}" Click="OnOpenProviderUrl"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
