@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using Otakulore.Views;
+﻿using Otakulore.Views;
+using System.Windows;
 
 namespace Otakulore;
 

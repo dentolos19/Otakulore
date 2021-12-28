@@ -10,19 +10,19 @@ public class MangakakalotProvider : IMangaProvider
     public string Name => "Mangakakalot";
     public Uri Url => new("https://mangakakalot.com");
 
-    public IEnumerable<MediaInfo> SearchManga(string query)
+    public IEnumerable<MediaSource> SearchManga(string query)
     {
         query = query.Replace(' ', '_');
         var website = ScrapingServices.HtmlWeb.Load($"{Url}/search/story/{query}");
         var mangaElements = website.DocumentNode.SelectNodes("//div[@class='panel_story_list']/div[@class='story_item']");
         if (mangaElements is not { Count: > 0 })
-            return Array.Empty<MediaInfo>();
-        var mangaList = new List<MediaInfo>();
+            return Array.Empty<MediaSource>();
+        var mangaList = new List<MediaSource>();
         foreach (var mangaElement in mangaElements)
         {
             var linkElement = mangaElement.SelectSingleNode("./a");
             var imageElement = linkElement.SelectSingleNode("./img");
-            mangaList.Add(new MediaInfo
+            mangaList.Add(new MediaSource
             {
                 ImageUrl = new Uri(imageElement.Attributes["src"].Value),
                 Title = imageElement.Attributes["alt"].Value,
@@ -32,9 +32,9 @@ public class MangakakalotProvider : IMangaProvider
         return mangaList;
     }
 
-    public IEnumerable<MediaContent> GetMangaChapters(MediaInfo info)
+    public IEnumerable<MediaContent> GetMangaChapters(MediaSource source)
     {
-        var website = ScrapingServices.HtmlWeb.Load(info.Url);
+        var website = ScrapingServices.HtmlWeb.Load(source.Url);
         var chapterElements = website.DocumentNode.SelectNodes("//div[@class='panel-story-chapter-list']/ul/li");
         var chapterList = new List<MediaContent>();
         foreach (var chapterItem in chapterElements)

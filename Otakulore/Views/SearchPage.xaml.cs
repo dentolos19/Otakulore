@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Otakulore.Models;
+using Otakulore.ViewModels;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Otakulore.Models;
-using Otakulore.ViewModels;
 
 namespace Otakulore.Views;
 

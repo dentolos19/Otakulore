@@ -1,10 +1,10 @@
-﻿using System;
+﻿using JikanDotNet;
+using Otakulore.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using JikanDotNet;
-using Otakulore.Core;
 
 namespace Otakulore;
 

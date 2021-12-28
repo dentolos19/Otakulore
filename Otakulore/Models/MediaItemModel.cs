@@ -1,6 +1,6 @@
-﻿using System;
-using JikanDotNet;
+﻿using JikanDotNet;
 using Otakulore.Core;
+using System;
 
 namespace Otakulore.Models;
 

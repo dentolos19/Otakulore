@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Otakulore.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
-using Otakulore.Models;
 
 namespace Otakulore.Core;
 

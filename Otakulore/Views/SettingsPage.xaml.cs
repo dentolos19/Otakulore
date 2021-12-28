@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Otakulore.Core;
+using Otakulore.Models;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Otakulore.Core;
-using Otakulore.Models;
 
 namespace Otakulore.Views;
 
@@ -22,7 +22,7 @@ public partial class SettingsPage
         if (sender is not Button component)
             return;
         if (component.Tag is IProvider provider)
-            throw new NotImplementedException(); // TODO: search directly via provider
+            NavigationService.Navigate(new SearchProviderPage(provider));
     }
 
     private void OnOpenProviderUrl(object sender, RoutedEventArgs args)

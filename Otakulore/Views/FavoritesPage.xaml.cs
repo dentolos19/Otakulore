@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using Otakulore.Models;
+using System.Windows;
 using System.Windows.Input;
-using Otakulore.Models;
 
 namespace Otakulore.Views;
 

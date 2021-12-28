@@ -2,7 +2,7 @@
 
 namespace Otakulore.Core;
 
-public class MediaInfo
+public class MediaSource
 {
 
     public Uri ImageUrl { get; init; }

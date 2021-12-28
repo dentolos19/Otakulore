@@ -1,5 +1,5 @@
-﻿using System;
-using Otakulore.Core;
+﻿using Otakulore.Core;
+using System;
 
 namespace Otakulore.ViewModels;
 

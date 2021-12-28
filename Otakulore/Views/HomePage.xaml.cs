@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+﻿using Otakulore.Models;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Otakulore.Models;
 
 namespace Otakulore.Views;
 

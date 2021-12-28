@@ -5,7 +5,7 @@ namespace Otakulore.Core;
 public interface IAnimeProvider : IProvider
 {
 
-    IEnumerable<MediaInfo> SearchAnime(string query);
-    IEnumerable<MediaContent> GetAnimeEpisodes(MediaInfo info);
+    IEnumerable<MediaSource> SearchAnime(string query);
+    IEnumerable<MediaContent> GetAnimeEpisodes(MediaSource source);
 
 }
