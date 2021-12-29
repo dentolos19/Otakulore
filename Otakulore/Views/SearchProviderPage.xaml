@@ -26,7 +26,7 @@
             <TextBox x:Name="SearchInput" Grid.Column="2" extensions:WatermarkExtension.Watermark="Search Provider"/>
             <Button Grid.Column="4" Content="&#xE721;" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="OnSearch"/>
         </Grid>
-        <ListBox x:Name="SearchList" Grid.Row="2">
+        <ListBox x:Name="SearchList" Grid.Row="2" MouseDoubleClick="OnOpenSource">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="models:SourceItemModel">
                     <Grid>

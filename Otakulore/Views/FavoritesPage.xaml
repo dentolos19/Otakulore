@@ -2,11 +2,25 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Loaded="OnLoaded">
-    <ListBox x:Name="FavoriteList" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenMedia">
-        <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-                <UniformGrid Columns="8" Width="{Binding ActualWidth, ElementName=FavoriteList}"/>
-            </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-    </ListBox>
+    <Grid>
+        <ListBox x:Name="FavoriteList" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenMedia">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="8" Width="{Binding ActualWidth, ElementName=FavoriteList}"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <TextBlock Text="Get started by adding your favorite anime and manga!" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Items.Count, ElementName=FavoriteList}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid>
 </Page>

@@ -52,8 +52,8 @@
                                                 <ColumnDefinition Width="10"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Image Grid.Column="0" Source="{Binding Provider.ImageUrl}"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding Provider.Name}"/>
+                                            <Image Grid.Column="2" Source="{Binding Provider.ImageUrl}"/>
+                                            <TextBlock Grid.Column="0" Text="{Binding Provider.Name}"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>

@@ -22,38 +22,45 @@ public partial class DetailsPage
         var detailsLoader = new BackgroundWorker();
         detailsLoader.DoWork += async (_, _) =>
         {
-            var viewModel = new DetailsViewModel
+            try
             {
-                Type = type,
-                Id = id,
-                IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == type && item.Id == id) != null
-            };
-            switch (type)
-            {
-                case MediaType.Anime:
-                    _anime = await App.Jikan.GetAnime(id);
-                    viewModel.ImageUrl = new Uri(_anime.ImageURL);
-                    viewModel.Title = _anime.Title;
-                    viewModel.Subtitle = _anime.Premiered;
-                    viewModel.Synopsis = _anime.Synopsis;
-                    viewModel.Background = _anime.Background;
-                    viewModel.Format = _anime.Type;
-                    viewModel.Status = _anime.Status;
-                    viewModel.Contents = _anime.Episodes.HasValue ? _anime.Episodes.Value.ToString() : "Unknown";
-                    break;
-                case MediaType.Manga:
-                    _manga = await App.Jikan.GetManga(id);
-                    viewModel.ImageUrl = new Uri(_manga.ImageURL);
-                    viewModel.Title = _manga.Title;
-                    viewModel.Subtitle = _manga.Published.From.HasValue ? _manga.Published.From.Value.Year.ToString() : "Unknown Year";
-                    viewModel.Synopsis = _manga.Synopsis;
-                    viewModel.Background = _manga.Background;
-                    viewModel.Format = _manga.Type;
-                    viewModel.Status = _manga.Status;
-                    viewModel.Contents = _manga.Chapters.HasValue ? _manga.Chapters.Value.ToString() : "Unknown";
-                    break;
+                var viewModel = new DetailsViewModel
+                {
+                    Type = type,
+                    Id = id,
+                    IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Type == type && item.Id == id) != null
+                };
+                switch (type)
+                {
+                    case MediaType.Anime:
+                        _anime = await App.Jikan.GetAnime(id);
+                        viewModel.ImageUrl = new Uri(_anime.ImageURL);
+                        viewModel.Title = _anime.Title;
+                        viewModel.Subtitle = _anime.Premiered;
+                        viewModel.Synopsis = _anime.Synopsis;
+                        viewModel.Background = _anime.Background;
+                        viewModel.Format = _anime.Type;
+                        viewModel.Status = _anime.Status;
+                        viewModel.Contents = _anime.Episodes.HasValue ? _anime.Episodes.Value.ToString() : "Unknown";
+                        break;
+                    case MediaType.Manga:
+                        _manga = await App.Jikan.GetManga(id);
+                        viewModel.ImageUrl = new Uri(_manga.ImageURL);
+                        viewModel.Title = _manga.Title;
+                        viewModel.Subtitle = _manga.Published.From.HasValue ? _manga.Published.From.Value.Year.ToString() : "Unknown Year";
+                        viewModel.Synopsis = _manga.Synopsis;
+                        viewModel.Background = _manga.Background;
+                        viewModel.Format = _manga.Type;
+                        viewModel.Status = _manga.Status;
+                        viewModel.Contents = _manga.Chapters.HasValue ? _manga.Chapters.Value.ToString() : "Unknown";
+                        break;
+                }
+                Dispatcher.Invoke(() => DataContext = viewModel);
             }
-            Dispatcher.Invoke(() => DataContext = viewModel);
+            catch
+            {
+                // TODO: notify user of exception and send them back
+            }
         };
         InitializeComponent();
         switch (type)

@@ -5,12 +5,10 @@ namespace Otakulore.Models;
 public class SourceItemModel
 {
 
-    public MediaType Type { get; }
     public MediaSource Source { get; }
 
-    public SourceItemModel(MediaType type, MediaSource source)
+    public SourceItemModel(MediaSource source)
     {
-        Type = type;
         Source = source;
     }
 

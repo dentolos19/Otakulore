@@ -25,8 +25,8 @@ public partial class SearchPage
                 var animeResults = await App.Jikan.SearchAnime(query);
                 Dispatcher.Invoke(() =>
                 {
-                    foreach (var animeResult in animeResults.Results)
-                        AnimeSearchList.Items.Add(MediaItemModel.Create(animeResult));
+                    foreach (var entry in animeResults.Results)
+                        AnimeSearchList.Items.Add(MediaItemModel.Create(entry));
                     ViewModel.HasAnimeSearched = true;
                 });
             }
@@ -42,8 +42,8 @@ public partial class SearchPage
                 var mangaResults = await App.Jikan.SearchManga(query);
                 Dispatcher.Invoke(() =>
                 {
-                    foreach (var mangaResult in mangaResults.Results)
-                        MangaSearchList.Items.Add(MediaItemModel.Create(mangaResult));
+                    foreach (var entry in mangaResults.Results)
+                        MangaSearchList.Items.Add(MediaItemModel.Create(entry));
                     ViewModel.HasMangaSearched = true;
                 });
             }
@@ -71,7 +71,7 @@ public partial class SearchPage
 
     private void OnOpenManga(object sender, MouseButtonEventArgs args)
     {
-        if (AnimeSearchList.SelectedItem is MediaItemModel item)
+        if (MangaSearchList.SelectedItem is MediaItemModel item)
             NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
     }
 
