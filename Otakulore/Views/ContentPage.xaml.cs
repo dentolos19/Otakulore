@@ -1,6 +1,10 @@
-﻿using Otakulore.Core;
+﻿using Microsoft.Web.WebView2.Core;
+using Otakulore.Core;
 using Otakulore.Models;
+using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Otakulore.Views;
@@ -9,6 +13,8 @@ public partial class ContentPage
 {
 
     private readonly BackgroundWorker _contentLoader;
+
+    private IProvider _provider;
 
     public ContentPage(IProvider provider, MediaSource source)
     {
@@ -25,8 +31,8 @@ public partial class ContentPage
                 Dispatcher.Invoke(() =>
                 {
                     foreach (var content in contents)
-                        ContentList.Items.Add(new ContentItemModel(content));
-                    ContentList.SelectedIndex = 0;
+                        ContentSelection.Items.Add(new ContentItemModel(content));
+                    ContentSelection.SelectedIndex = 0;
                 });
             }
             catch
@@ -34,14 +40,47 @@ public partial class ContentPage
                 // TODO: notify user of exception and send them back
             }
         };
+        _provider = provider;
         InitializeComponent();
         _contentLoader.RunWorkerAsync();
     }
 
     private void OnContentSelected(object sender, SelectionChangedEventArgs args)
     {
-        if (ContentList.SelectedItem is ContentItemModel item)
-            WebView.CoreWebView2.Navigate(item.Content.Url.ToString());
+        if (ContentSelection.SelectedItem is not ContentItemModel item)
+            return;
+        if (item.Content.IsUrlVideoLink == false && _provider is IAnimeProvider animeProvider)
+        {
+            try
+            {
+                item.Content.Url = animeProvider.GetVideoLink(item.Content);
+                item.Content.IsUrlVideoLink = true;
+            }
+            catch
+            {
+                // do nothing
+            }
+        }
+        WebView.CoreWebView2.Navigate(item.Content.Url.ToString());
+    }
+
+    private void OnPrevious(object sender, RoutedEventArgs args)
+    {
+        if (ContentSelection.SelectedIndex > 0)
+            ContentSelection.SelectedIndex--;
+    }
+
+    private void OnNext(object sender, RoutedEventArgs args)
+    {
+        if (ContentSelection.SelectedIndex < ContentSelection.Items.Count - 1)
+            ContentSelection.SelectedIndex++;
+    }
+
+    private void OnNavigating(object? sender, CoreWebView2NavigationStartingEventArgs args)
+    {
+        ContentSelection.SelectedItem = ContentSelection.Items.OfType<ContentItemModel>().FirstOrDefault(item => item.Content.Url == new Uri(args.Uri));
+        PreviousButton.IsEnabled = ContentSelection.SelectedIndex > 0;
+        NextButton.IsEnabled = ContentSelection.SelectedIndex < ContentSelection.Items.Count - 1;
     }
 
 }

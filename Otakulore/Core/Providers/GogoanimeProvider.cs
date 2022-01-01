@@ -64,4 +64,11 @@ public class GogoanimeProvider : IAnimeProvider
         return animeEpisodes;
     }
 
+    public Uri GetVideoLink(MediaContent content)
+    {
+        var website = ScrapingServices.HtmlWeb.Load(content.Url);
+        var streamingElements = website.DocumentNode.SelectNodes("//div[@class='anime_muti_link']/ul/li");
+        return new Uri("https:" + streamingElements[0].SelectSingleNode("./a").Attributes["data-video"].Value);
+    }
+
 }
