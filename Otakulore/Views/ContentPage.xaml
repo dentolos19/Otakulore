@@ -19,12 +19,13 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="PreviousButton" Grid.Column="0" Content="&#xE72B;" FontFamily="Segoe MDL2 Assets" Click="OnPrevious"/>
-            <ComboBox x:Name="ContentSelection" Grid.Column="2" SelectionChanged="OnContentSelected">
+            <ComboBox x:Name="ContentSelection" Grid.Column="2" SelectedIndex="0" SelectionChanged="OnContentSelected">
                 <ComboBox.ItemTemplate>
                     <DataTemplate DataType="models:ContentItemModel">
                         <TextBlock Text="{Binding Content.Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+                <ComboBoxItem Content="Loading"/>
             </ComboBox>
             <Button x:Name="NextButton" Grid.Column="4" Content="&#xE72A;" FontFamily="Segoe MDL2 Assets" Click="OnNext"/>
         </Grid>

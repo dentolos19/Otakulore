@@ -30,6 +30,7 @@ public partial class ContentPage
                 };
                 Dispatcher.Invoke(() =>
                 {
+                    ContentSelection.Items.Clear();
                     foreach (var content in contents)
                         ContentSelection.Items.Add(new ContentItemModel(content));
                     ContentSelection.SelectedIndex = 0;
@@ -78,6 +79,8 @@ public partial class ContentPage
 
     private void OnNavigating(object? sender, CoreWebView2NavigationStartingEventArgs args)
     {
+        if (ContentSelection.Items[0] is ComboBoxItem)
+            return;
         ContentSelection.SelectedItem = ContentSelection.Items.OfType<ContentItemModel>().FirstOrDefault(item => item.Content.Url == new Uri(args.Uri));
         PreviousButton.IsEnabled = ContentSelection.SelectedIndex > 0;
         NextButton.IsEnabled = ContentSelection.SelectedIndex < ContentSelection.Items.Count - 1;
