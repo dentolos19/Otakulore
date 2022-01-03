@@ -49,12 +49,12 @@ public partial class ContentPage
     {
         if (ContentSelection.SelectedItem is not ContentItemModel item)
             return;
-        if (item.Content.IsUrlVideoLink == false && _provider is IAnimeProvider animeProvider)
+        if (item.Content.IsUrlVideo == false && _provider is IAnimeProvider animeProvider)
         {
             try
             {
-                item.Content.Url = animeProvider.GetVideoLink(item.Content);
-                item.Content.IsUrlVideoLink = true;
+                item.Content.Url = animeProvider.ExtractVideoUrl(item.Content);
+                item.Content.IsUrlVideo = true;
             }
             catch
             {

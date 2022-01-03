@@ -17,14 +17,12 @@ Ever wanted to have everything in one place? Watching anime, tracking your progr
   * [X] Windows
   * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) next year)
 * [ ] Enables tracking for multiple services
-  * [ ] MyAnimeList
   * [ ] AniList
-* [ ] Gathers entertaining content from multiple sources
+* [X] Gathers entertaining content from multiple sources
   * [X] Gogoanime (Anime)
   * [X] Mangakakalot (Manga)
   * [ ] More sources coming soon...
 * [ ] Never miss an episode with the built-in anime schedule
-* [ ] Let your friends know what you're watching/reading through [Discord Rich Presence](https://discord.com/rich-presence)
 
 ## Screenshots
 
