@@ -8,9 +8,9 @@ namespace Otakulore.Core.Providers;
 public class GogoanimeProvider : IAnimeProvider
 {
 
-    public Uri ImageUrl => new("https://gogoanime.wiki/img/icon/logo.png");
+    public Uri ImageUrl => new("https://gogoanime.film/img/icon/logo.png");
     public string Name => "Gogoanime";
-    public Uri Url => new("https://gogoanime.wiki");
+    public Uri Url => new("https://gogoanime.film");
 
     public IEnumerable<MediaSource> SearchAnime(string query)
     {
