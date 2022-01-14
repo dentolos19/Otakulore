@@ -7,7 +7,7 @@ An app for watching anime and reading manga from multiple sources!
 
 Ever wanted to have everything in one place? Watching anime, tracking your progress, read news about your favorite manga. And so, I wanted to solve that problem with this project, this app allows you to sync with your favorite tracking services, get up-to-date with the latest news about anime or manga, get the schedule of an anime so you never miss an episode, and most importantly, watch or read your favorite anime or manga from various sources without having to search each of them!
 
-> **Note**: This project's development is expected to be slow since I need to study for my national exams. So the expected stable and fully-featured version will be completed by in the middle of 2022! :<
+> **Note**: This project's development is expected to be slow since I need to study for my national exams.
 
 ## Features
 
@@ -21,8 +21,7 @@ Ever wanted to have everything in one place? Watching anime, tracking your progr
 * [X] Gathers entertaining content from multiple sources
   * [X] Gogoanime (Anime)
   * [X] Mangakakalot (Manga)
-  * [ ] More sources coming soon...
-* [ ] Never miss an episode with the built-in anime schedule
+* [X] Never miss an episode with the built-in anime schedule
 
 ## Screenshots
 

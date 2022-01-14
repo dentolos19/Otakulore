@@ -23,13 +23,16 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="&#xE72B;" FontFamily="Segoe MDL2 Assets" IsEnabled="{Binding CanGoBack, ElementName=ContentView}" Click="OnNavigateBack"/>
+            <Button Grid.Column="0" Content="&#xE72B;" ToolTipService.ToolTip="Back" FontFamily="Segoe MDL2 Assets" IsEnabled="{Binding CanGoBack, ElementName=ContentView}" Click="OnNavigateBack"/>
             <TextBox x:Name="SearchInput" Grid.Column="2" extensions:WatermarkExtension.Watermark="Search"/>
-            <Button Grid.Column="4" Content="&#xE721;" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="OnNavigateSearch"/>
-            <Button Grid.Column="6" Content="&#xE80F;" FontFamily="Segoe MDL2 Assets" Click="OnNavigateHome"/>
-            <Button Grid.Column="8" Content="&#xE734;" FontFamily="Segoe MDL2 Assets" Click="OnNavigateFavorites"/>
-            <Button Grid.Column="10" Content="&#xE713;" FontFamily="Segoe MDL2 Assets" Click="OnNavigateSettings"/>
+            <Button Grid.Column="4" Content="&#xE721;" ToolTipService.ToolTip="Search" FontFamily="Segoe MDL2 Assets" IsDefault="True" Click="OnNavigateSearch"/>
+            <Button Grid.Column="6" Content="&#xE80F;" ToolTipService.ToolTip="Home" FontFamily="Segoe MDL2 Assets" Click="OnNavigateHome"/>
+            <Button Grid.Column="8" Content="&#xE734;" ToolTipService.ToolTip="Favorites" FontFamily="Segoe MDL2 Assets" Click="OnNavigateFavorites"/>
+            <Button Grid.Column="10" Content="&#xE787;" ToolTipService.ToolTip="Schedules" FontFamily="Segoe MDL2 Assets" Click="OnNavigateSchedules"/>
+            <Button Grid.Column="12" Content="&#xE713;" ToolTipService.ToolTip="Settings" FontFamily="Segoe MDL2 Assets" Click="OnNavigateSettings"/>
         </Grid>
         <Frame x:Name="ContentView" Grid.Row="2" NavigationUIVisibility="Hidden"/>
     </Grid>

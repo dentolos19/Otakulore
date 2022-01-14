@@ -46,6 +46,17 @@ public class MediaItemModel
         };
     }
 
+    public static MediaItemModel Create(AnimeSubEntry anime)
+    {
+        return new MediaItemModel
+        {
+            Type = MediaType.Anime,
+            Id = anime.MalId,
+            ImageUrl = new Uri(anime.ImageURL),
+            Title = anime.Title
+        };
+    }
+
     public static MediaItemModel Create(Manga manga)
     {
         return new MediaItemModel

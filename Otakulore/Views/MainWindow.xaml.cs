@@ -8,6 +8,7 @@ public partial class MainWindow
 
     private HomePage? _homePageInstance;
     private FavoritesPage? _favoritesPageInstance;
+    private SchedulesPage? _schedulesPageInstance;
     private SettingsPage? _settingsPageInstance;
 
     public MainWindow()
@@ -39,6 +40,12 @@ public partial class MainWindow
     {
         _favoritesPageInstance ??= new FavoritesPage();
         ContentView.Navigate(_favoritesPageInstance);
+    }
+
+    private void OnNavigateSchedules(object sender, RoutedEventArgs args)
+    {
+        _schedulesPageInstance ??= new SchedulesPage();
+        ContentView.Navigate(_schedulesPageInstance);
     }
 
     private void OnNavigateSettings(object sender, RoutedEventArgs args)

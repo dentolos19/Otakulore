@@ -1,0 +1,36 @@
+﻿<Page x:Class="Otakulore.Views.SchedulesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="-2.5,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Header="Monday" Margin="2.5,0">
+            <ListBox x:Name="MondayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Tuesday" Margin="2.5,0">
+            <ListBox x:Name="TuesdayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+        <GroupBox Grid.Column="2" Header="Wednesday" Margin="2.5,0">
+            <ListBox x:Name="WednesdayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+        <GroupBox Grid.Column="3" Header="Thursday" Margin="2.5,0">
+            <ListBox x:Name="ThursdayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+        <GroupBox Grid.Column="4" Header="Friday" Margin="2.5,0">
+            <ListBox x:Name="FridayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+        <GroupBox Grid.Column="5" Header="Saturday" Margin="2.5,0">
+            <ListBox x:Name="SaturdayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+        <GroupBox Grid.Column="6" Header="Sunday" Margin="2.5,0">
+            <ListBox x:Name="SundayColumn" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OpenMedia"/>
+        </GroupBox>
+    </Grid>
+</Page>
