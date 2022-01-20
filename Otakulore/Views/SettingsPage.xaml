@@ -1,35 +1,28 @@
 ﻿<Page x:Class="Otakulore.Views.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:models="clr-namespace:Otakulore.Models">
-    <TabControl>
-        <TabItem Header="Services">
-            <ListBox x:Name="ProviderList">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="models:ProviderItemModel">
-                        <Grid Margin="5" Height="25">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding Provider.ImageUrl}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Provider.Name}" FontSize="16" VerticalAlignment="Center"/>
-                            <Button Grid.Column="4" Content="&#xE721;" ToolTipService.ToolTip="Search Provider" FontFamily="Segoe MDL2 Assets" Tag="{Binding Provider}" Click="OnOpenProvider"/>
-                            <Button Grid.Column="6" Content="&#xE8F1;" ToolTipService.ToolTip="Open Provider's Website" FontFamily="Segoe MDL2 Assets" Tag="{Binding Provider.Url}" Click="OnOpenProviderUrl"/>
-                        </Grid>
+      xmlns:models="using:Otakulore.Models"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <models:SettingsViewModel/>
+    </Page.DataContext>
+    <StackPanel Margin="10" Spacing="10">
+        <Expander Header="General Preferences" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <StackPanel Spacing="5">
+                <CheckBox Content="Load Selenium At Startup" IsChecked="{Binding LoadSeleniumAtStartup, Mode=TwoWay}"/>
+            </StackPanel>
+        </Expander>
+        <Expander Header="Content Providers" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <GridView x:Name="ProviderList" IsItemClickEnabled="True" ItemClick="OnProviderClicked">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProviderItemModel">
+                        <Image Source="{Binding Provider.Image}" ToolTipService.ToolTip="{Binding Provider.Name}" Margin="10" MaxWidth="100" MaxHeight="100"/>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </TabItem>
-    </TabControl>
+                </GridView.ItemTemplate>
+            </GridView>
+        </Expander>
+        <Expander Header="Progress Trackers" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <TextBlock Text="Coming Soon!"/>
+        </Expander>
+    </StackPanel>
 </Page>

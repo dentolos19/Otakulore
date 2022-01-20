@@ -1,10 +1,11 @@
-﻿using Otakulore.Models;
-using System.Windows;
-using System.Windows.Input;
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
+using Otakulore.Models;
 
 namespace Otakulore.Views;
 
-public partial class FavoritesPage
+public sealed partial class FavoritesPage
 {
 
     public FavoritesPage()
@@ -12,16 +13,17 @@ public partial class FavoritesPage
         InitializeComponent();
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs args)
+    protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        FavoriteList.Items.Clear();
-        foreach (var item in App.Settings.Favorites)
-            FavoriteList.Items.Add(item);
+        var favorites = App.Settings.Favorites;
+        foreach (var entry in favorites)
+            FavoriteList.Items.Add(entry);
     }
 
-    private void OnOpenMedia(object sender, MouseButtonEventArgs args)
+    private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
-        if (FavoriteList.SelectedItem is MediaItemModel item)
-            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
+        if (args.ClickedItem is MediaItemModel item)
+            Frame.Navigate(typeof(DetailsPage), new PageParameter { MediaType = item.Type, Id = item.Id });
     }
+
 }

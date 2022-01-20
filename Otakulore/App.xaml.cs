@@ -1,33 +1,40 @@
-﻿using JikanDotNet;
-using Otakulore.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
+using JikanDotNet;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Otakulore.Core;
+using Otakulore.Views;
 
 namespace Otakulore;
 
 public partial class App
 {
 
+    public static Window MainWindow { get; } = new() { Title = "Otakulore" };
     public static Settings Settings { get; } = Settings.Load();
     public static IJikan Jikan { get; } = new Jikan(true);
-
     public static IList<IProvider> Providers { get; } = new List<IProvider>();
 
-    private void OnStartup(object sender, StartupEventArgs args)
+    public App()
     {
+        InitializeComponent();
+    }
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        if (Settings.LoadSeleniumAtStartup)
+            ScrapingService.LoadWebDriver();
         var providers = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.IsClass && type.GetInterfaces().Contains(typeof(IProvider)));
         foreach (var provider in providers)
             Providers.Add((IProvider)Activator.CreateInstance(provider));
-        MainWindow = new MainWindow();
-        MainWindow.Show();
-    }
-
-    private void OnExit(object sender, ExitEventArgs args)
-    {
-        Settings.Save();
+        var frame = new Frame();
+        MainWindow.Content = frame;
+        frame.Navigate(typeof(MainPage));
+        MainWindow.Closed += (_, _) => Settings.Save();
+        MainWindow.Activate();
     }
 
 }

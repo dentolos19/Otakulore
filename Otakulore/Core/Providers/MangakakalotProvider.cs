@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 namespace Otakulore.Core.Providers;
 
 public class MangakakalotProvider : IMangaProvider
 {
 
-    public Uri ImageUrl => new("https://mangakakalot.com/themes/home/icons/logo.png");
+    public ImageSource Image => (ImageSource)Application.Current.Resources["MangakakalotAsset"];
     public string Name => "Mangakakalot";
-    public Uri Url => new("https://mangakakalot.com");
+    public string Url => "https://mangakakalot.com";
 
     public IEnumerable<MediaSource> SearchManga(string query)
     {
         query = query.Replace(' ', '_');
-        var website = ScrapingServices.HtmlWeb.Load($"{Url}/search/story/{query}");
+        var website = ScrapingService.HtmlWeb.Load($"{Url}/search/story/{query}");
         var mangaElements = website.DocumentNode.SelectNodes("//div[@class='panel_story_list']/div[@class='story_item']");
         if (mangaElements is not { Count: > 0 })
             return Array.Empty<MediaSource>();
@@ -24,9 +26,9 @@ public class MangakakalotProvider : IMangaProvider
             var imageElement = linkElement.SelectSingleNode("./img");
             mangaList.Add(new MediaSource
             {
-                ImageUrl = new Uri(imageElement.Attributes["src"].Value),
+                ImageUrl = imageElement.Attributes["src"].Value,
                 Title = imageElement.Attributes["alt"].Value,
-                Url = new Uri(linkElement.Attributes["href"].Value)
+                Url = linkElement.Attributes["href"].Value
             });
         }
         return mangaList;
@@ -34,7 +36,7 @@ public class MangakakalotProvider : IMangaProvider
 
     public IEnumerable<MediaContent> GetMangaChapters(MediaSource source)
     {
-        var website = ScrapingServices.HtmlWeb.Load(source.Url);
+        var website = ScrapingService.HtmlWeb.Load(source.Url);
         var chapterElements = website.DocumentNode.SelectNodes("//div[@class='panel-story-chapter-list']/ul/li");
         var chapterList = new List<MediaContent>();
         foreach (var chapterItem in chapterElements)
@@ -43,7 +45,7 @@ public class MangakakalotProvider : IMangaProvider
             chapterList.Add(new MediaContent
             {
                 Name = linkElement.InnerText,
-                Url = new Uri(linkElement.Attributes["href"].Value)
+                Url = linkElement.Attributes["href"].Value
             });
         }
         chapterList.Reverse();

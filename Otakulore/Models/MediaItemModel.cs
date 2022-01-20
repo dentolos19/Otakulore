@@ -1,6 +1,5 @@
 ﻿using JikanDotNet;
 using Otakulore.Core;
-using System;
 
 namespace Otakulore.Models;
 
@@ -9,85 +8,47 @@ public class MediaItemModel
 
     public MediaType Type { get; init; }
     public long Id { get; init; }
-
-    public Uri ImageUrl { get; init; }
+    public string ImageUrl { get; init; }
     public string Title { get; init; }
 
-    public static MediaItemModel Create(Anime anime)
+    public static MediaItemModel Create(Anime anime) => new()
     {
-        return new MediaItemModel
-        {
-            Type = MediaType.Anime,
-            Id = anime.MalId,
-            ImageUrl = new Uri(anime.ImageURL),
-            Title = anime.Title
-        };
-    }
+        Type = MediaType.Anime,
+        Id = anime.MalId,
+        ImageUrl = anime.ImageURL,
+        Title = anime.Title
+    };
 
-    public static MediaItemModel Create(AnimeTopEntry anime)
+    public static MediaItemModel Create(Manga manga) => new()
     {
-        return new MediaItemModel
-        {
-            Type = MediaType.Anime,
-            Id = anime.MalId,
-            ImageUrl = new Uri(anime.ImageURL),
-            Title = anime.Title
-        };
-    }
+        Type = MediaType.Manga,
+        Id = manga.MalId,
+        ImageUrl = manga.ImageURL,
+        Title = manga.Title
+    };
 
-    public static MediaItemModel Create(AnimeSearchEntry anime)
+    public static MediaItemModel Create(AnimeSearchEntry anime) => new()
     {
-        return new MediaItemModel
-        {
-            Type = MediaType.Anime,
-            Id = anime.MalId,
-            ImageUrl = new Uri(anime.ImageURL),
-            Title = anime.Title
-        };
-    }
+        Type = MediaType.Anime,
+        Id = anime.MalId,
+        ImageUrl = anime.ImageURL,
+        Title = anime.Title
+    };
 
-    public static MediaItemModel Create(AnimeSubEntry anime)
+    public static MediaItemModel Create(MangaSearchEntry manga) => new()
     {
-        return new MediaItemModel
-        {
-            Type = MediaType.Anime,
-            Id = anime.MalId,
-            ImageUrl = new Uri(anime.ImageURL),
-            Title = anime.Title
-        };
-    }
+        Type = MediaType.Manga,
+        Id = manga.MalId,
+        ImageUrl = manga.ImageURL,
+        Title = manga.Title
+    };
 
-    public static MediaItemModel Create(Manga manga)
+    public static MediaItemModel Create(AnimeSubEntry anime) => new()
     {
-        return new MediaItemModel
-        {
-            Type = MediaType.Manga,
-            Id = manga.MalId,
-            ImageUrl = new Uri(manga.ImageURL),
-            Title = manga.Title
-        };
-    }
-
-    public static MediaItemModel Create(MangaTopEntry manga)
-    {
-        return new MediaItemModel
-        {
-            Type = MediaType.Manga,
-            Id = manga.MalId,
-            ImageUrl = new Uri(manga.ImageURL),
-            Title = manga.Title
-        };
-    }
-
-    public static MediaItemModel Create(MangaSearchEntry manga)
-    {
-        return new MediaItemModel
-        {
-            Type = MediaType.Manga,
-            Id = manga.MalId,
-            ImageUrl = new Uri(manga.ImageURL),
-            Title = manga.Title
-        };
-    }
+        Type = MediaType.Anime,
+        Id = anime.MalId,
+        ImageUrl = anime.ImageURL,
+        Title = anime.Title
+    };
 
 }

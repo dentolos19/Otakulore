@@ -14,7 +14,7 @@ Ever wanted to have everything in one place? Watching anime, tracking your progr
 > **Note**: This project is currently work-in-progress and doesn't contain all the planned features. See below for more info...
 
 * [ ] Runs on multiple platforms
-  * [X] Windows
+  * [X] Windows (powered by [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
   * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) next year)
 * [ ] Enables tracking for multiple services
   * [ ] AniList
@@ -30,3 +30,5 @@ Ever wanted to have everything in one place? Watching anime, tracking your progr
 ![](.github/images/2.png)
 ![](.github/images/3.png)
 ![](.github/images/4.png)
+![](.github/images/5.png)
+![](.github/images/6.png)

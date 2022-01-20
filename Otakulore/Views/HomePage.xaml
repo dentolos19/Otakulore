@@ -1,53 +1,6 @@
 ﻿<Page x:Class="Otakulore.Views.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:adonis="clr-namespace:AdonisUI;assembly=AdonisUI">
-    <TabControl SelectionChanged="OnTabChanged">
-        <TabItem x:Name="TopAnimeTab" Header="Top Anime">
-            <Grid>
-                <ListBox x:Name="TopAnimeList" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenAnime">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="8" MaxWidth="{Binding ActualWidth, ElementName=TopAnimeList}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
-                <ContentControl ContentTemplate="{DynamicResource {x:Static adonis:Templates.LoadingBars}}" Width="25">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Items.Count, ElementName=TopAnimeList}" Value="0">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-            </Grid>
-        </TabItem>
-        <TabItem x:Name="TopMangaTab" Header="Top Manga">
-            <Grid>
-                <ListBox x:Name="TopMangaList" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenManga">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="8" MaxWidth="{Binding ActualWidth, ElementName=TopMangaList}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
-                <ContentControl ContentTemplate="{DynamicResource {x:Static adonis:Templates.LoadingBars}}" Width="25">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Items.Count, ElementName=TopMangaList}" Value="0">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-            </Grid>
-        </TabItem>
-    </TabControl>
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </Page>

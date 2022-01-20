@@ -1,40 +1,35 @@
-﻿using Otakulore.Core;
-using Otakulore.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
+using Otakulore.Models;
+using Otakulore.Views.Dialogs;
 
 namespace Otakulore.Views;
 
-public partial class SettingsPage
+public sealed partial class SettingsPage
 {
 
     public SettingsPage()
     {
         InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(NavigationEventArgs args)
+    {
         foreach (var provider in App.Providers)
             ProviderList.Items.Add(new ProviderItemModel(provider));
     }
 
-    private void OnOpenProvider(object sender, RoutedEventArgs args)
+    private async void OnProviderClicked(object sender, ItemClickEventArgs args)
     {
-        if (sender is not Button component)
+        if (args.ClickedItem is not ProviderItemModel item)
             return;
-        if (component.Tag is IProvider provider)
-            NavigationService.Navigate(new SearchProviderPage(provider));
-    }
-
-    private void OnOpenProviderUrl(object sender, RoutedEventArgs args)
-    {
-        if (sender is not Button component)
-            return;
-        if (component.Tag is Uri url)
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url.ToString(),
-                UseShellExecute = true
-            });
+        var dialog = new SearchProviderDialog(item.Provider);
+        await dialog.ShowAsync();
+        if (dialog.Result != null)
+            Frame.Navigate(typeof(CinemaPage), new PageParameter { Provider = item.Provider, MediaSource = dialog.Result });
     }
 
 }

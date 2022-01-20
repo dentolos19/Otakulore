@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Otakulore.Core;
+﻿namespace Otakulore.Core;
 
 public class MediaSource
 {
 
-    public Uri ImageUrl { get; init; }
+    public string ImageUrl { get; init; }
     public string Title { get; init; }
-    public Uri Url { get; init; }
+    public string Url { get; init; }
 
 }

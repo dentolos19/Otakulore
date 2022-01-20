@@ -1,89 +1,23 @@
 ﻿<Page x:Class="Otakulore.Views.SearchPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:adonis="clr-namespace:AdonisUI;assembly=AdonisUI"
-      xmlns:viewModels="clr-namespace:Otakulore.ViewModels">
-    <Page.DataContext>
-        <viewModels:SearchViewModel/>
-    </Page.DataContext>
-    <TabControl SelectionChanged="OnTabChanged">
-        <TabItem x:Name="AnimeTab" Header="Anime">
-            <Grid>
-                <ListBox x:Name="AnimeSearchList" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenAnime">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="8" MaxWidth="{Binding ActualWidth, ElementName=AnimeSearchList}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
-                <ContentControl ContentTemplate="{DynamicResource {x:Static adonis:Templates.LoadingBars}}" Width="25">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasAnimeSearched}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-                <TextBlock Text="Search yielded no results!" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Items.Count, ElementName=AnimeSearchList}" Value="0"/>
-                                        <Condition Binding="{Binding HasAnimeSearched}" Value="True"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-        </TabItem>
-        <TabItem x:Name="MangaTab" Header="Manga">
-            <Grid>
-                <ListBox x:Name="MangaSearchList" ItemTemplate="{StaticResource MediaItemTemplate}" MouseDoubleClick="OnOpenManga">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="8" MaxWidth="{Binding ActualWidth, ElementName=MangaSearchList}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
-                <ContentControl ContentTemplate="{DynamicResource {x:Static adonis:Templates.LoadingBars}}" Width="25">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasMangaSearched}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-                <TextBlock Text="Search yielded no results!" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Items.Count, ElementName=MangaSearchList}" Value="0"/>
-                                        <Condition Binding="{Binding HasMangaSearched}" Value="True"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-        </TabItem>
-    </TabControl>
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Margin="10" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <AutoSuggestBox x:Name="SearchInput" Grid.Column="0" PlaceholderText="Search" QuerySubmitted="OnSearchRequested"/>
+            <ComboBox x:Name="SearchTypeSelection" Grid.Column="1" SelectionChanged="OnSearchTypeChanged">
+                <ComboBoxItem Content="Anime"/>
+                <ComboBoxItem Content="Manga"/>
+            </ComboBox>
+        </Grid>
+        <GridView Grid.Row="1" x:Name="SearchResultList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>
+    </Grid>
 </Page>

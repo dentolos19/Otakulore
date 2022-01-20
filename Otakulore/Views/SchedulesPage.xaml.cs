@@ -1,43 +1,41 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
 
-public partial class SchedulesPage
+public sealed partial class SchedulesPage
 {
 
     public SchedulesPage()
     {
         InitializeComponent();
-        Task.Run(async () =>
-        {
-            var schedule = await App.Jikan.GetSchedule();
-            Dispatcher.Invoke(() =>
-            {
-                foreach (var entry in schedule.Monday)
-                    MondayColumn.Items.Add(MediaItemModel.Create(entry));
-                foreach (var entry in schedule.Tuesday)
-                    TuesdayColumn.Items.Add(MediaItemModel.Create(entry));
-                foreach (var entry in schedule.Wednesday)
-                    WednesdayColumn.Items.Add(MediaItemModel.Create(entry));
-                foreach (var entry in schedule.Thursday)
-                    ThursdayColumn.Items.Add(MediaItemModel.Create(entry));
-                foreach (var entry in schedule.Friday)
-                    FridayColumn.Items.Add(MediaItemModel.Create(entry));
-                foreach (var entry in schedule.Saturday)
-                    SaturdayColumn.Items.Add(MediaItemModel.Create(entry));
-                foreach (var entry in schedule.Sunday)
-                    SundayColumn.Items.Add(MediaItemModel.Create(entry));
-            });
-        });
     }
 
-    private void OpenMedia(object sender, MouseButtonEventArgs args)
+    protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (sender is ListBox { SelectedItem: MediaItemModel item })
-            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
+        var schedules = await App.Jikan.GetSchedule();
+        foreach (var entry in schedules.Monday)
+            MondayScheduleList.Items.Add(MediaItemModel.Create(entry));
+        foreach (var entry in schedules.Tuesday)
+            TuesdayScheduleList.Items.Add(MediaItemModel.Create(entry));
+        foreach (var entry in schedules.Wednesday)
+            WednesdayScheduleList.Items.Add(MediaItemModel.Create(entry));
+        foreach (var entry in schedules.Thursday)
+            ThursdayScheduleList.Items.Add(MediaItemModel.Create(entry));
+        foreach (var entry in schedules.Friday)
+            FridayScheduleList.Items.Add(MediaItemModel.Create(entry));
+        foreach (var entry in schedules.Saturday)
+            SaturdayScheduleList.Items.Add(MediaItemModel.Create(entry));
+        foreach (var entry in schedules.Sunday)
+            SundayScheduleList.Items.Add(MediaItemModel.Create(entry));
+    }
+
+    private void OnItemClicked(object sender, ItemClickEventArgs args)
+    {
+        if (args.ClickedItem is MediaItemModel item)
+            Frame.Navigate(typeof(DetailsPage), new PageParameter { MediaType = item.Type, Id = item.Id });
     }
 
 }

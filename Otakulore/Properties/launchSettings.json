@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Otakulore (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Otakulore (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

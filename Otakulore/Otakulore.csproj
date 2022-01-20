@@ -1,21 +1,140 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>Otakulore</RootNamespace>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+		<Platforms>x64;arm64</Platforms>
+		<RuntimeIdentifiers>win10-x64;win10-arm64</RuntimeIdentifiers>
+		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
+		<UseWinUI>true</UseWinUI>
+		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+		<!-- <WindowsPackageType>None</WindowsPackageType> -->
 		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<ApplicationIcon>Resources\Assets\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
-
 	<ItemGroup>
-		<PackageReference Include="AdonisUI" Version="1.17.1"/>
-		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1"/>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.39"/>
-		<PackageReference Include="JikanDotNet" Version="1.6.0"/>
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1054.31"/>
-		<PackageReference Include="Selenium.WebDriver" Version="4.1.0"/>
-		<PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="96.0.1054.26"/>
+		<Content Include="Resources\Assets\Gogoanime.png"/>
+		<Content Include="Resources\Assets\Icon.png"/>
+		<Content Include="Resources\Assets\Mangakakalot.png"/>
+		<Content Include="Resources\Assets\Visuals\LargeTile.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\LargeTile.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\LargeTile.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\LargeTile.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\LargeTile.scale-400.png"/>
+		<Content Include="Resources\Assets\Visuals\SmallTile.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\SmallTile.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\SmallTile.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\SmallTile.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\SmallTile.scale-400.png"/>
+		<Content Include="Resources\Assets\Visuals\SplashScreen.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\SplashScreen.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\SplashScreen.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\SplashScreen.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\SplashScreen.scale-400.png"/>
+		<Content Include="Resources\Assets\Visuals\Square150x150Logo.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\Square150x150Logo.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\Square150x150Logo.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\Square150x150Logo.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\Square150x150Logo.scale-400.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-lightunplated_targetsize-16.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-lightunplated_targetsize-24.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-lightunplated_targetsize-256.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-lightunplated_targetsize-32.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-lightunplated_targetsize-48.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-unplated_targetsize-16.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-unplated_targetsize-24.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-unplated_targetsize-256.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-unplated_targetsize-32.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.altform-unplated_targetsize-48.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.scale-400.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.targetsize-16.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.targetsize-24.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.targetsize-256.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.targetsize-32.png"/>
+		<Content Include="Resources\Assets\Visuals\Square44x44Logo.targetsize-48.png"/>
+		<Content Include="Resources\Assets\Visuals\StoreLogo.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\StoreLogo.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\StoreLogo.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\StoreLogo.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\StoreLogo.scale-400.png"/>
+		<Content Include="Resources\Assets\Visuals\Wide310x150Logo.scale-100.png"/>
+		<Content Include="Resources\Assets\Visuals\Wide310x150Logo.scale-125.png"/>
+		<Content Include="Resources\Assets\Visuals\Wide310x150Logo.scale-150.png"/>
+		<Content Include="Resources\Assets\Visuals\Wide310x150Logo.scale-200.png"/>
+		<Content Include="Resources\Assets\Visuals\Wide310x150Logo.scale-400.png"/>
 	</ItemGroup>
-
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Files\msedgedriver.exe"/>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.40"/>
+		<PackageReference Include="JikanDotNet" Version="1.6.0"/>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0"/>
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196"/>
+		<PackageReference Include="Selenium.WebDriver" Version="4.1.0"/>
+		<Manifest Include="$(ApplicationManifest)"/>
+	</ItemGroup>
+	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
+		<ProjectCapability Include="Msix"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Resources\Assets.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Resources\Templates.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\CinemaPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\FavoritesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\HomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\SchedulesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\SettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\SearchPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\MainPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\DetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\Dialogs\SearchProviderDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
 </Project>

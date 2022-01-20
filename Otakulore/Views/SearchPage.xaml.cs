@@ -1,78 +1,64 @@
-﻿using Otakulore.Models;
-using Otakulore.ViewModels;
-using System.ComponentModel;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
+using Otakulore.Models;
 
 namespace Otakulore.Views;
 
-public partial class SearchPage
+public sealed partial class SearchPage
 {
 
-    private readonly BackgroundWorker _animeSearcher;
-    private readonly BackgroundWorker _mangaSearcher;
-
-    private SearchViewModel ViewModel => (SearchViewModel)DataContext;
-
-    public SearchPage(string query)
+    public SearchPage()
     {
-        _animeSearcher = new BackgroundWorker();
-        _mangaSearcher = new BackgroundWorker();
-        _animeSearcher.DoWork += async (_, _) =>
-        {
-            try
-            {
-                var animeResults = await App.Jikan.SearchAnime(query);
-                Dispatcher.Invoke(() =>
-                {
-                    foreach (var entry in animeResults.Results)
-                        AnimeSearchList.Items.Add(MediaItemModel.Create(entry));
-                    ViewModel.HasAnimeSearched = true;
-                });
-            }
-            catch
-            {
-                // do nothing
-            }
-        };
-        _animeSearcher.DoWork += async (_, _) =>
-        {
-            try
-            {
-                var mangaResults = await App.Jikan.SearchManga(query);
-                Dispatcher.Invoke(() =>
-                {
-                    foreach (var entry in mangaResults.Results)
-                        MangaSearchList.Items.Add(MediaItemModel.Create(entry));
-                    ViewModel.HasMangaSearched = true;
-                });
-            }
-            catch
-            {
-                // do nothing
-            }
-        };
         InitializeComponent();
     }
 
-    private void OnTabChanged(object sender, SelectionChangedEventArgs args)
+    private async void Search()
     {
-        if (AnimeTab.IsSelected && !ViewModel.HasAnimeSearched)
-            _animeSearcher.RunWorkerAsync();
-        if (MangaTab.IsSelected && !ViewModel.HasMangaSearched)
-            _mangaSearcher.RunWorkerAsync();
+        var query = SearchInput.Text;
+        var type = (MediaType)SearchTypeSelection.SelectedIndex;
+        SearchResultList.Items.Clear();
+        switch (type)
+        {
+            case MediaType.Anime:
+            {
+                var result = await App.Jikan.SearchAnime(query);
+                foreach (var entry in result.Results)
+                    SearchResultList.Items.Add(MediaItemModel.Create(entry));
+                break;
+            }
+            case MediaType.Manga:
+            {
+                var result = await App.Jikan.SearchManga(query);
+                foreach (var entry in result.Results)
+                    SearchResultList.Items.Add(MediaItemModel.Create(entry));
+                break;
+            }
+        }
     }
 
-    private void OnOpenAnime(object sender, MouseButtonEventArgs args)
+    protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (AnimeSearchList.SelectedItem is MediaItemModel item)
-            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
+        if (args.Parameter is not string query)
+            return;
+        SearchInput.Text = query;
+        SearchTypeSelection.SelectedIndex = 0;
     }
 
-    private void OnOpenManga(object sender, MouseButtonEventArgs args)
+    private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        if (MangaSearchList.SelectedItem is MediaItemModel item)
-            NavigationService.Navigate(new DetailsPage(item.Type, item.Id));
+        Search();
+    }
+
+    private void OnSearchTypeChanged(object sender, SelectionChangedEventArgs args)
+    {
+        Search();
+    }
+
+    private void OnItemClicked(object sender, ItemClickEventArgs args)
+    {
+        if (args.ClickedItem is MediaItemModel item)
+            Frame.Navigate(typeof(DetailsPage), new PageParameter { MediaType = item.Type, Id = item.Id });
     }
 
 }

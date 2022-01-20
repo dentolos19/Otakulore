@@ -1,21 +1,23 @@
-﻿using HtmlAgilityPack;
-using OpenQA.Selenium;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using HtmlAgilityPack;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
+using OpenQA.Selenium;
 
 namespace Otakulore.Core.Providers;
 
 public class GogoanimeProvider : IAnimeProvider
 {
 
-    public Uri ImageUrl => new("https://gogoanime.film/img/icon/logo.png");
+    public ImageSource Image => (ImageSource)Application.Current.Resources["GogoanimeAsset"];
     public string Name => "Gogoanime";
-    public Uri Url => new("https://gogoanime.film");
+    public string Url => "https://gogoanime.film";
 
     public IEnumerable<MediaSource> SearchAnime(string query)
     {
         query = Uri.EscapeDataString(query);
-        var website = ScrapingServices.HtmlWeb.Load($"{Url}/search.html?keyword={query}");
+        var website = ScrapingService.HtmlWeb.Load($"{Url}/search.html?keyword={query}");
         var animeElements = website.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
         if (animeElements is not { Count: > 0 })
             return Array.Empty<MediaSource>();
@@ -25,9 +27,9 @@ public class GogoanimeProvider : IAnimeProvider
             var linkElement = animeElement.SelectSingleNode("./div/a");
             animeList.Add(new MediaSource
             {
-                ImageUrl = new Uri(linkElement.SelectSingleNode("./img").Attributes["src"].Value),
+                ImageUrl = linkElement.SelectSingleNode("./img").Attributes["src"].Value,
                 Title = linkElement.Attributes["title"].Value,
-                Url = new Uri(Url, linkElement.Attributes["href"].Value)
+                Url = Url + linkElement.Attributes["href"].Value
             });
         }
         return animeList.ToArray();
@@ -35,12 +37,13 @@ public class GogoanimeProvider : IAnimeProvider
 
     public IEnumerable<MediaContent> GetAnimeEpisodes(MediaSource source)
     {
-        var webDriver = ScrapingServices.WebDriver;
+        var webDriver = ScrapingService.WebDriver;
         webDriver.Navigate().GoToUrl(source.Url);
         var pages = webDriver.FindElements(By.XPath("//ul[@id='episode_page']/li"));
         var animeEpisodes = new List<MediaContent>();
         foreach (var page in pages)
         {
+            webDriver.ScrollToElement(page);
             page.Click();
             var website = new HtmlDocument();
             website.LoadHtml(webDriver.PageSource);
@@ -55,7 +58,7 @@ public class GogoanimeProvider : IAnimeProvider
                 subAnimeEpisodes.Add(new MediaContent
                 {
                     Name = $"Episode {episodeNumber}",
-                    Url = new Uri(Url, linkElement.Attributes["href"].Value)
+                    Url = Url + linkElement.Attributes["href"].Value
                 });
             }
             subAnimeEpisodes.Reverse();
@@ -64,11 +67,11 @@ public class GogoanimeProvider : IAnimeProvider
         return animeEpisodes;
     }
 
-    public Uri ExtractVideoUrl(MediaContent content)
+    public string ExtractVideoUrl(MediaContent content)
     {
-        var website = ScrapingServices.HtmlWeb.Load(content.Url);
+        var website = ScrapingService.HtmlWeb.Load(content.Url);
         var streamingElements = website.DocumentNode.SelectNodes("//div[@class='anime_muti_link']/ul/li");
-        return new Uri("https:" + streamingElements[0].SelectSingleNode("./a").Attributes["data-video"].Value);
+        return "https:" + streamingElements[0].SelectSingleNode("./a").Attributes["data-video"].Value;
     }
 
 }

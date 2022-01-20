@@ -1,0 +1,28 @@
+﻿<Page x:Class="Otakulore.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <NavigationView x:Name="NavigationView" PaneTitle="Made with ❤️ for Anime" IsPaneOpen="False" IsBackEnabled="{Binding CanGoBack, ElementName=ContentView}" SelectionChanged="OnItemNavigate" BackRequested="OnBackRequested">
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox PlaceholderText="Search" QuerySubmitted="OnSearchRequested"/>
+        </NavigationView.AutoSuggestBox>
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Home" Tag="HomePage">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE80F;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Favorites" Tag="FavoritesPage">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE734;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Schedules" Tag="SchedulesPage">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE787;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+        <Frame x:Name="ContentView" Navigated="OnFrameNavigated"/>
+    </NavigationView>
+</Page>

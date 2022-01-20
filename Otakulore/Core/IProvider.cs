@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Media;
 
 namespace Otakulore.Core;
 
 public interface IProvider
 {
 
-    Uri ImageUrl { get; }
+    ImageSource Image { get; }
     string Name { get; }
-    Uri Url { get; }
+    string Url { get; }
 
 }
