@@ -21,8 +21,11 @@ public sealed partial class SearchProviderDialog
             SearchInput.Text = query;
     }
 
-    private void Search(string query)
+    private void Search()
     {
+        var query = SearchInput.Text;
+        if (string.IsNullOrEmpty(query))
+            return;
         SearchResultList.Items.Clear();
         switch (_provider)
         {
@@ -45,16 +48,12 @@ public sealed partial class SearchProviderDialog
 
     private void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
     {
-        var query = SearchInput.Text;
-        if (!string.IsNullOrEmpty(query))
-            Search(query);
+        Search();
     }
 
     private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        var query = args.QueryText;
-        if (!string.IsNullOrEmpty(query))
-            Search(query);
+        Search();
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)

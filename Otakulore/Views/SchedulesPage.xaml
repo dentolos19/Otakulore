@@ -4,7 +4,7 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <ScrollViewer Padding="10" HorizontalScrollBarVisibility="Auto">
         <StackPanel Spacing="10">
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Monday" FontSize="24"/>
                 <GridView x:Name="MondayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
@@ -14,7 +14,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Tuesday" FontSize="24"/>
                 <GridView x:Name="TuesdayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
@@ -24,7 +24,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Wednesday" FontSize="24"/>
                 <GridView x:Name="WednesdayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
@@ -34,7 +34,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Thursday" FontSize="24"/>
                 <GridView x:Name="ThursdayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
@@ -44,7 +44,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Friday" FontSize="24"/>
                 <GridView x:Name="FridayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
@@ -54,7 +54,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Saturday" FontSize="24"/>
                 <GridView x:Name="SaturdayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
@@ -64,7 +64,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
                 <TextBlock Text="Sunday" FontSize="24"/>
                 <GridView x:Name="SundayScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
