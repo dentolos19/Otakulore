@@ -27,9 +27,14 @@
                     </Grid.RowDefinitions>
                     <CommandBar Grid.Row="0" OverflowButtonVisibility="Collapsed">
                         <CommandBar.PrimaryCommands>
-                            <AppBarButton Click="OnPlayRequested" ToolTipService.ToolTip="Play">
+                            <AppBarButton ToolTipService.ToolTip="Play" Click="OnPlayRequested">
                                 <AppBarButton.Icon>
                                     <FontIcon Glyph="&#xE768;"/>
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton ToolTipService.ToolTip="Track" Click="OnTrackRequested">
+                                <AppBarButton.Icon>
+                                    <FontIcon Glyph="&#xE895;"/>
                                 </AppBarButton.Icon>
                             </AppBarButton>
                             <AppBarToggleButton ToolTipService.ToolTip="Favorite" IsChecked="{Binding IsFavorite, Mode=TwoWay}" Click="OnUpdateFavorite">
@@ -39,7 +44,7 @@
                             </AppBarToggleButton>
                         </CommandBar.PrimaryCommands>
                     </CommandBar>
-                    <TextBlock Grid.Row="2" Text="{Binding Title}" FontWeight="Bold" FontSize="24"/>
+                    <TextBlock Grid.Row="2" Text="{Binding Title}" Style="{ThemeResource TitleTextBlockStyle}"/>
                     <TextBlock Grid.Row="3" Text="{Binding Subtitle}"/>
                 </Grid>
             </Grid>

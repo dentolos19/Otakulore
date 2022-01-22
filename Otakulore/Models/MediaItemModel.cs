@@ -19,14 +19,6 @@ public class MediaItemModel
         Title = anime.Title
     };
 
-    public static MediaItemModel Create(Manga manga) => new()
-    {
-        Type = MediaType.Manga,
-        Id = manga.MalId,
-        ImageUrl = manga.ImageURL,
-        Title = manga.Title
-    };
-
     public static MediaItemModel Create(AnimeSearchEntry anime) => new()
     {
         Type = MediaType.Anime,
@@ -35,12 +27,12 @@ public class MediaItemModel
         Title = anime.Title
     };
 
-    public static MediaItemModel Create(MangaSearchEntry manga) => new()
+    public static MediaItemModel Create(AnimeTopEntry anime) => new()
     {
-        Type = MediaType.Manga,
-        Id = manga.MalId,
-        ImageUrl = manga.ImageURL,
-        Title = manga.Title
+        Type = MediaType.Anime,
+        Id = anime.MalId,
+        ImageUrl = anime.ImageURL,
+        Title = anime.Title
     };
 
     public static MediaItemModel Create(AnimeSubEntry anime) => new()
@@ -49,6 +41,22 @@ public class MediaItemModel
         Id = anime.MalId,
         ImageUrl = anime.ImageURL,
         Title = anime.Title
+    };
+
+    public static MediaItemModel Create(Manga manga) => new()
+    {
+        Type = MediaType.Manga,
+        Id = manga.MalId,
+        ImageUrl = manga.ImageURL,
+        Title = manga.Title
+    };
+
+    public static MediaItemModel Create(MangaSearchEntry manga) => new()
+    {
+        Type = MediaType.Manga,
+        Id = manga.MalId,
+        ImageUrl = manga.ImageURL,
+        Title = manga.Title
     };
 
 }

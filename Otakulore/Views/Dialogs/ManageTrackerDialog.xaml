@@ -1,0 +1,8 @@
+﻿<ContentDialog x:Class="Otakulore.Views.Dialogs.ManageTrackerDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Content="Cancel" Click="OnCancel"/>
+    </StackPanel>
+</ContentDialog>

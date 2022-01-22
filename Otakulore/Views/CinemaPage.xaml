@@ -8,7 +8,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="ContentList" Grid.Row="0" HorizontalAlignment="Stretch" SelectionChanged="OnContentChanged">
+        <ComboBox x:Name="ContentSelection" Grid.Row="0" HorizontalAlignment="Stretch" SelectionChanged="OnContentChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate x:DataType="models:ContentItemModel">
                     <TextBlock Text="{Binding Content.Name}"/>

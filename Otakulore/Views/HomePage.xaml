@@ -2,5 +2,37 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <TextBlock Text="Coming Soon!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <ScrollViewer Padding="10">
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Image Source="{StaticResource BannerAsset}" Stretch="UniformToFill"/>
+                <TextBlock Text="Hello, user!" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <StackPanel Grid.Row="1" Spacing="5">
+                <TextBlock Text="Top Anime" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <GridView x:Name="TopAnimeList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Spacing="5">
+                <TextBlock Text="Seasonal Anime" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <GridView x:Name="SeasonalAnimeList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

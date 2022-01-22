@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -18,29 +19,28 @@ public sealed partial class CinemaPage
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.Parameter is not PageParameter parameter)
+        if (args.Parameter is not KeyValuePair<IProvider, object>(var provider, MediaSource source))
             return;
         await WebView.EnsureCoreWebView2Async();
-        var contents = parameter.Provider switch
+        var contents = provider switch
         {
-            IAnimeProvider provider => provider.GetAnimeEpisodes(parameter.MediaSource),
-            IMangaProvider provider => provider.GetMangaChapters(parameter.MediaSource)
+            IAnimeProvider animeProvider => animeProvider.GetAnimeEpisodes(source),
+            IMangaProvider mangaProvider => mangaProvider.GetMangaChapters(source)
         };
         foreach (var content in contents)
-            ContentList.Items.Add(new ContentItemModel(content));
-        ContentList.SelectedIndex = 0;
+            ContentSelection.Items.Add(new ContentItemModel(content));
+        ContentSelection.SelectedIndex = 0;
     }
 
     private void OnContentChanged(object sender, SelectionChangedEventArgs args)
     {
-        if (ContentList.SelectedItem is ContentItemModel item)
+        if (ContentSelection.SelectedItem is ContentItemModel item)
             WebView.CoreWebView2.Navigate(item.Content.Url);
     }
 
     private void OnContentNavigating(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
     {
-        if (ContentList.Items[0] is not ComboBoxItem)
-            ContentList.SelectedItem = ContentList.Items.Cast<ContentItemModel>().FirstOrDefault(item => item.Content.Url == args.Uri);
+        ContentSelection.SelectedItem = ContentSelection.Items.Cast<ContentItemModel>().FirstOrDefault(item => item.Content.Url == args.Uri);
     }
 
 }

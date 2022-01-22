@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JikanDotNet;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
-using Otakulore.Core.Providers;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 
@@ -25,16 +25,16 @@ public sealed partial class DetailsPage
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.Parameter is not PageParameter parameter)
-            return; // TODO: do something
-        switch (parameter.MediaType)
+        if (args.Parameter is not KeyValuePair<MediaType, long>(var type, var id))
+            return;
+        switch (type)
         {
             case MediaType.Anime:
             {
-                _anime = await App.Jikan.GetAnime(parameter.Id);
+                _anime = await App.Jikan.GetAnime(id);
                 DataContext = new DetailsViewModel
                 {
-                    Id = parameter.Id,
+                    Id = id,
                     ImageUrl = _anime.ImageURL,
                     Title = _anime.Title,
                     Subtitle = !string.IsNullOrEmpty(_anime.Premiered) ? _anime.Premiered : "Unknown Season/Year",
@@ -43,16 +43,16 @@ public sealed partial class DetailsPage
                     Format = _anime.Type,
                     Status = _anime.Status,
                     Episodes = _anime.Episodes.HasValue ? _anime.Episodes.Value.ToString() : "Unknown",
-                    IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == parameter.Id) != null
+                    IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == id) != null
                 };
                 break;
             }
             case MediaType.Manga:
             {
-                _manga = await App.Jikan.GetManga(parameter.Id);
+                _manga = await App.Jikan.GetManga(id);
                 DataContext = new DetailsViewModel
                 {
-                    Id = parameter.Id,
+                    Id = id,
                     ImageUrl = _manga.ImageURL,
                     Title = _manga.Title,
                     Subtitle = _manga.Published.From.HasValue ? _manga.Published.From.Value.Year.ToString() : "Unknown Year",
@@ -61,7 +61,7 @@ public sealed partial class DetailsPage
                     Format = _manga.Type,
                     Status = _manga.Status,
                     Episodes = _manga.Chapters.HasValue ? _manga.Chapters.Value.ToString() : "Unknown",
-                    IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == parameter.Id) != null
+                    IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == id) != null
                 };
                 break;
             }
@@ -70,15 +70,23 @@ public sealed partial class DetailsPage
 
     private async void OnPlayRequested(object sender, RoutedEventArgs args)
     {
-        IProvider? provider = null;
-        if (_anime != null) // TODO: change this
-            provider = new GogoanimeProvider();
+        var type = MediaType.Anime;
         if (_manga != null)
-            provider = new MangakakalotProvider();
-        var dialog = new SearchProviderDialog(provider, ViewModel.Title);
+            type = MediaType.Manga;
+        var selectDialog = new SelectProviderDialog(type);
+        await selectDialog.ShowAsync();
+        if (selectDialog.Result == null)
+            return;
+        var searchDialog = new SearchProviderDialog(selectDialog.Result, ViewModel.Title);
+        await searchDialog.ShowAsync();
+        if (searchDialog.Result != null)
+            Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(selectDialog.Result, searchDialog.Result));
+    }
+
+    private async void OnTrackRequested(object sender, RoutedEventArgs args)
+    {
+        var dialog = new ManageTrackerDialog();
         await dialog.ShowAsync();
-        if (dialog.Result != null)
-            Frame.Navigate(typeof(CinemaPage), new PageParameter { Provider = provider, MediaSource = dialog.Result });
     }
 
     private void OnUpdateFavorite(object sender, RoutedEventArgs args)

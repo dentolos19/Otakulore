@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
@@ -28,7 +29,7 @@ public sealed partial class SettingsPage
         var dialog = new SearchProviderDialog(item.Provider);
         await dialog.ShowAsync();
         if (dialog.Result != null)
-            Frame.Navigate(typeof(CinemaPage), new PageParameter { Provider = item.Provider, MediaSource = dialog.Result });
+            Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(item.Provider, dialog.Result));
     }
 
 }

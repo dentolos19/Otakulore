@@ -55,23 +55,27 @@ public class GogoanimeProvider : IAnimeProvider
             {
                 var linkElement = episodeElement.SelectSingleNode("./a");
                 var episodeNumber = int.Parse(linkElement.SelectSingleNode("./div[@class='name']").InnerText.Trim()[3..]);
+                var url = Url + linkElement.Attributes["href"].Value.Trim();
+                try
+                {
+                    website = ScrapingService.HtmlWeb.Load(url);
+                    var streamingElements = website.DocumentNode.SelectNodes("//div[@class='anime_muti_link']/ul/li");
+                    url = "https:" + streamingElements[0].SelectSingleNode("./a").Attributes["data-video"].Value;
+                }
+                catch
+                {
+                    continue; // do nothing
+                }
                 subAnimeEpisodes.Add(new MediaContent
                 {
                     Name = $"Episode {episodeNumber}",
-                    Url = Url + linkElement.Attributes["href"].Value
+                    Url = url
                 });
             }
             subAnimeEpisodes.Reverse();
             animeEpisodes.AddRange(subAnimeEpisodes);
         }
         return animeEpisodes;
-    }
-
-    public string ExtractVideoUrl(MediaContent content)
-    {
-        var website = ScrapingService.HtmlWeb.Load(content.Url);
-        var streamingElements = website.DocumentNode.SelectNodes("//div[@class='anime_muti_link']/ul/li");
-        return "https:" + streamingElements[0].SelectSingleNode("./a").Attributes["data-video"].Value;
     }
 
 }

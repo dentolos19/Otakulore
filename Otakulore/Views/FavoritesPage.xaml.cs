@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using System.Collections.Generic;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Models;
@@ -23,7 +24,7 @@ public sealed partial class FavoritesPage
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new PageParameter { MediaType = item.Type, Id = item.Id });
+            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
     }
 
 }

@@ -18,7 +18,7 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding Source.ImageUrl}"/>
+                        <Image Grid.Column="0" Source="{Binding Source.ImageUrl}" Stretch="UniformToFill"/>
                         <TextBlock Grid.Column="1" Text="{Binding Source.Title}" FontSize="16" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
