@@ -3,25 +3,23 @@
 [![](https://img.shields.io/badge/Powered%20By-.NET-blue?logo=microsoft&style=flat-square)](https://dotnet.microsoft.com)
 [![](https://img.shields.io/badge/Made%20With-Visual%20Studio-blue?logo=visual-studio&style=flat-square)](https://visualstudio.microsoft.com)
 
-An app for watching anime and reading manga from multiple sources!
+An app for tracking, watching and reading all about anime and manga!
 
-Ever wanted to have everything in one place? Watching anime, tracking your progress, read news about your favorite manga. And so, I wanted to solve that problem with this project, this app allows you to sync with your favorite tracking services, get up-to-date with the latest news about anime or manga, get the schedule of an anime so you never miss an episode, and most importantly, watch or read your favorite anime or manga from various sources without having to search each of them!
+Ever wanted to have everything in one place? Tracking your progress, watching anime, and reading manga. And so, I wanted to solve this problem with this project. This app allows you to sync with your AniList account and manage your library directly on the app itself, and also includes the schedules of the currently airing anime so you never miss an episode, and most importantly, watch or read your favorite anime or manga from various sources without having to search each of them!
 
-> **Note**: This project's development is expected to be slow since I need to study for my national exams.
+> **Note**: The project's development will be slow because I need to work with my studies for my national exams that I will be taking this year...
 
 ## Features
 
-> **Note**: This project is currently work-in-progress and doesn't contain all the planned features. See below for more info...
-
-* [ ] Runs on multiple platforms
-  * [X] Windows (powered by [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
-  * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) next year)
-* [ ] Enables tracking for multiple services
-  * [ ] AniList
+* [ ] Track your progress with [AniList](https://anilist.co)
+* [X] Never miss an episode with the built-in anime schedule powered by [AniChart](https://anichart.net)
+* [ ] Read news and reviews from both [AniList](https://anilist.co) and [MyAnimeList](https://myanimelist.net)
 * [X] Gathers entertaining content from multiple sources
   * [X] Gogoanime (Anime)
   * [X] Mangakakalot (Manga)
-* [X] Never miss an episode with the built-in anime schedule
+* [ ] Runs on multiple platforms
+  * [X] Windows (powered by [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
+  * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) in 2022)
 
 ## Screenshots
 

@@ -13,7 +13,7 @@
         <ListView x:Name="SearchResultList" Grid.Row="1" IsItemClickEnabled="True" ItemClick="OnItemClicked">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:SourceItemModel">
-                    <Grid ColumnSpacing="10">
+                    <Grid Padding="5" ColumnSpacing="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>

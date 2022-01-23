@@ -6,7 +6,7 @@
     <ListView x:Name="ProviderList" IsItemClickEnabled="True" ItemClick="OnProviderClicked">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="models:ProviderItemModel">
-                <Grid ColumnSpacing="10">
+                <Grid Padding="5" ColumnSpacing="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
