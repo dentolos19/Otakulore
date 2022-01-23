@@ -9,14 +9,17 @@
     <StackPanel Margin="10" Spacing="10">
         <Expander Header="General Preferences" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
             <StackPanel Spacing="5">
+                <CheckBox Content="Use English Titles" IsChecked="{Binding UseEnglishTitles, Mode=TwoWay}"/>
+                <CheckBox Content="Filter Adult Titles" IsChecked="{Binding FilterAdultTitles, Mode=TwoWay}"/>
                 <CheckBox Content="Load Selenium At Startup" IsChecked="{Binding LoadSeleniumAtStartup, Mode=TwoWay}"/>
+                <Button Content="Reset All Settings" Click="OnResetSettings"/>
             </StackPanel>
         </Expander>
         <Expander Header="Content Providers" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
             <GridView x:Name="ProviderList" IsItemClickEnabled="True" ItemClick="OnProviderClicked">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="models:ProviderItemModel">
-                        <Image Source="{Binding Provider.Image}" ToolTipService.ToolTip="{Binding Provider.Name}" Margin="5" MaxWidth="100" MaxHeight="100"/>
+                        <Image Source="{Binding Provider.ImageUrl}" ToolTipService.ToolTip="{Binding Provider.Name}" Margin="5" MaxWidth="100" MaxHeight="100"/>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

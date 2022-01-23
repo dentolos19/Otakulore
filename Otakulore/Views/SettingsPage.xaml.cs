@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
@@ -30,6 +31,12 @@ public sealed partial class SettingsPage
         await dialog.ShowAsync();
         if (dialog.Result != null)
             Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(item.Provider, dialog.Result));
+    }
+
+    private void OnResetSettings(object sender, RoutedEventArgs args)
+    {
+        App.ResetSettings();
+        Frame.Navigate(typeof(HomePage));
     }
 
 }

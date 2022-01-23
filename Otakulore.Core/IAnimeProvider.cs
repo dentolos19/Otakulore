@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Otakulore.Core;
+﻿namespace Otakulore.Core;
 
 public interface IAnimeProvider : IProvider
 {

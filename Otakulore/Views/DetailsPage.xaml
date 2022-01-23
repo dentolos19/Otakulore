@@ -53,29 +53,25 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Expander Grid.Column="0" Header="Details" IsExpanded="True" HorizontalContentAlignment="Left" VerticalAlignment="Top">
-                    <StackPanel Spacing="10">
-                        <StackPanel Spacing="5">
-                            <TextBlock Text="Format" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Format}"/>
-                        </StackPanel>
-                        <StackPanel Spacing="5">
-                            <TextBlock Text="Status" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Status}"/>
-                        </StackPanel>
-                        <StackPanel Spacing="5">
-                            <TextBlock Text="Episodes/Chapters" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Episodes}"/>
-                        </StackPanel>
+                <StackPanel Grid.Column="0" Spacing="10">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Format" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Format}"/>
                     </StackPanel>
-                </Expander>
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Status" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Status}"/>
+                    </StackPanel>
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Episodes" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Episodes}"/>
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel Grid.Column="1" Spacing="10">
-                    <Expander Header="Synopsis" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-                        <TextBlock Text="{Binding Synopsis}" TextWrapping="Wrap"/>
-                    </Expander>
-                    <Expander Header="Background" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-                        <TextBlock Text="{Binding Background}" TextWrapping="Wrap"/>
-                    </Expander>
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Description" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>

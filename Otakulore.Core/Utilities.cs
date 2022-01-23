@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Otakulore.AniList;
+namespace Otakulore.Core;
 
-internal static class Utilities
+public static class Utilities
 {
 
     public static string? ToEnumString<T>(this T type) where T : Enum

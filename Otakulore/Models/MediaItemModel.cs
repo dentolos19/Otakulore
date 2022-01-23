@@ -1,5 +1,5 @@
 ﻿using JikanDotNet;
-using Otakulore.Core;
+using Otakulore.AniList;
 
 namespace Otakulore.Models;
 
@@ -10,30 +10,19 @@ public class MediaItemModel
     public long Id { get; init; }
     public string ImageUrl { get; init; }
     public string Title { get; init; }
+    public Media Data { get; }
 
-    public static MediaItemModel Create(Anime anime) => new()
+    public MediaItemModel(Media? data = null)
     {
-        Type = MediaType.Anime,
-        Id = anime.MalId,
-        ImageUrl = anime.ImageURL,
-        Title = anime.Title
-    };
-
-    public static MediaItemModel Create(AnimeSearchEntry anime) => new()
-    {
-        Type = MediaType.Anime,
-        Id = anime.MalId,
-        ImageUrl = anime.ImageURL,
-        Title = anime.Title
-    };
-
-    public static MediaItemModel Create(AnimeTopEntry anime) => new()
-    {
-        Type = MediaType.Anime,
-        Id = anime.MalId,
-        ImageUrl = anime.ImageURL,
-        Title = anime.Title
-    };
+        if (data == null)
+            return;
+        Data = data;
+        Id = Data.Id;
+        ImageUrl = Data.Cover.LargeImageUrl;
+        Title = Data.Title.Romaji;
+        if (App.Settings.UseEnglishTitles && Data.Title.English != null)
+            Title = Data.Title.English;
+    }
 
     public static MediaItemModel Create(AnimeSubEntry anime) => new()
     {
@@ -41,22 +30,6 @@ public class MediaItemModel
         Id = anime.MalId,
         ImageUrl = anime.ImageURL,
         Title = anime.Title
-    };
-
-    public static MediaItemModel Create(Manga manga) => new()
-    {
-        Type = MediaType.Manga,
-        Id = manga.MalId,
-        ImageUrl = manga.ImageURL,
-        Title = manga.Title
-    };
-
-    public static MediaItemModel Create(MangaSearchEntry manga) => new()
-    {
-        Type = MediaType.Manga,
-        Id = manga.MalId,
-        ImageUrl = manga.ImageURL,
-        Title = manga.Title
     };
 
 }

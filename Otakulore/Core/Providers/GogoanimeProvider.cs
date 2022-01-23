@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using HtmlAgilityPack;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media;
 using OpenQA.Selenium;
 
 namespace Otakulore.Core.Providers;
@@ -10,7 +8,7 @@ namespace Otakulore.Core.Providers;
 public class GogoanimeProvider : IAnimeProvider
 {
 
-    public ImageSource Image => (ImageSource)Application.Current.Resources["GogoanimeAsset"];
+    public string ImageUrl => Url + "/img/icon/logo.png";
     public string Name => "Gogoanime";
     public string Url => "https://gogoanime.film";
 

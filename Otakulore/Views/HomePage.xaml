@@ -14,8 +14,8 @@
                 <TextBlock Text="Hello, user!" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <StackPanel Grid.Row="1" Spacing="5">
-                <TextBlock Text="Top Anime" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                <GridView x:Name="TopAnimeList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+                <TextBlock Text="Trending Anime &#38; Manga!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <GridView x:Name="TopList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel Orientation="Horizontal"/>
@@ -24,8 +24,8 @@
                 </GridView>
             </StackPanel>
             <StackPanel Grid.Row="2" Spacing="5">
-                <TextBlock Text="Seasonal Anime" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                <GridView x:Name="SeasonalAnimeList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+                <TextBlock Text="Animes releasing this season!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <GridView x:Name="SeasonalList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel Orientation="Horizontal"/>

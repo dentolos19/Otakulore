@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core;
+using Otakulore.AniList;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
@@ -16,26 +16,13 @@ public sealed partial class SearchPage
 
     private async void Search()
     {
+
         var query = SearchInput.Text;
         var type = (MediaType)SearchTypeSelection.SelectedIndex;
+        var result = await App.Client.Query.SearchMedia(query, type);
         SearchResultList.Items.Clear();
-        switch (type)
-        {
-            case MediaType.Anime:
-            {
-                var result = await App.Jikan.SearchAnime(query);
-                foreach (var entry in result.Results)
-                    SearchResultList.Items.Add(MediaItemModel.Create(entry));
-                break;
-            }
-            case MediaType.Manga:
-            {
-                var result = await App.Jikan.SearchManga(query);
-                foreach (var entry in result.Results)
-                    SearchResultList.Items.Add(MediaItemModel.Create(entry));
-                break;
-            }
-        }
+        foreach (var entry in result.Page.Content)
+            SearchResultList.Items.Add(new MediaItemModel(entry));
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -59,7 +46,7 @@ public sealed partial class SearchPage
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
+            Frame.Navigate(typeof(DetailsPage), item.Data);
     }
 
 }

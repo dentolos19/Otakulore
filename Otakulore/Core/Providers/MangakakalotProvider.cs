@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media;
+
 
 namespace Otakulore.Core.Providers;
 
 public class MangakakalotProvider : IMangaProvider
 {
 
-    public ImageSource Image => (ImageSource)Application.Current.Resources["MangakakalotAsset"];
+    public string ImageUrl => Url + "/themes/home/icons/logo.png";
     public string Name => "Mangakakalot";
     public string Url => "https://mangakakalot.com";
 

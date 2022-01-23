@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using Windows.Storage;
-using Otakulore.Models;
+using Otakulore.AniList;
 
 namespace Otakulore.Core;
 
@@ -11,8 +11,10 @@ public class Settings
 
     private static string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
 
+    public bool UseEnglishTitles { get; set; }
+    public bool FilterAdultTitles { get; set; }
     public bool LoadSeleniumAtStartup { get; set; }
-    public IList<MediaItemModel> Favorites { get; set; } = new List<MediaItemModel>();
+    public IList<Media> Favorites { get; set; } = new List<Media>();
 
     public void Save()
     {

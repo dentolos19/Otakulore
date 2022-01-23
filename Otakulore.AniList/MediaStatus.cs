@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Otakulore.AniList;
@@ -9,7 +10,7 @@ public enum MediaStatus
 
     [EnumMember(Value = "FINISHED")] Finished,
     [EnumMember(Value = "RELEASING")] Releasing,
-    [EnumMember(Value = "NOT_YET_RELEASED")] NotReleased,
+    [EnumMember(Value = "NOT_YET_RELEASED")] [Description("Not Yet Released")] NotYetReleased,
     [EnumMember(Value = "CANCELLED")] Cancelled,
     [EnumMember(Value = "HIATUS")] Hiatus
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.AniList;
 using Otakulore.Core;
 using Otakulore.Models;
 
@@ -18,18 +18,27 @@ public sealed partial class HomePage
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        var topAnime = await App.Jikan.GetAnimeTop();
-        var seasonalAnime = await App.Jikan.GetSeason(DateTime.Today.Year, Utilities.GetAnimeSeason(DateOnly.FromDateTime(DateTime.Today)));
-        foreach (var entry in topAnime.Top)
-            TopAnimeList.Items.Add(MediaItemModel.Create(entry));
-        foreach (var entry in seasonalAnime.SeasonEntries)
-            SeasonalAnimeList.Items.Add(MediaItemModel.Create(entry));
+        var date = DateTime.Today;
+        var day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
+        var season = day switch
+        {
+            < 80 or >= 355 => MediaSeason.Winter,
+            >= 80 and < 172 => MediaSeason.Spring,
+            >= 172 and < 266 => MediaSeason.Summer,
+            _ => MediaSeason.Fall
+        };
+        var trendingMedia = await App.Client.Query.GetTrendingMedia();
+        var seasonalMedia = await App.Client.Query.GetSeasonalMedia(season, date.Year);
+        foreach (var entry in trendingMedia.Page.TrendingContent)
+            TopList.Items.Add(new MediaItemModel(entry.Media));
+        foreach (var entry in seasonalMedia.Page.Content)
+           SeasonalList.Items.Add(new MediaItemModel(entry));
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
+            Frame.Navigate(typeof(DetailsPage), item.Data);
     }
 
 }

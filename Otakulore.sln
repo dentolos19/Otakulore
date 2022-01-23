@@ -11,9 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.AniList", "Otakulore.AniList\Otakulore.AniList.csproj", "{720D9B25-5D21-4C6F-9754-C816060EFFA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.AniList", "Otakulore.AniList\Otakulore.AniList.csproj", "{720D9B25-5D21-4C6F-9754-C816060EFFA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.AniList.Tests", "Otakulore.AniList.Tests\Otakulore.AniList.Tests.csproj", "{7FE93BA4-0A8D-4F8F-86EE-01CC6E59697E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.AniList.Tests", "Otakulore.AniList.Tests\Otakulore.AniList.Tests.csproj", "{7FE93BA4-0A8D-4F8F-86EE-01CC6E59697E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{94F4BF1D-10D0-4F90-961B-673F448E907B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,18 @@ Global
 		{7FE93BA4-0A8D-4F8F-86EE-01CC6E59697E}.Release|arm64.Build.0 = Release|Any CPU
 		{7FE93BA4-0A8D-4F8F-86EE-01CC6E59697E}.Release|x64.ActiveCfg = Release|Any CPU
 		{7FE93BA4-0A8D-4F8F-86EE-01CC6E59697E}.Release|x64.Build.0 = Release|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Debug|arm64.Build.0 = Debug|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Debug|x64.Build.0 = Debug|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Release|arm64.ActiveCfg = Release|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Release|arm64.Build.0 = Release|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Release|x64.ActiveCfg = Release|Any CPU
+		{94F4BF1D-10D0-4F90-961B-673F448E907B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

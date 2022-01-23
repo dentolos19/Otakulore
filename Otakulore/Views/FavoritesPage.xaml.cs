@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core;
+using Otakulore.AniList;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
@@ -16,15 +16,14 @@ public sealed partial class FavoritesPage
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        var favorites = App.Settings.Favorites;
-        foreach (var entry in favorites)
-            FavoriteList.Items.Add(entry);
+        foreach (var entry in App.Settings.Favorites)
+            FavoriteList.Items.Add(new MediaItemModel(entry));
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), new KeyValuePair<MediaType, long>(item.Type, item.Id));
+            Frame.Navigate(typeof(DetailsPage), item.Data);
     }
 
 }

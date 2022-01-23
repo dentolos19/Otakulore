@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Otakulore.AniList;
 using Otakulore.Core;
 using Otakulore.Models;
 
