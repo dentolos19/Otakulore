@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Otakulore.AniList;
+namespace Otakulore.Core.AniList;
 
 public class Page
 {

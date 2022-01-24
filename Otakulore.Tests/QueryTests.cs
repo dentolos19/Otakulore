@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Otakulore.Core.AniList;
 
-namespace Otakulore.AniList.Tests;
+namespace Otakulore.Tests;
 
 public class QueryTests
 {

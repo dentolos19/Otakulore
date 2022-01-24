@@ -1,6 +1,6 @@
 ﻿using GraphQL.Client.Http;
 
-namespace Otakulore.AniList;
+namespace Otakulore.Core.AniList;
 
 public class MutationClient
 {

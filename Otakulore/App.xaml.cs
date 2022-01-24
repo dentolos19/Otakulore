@@ -4,8 +4,8 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.AniList;
 using Otakulore.Core;
+using Otakulore.Core.AniList;
 using Otakulore.Views;
 
 namespace Otakulore;
@@ -13,15 +13,15 @@ namespace Otakulore;
 public partial class App
 {
 
-    public static Window MainWindow { get; private set; }
-    public static Settings Settings { get; private set; }
-    public static AniClient Client { get; } = new();
-    public static IList<IProvider> Providers { get; } = new List<IProvider>();
-
     public App()
     {
         InitializeComponent();
     }
+
+    public static Window MainWindow { get; private set; }
+    public static Settings Settings { get; private set; }
+    public static AniClient Client { get; } = new();
+    public static IList<IProvider> Providers { get; } = new List<IProvider>();
 
     public static void ResetSettings()
     {

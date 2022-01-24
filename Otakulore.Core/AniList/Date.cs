@@ -1,4 +1,4 @@
-﻿namespace Otakulore.AniList;
+﻿namespace Otakulore.Core.AniList;
 
 public class Date
 {

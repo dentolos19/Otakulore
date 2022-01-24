@@ -72,8 +72,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.40"/>
-		<PackageReference Include="Humanizer.Core" Version="2.13.14"/>
-		<PackageReference Include="JikanDotNet" Version="1.6.0"/>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0"/>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196"/>
 		<PackageReference Include="Selenium.WebDriver" Version="4.1.0"/>
@@ -83,8 +81,12 @@
 		<ProjectCapability Include="Msix"/>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Otakulore.AniList\Otakulore.AniList.csproj"/>
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\LibraryPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Views\Dialogs\ManageTrackerDialog.xaml">

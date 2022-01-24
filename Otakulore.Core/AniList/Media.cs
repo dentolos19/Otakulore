@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Otakulore.AniList;
+namespace Otakulore.Core.AniList;
 
 public class Media
 {
@@ -8,9 +8,10 @@ public class Media
     [JsonPropertyName("id")] public int Id { get; init; }
     [JsonPropertyName("idMal")] public int MalId { get; init; }
 
-    [JsonPropertyName("coverImage")] public Cover Cover { get; init; }
+    [JsonPropertyName("coverImage")] public Cover CoverImage { get; init; }
+    [JsonPropertyName("bannerImage")] public string BannerImage { get; init; }
     [JsonPropertyName("title")] public MediaTitle Title { get; init; }
-    [JsonPropertyName("description")] public string Description { get; init; }
+    [JsonPropertyName("description")] public string? Description { get; init; }
     [JsonPropertyName("type")] public MediaType Type { get; init; }
     [JsonPropertyName("format")] public MediaFormat? Format { get; init; }
     [JsonPropertyName("status")] public MediaStatus Status { get; init; }

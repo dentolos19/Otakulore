@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Otakulore.Core.Providers;
 
 public class MangakakalotProvider : IMangaProvider

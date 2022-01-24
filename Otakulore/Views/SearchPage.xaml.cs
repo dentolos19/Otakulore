@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.AniList;
+using Otakulore.Core.AniList;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
@@ -16,7 +15,6 @@ public sealed partial class SearchPage
 
     private async void Search()
     {
-
         var query = SearchInput.Text;
         var type = (MediaType)SearchTypeSelection.SelectedIndex;
         var result = await App.Client.Query.SearchMedia(query, type);

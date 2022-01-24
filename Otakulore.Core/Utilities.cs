@@ -1,21 +1,27 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
-using System.Reflection;
+using System.Net;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace Otakulore.Core;
 
 public static class Utilities
 {
 
-    public static string? ToEnumString<T>(this T type) where T : Enum
+    public static string? GetEnumValue<T>(this T type)
     {
-        return typeof(T)
-            .GetTypeInfo()
-            .DeclaredMembers
-            .SingleOrDefault(x => x.Name == type.ToString())?
-            .GetCustomAttribute<EnumMemberAttribute>(false)?
-            .Value;
+        var field = type.GetType().GetField(type.ToString());
+        var attributes = (EnumMemberAttribute[])field.GetCustomAttributes(typeof(EnumMemberAttribute), false);
+        return attributes.Length > 0 ? attributes[0].Value : type.ToString();
+    }
+
+    public static string? GetEnumDescription<T>(this T type)
+    {
+        var field = type.GetType().GetField(type.ToString());
+        var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        return attributes.Length > 0 ? attributes[0].Description : type.ToString();
     }
 
     public static Color ParseColorHex(string colorHex)
@@ -34,6 +40,23 @@ public static class Utilities
                 int.Parse(colorHex.Substring(2, 2), NumberStyles.HexNumber), // red
                 int.Parse(colorHex.Substring(4, 2), NumberStyles.HexNumber), // green
                 int.Parse(colorHex.Substring(6, 2), NumberStyles.HexNumber)); // blue
+    }
+
+    // from https://stackoverflow.com/a/16407272
+    public static string HtmlToPlainText(string html)
+    {
+        const string tagWhiteSpace = @"(>|$)(\W|\n|\r)+<";
+        const string stripFormatting = @"<[^>]*(>|$)";
+        const string lineBreak = @"<(br|BR)\s{0,1}\/{0,1}>";
+        var lineBreakRegex = new Regex(lineBreak, RegexOptions.Multiline);
+        var stripFormattingRegex = new Regex(stripFormatting, RegexOptions.Multiline);
+        var tagWhiteSpaceRegex = new Regex(tagWhiteSpace, RegexOptions.Multiline);
+        var text = html;
+        text = WebUtility.HtmlDecode(text);
+        text = tagWhiteSpaceRegex.Replace(text, "><");
+        text = lineBreakRegex.Replace(text, Environment.NewLine);
+        text = stripFormattingRegex.Replace(text, string.Empty);
+        return text;
     }
 
 }

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using Windows.Storage;
-using Otakulore.AniList;
+using Otakulore.Core.AniList;
 
 namespace Otakulore.Core;
 

@@ -6,4 +6,10 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="GraphQL.Client" Version="4.0.2"/>
+		<PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="4.0.2"/>
+		<PackageReference Include="Macross.Json.Extensions" Version="2.2.0"/>
+	</ItemGroup>
+
 </Project>

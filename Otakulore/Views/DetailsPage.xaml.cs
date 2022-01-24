@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Humanizer;
-using JikanDotNet;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.AniList;
 using Otakulore.Core;
+using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 
@@ -17,12 +15,12 @@ public sealed partial class DetailsPage
 
     private Media _media;
 
-    private DetailsViewModel ViewModel => (DetailsViewModel)DataContext;
-
     public DetailsPage()
     {
         InitializeComponent();
     }
+
+    private DetailsViewModel ViewModel => (DetailsViewModel)DataContext;
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
@@ -32,12 +30,12 @@ public sealed partial class DetailsPage
         DataContext = new DetailsViewModel
         {
             Id = _media.Id,
-            ImageUrl = _media.Cover.ExtraLargeImageUrl,
+            ImageUrl = _media.CoverImage.ExtraLargeImageUrl,
             Title = _media.Title.Romaji,
             Subtitle = _media.StartDate.Year != null ? _media.StartDate.Year.ToString() : "Unknown Year",
             Description = _media.Description,
-            Format = _media.Format.Humanize(),
-            Status = _media.Status.Humanize(),
+            Format = _media.Format.GetEnumDescription(),
+            Status = _media.Status.GetEnumDescription(),
             Episodes = _media.Episodes?.ToString() ?? "Unknown Count",
             IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id) != null
         };

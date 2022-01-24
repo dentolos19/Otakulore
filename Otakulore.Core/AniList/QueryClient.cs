@@ -1,8 +1,7 @@
 ﻿using GraphQL;
 using GraphQL.Client.Http;
-using Otakulore.Core;
 
-namespace Otakulore.AniList;
+namespace Otakulore.Core.AniList;
 
 public class QueryClient
 {
@@ -36,6 +35,7 @@ query ($search: String, $type: MediaType, $pageIndex: Int, $count: Int) {
         medium
         color
       }
+      bannerImage
       title {
         romaji
         english
@@ -65,7 +65,7 @@ query ($search: String, $type: MediaType, $pageIndex: Int, $count: Int) {
 }
 
 ",
-            Variables = new { search, type = type.ToEnumString(), pageIndex, count }
+            Variables = new { search, type = type.GetEnumValue(), pageIndex, count }
         };
         var response = await _client.SendQueryAsync<QueryResponse>(request);
         return response.Data;
@@ -85,6 +85,7 @@ query ($id: Int) {
       medium
       color
     }
+    bannerImage
     title {
       romaji
       english
@@ -133,6 +134,7 @@ query ($season: MediaSeason, $year: Int) {
         medium
         color
       }
+      bannerImage
       title {
         romaji
         english
@@ -161,7 +163,7 @@ query ($season: MediaSeason, $year: Int) {
   }
 }
 ",
-            Variables = new { season = season.ToEnumString(), year }
+            Variables = new { season = season.GetEnumValue(), year }
         };
         var response = await _client.SendQueryAsync<QueryResponse>(request);
         return response.Data;
@@ -190,6 +192,7 @@ query ($season: MediaSeason, $year: Int) {
           medium
           color
         }
+        bannerImage
         title {
           romaji
           english

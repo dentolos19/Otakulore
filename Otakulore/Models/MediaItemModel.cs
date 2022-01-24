@@ -1,35 +1,28 @@
-﻿using JikanDotNet;
-using Otakulore.AniList;
+﻿using Otakulore.Core;
+using Otakulore.Core.AniList;
 
 namespace Otakulore.Models;
 
 public class MediaItemModel
 {
 
-    public MediaType Type { get; init; }
-    public long Id { get; init; }
-    public string ImageUrl { get; init; }
-    public string Title { get; init; }
-    public Media Data { get; }
-
-    public MediaItemModel(Media? data = null)
+    public MediaItemModel(Media data)
     {
-        if (data == null)
-            return;
         Data = data;
-        Id = Data.Id;
-        ImageUrl = Data.Cover.LargeImageUrl;
+        ImageUrl = Data.CoverImage.LargeImageUrl;
         Title = Data.Title.Romaji;
         if (App.Settings.UseEnglishTitles && Data.Title.English != null)
             Title = Data.Title.English;
+        Score = Data.Score.HasValue ? Data.Score.Value / 20 : 0;
+        ScoreCaption = data.Score?.ToString() ?? "Unknown";
+        Description = !string.IsNullOrEmpty(Data.Description) ? Utilities.HtmlToPlainText(Data.Description) : "No description provided.";
     }
 
-    public static MediaItemModel Create(AnimeSubEntry anime) => new()
-    {
-        Type = MediaType.Anime,
-        Id = anime.MalId,
-        ImageUrl = anime.ImageURL,
-        Title = anime.Title
-    };
+    public string ImageUrl { get; }
+    public string Title { get; }
+    public double? Score { get; }
+    public string ScoreCaption { get; }
+    public string? Description { get; }
+    public Media Data { get; }
 
 }

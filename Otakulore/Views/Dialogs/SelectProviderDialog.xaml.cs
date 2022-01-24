@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using Otakulore.AniList;
 using Otakulore.Core;
+using Otakulore.Core.AniList;
 using Otakulore.Models;
 
 namespace Otakulore.Views.Dialogs;

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.AniList;
-using Otakulore.Core;
+using Otakulore.Core.AniList;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
@@ -32,7 +30,7 @@ public sealed partial class HomePage
         foreach (var entry in trendingMedia.Page.TrendingContent)
             TopList.Items.Add(new MediaItemModel(entry.Media));
         foreach (var entry in seasonalMedia.Page.Content)
-           SeasonalList.Items.Add(new MediaItemModel(entry));
+            SeasonalList.Items.Add(new MediaItemModel(entry));
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)

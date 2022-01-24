@@ -10,8 +10,6 @@ public sealed partial class SearchProviderDialog
 
     private readonly IProvider _provider;
 
-    public MediaSource? Result { get; private set; }
-
     public SearchProviderDialog(IProvider provider, string? query = null)
     {
         _provider = provider;
@@ -20,6 +18,8 @@ public sealed partial class SearchProviderDialog
         if (!string.IsNullOrEmpty(query))
             SearchInput.Text = query;
     }
+
+    public MediaSource? Result { get; private set; }
 
     private void Search()
     {

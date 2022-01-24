@@ -13,7 +13,6 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 
 * [ ] Track your progress with [AniList](https://anilist.co)
 * [X] Never miss an episode with the built-in anime schedule powered by [AniChart](https://anichart.net)
-* [ ] Read news and reviews from both [AniList](https://anilist.co) and [MyAnimeList](https://myanimelist.net)
 * [X] Gathers entertaining content from multiple sources
   * [X] Gogoanime (Anime)
   * [X] Mangakakalot (Manga)

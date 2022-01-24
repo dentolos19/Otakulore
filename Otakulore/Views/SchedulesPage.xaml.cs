@@ -14,7 +14,6 @@ public sealed partial class SchedulesPage
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)

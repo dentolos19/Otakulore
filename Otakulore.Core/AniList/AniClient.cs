@@ -3,13 +3,10 @@ using System.Text.Json.Serialization;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
 
-namespace Otakulore.AniList;
+namespace Otakulore.Core.AniList;
 
 public class AniClient
 {
-
-    public QueryClient Query { get; }
-    public QueryClient Mutation { get; }
 
     public AniClient()
     {
@@ -20,5 +17,8 @@ public class AniClient
         Query = new QueryClient(client);
         Mutation = new QueryClient(client);
     }
+
+    public QueryClient Query { get; }
+    public QueryClient Mutation { get; }
 
 }
