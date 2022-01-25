@@ -12,7 +12,10 @@
                 <CheckBox Content="Use English Titles" IsChecked="{Binding UseEnglishTitles, Mode=TwoWay}"/>
                 <CheckBox Content="Filter Adult Titles" IsChecked="{Binding FilterAdultTitles, Mode=TwoWay}"/>
                 <CheckBox Content="Load Selenium At Startup" IsChecked="{Binding LoadSeleniumAtStartup, Mode=TwoWay}"/>
-                <Button Content="Reset All Settings" Click="OnResetSettings"/>
+                <StackPanel Spacing="5" Orientation="Horizontal">
+                    <Button Content="Reset All Settings" Click="OnResetAllSettings"/>
+                    <Button Content="Open Local Folder" Click="OnOpenLocalFolder"/>
+                </StackPanel>
             </StackPanel>
         </Expander>
         <Expander Header="Content Providers" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
@@ -23,9 +26,6 @@
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
-        </Expander>
-        <Expander Header="Progress Trackers" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <TextBlock Text="Coming Soon!"/>
         </Expander>
     </StackPanel>
 </Page>

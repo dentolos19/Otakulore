@@ -25,8 +25,8 @@ public sealed partial class HomePage
             >= 172 and < 266 => MediaSeason.Summer,
             _ => MediaSeason.Fall
         };
-        var trendingMedia = await App.Client.Query.GetTrendingMedia();
-        var seasonalMedia = await App.Client.Query.GetSeasonalMedia(season, date.Year);
+        var trendingMedia = await App.Client.GetTrendingMedia();
+        var seasonalMedia = await App.Client.GetSeasonalMedia(season, date.Year);
         foreach (var entry in trendingMedia.Page.TrendingContent)
             TopList.Items.Add(new MediaItemModel(entry.Media));
         foreach (var entry in seasonalMedia.Page.Content)

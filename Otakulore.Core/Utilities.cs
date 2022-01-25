@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.Net;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
@@ -22,6 +23,20 @@ public static class Utilities
         var field = type.GetType().GetField(type.ToString());
         var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
         return attributes.Length > 0 ? attributes[0].Description : type.ToString();
+    }
+
+    public static void ExtractEmbeddedFile(string resourceName, string filePath)
+    {
+        using var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+        using var file = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+        resource?.CopyTo(file);
+    }
+
+    public static string ExtractEmbeddedText(string resourceName)
+    {
+        using var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+        using var reader = new StreamReader(resource);
+        return reader.ReadToEnd();
     }
 
     public static Color ParseColorHex(string colorHex)

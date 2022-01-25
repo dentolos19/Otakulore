@@ -17,7 +17,7 @@ public sealed partial class SearchPage
     {
         var query = SearchInput.Text;
         var type = (MediaType)SearchTypeSelection.SelectedIndex;
-        var result = await App.Client.Query.SearchMedia(query, type);
+        var result = await App.Client.SearchMedia(query, type);
         SearchResultList.Items.Clear();
         foreach (var entry in result.Page.Content)
             SearchResultList.Items.Add(new MediaItemModel(entry));

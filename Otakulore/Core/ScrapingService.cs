@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Reflection;
 using Windows.Storage;
 using HtmlAgilityPack;
 using OpenQA.Selenium;
@@ -29,15 +28,11 @@ public static class ScrapingService
 
     private static EdgeDriver CreateWebDriver()
     {
-        var driverDir = ApplicationData.Current.LocalFolder.Path;
-        var driverFile = Path.Combine(driverDir, "msedgedriver.exe");
-        if (!File.Exists(driverFile))
-        {
-            using var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("Otakulore.Resources.Files.msedgedriver.exe");
-            using var file = new FileStream(driverFile, FileMode.Create, FileAccess.Write);
-            resource?.CopyTo(file);
-        }
-        var edgeService = EdgeDriverService.CreateDefaultService(driverDir);
+        var driverDirPath = ApplicationData.Current.LocalFolder.Path;
+        var driverFilePath = Path.Combine(driverDirPath, "msedgedriver.exe");
+        if (!File.Exists(driverFilePath))
+            Utilities.ExtractEmbeddedFile("Otakulore.Resources.Files.msedgedriver.exe", driverFilePath);
+        var edgeService = EdgeDriverService.CreateDefaultService(driverDirPath);
         edgeService.HideCommandPromptWindow = true;
         var edgeOptions = new EdgeOptions();
         edgeOptions.AddArgument("--headless"); // reference: https://peter.sh/experiments/chromium-command-line-switches/#headless

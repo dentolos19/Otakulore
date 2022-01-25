@@ -41,15 +41,6 @@ public sealed partial class MainPage
         }
     }
 
-    private void OnFrameNavigated(object sender, NavigationEventArgs args)
-    {
-        if (NavigationView.SelectedItem is not NavigationViewItem item)
-            return;
-        var type = Type.GetType("Otakulore.Views." + item.Tag);
-        if (args.SourcePageType != type)
-            NavigationView.SelectedItem = null;
-    }
-
     private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
         if (ContentView.CanGoBack)

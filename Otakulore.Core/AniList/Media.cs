@@ -9,7 +9,7 @@ public class Media
     [JsonPropertyName("idMal")] public int MalId { get; init; }
 
     [JsonPropertyName("coverImage")] public Cover CoverImage { get; init; }
-    [JsonPropertyName("bannerImage")] public string BannerImage { get; init; }
+    [JsonPropertyName("bannerImage")] public string BannerImageUrl { get; init; }
     [JsonPropertyName("title")] public MediaTitle Title { get; init; }
     [JsonPropertyName("description")] public string? Description { get; init; }
     [JsonPropertyName("type")] public MediaType Type { get; init; }

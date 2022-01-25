@@ -14,7 +14,7 @@ public class QueryTests
     [TestCase("black clover", MediaType.Manga)]
     public async Task SearchMediaTest(string query, MediaType type)
     {
-        var response = await _client.Query.SearchMedia(query, type);
+        var response = await _client.SearchMedia(query, type);
         Assert.IsNotNull(response);
         var dump = ObjectDumper.Dump(response);
         Console.WriteLine(dump);
@@ -23,7 +23,7 @@ public class QueryTests
     [TestCase(1)]
     public async Task GetMediaTest(int id)
     {
-        var response = await _client.Query.GetMedia(id);
+        var response = await _client.GetMedia(id);
         Assert.IsNotNull(response);
         var dump = ObjectDumper.Dump(response);
         Console.WriteLine(dump);
@@ -36,7 +36,7 @@ public class QueryTests
     public async Task GetSeasonalMediaTest(MediaSeason season)
     {
         var year = DateTime.Today.Year;
-        var response = await _client.Query.GetSeasonalMedia(season, year);
+        var response = await _client.GetSeasonalMedia(season, year);
         Assert.IsNotNull(response);
         var dump = ObjectDumper.Dump(response);
         Console.WriteLine(dump);
@@ -45,7 +45,7 @@ public class QueryTests
     [Test]
     public async Task GetTrendingMediaTest()
     {
-        var response = await _client.Query.GetTrendingMedia();
+        var response = await _client.GetTrendingMedia();
         Assert.IsNotNull(response);
         var dump = ObjectDumper.Dump(response);
         Console.WriteLine(dump);

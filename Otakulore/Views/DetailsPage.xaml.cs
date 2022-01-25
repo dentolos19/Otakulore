@@ -33,10 +33,10 @@ public sealed partial class DetailsPage
             ImageUrl = _media.CoverImage.ExtraLargeImageUrl,
             Title = _media.Title.Romaji,
             Subtitle = _media.StartDate.Year != null ? _media.StartDate.Year.ToString() : "Unknown Year",
-            Description = _media.Description,
+            Description = !string.IsNullOrEmpty(_media.Description) ? Utilities.HtmlToPlainText(_media.Description) : "No description provided.",
             Format = _media.Format.GetEnumDescription(),
             Status = _media.Status.GetEnumDescription(),
-            Episodes = _media.Episodes?.ToString() ?? "Unknown Count",
+            Episodes = _media.Episodes?.ToString() ?? "Unknown",
             IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id) != null
         };
     }

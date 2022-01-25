@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.Storage;
+using Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -33,10 +35,15 @@ public sealed partial class SettingsPage
             Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(item.Provider, dialog.Result));
     }
 
-    private void OnResetSettings(object sender, RoutedEventArgs args)
+    private void OnResetAllSettings(object sender, RoutedEventArgs args)
     {
         App.ResetSettings();
         Frame.Navigate(typeof(HomePage));
+    }
+
+    private async void OnOpenLocalFolder(object sender, RoutedEventArgs args)
+    {
+        await Launcher.LaunchFolderPathAsync(ApplicationData.Current.LocalFolder.Path);
     }
 
 }

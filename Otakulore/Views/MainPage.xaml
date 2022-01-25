@@ -30,6 +30,6 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </NavigationView.FooterMenuItems>
-        <Frame x:Name="ContentView" Navigated="OnFrameNavigated"/>
+        <Frame x:Name="ContentView"/>
     </NavigationView>
 </Page>
