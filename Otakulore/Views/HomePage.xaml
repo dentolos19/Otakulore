@@ -14,7 +14,7 @@
                 <TextBlock Text="Hello, user!" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <StackPanel Grid.Row="1" Spacing="5">
-                <TextBlock Text="Trending Anime &#38; Manga!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <TextBlock Text="Trending anime &#38; manga!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                 <GridView x:Name="TopList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>

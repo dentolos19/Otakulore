@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -27,34 +25,9 @@ public static class Utilities
 
     public static void ExtractEmbeddedFile(string resourceName, string filePath)
     {
-        using var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-        using var file = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-        resource?.CopyTo(file);
-    }
-
-    public static string ExtractEmbeddedText(string resourceName)
-    {
-        using var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-        using var reader = new StreamReader(resource);
-        return reader.ReadToEnd();
-    }
-
-    public static Color ParseColorHex(string colorHex)
-    {
-        if (!colorHex.StartsWith('#'))
-            return Color.White;
-        colorHex = colorHex.TrimStart('#');
-        return colorHex.Length == 6
-            ? // parses rgb
-            Color.FromArgb(255, // alpha
-                int.Parse(colorHex.Substring(0, 2), NumberStyles.HexNumber), // red
-                int.Parse(colorHex.Substring(2, 2), NumberStyles.HexNumber), // green
-                int.Parse(colorHex.Substring(4, 2), NumberStyles.HexNumber)) // blue
-            : // parses argb
-            Color.FromArgb(int.Parse(colorHex.Substring(0, 2), NumberStyles.HexNumber), // alpha
-                int.Parse(colorHex.Substring(2, 2), NumberStyles.HexNumber), // red
-                int.Parse(colorHex.Substring(4, 2), NumberStyles.HexNumber), // green
-                int.Parse(colorHex.Substring(6, 2), NumberStyles.HexNumber)); // blue
+        using var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+        using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+        resourceStream?.CopyTo(fileStream);
     }
 
     // from https://stackoverflow.com/a/16407272

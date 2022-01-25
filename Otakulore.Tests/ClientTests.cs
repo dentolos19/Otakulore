@@ -5,7 +5,7 @@ using Otakulore.Core.AniList;
 
 namespace Otakulore.Tests;
 
-public class QueryTests
+public class ClientTests
 {
 
     private readonly AniClient _client = new();
@@ -46,6 +46,15 @@ public class QueryTests
     public async Task GetTrendingMediaTest()
     {
         var response = await _client.GetTrendingMedia();
+        Assert.IsNotNull(response);
+        var dump = ObjectDumper.Dump(response);
+        Console.WriteLine(dump);
+    }
+
+    [TestCase(100)]
+    public async Task GetUserList(int id)
+    {
+        var response = await _client.GetUserList(id);
         Assert.IsNotNull(response);
         var dump = ObjectDumper.Dump(response);
         Console.WriteLine(dump);

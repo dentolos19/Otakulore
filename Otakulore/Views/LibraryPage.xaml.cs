@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Navigation;
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
@@ -25,6 +26,15 @@ public sealed partial class LibraryPage
             ImageUrl = user.User.Avatar.LargeImageUrl,
             Name = user.User.Name
         };
+        var list = await App.Client.GetUserList(user.User.Id);
+        foreach (var entry in list.Page.ContentList)
+            List.Items.Add(new MediaItemModel(entry.Media));
+    }
+
+    private void OnItemClicked(object sender, ItemClickEventArgs args)
+    {
+        if (args.ClickedItem is MediaItemModel item)
+            Frame.Navigate(typeof(DetailsPage), item.Data);
     }
 
 }

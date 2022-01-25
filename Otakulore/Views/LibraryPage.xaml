@@ -19,5 +19,6 @@
             <PersonPicture Grid.Column="0" ProfilePicture="{Binding ImageUrl}"/>
             <TextBlock Grid.Column="1" Text="{Binding Name}"/>
         </Grid>
+        <GridView x:Name="List" Grid.Row="1" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>
     </Grid>
 </Page>

@@ -33,10 +33,10 @@ query ($search: String, $type: MediaType, $pageIndex: Int, $count: Int) {
   Page(page: $pageIndex, perPage: $count) {
     pageInfo {
       total
+      perPage
       currentPage
       lastPage
       hasNextPage
-      perPage
     }
     media(search: $search, type: $type) {
       id
@@ -252,6 +252,66 @@ mutation {
 }"
         };
         var response = await _client.SendMutationAsync<MutationResponse>(request);
+        return response.Data;
+    }
+
+    public async Task<QueryResponse> GetUserList(int id)
+    {
+        var request = new GraphQLRequest
+        {
+            Query = @"
+query ($id: Int) {
+  Page {
+    pageInfo {
+      total
+      perPage
+      currentPage
+      lastPage
+      hasNextPage
+    }
+    mediaList(userId: $id) {
+      status
+      progress
+      media {
+        id
+        coverImage {
+          extraLarge
+          large
+          medium
+          color
+        }
+        bannerImage
+        title {
+          romaji
+          english
+        }
+        description(asHtml: false)
+        type
+        format
+        status
+        genres
+        averageScore
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        isAdult
+        episodes
+        duration
+        chapters
+      }
+    }
+  }
+}",
+            Variables = new { id }
+        };
+        var response = await _client.SendQueryAsync<QueryResponse>(request);
         return response.Data;
     }
 
