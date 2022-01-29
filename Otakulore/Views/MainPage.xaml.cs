@@ -18,14 +18,7 @@ public sealed partial class MainPage
         NavigationView.SelectedItem = NavigationView.MenuItems.First();
     }
 
-    private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        var query = sender.Text;
-        if (!string.IsNullOrEmpty(query))
-            ContentView.Navigate(typeof(SearchPage), query);
-    }
-
-    private void OnItemNavigate(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void OnItemClick(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.IsSettingsSelected)
         {
@@ -39,6 +32,13 @@ public sealed partial class MainPage
             if (type != null)
                 ContentView.Navigate(type);
         }
+    }
+
+    private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        var query = sender.Text;
+        if (!string.IsNullOrEmpty(query))
+            ContentView.Navigate(typeof(SearchPage), query);
     }
 
     private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)

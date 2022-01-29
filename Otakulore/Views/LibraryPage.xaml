@@ -11,14 +11,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <PersonPicture Grid.Column="0" ProfilePicture="{Binding ImageUrl}"/>
-            <TextBlock Grid.Column="1" Text="{Binding Name}"/>
+            <PersonPicture Grid.Column="0" ProfilePicture="{Binding ImageUrl}" Margin="20"/>
+            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{ThemeResource TitleTextBlockStyle}" VerticalAlignment="Center"/>
         </Grid>
-        <GridView x:Name="List" Grid.Row="1" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>
+        <NavigationView Grid.Row="1" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Overview"/>
+                <NavigationViewItem Content="Anime List"/>
+                <NavigationViewItem Content="Manga List"/>
+            </NavigationView.MenuItems>
+        </NavigationView>
     </Grid>
 </Page>

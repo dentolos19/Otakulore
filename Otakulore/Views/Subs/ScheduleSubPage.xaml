@@ -1,0 +1,9 @@
+﻿<Page x:Class="Otakulore.Views.Subs.ScheduleSubPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <GridView x:Name="ScheduleList" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClick"/>
+        <ProgressRing x:Name="ProgressIndicator"/>
+    </Grid>
+</Page>

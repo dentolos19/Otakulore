@@ -14,7 +14,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<Content Include="Resources\Assets\Banner.jpg"/>
 		<Content Include="Resources\Assets\Icon.png"/>
 		<Content Include="Resources\Assets\Visuals\LargeTile.scale-100.png"/>
 		<Content Include="Resources\Assets\Visuals\LargeTile.scale-125.png"/>
@@ -74,6 +73,7 @@
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.40"/>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0"/>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196"/>
+		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8"/>
 		<PackageReference Include="Selenium.WebDriver" Version="4.1.0"/>
 		<Manifest Include="$(ApplicationManifest)"/>
 	</ItemGroup>
@@ -84,17 +84,17 @@
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
+		<Page Update="Views\MainPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
 		<Page Update="Views\LibraryPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Views\Dialogs\ManageTrackerDialog.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="Views\Dialogs\SelectProviderDialog.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
@@ -139,11 +139,6 @@
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\MainPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-	<ItemGroup>
 		<Page Update="Views\DetailsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
@@ -155,6 +150,11 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Views\Sub\LoginSubPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\Subs\ScheduleSubPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>

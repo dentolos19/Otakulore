@@ -1,12 +1,44 @@
 ﻿using System.Text.Json.Serialization;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
 
 public class Media
 {
 
+    public static GqlSelection[] Selections =>
+        new GqlSelection[]
+        {
+            new("id"),
+            new("idMal"),
+            new("coverImage", new GqlSelection[]
+            {
+                new("extraLarge"),
+                new("large"),
+                new("medium"),
+                new("color"),
+            }),
+            new("title", new GqlSelection[]
+            {
+                new("romaji"),
+                new("english")
+            }),
+            new("description") { Parameters = { { "asHtml", false } } },
+            new("type"),
+            new("format"),
+            new("status"),
+            new("genres"),
+            new("averageScore"),
+            new("startDate", Date.Selections),
+            new("endDate", Date.Selections),
+            new("isAdult"),
+            new("episodes"),
+            new("duration"),
+            new("chapters")
+        };
+
     [JsonPropertyName("id")] public int Id { get; init; }
-    [JsonPropertyName("idMal")] public int MalId { get; init; }
+    [JsonPropertyName("idMal")] public int? MalId { get; init; }
 
     [JsonPropertyName("coverImage")] public Cover CoverImage { get; init; }
     [JsonPropertyName("bannerImage")] public string BannerImageUrl { get; init; }

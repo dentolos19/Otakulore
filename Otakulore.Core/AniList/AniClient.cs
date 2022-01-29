@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using GraphQL;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
 
@@ -24,295 +25,88 @@ public class AniClient
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public async Task<QueryResponse> SearchMedia(string search, MediaType type = MediaType.Anime, int pageIndex = 1, int count = 50)
+    public async Task<Media[]> SearchMedia(string query, MediaType type = MediaType.Anime, int pageIndex = 1)
     {
         var request = new GraphQLRequest
         {
-            Query = @"
-query ($search: String, $type: MediaType, $pageIndex: Int, $count: Int) {
-  Page(page: $pageIndex, perPage: $count) {
-    pageInfo {
-      total
-      perPage
-      currentPage
-      lastPage
-      hasNextPage
-    }
-    media(search: $search, type: $type) {
-      id
-      coverImage {
-        extraLarge
-        large
-        medium
-        color
-      }
-      bannerImage
-      title {
-        romaji
-        english
-      }
-      description(asHtml: false)
-      type
-      format
-      status
-      genres
-      averageScore
-      startDate {
-        year
-        month
-        day
-      }
-      endDate {
-        year
-        month
-        day
-      }
-      isAdult
-      episodes
-      duration
-      chapters
-    }
-  }
-}",
-            Variables = new { search, type = type.GetEnumValue(), pageIndex, count }
+            Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+            {
+                new("pageInfo", PageInfo.Selections),
+                new("media", Media.Selections) { Parameters = { { "search", query }, { "type", type } } }
+            }, new { page = pageIndex })
         };
-        var response = await _client.SendQueryAsync<QueryResponse>(request);
-        return response.Data;
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        return response.Data.Page.Content;
     }
 
-    public async Task<QueryResponse> GetMedia(int id)
+    public async Task<Media> GetMedia(int id)
     {
         var request = new GraphQLRequest
         {
-            Query = @"
-query ($id: Int) {
-  Media(id: $id) {
-    id
-    coverImage {
-      extraLarge
-      large
-      medium
-      color
+            Query = GqlParser.Parse(GqlType.Query, "Media", Media.Selections, new { id })
+        };
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        return response.Data.Media;
     }
-    bannerImage
-    title {
-      romaji
-      english
+
+    public async Task<Media[]> GetSeasonalMedia(MediaSeason season, int year)
+    {
+        var request = new GraphQLRequest
+        {
+            Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+            {
+                new("pageInfo", PageInfo.Selections),
+                new("media", Media.Selections) { Parameters = { { "season", season }, { "seasonYear", year } } }
+            })
+        };
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        return response.Data.Page.Content;
     }
-    description(asHtml: false)
-    type
-    format
-    status
-    genres
-    averageScore
-    startDate {
-      year
-      month
-      day
+
+    public async Task<MediaTrend[]> GetTrendingMedia()
+    {
+        var request = new GraphQLRequest
+        {
+            Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+            {
+                new("pageInfo", PageInfo.Selections),
+                new("mediaTrends", new GqlSelection[]
+                {
+                    new("media", Media.Selections)
+                }) { Parameters = { { "sort", "$POPULARITY" } } }
+            })
+        };
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        return response.Data.Page.TrendingContent;
     }
-    endDate {
-      year
-      month
-      day
+
+    public async Task<User> GetUser()
+    {
+        var request = new GraphQLRequest
+        {
+            Query = GqlParser.Parse(GqlType.Mutation, "UpdateUser", User.Selections)
+        };
+        var response = await _client.SendMutationAsync<AniResponse>(request);
+        return response.Data.User;
     }
-    isAdult
-    episodes
-    duration
-    chapters
-  }
-}",
+
+    public async Task<MediaList[]> GetUserList(int id, MediaType type)
+    {
+        var request = new GraphQLRequest
+        {
+            Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+            {
+                new("mediaList", new GqlSelection[]
+                {
+                    new("status"),
+                    new("progress"),
+                    new("media", Media.Selections)
+                }) { Parameters = { { "userId", id }, { "type", type } } }
+            }),
             Variables = new { id }
         };
-        var response = await _client.SendQueryAsync<QueryResponse>(request);
-        return response.Data;
-    }
-
-    public async Task<QueryResponse> GetSeasonalMedia(MediaSeason season, int year)
-    {
-        var request = new GraphQLRequest
-        {
-            Query = @"
-query ($season: MediaSeason, $year: Int) {
-  Page {
-    media(season: $season, seasonYear: $year) {
-      id
-      coverImage {
-        extraLarge
-        large
-        medium
-        color
-      }
-      bannerImage
-      title {
-        romaji
-        english
-      }
-      description(asHtml: false)
-      type
-      format
-      status
-      genres
-      averageScore
-      startDate {
-        year
-        month
-        day
-      }
-      endDate {
-        year
-        month
-        day
-      }
-      isAdult
-      episodes
-      duration
-      chapters
-    }
-  }
-}",
-            Variables = new { season = season.GetEnumValue(), year }
-        };
-        var response = await _client.SendQueryAsync<QueryResponse>(request);
-        return response.Data;
-    }
-
-    public async Task<QueryResponse> GetTrendingMedia()
-    {
-        var request = new GraphQLRequest
-        {
-            Query = @"
-{
-  Page {
-    pageInfo {
-      total
-      currentPage
-      lastPage
-      hasNextPage
-      perPage
-    }
-    mediaTrends {
-      media {
-        id
-        coverImage {
-          extraLarge
-          large
-          medium
-          color
-        }
-        bannerImage
-        title {
-          romaji
-          english
-        }
-        description(asHtml: false)
-        type
-        format
-        status
-        genres
-        averageScore
-        startDate {
-          year
-          month
-          day
-        }
-        endDate {
-          year
-          month
-          day
-        }
-        isAdult
-        episodes
-        duration
-        chapters
-      }
-    }
-  }
-}"
-        };
-        var response = await _client.SendQueryAsync<QueryResponse>(request);
-        return response.Data;
-    }
-
-    public async Task<MutationResponse> GetUser()
-    {
-        var request = new GraphQLRequest
-        {
-            Query = @"
-mutation {
-  UpdateUser {
-    id
-    name
-    avatar {
-      large
-      medium
-    }
-    bannerImage
-    about(asHtml: false)
-  }
-}"
-        };
-        var response = await _client.SendMutationAsync<MutationResponse>(request);
-        return response.Data;
-    }
-
-    public async Task<QueryResponse> GetUserList(int id)
-    {
-        var request = new GraphQLRequest
-        {
-            Query = @"
-query ($id: Int) {
-  Page {
-    pageInfo {
-      total
-      perPage
-      currentPage
-      lastPage
-      hasNextPage
-    }
-    mediaList(userId: $id) {
-      status
-      progress
-      media {
-        id
-        coverImage {
-          extraLarge
-          large
-          medium
-          color
-        }
-        bannerImage
-        title {
-          romaji
-          english
-        }
-        description(asHtml: false)
-        type
-        format
-        status
-        genres
-        averageScore
-        startDate {
-          year
-          month
-          day
-        }
-        endDate {
-          year
-          month
-          day
-        }
-        isAdult
-        episodes
-        duration
-        chapters
-      }
-    }
-  }
-}",
-            Variables = new { id }
-        };
-        var response = await _client.SendQueryAsync<QueryResponse>(request);
-        return response.Data;
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        return response.Data.Page.ContentList;
     }
 
 }

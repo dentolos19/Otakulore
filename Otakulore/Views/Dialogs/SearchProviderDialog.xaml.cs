@@ -13,7 +13,7 @@ public sealed partial class SearchProviderDialog
     public SearchProviderDialog(IProvider provider, string? query = null)
     {
         _provider = provider;
-        XamlRoot = App.MainWindow.Content.XamlRoot;
+        XamlRoot = App.Window.Content.XamlRoot;
         InitializeComponent();
         if (!string.IsNullOrEmpty(query))
             SearchInput.Text = query;
@@ -26,6 +26,7 @@ public sealed partial class SearchProviderDialog
         var query = SearchInput.Text;
         if (string.IsNullOrEmpty(query))
             return;
+        ProgressIndicator.IsActive = true;
         SearchResultList.Items.Clear();
         switch (_provider)
         {
@@ -44,6 +45,7 @@ public sealed partial class SearchProviderDialog
                 break;
             }
         }
+        ProgressIndicator.IsActive = false;
     }
 
     private void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)

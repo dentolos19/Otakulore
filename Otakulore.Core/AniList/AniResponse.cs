@@ -2,10 +2,11 @@
 
 namespace Otakulore.Core.AniList;
 
-public class QueryResponse
+public class AniResponse
 {
 
     [JsonPropertyName("page")] public Page? Page { get; init; }
     [JsonPropertyName("Media")] public Media? Media { get; init; }
+    [JsonPropertyName("UpdateUser")] public User User { get; init; }
 
 }

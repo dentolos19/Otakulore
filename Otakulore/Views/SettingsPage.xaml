@@ -19,13 +19,7 @@
             </StackPanel>
         </Expander>
         <Expander Header="Content Providers" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <GridView x:Name="ProviderList" IsItemClickEnabled="True" ItemClick="OnProviderClicked">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ProviderItemModel">
-                        <Image Source="{Binding Provider.ImageUrl}" ToolTipService.ToolTip="{Binding Provider.Name}" Margin="5" MaxWidth="100" MaxHeight="100"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
+            <GridView x:Name="ProviderList" ItemTemplate="{StaticResource ProviderItemTemplate}" IsItemClickEnabled="True" ItemClick="OnProviderClicked"/>
         </Expander>
     </StackPanel>
 </Page>

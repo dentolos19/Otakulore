@@ -1,21 +1,45 @@
 ﻿<Page x:Class="Otakulore.Views.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:models="using:Otakulore.Models"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <ScrollViewer Padding="10">
-        <Grid RowSpacing="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="300"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Image Source="{StaticResource BannerAsset}" Stretch="UniformToFill"/>
-                <TextBlock Text="Hello, user!" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
-            <StackPanel Grid.Row="1" Spacing="5">
-                <TextBlock Text="Trending anime &#38; manga!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                <GridView x:Name="TopList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+        <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
+                <TextBlock Text="Most popular animes today" Style="{ThemeResource TitleTextBlockStyle}"/>
+                <FlipView x:Name="BannerView" Height="300">
+                    <FlipView.ItemTemplate>
+                        <DataTemplate x:DataType="models:MediaItemModel">
+                            <Grid>
+                                <Image Source="{Binding Data.BannerImageUrl}" Stretch="UniformToFill"/>
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <AcrylicBrush TintOpacity="0"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Grid Margin="50,0,50,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="10" Margin="20">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding ImageUrl}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Title}" Style="{ThemeResource TitleTextBlockStyle}"/>
+                                        <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </FlipView.ItemTemplate>
+                </FlipView>
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="Trending anime &#38; manga" Style="{ThemeResource TitleTextBlockStyle}"/>
+                <GridView x:Name="TrendingList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel Orientation="Horizontal"/>
@@ -23,8 +47,8 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-            <StackPanel Grid.Row="2" Spacing="5">
-                <TextBlock Text="Animes releasing this season!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            <StackPanel Spacing="5">
+                <TextBlock Text="Animes releasing this season" Style="{ThemeResource TitleTextBlockStyle}"/>
                 <GridView x:Name="SeasonalList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -33,6 +57,6 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </StackPanel>
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </Page>

@@ -18,10 +18,16 @@ public partial class App
         InitializeComponent();
     }
 
-    public static Window MainWindow { get; private set; }
+    public static Window Window { get; private set; }
     public static Settings Settings { get; private set; }
     public static AniClient Client { get; } = new();
     public static IList<IProvider> Providers { get; } = new List<IProvider>();
+
+    public static void NavigateContent(Type pageType, object? parameter = null)
+    {
+        if (Window.Content is Frame { Content: MainPage page })
+            page.ContentView.Navigate(pageType, parameter);
+    }
 
     public static void ResetSettings()
     {
@@ -33,16 +39,16 @@ public partial class App
     {
         Settings = Settings.Load();
         if (Settings.LoadSeleniumAtStartup)
-            ScrapingService.LoadWebDriver();
+            ScrapingService.PreloadWebDriver();
         var providers = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.IsClass && type.GetInterfaces().Contains(typeof(IProvider)));
         foreach (var provider in providers)
             Providers.Add((IProvider)Activator.CreateInstance(provider));
-        MainWindow = new Window { Title = "Otakulore" };
+        Window = new Window { Title = "Otakulore" };
         var frame = new Frame();
-        MainWindow.Content = frame;
         frame.Navigate(typeof(MainPage));
-        MainWindow.Closed += (_, _) => Settings.Save();
-        MainWindow.Activate();
+        Window.Content = frame;
+        Window.Closed += (_, _) => Settings.Save();
+        Window.Activate();
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
 using Otakulore.Models;
 
@@ -17,19 +18,15 @@ public sealed partial class HomePage
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
         var date = DateTime.Today;
-        var day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
-        var season = day switch
-        {
-            < 80 or >= 355 => MediaSeason.Winter,
-            >= 80 and < 172 => MediaSeason.Spring,
-            >= 172 and < 266 => MediaSeason.Summer,
-            _ => MediaSeason.Fall
-        };
+        var season = Utilities.GetSeasonFromDate(date);
         var trendingMedia = await App.Client.GetTrendingMedia();
         var seasonalMedia = await App.Client.GetSeasonalMedia(season, date.Year);
-        foreach (var entry in trendingMedia.Page.TrendingContent)
-            TopList.Items.Add(new MediaItemModel(entry.Media));
-        foreach (var entry in seasonalMedia.Page.Content)
+        for (var index = 0; index < 5; index++)
+            if (trendingMedia[index].Media.Type == MediaType.Anime)
+                BannerView.Items.Add(new MediaItemModel(trendingMedia[index].Media));
+        foreach (var entry in trendingMedia)
+            TrendingList.Items.Add(new MediaItemModel(entry.Media));
+        foreach (var entry in seasonalMedia)
             SeasonalList.Items.Add(new MediaItemModel(entry));
     }
 

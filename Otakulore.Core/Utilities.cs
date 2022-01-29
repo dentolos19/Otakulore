@@ -3,6 +3,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using Otakulore.Core.AniList;
 
 namespace Otakulore.Core;
 
@@ -28,6 +29,18 @@ public static class Utilities
         using var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
         using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
         resourceStream?.CopyTo(fileStream);
+    }
+
+    public static MediaSeason GetSeasonFromDate(DateTime date)
+    {
+        var day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
+        return day switch
+        {
+            < 80 or >= 355 => MediaSeason.Winter,
+            >= 80 and < 172 => MediaSeason.Spring,
+            >= 172 and < 266 => MediaSeason.Summer,
+            _ => MediaSeason.Fall
+        };
     }
 
     // from https://stackoverflow.com/a/16407272

@@ -23,12 +23,9 @@ public sealed partial class LibraryPage
         var user = await App.Client.GetUser();
         DataContext = new LibraryViewModel
         {
-            ImageUrl = user.User.Avatar.LargeImageUrl,
-            Name = user.User.Name
+            ImageUrl = user.Avatar.LargeImageUrl,
+            Name = user.Name
         };
-        var list = await App.Client.GetUserList(user.User.Id);
-        foreach (var entry in list.Page.ContentList)
-            List.Items.Add(new MediaItemModel(entry.Media));
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)

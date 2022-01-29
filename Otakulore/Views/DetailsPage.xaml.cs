@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.AniList;
@@ -39,18 +40,24 @@ public sealed partial class DetailsPage
             Episodes = _media.Episodes?.ToString() ?? "Unknown",
             IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id) != null
         };
+        foreach (var provider in App.Providers)
+            switch (_media.Type)
+            {
+                case MediaType.Anime when provider is IAnimeProvider:
+                case MediaType.Manga when provider is IMangaProvider:
+                    ProviderList.Items.Add(new ProviderItemModel(provider));
+                    break;
+            }
     }
 
-    private async void OnPlayRequested(object sender, RoutedEventArgs args)
+    private async void OnProviderClicked(object sender, ItemClickEventArgs args)
     {
-        var selectDialog = new SelectProviderDialog(_media.Type);
-        await selectDialog.ShowAsync();
-        if (selectDialog.Result == null)
+        if (args.ClickedItem is not ProviderItemModel item)
             return;
-        var searchDialog = new SearchProviderDialog(selectDialog.Result, ViewModel.Title);
-        await searchDialog.ShowAsync();
-        if (searchDialog.Result != null)
-            Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(selectDialog.Result, searchDialog.Result));
+        var dialog = new SearchProviderDialog(item.Provider, ViewModel.Title);
+        await dialog.ShowAsync();
+        if (dialog.Result != null)
+            Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(item.Provider, dialog.Result));
     }
 
     private async void OnTrackRequested(object sender, RoutedEventArgs args)

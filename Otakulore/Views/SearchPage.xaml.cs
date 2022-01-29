@@ -1,6 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core.AniList;
 using Otakulore.Models;
 
 namespace Otakulore.Views;
@@ -8,37 +7,19 @@ namespace Otakulore.Views;
 public sealed partial class SearchPage
 {
 
+    private SearchViewModel ViewModel => (SearchViewModel)DataContext;
+
     public SearchPage()
     {
         InitializeComponent();
-    }
-
-    private async void Search()
-    {
-        var query = SearchInput.Text;
-        var type = (MediaType)SearchTypeSelection.SelectedIndex;
-        var result = await App.Client.SearchMedia(query, type);
-        SearchResultList.Items.Clear();
-        foreach (var entry in result.Page.Content)
-            SearchResultList.Items.Add(new MediaItemModel(entry));
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
         if (args.Parameter is not string query)
             return;
-        SearchInput.Text = query;
-        SearchTypeSelection.SelectedIndex = 0;
-    }
-
-    private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        Search();
-    }
-
-    private void OnSearchTypeChanged(object sender, SelectionChangedEventArgs args)
-    {
-        Search();
+        ViewModel.Query = query;
+        ViewModel.Search();
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)

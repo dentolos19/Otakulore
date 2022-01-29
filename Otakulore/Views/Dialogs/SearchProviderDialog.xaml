@@ -24,6 +24,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <ProgressRing x:Name="ProgressIndicator" Grid.Row="1"/>
         <Button Grid.Row="2" Content="Cancel" HorizontalAlignment="Stretch" Click="OnCancel"/>
     </Grid>
 </ContentDialog>

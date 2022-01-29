@@ -15,7 +15,7 @@ public static class ScrapingService
     public static EdgeDriver WebDriver => _webDriverInstance ??= CreateWebDriver();
     public static HtmlWeb HtmlWeb => _htmlWebInstance ??= new HtmlWeb();
 
-    public static void LoadWebDriver()
+    public static void PreloadWebDriver()
     {
         _webDriverInstance ??= CreateWebDriver();
     }

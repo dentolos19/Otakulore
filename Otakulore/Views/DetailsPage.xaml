@@ -27,10 +27,15 @@
                     </Grid.RowDefinitions>
                     <CommandBar Grid.Row="0" OverflowButtonVisibility="Collapsed">
                         <CommandBar.PrimaryCommands>
-                            <AppBarButton ToolTipService.ToolTip="Play" Click="OnPlayRequested">
+                            <AppBarButton ToolTipService.ToolTip="Play">
                                 <AppBarButton.Icon>
                                     <FontIcon Glyph="&#xE768;"/>
                                 </AppBarButton.Icon>
+                                <AppBarButton.Flyout>
+                                    <Flyout>
+                                        <GridView x:Name="ProviderList" ItemTemplate="{StaticResource ProviderItemTemplate}" IsItemClickEnabled="True" ItemClick="OnProviderClicked"/>
+                                    </Flyout>
+                                </AppBarButton.Flyout>
                             </AppBarButton>
                             <AppBarButton ToolTipService.ToolTip="Track" Click="OnTrackRequested">
                                 <AppBarButton.Icon>
@@ -44,7 +49,7 @@
                             </AppBarToggleButton>
                         </CommandBar.PrimaryCommands>
                     </CommandBar>
-                    <TextBlock Grid.Row="2" Text="{Binding Title}" Style="{ThemeResource TitleTextBlockStyle}"/>
+                    <TextBlock Grid.Row="2" Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
                     <TextBlock Grid.Row="3" Text="{Binding Subtitle}"/>
                 </Grid>
             </Grid>
