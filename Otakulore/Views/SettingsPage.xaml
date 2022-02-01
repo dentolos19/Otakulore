@@ -9,8 +9,6 @@
     <StackPanel Margin="10" Spacing="10">
         <Expander Header="General Preferences" IsExpanded="True" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
             <StackPanel Spacing="5">
-                <CheckBox Content="Use English Titles" IsChecked="{Binding UseEnglishTitles, Mode=TwoWay}"/>
-                <CheckBox Content="Filter Adult Titles" IsChecked="{Binding FilterAdultTitles, Mode=TwoWay}"/>
                 <CheckBox Content="Load Selenium At Startup" IsChecked="{Binding LoadSeleniumAtStartup, Mode=TwoWay}"/>
                 <StackPanel Spacing="5" Orientation="Horizontal">
                     <Button Content="Reset All Settings" Click="OnResetAllSettings"/>

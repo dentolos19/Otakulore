@@ -6,10 +6,10 @@ using Microsoft.Web.WebView2.Core;
 
 namespace Otakulore.Views;
 
-public sealed partial class LoginPage
+public sealed partial class ProfileLoginPage
 {
 
-    public LoginPage()
+    public ProfileLoginPage()
     {
         InitializeComponent();
     }
@@ -28,7 +28,7 @@ public sealed partial class LoginPage
             return;
         var token = regex.Match(url).Value;
         App.Settings.UserToken = token;
-        Frame.Navigate(typeof(LibraryPage));
+        App.NavigateMainContent(typeof(ProfilePage));
     }
 
 }

@@ -1,5 +1,7 @@
-﻿using Microsoft.UI.Xaml;
+﻿using System.Collections.Generic;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Otakulore.Controls;
 using Otakulore.Core;
 using Otakulore.Models;
 
@@ -19,14 +21,12 @@ public sealed partial class SearchProviderDialog
             SearchInput.Text = query;
     }
 
-    public MediaSource? Result { get; private set; }
-
     private void Search()
     {
         var query = SearchInput.Text;
         if (string.IsNullOrEmpty(query))
             return;
-        ProgressIndicator.IsActive = true;
+        SearchResultIndicator.State = ResultIndicatorState.Loading;
         SearchResultList.Items.Clear();
         switch (_provider)
         {
@@ -45,7 +45,7 @@ public sealed partial class SearchProviderDialog
                 break;
             }
         }
-        ProgressIndicator.IsActive = false;
+        SearchResultIndicator.State = SearchResultList.Items.Count > 0 ? ResultIndicatorState.None : ResultIndicatorState.NoResult;
     }
 
     private void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
@@ -62,7 +62,7 @@ public sealed partial class SearchProviderDialog
     {
         if (args.ClickedItem is not SourceItemModel item)
             return;
-        Result = item.Source;
+        App.NavigateMainContent(typeof(CinemaPage), new KeyValuePair<IProvider, object>(_provider, item.Source));
         Hide();
     }
 

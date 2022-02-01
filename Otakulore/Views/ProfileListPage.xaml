@@ -1,0 +1,24 @@
+﻿<Page x:Class="Otakulore.Views.ProfileListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <SplitView DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="200">
+        <SplitView.Pane>
+            <StackPanel Margin="10" Spacing="5">
+                <TextBlock Text="Lists"/>
+                <ListView>
+                    <ListViewItem Content="Current"/>
+                    <ListViewItem Content="Completed"/>
+                    <ListViewItem Content="Paused"/>
+                    <ListViewItem Content="Dropped"/>
+                    <ListViewItem Content="Planning"/>
+                </ListView>
+            </StackPanel>
+        </SplitView.Pane>
+        <ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate/>
+            </ListView.ItemTemplate>
+        </ListView>
+    </SplitView>
+</Page>

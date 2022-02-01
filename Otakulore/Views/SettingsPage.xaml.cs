@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Windows.Storage;
 using Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 
@@ -31,8 +29,6 @@ public sealed partial class SettingsPage
             return;
         var dialog = new SearchProviderDialog(item.Provider);
         await dialog.ShowAsync();
-        if (dialog.Result != null)
-            Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(item.Provider, dialog.Result));
     }
 
     private void OnResetAllSettings(object sender, RoutedEventArgs args)

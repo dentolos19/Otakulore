@@ -1,45 +1,42 @@
 ﻿<Page x:Class="Otakulore.Views.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
       xmlns:models="using:Otakulore.Models"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      NavigationCacheMode="Enabled" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <models:HomeViewModel/>
+    </Page.DataContext>
     <ScrollViewer Padding="10">
         <StackPanel Spacing="10">
-            <StackPanel Spacing="5">
-                <TextBlock Text="Most popular animes today" Style="{ThemeResource TitleTextBlockStyle}"/>
-                <FlipView x:Name="BannerView" Height="300">
-                    <FlipView.ItemTemplate>
-                        <DataTemplate x:DataType="models:MediaItemModel">
-                            <Grid>
-                                <Image Source="{Binding Data.BannerImageUrl}" Stretch="UniformToFill"/>
-                                <Rectangle>
-                                    <Rectangle.Fill>
-                                        <AcrylicBrush TintOpacity="0"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <Grid Margin="50,0,50,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" CornerRadius="10" Margin="20">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding ImageUrl}"/>
-                                        </Border.Background>
-                                    </Border>
-                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Title}" Style="{ThemeResource TitleTextBlockStyle}"/>
-                                        <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" HorizontalAlignment="Left"/>
-                                    </StackPanel>
-                                </Grid>
+            <FlipView ItemsSource="{Binding BannerItems}" Height="300">
+                <FlipView.ItemTemplate>
+                    <DataTemplate x:DataType="models:MediaItemModel">
+                        <Grid>
+                            <Image Source="{Binding BannerImageUrl}" Stretch="UniformToFill"/>
+                            <Rectangle>
+                                <Rectangle.Fill>
+                                    <media:BackdropBlurBrush Amount="5" Opacity="0.8"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Grid Margin="50,20" ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
+                                    <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" IsReadOnly="True" HorizontalAlignment="Left"/>
+                                </StackPanel>
                             </Grid>
-                        </DataTemplate>
-                    </FlipView.ItemTemplate>
-                </FlipView>
-            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
             <StackPanel Spacing="5">
-                <TextBlock Text="Trending anime &#38; manga" Style="{ThemeResource TitleTextBlockStyle}"/>
-                <GridView x:Name="TrendingList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+                <TextBlock Text="Trending anime &#38; manga" FontSize="24"/>
+                <GridView ItemsSource="{Binding TrendingItems}" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel Orientation="Horizontal"/>
@@ -48,8 +45,8 @@
                 </GridView>
             </StackPanel>
             <StackPanel Spacing="5">
-                <TextBlock Text="Animes releasing this season" Style="{ThemeResource TitleTextBlockStyle}"/>
-                <GridView x:Name="SeasonalList" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+                <TextBlock Text="Animes releasing this season" FontSize="24"/>
+                <GridView ItemsSource="{Binding SeasonalItems}" ItemTemplate="{StaticResource MediaItemTemplate}" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" IsItemClickEnabled="True" ItemClick="OnItemClicked">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel Orientation="Horizontal"/>

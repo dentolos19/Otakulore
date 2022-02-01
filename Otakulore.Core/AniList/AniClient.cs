@@ -17,7 +17,10 @@ public class AniClient
     public AniClient()
     {
         _httpClient = new HttpClient();
-        _client = new GraphQLHttpClient(new GraphQLHttpClientOptions { EndPoint = new Uri("https://graphql.anilist.co") }, new SystemTextJsonSerializer(new JsonSerializerOptions { Converters = { new JsonStringEnumMemberConverter() } }), _httpClient);
+        _client = new GraphQLHttpClient(
+            new GraphQLHttpClientOptions { EndPoint = new Uri("https://graphql.anilist.co") },
+            new SystemTextJsonSerializer(new JsonSerializerOptions { Converters = { new JsonStringEnumMemberConverter() } }),
+            _httpClient);
     }
 
     public void SetToken(string token)
@@ -25,15 +28,24 @@ public class AniClient
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public async Task<Media[]> SearchMedia(string query, MediaType type = MediaType.Anime, int pageIndex = 1)
+    public async Task<Media[]> SearchMedia(string query, int pageIndex = 1)
     {
         var request = new GraphQLRequest
         {
             Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
             {
                 new("pageInfo", PageInfo.Selections),
-                new("media", Media.Selections) { Parameters = { { "search", query }, { "type", type } } }
-            }, new { page = pageIndex })
+                new("media", Media.Selections)
+                {
+                    Parameters =
+                    {
+                        { "search", query }
+                    }
+                }
+            }, new Dictionary<string, object>
+            {
+                { "page", pageIndex }
+            })
         };
         var response = await _client.SendQueryAsync<AniResponse>(request);
         return response.Data.Page.Content;
@@ -43,7 +55,10 @@ public class AniClient
     {
         var request = new GraphQLRequest
         {
-            Query = GqlParser.Parse(GqlType.Query, "Media", Media.Selections, new { id })
+            Query = GqlParser.Parse(GqlType.Query, "Media", Media.Selections, new Dictionary<string, object>
+            {
+                { "id", id }
+            })
         };
         var response = await _client.SendQueryAsync<AniResponse>(request);
         return response.Data.Media;
@@ -56,7 +71,14 @@ public class AniClient
             Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
             {
                 new("pageInfo", PageInfo.Selections),
-                new("media", Media.Selections) { Parameters = { { "season", season }, { "seasonYear", year } } }
+                new("media", Media.Selections)
+                {
+                    Parameters =
+                    {
+                        { "season", season },
+                        { "seasonYear", year }
+                    }
+                }
             })
         };
         var response = await _client.SendQueryAsync<AniResponse>(request);
@@ -73,7 +95,13 @@ public class AniClient
                 new("mediaTrends", new GqlSelection[]
                 {
                     new("media", Media.Selections)
-                }) { Parameters = { { "sort", "$POPULARITY" } } }
+                })
+                {
+                    Parameters =
+                    {
+                        { "sort", "$POPULARITY" }
+                    }
+                }
             })
         };
         var response = await _client.SendQueryAsync<AniResponse>(request);
@@ -101,7 +129,14 @@ public class AniClient
                     new("status"),
                     new("progress"),
                     new("media", Media.Selections)
-                }) { Parameters = { { "userId", id }, { "type", type } } }
+                })
+                {
+                    Parameters =
+                    {
+                        { "userId", id },
+                        { "type", type }
+                    }
+                }
             }),
             Variables = new { id }
         };

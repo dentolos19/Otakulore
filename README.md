@@ -11,14 +11,15 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 
 ## Features
 
+* [ ] Runs on multiple platforms
+  * [X] Windows (powered by the **new** [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
+  * [ ] Android (planned until the stable release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
 * [ ] Track your progress with [AniList](https://anilist.co)
 * [X] Never miss an episode with the built-in anime schedule powered by [AniChart](https://anichart.net)
-* [X] Gathers entertaining content from multiple sources
+* [X] Gathers entertaining content from many sources
   * [X] Gogoanime (Anime)
   * [X] Mangakakalot (Manga)
-* [ ] Runs on multiple platforms
-  * [X] Windows (powered by [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
-  * [ ] Android (this is planned until the release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui) in 2022)
+  * ... more to be added soon!
 
 ## Screenshots
 

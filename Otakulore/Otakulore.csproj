@@ -70,6 +70,7 @@
 		<EmbeddedResource Include="Resources\Files\msedgedriver.exe"/>
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2"/>
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.40"/>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0"/>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196"/>
@@ -84,12 +85,32 @@
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
+		<Page Update="Views\ProfileOverviewPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\ProfileSettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\SchedulesContentPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\ProfileListPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
 		<Page Update="Views\MainPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\LibraryPage.xaml">
+		<Page Update="Views\ProfilePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
@@ -154,7 +175,7 @@
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\Subs\ScheduleSubPage.xaml">
+		<Page Update="Controls\ResultIndicator.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>

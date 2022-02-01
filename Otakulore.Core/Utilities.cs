@@ -10,18 +10,22 @@ namespace Otakulore.Core;
 public static class Utilities
 {
 
-    public static string? GetEnumValue<T>(this T type)
+    public static string? GetEnumValue<T>(this T type, bool allowDefaultValue = true)
     {
+        if (type == null)
+            return type.ToString();
         var field = type.GetType().GetField(type.ToString());
         var attributes = (EnumMemberAttribute[])field.GetCustomAttributes(typeof(EnumMemberAttribute), false);
-        return attributes.Length > 0 ? attributes[0].Value : type.ToString();
+        return attributes.Length > 0 ? attributes[0].Value : allowDefaultValue ? type.ToString() : null;
     }
 
-    public static string? GetEnumDescription<T>(this T type)
+    public static string? GetEnumDescription<T>(this T type, bool allowDefaultValue = false)
     {
+        if (type == null)
+            return type.ToString();
         var field = type.GetType().GetField(type.ToString());
         var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-        return attributes.Length > 0 ? attributes[0].Description : type.ToString();
+        return attributes.Length > 0 ? attributes[0].Description : allowDefaultValue ? type.ToString() : null;
     }
 
     public static void ExtractEmbeddedFile(string resourceName, string filePath)

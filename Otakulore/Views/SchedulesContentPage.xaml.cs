@@ -4,12 +4,12 @@ using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core.AniList;
 using Otakulore.Models;
 
-namespace Otakulore.Views.Subs;
+namespace Otakulore.Views;
 
-public sealed partial class ScheduleSubPage
+public sealed partial class SchedulesContentPage
 {
 
-    public ScheduleSubPage()
+    public SchedulesContentPage()
     {
         InitializeComponent();
     }
@@ -28,7 +28,7 @@ public sealed partial class ScheduleSubPage
     private void OnItemClick(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            App.NavigateContent(typeof(DetailsPage), item.Data);
+            App.NavigateMainContent(typeof(DetailsPage), item.Data);
     }
 
 }

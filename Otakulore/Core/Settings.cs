@@ -12,8 +12,6 @@ public class Settings
     private static string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
 
     public string? UserToken { get; set; }
-    public bool UseEnglishTitles { get; set; }
-    public bool FilterAdultTitles { get; set; }
     public bool LoadSeleniumAtStartup { get; set; }
     public IList<Media> Favorites { get; set; } = new List<Media>();
 

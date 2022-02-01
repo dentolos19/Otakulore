@@ -7,12 +7,12 @@ namespace Otakulore.Views;
 public sealed partial class SearchPage
 {
 
-    private SearchViewModel ViewModel => (SearchViewModel)DataContext;
-
     public SearchPage()
     {
         InitializeComponent();
     }
+
+    private SearchViewModel ViewModel => (SearchViewModel)DataContext;
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {

@@ -17,19 +17,15 @@ public sealed partial class CinemaPage
         InitializeComponent();
     }
 
+    private CinemaViewModel ViewModel => (CinemaViewModel)DataContext;
+
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
         if (args.Parameter is not KeyValuePair<IProvider, object>(var provider, MediaSource source))
             return;
         await WebView.EnsureCoreWebView2Async();
-        var contents = provider switch
-        {
-            IAnimeProvider animeProvider => animeProvider.GetAnimeEpisodes(source),
-            IMangaProvider mangaProvider => mangaProvider.GetMangaChapters(source)
-        };
-        foreach (var content in contents)
-            ContentSelection.Items.Add(new ContentItemModel(content));
-        ContentSelection.SelectedIndex = 0;
+        ViewModel.Load(provider, source);
+        ContentSelection.SelectedItem = ViewModel.Items.First();
     }
 
     private void OnContentChanged(object sender, SelectionChangedEventArgs args)

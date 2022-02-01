@@ -18,7 +18,7 @@ public sealed partial class MainPage
         NavigationView.SelectedItem = NavigationView.MenuItems.First();
     }
 
-    private void OnItemClick(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void OnNavigationChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.IsSettingsSelected)
         {

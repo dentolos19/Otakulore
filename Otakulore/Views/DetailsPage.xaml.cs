@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -28,18 +27,7 @@ public sealed partial class DetailsPage
         if (args.Parameter is not Media data)
             return;
         _media = data;
-        DataContext = new DetailsViewModel
-        {
-            Id = _media.Id,
-            ImageUrl = _media.CoverImage.ExtraLargeImageUrl,
-            Title = _media.Title.Romaji,
-            Subtitle = _media.StartDate.Year != null ? _media.StartDate.Year.ToString() : "Unknown Year",
-            Description = !string.IsNullOrEmpty(_media.Description) ? Utilities.HtmlToPlainText(_media.Description) : "No description provided.",
-            Format = _media.Format.GetEnumDescription(),
-            Status = _media.Status.GetEnumDescription(),
-            Episodes = _media.Episodes?.ToString() ?? "Unknown",
-            IsFavorite = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id) != null
-        };
+        DataContext = DetailsViewModel.Create(_media);
         foreach (var provider in App.Providers)
             switch (_media.Type)
             {
@@ -56,8 +44,6 @@ public sealed partial class DetailsPage
             return;
         var dialog = new SearchProviderDialog(item.Provider, ViewModel.Title);
         await dialog.ShowAsync();
-        if (dialog.Result != null)
-            Frame.Navigate(typeof(CinemaPage), new KeyValuePair<IProvider, object>(item.Provider, dialog.Result));
     }
 
     private async void OnTrackRequested(object sender, RoutedEventArgs args)

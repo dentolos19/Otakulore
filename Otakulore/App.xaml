@@ -1,6 +1,7 @@
 ﻿<Application x:Class="Otakulore.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:Otakulore.Converters"
              xmlns:resources="using:Otakulore.Resources">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +10,8 @@
                 <ResourceDictionary Source="Resources/Assets.xaml"/>
                 <resources:Templates/>
             </ResourceDictionary.MergedDictionaries>
+            <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+            <converters:EnumIntegerConverter x:Key="EnumIntegerConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

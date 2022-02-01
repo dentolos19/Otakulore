@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.AniList;
-using Otakulore.Views.Subs;
 
 namespace Otakulore.Views;
 
@@ -34,13 +33,13 @@ public sealed partial class SchedulesPage
         }
     }
 
-    private void OnItemNavigate(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void OnNavigationChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.SelectedItem is not NavigationViewItem item)
             return;
         var season = (MediaSeason)item.Tag;
         var year = DateTime.Today.Year;
-        ContentView.Navigate(typeof(ScheduleSubPage), new KeyValuePair<int, MediaSeason>(year, season));
+        ContentView.Navigate(typeof(SchedulesContentPage), new KeyValuePair<int, MediaSeason>(year, season));
     }
 
 }

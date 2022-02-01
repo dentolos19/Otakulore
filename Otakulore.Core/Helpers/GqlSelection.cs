@@ -3,14 +3,14 @@
 public class GqlSelection
 {
 
-    public string Name { get; }
-    public GqlSelection[]? Selections { get; }
-    public Dictionary<string, object> Parameters { get; } = new();
-
-    public GqlSelection(string name, GqlSelection[]? selections = null)
+    public GqlSelection(string name, ICollection<GqlSelection>? selections = null)
     {
         Name = name;
         Selections = selections;
     }
+
+    public string Name { get; }
+    public ICollection<GqlSelection> Selections { get; } = new List<GqlSelection>();
+    public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
 
 }

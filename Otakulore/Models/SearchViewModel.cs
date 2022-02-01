@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Otakulore.Core.AniList;
+using Otakulore.Controls;
 
 namespace Otakulore.Models;
 
@@ -7,8 +7,7 @@ public class SearchViewModel : BaseViewModel
 {
 
     private string _query;
-    private MediaType _type = MediaType.Anime;
-    private bool _isLoading;
+    private ResultIndicatorState _state = ResultIndicatorState.None;
 
     public string Query
     {
@@ -16,28 +15,29 @@ public class SearchViewModel : BaseViewModel
         set => UpdateProperty(ref _query, value);
     }
 
-    public int Type
+    public ResultIndicatorState State
     {
-        get => (int)_type;
-        set => UpdateProperty(ref _type, (MediaType)value);
-    }
-
-    public bool IsLoading
-    {
-        get => _isLoading;
-        set => UpdateProperty(ref _isLoading, value);
+        get => _state;
+        set => UpdateProperty(ref _state, value);
     }
 
     public ObservableCollection<MediaItemModel> Items { get; } = new();
 
     public async void Search()
     {
-        IsLoading = true;
+        State = ResultIndicatorState.Loading;
         Items.Clear();
-        var result = await App.Client.SearchMedia(_query, _type);
-        IsLoading = false;
-        foreach (var entry in result)
-            Items.Add(new MediaItemModel(entry));
+        var result = await App.Client.SearchMedia(_query);
+        if (result is { Length: > 0 })
+        {
+            State = ResultIndicatorState.None;
+            foreach (var entry in result)
+                Items.Add(new MediaItemModel(entry));
+        }
+        else
+        {
+            State = ResultIndicatorState.NoResult;
+        }
     }
 
 }

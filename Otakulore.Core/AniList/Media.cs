@@ -16,18 +16,16 @@ public class Media
                 new("extraLarge"),
                 new("large"),
                 new("medium"),
-                new("color"),
+                new("color")
             }),
-            new("title", new GqlSelection[]
-            {
-                new("romaji"),
-                new("english")
-            }),
+            new("bannerImage"),
+            new("title", MediaTitle.Selections),
             new("description") { Parameters = { { "asHtml", false } } },
             new("type"),
             new("format"),
             new("status"),
             new("genres"),
+            new("tags", MediaTag.Selections),
             new("averageScore"),
             new("startDate", Date.Selections),
             new("endDate", Date.Selections),
@@ -48,13 +46,14 @@ public class Media
     [JsonPropertyName("format")] public MediaFormat? Format { get; init; }
     [JsonPropertyName("status")] public MediaStatus Status { get; init; }
     [JsonPropertyName("genres")] public string[]? Genres { get; init; }
+    [JsonPropertyName("tags")] public MediaTag[]? Tags { get; init; }
     [JsonPropertyName("averageScore")] public int? Score { get; init; }
     [JsonPropertyName("startDate")] public Date StartDate { get; init; }
     [JsonPropertyName("endDate")] public Date EndDate { get; init; }
     [JsonPropertyName("isAdult")] public bool IsAdult { get; init; }
 
     [JsonPropertyName("episodes")] public int? Episodes { get; init; }
-    [JsonPropertyName("duration")] public int? EpisodesDuration { get; init; }
+    [JsonPropertyName("duration")] public int? Duration { get; init; }
     [JsonPropertyName("chapters")] public int? Chapters { get; init; }
 
 }

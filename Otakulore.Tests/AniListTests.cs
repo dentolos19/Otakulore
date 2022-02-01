@@ -10,11 +10,11 @@ public class AniListTests
 
     private readonly AniClient _client = new();
 
-    [TestCase("demon slayer", MediaType.Anime)]
-    [TestCase("black clover", MediaType.Manga)]
-    public async Task SearchMediaTest(string query, MediaType type)
+    [TestCase("demon slayer")]
+    [TestCase("black clover")]
+    public async Task SearchMediaTest(string query)
     {
-        var response = await _client.SearchMedia(query, type);
+        var response = await _client.SearchMedia(query);
         Assert.IsNotNull(response);
         var dump = ObjectDumper.Dump(response);
         Console.WriteLine(dump);
