@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.AniList;
 
@@ -13,10 +12,6 @@ public sealed partial class SchedulesPage
     public SchedulesPage()
     {
         InitializeComponent();
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs args)
-    {
         var currentSeason = Utilities.GetSeasonFromDate(DateTime.Today);
         foreach (var season in (MediaSeason[])Enum.GetValues(typeof(MediaSeason)))
         {

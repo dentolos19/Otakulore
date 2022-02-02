@@ -3,6 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
                     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                    xmlns:controls="using:Otakulore.Controls"
                     xmlns:models="using:Otakulore.Models">
     <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
         <Grid Padding="5" Width="180">
@@ -20,13 +21,16 @@
             </ToolTipService.ToolTip>
             <Grid Grid.Row="0" Height="250">
                 <Image x:Name="CoverImage" Source="{Binding ImageUrl}" Stretch="UniformToFill"/>
-                <ProgressRing x:Name="ProgressIndicator" IsActive="True">
+                <controls:ResultIndicator x:Name="ProgressIndicator" Text="Error" State="Loading">
                     <interactivity:Interaction.Behaviors>
                         <interactions:EventTriggerBehavior SourceObject="{Binding ElementName=CoverImage}" EventName="ImageOpened">
-                            <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ProgressIndicator}" PropertyName="IsActive" Value="False"/>
+                            <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ProgressIndicator}" PropertyName="State" Value="None"/>
+                        </interactions:EventTriggerBehavior>
+                        <interactions:EventTriggerBehavior SourceObject="{Binding ElementName=CoverImage}" EventName="ImageFailed">
+                            <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ProgressIndicator}" PropertyName="State" Value="NoResult"/>
                         </interactions:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
-                </ProgressRing>
+                </controls:ResultIndicator>
             </Grid>
             <TextBlock Grid.Row="1" Text="{Binding Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
         </Grid>

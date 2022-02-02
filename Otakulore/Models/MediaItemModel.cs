@@ -12,7 +12,7 @@ public class MediaItemModel
         ImageUrl = Data.CoverImage.LargeImageUrl;
         BannerImageUrl = Data.BannerImageUrl;
         Title = Data.Title.Romaji;
-        Format = data.Format.GetEnumDescription();
+        Format = data.Format.GetEnumDescription(true);
         Score = Data.Score.HasValue ? Data.Score.Value / 20 : 0;
         ScoreCaption = data.Score?.ToString() ?? "Unknown";
         Description = !string.IsNullOrEmpty(Data.Description) ? Utilities.HtmlToPlainText(Data.Description) : "No description provided.";

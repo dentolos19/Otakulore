@@ -30,6 +30,6 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </NavigationView.FooterMenuItems>
-        <Frame x:Name="ContentView" x:FieldModifier="internal" CacheSize="3"/>
+        <Frame x:Name="ContentView" x:FieldModifier="internal" CacheSize="5"/>
     </NavigationView>
 </Page>

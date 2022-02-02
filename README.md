@@ -14,7 +14,8 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 * [ ] Runs on multiple platforms
   * [X] Windows (powered by the **new** [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
   * [ ] Android (planned until the stable release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
-* [ ] Track your progress with [AniList](https://anilist.co)
+* [X] Track your progress with [AniList](https://anilist.co)
+* [X] Manage your [AniList](https://anilist.co) library directly
 * [X] Never miss an episode with the built-in anime schedule powered by [AniChart](https://anichart.net)
 * [X] Gathers entertaining content from many sources
   * [X] Gogoanime (Anime)
@@ -30,3 +31,6 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 ![](.github/images/4.png)
 ![](.github/images/5.png)
 ![](.github/images/6.png)
+![](.github/images/7.png)
+![](.github/images/8.png)
+![](.github/images/9.png)
