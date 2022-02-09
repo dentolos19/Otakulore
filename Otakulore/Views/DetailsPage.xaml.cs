@@ -15,12 +15,12 @@ public sealed partial class DetailsPage
 
     private Media _media;
 
+    private DetailsViewModel ViewModel => (DetailsViewModel)DataContext;
+
     public DetailsPage()
     {
         InitializeComponent();
     }
-
-    private DetailsViewModel ViewModel => (DetailsViewModel)DataContext;
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
@@ -48,6 +48,17 @@ public sealed partial class DetailsPage
 
     private async void OnTrackRequested(object sender, RoutedEventArgs args)
     {
+        if (App.Settings.UserToken == null)
+        {
+            var model = new NotificationDataModel
+            {
+                Message = "This feature requires an authenticated AniList account.",
+                ContinueText = "Login"
+            };
+            model.ContinueClicked += (_, _) => App.NavigateContent(typeof(ProfileLoginPage));
+            App.ShowNotification(model);
+            return;
+        }
         var dialog = new ManageTrackerDialog();
         await dialog.ShowAsync();
     }

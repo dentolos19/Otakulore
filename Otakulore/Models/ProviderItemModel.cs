@@ -5,11 +5,11 @@ namespace Otakulore.Models;
 public class ProviderItemModel
 {
 
+    public IProvider Provider { get; }
+
     public ProviderItemModel(IProvider provider)
     {
         Provider = provider;
     }
-
-    public IProvider Provider { get; }
 
 }

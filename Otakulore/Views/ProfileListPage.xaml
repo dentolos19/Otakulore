@@ -1,24 +1,43 @@
 ﻿<Page x:Class="Otakulore.Views.ProfileListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:uic="using:CommunityToolkit.WinUI.UI.Controls"
+      xmlns:olm="using:Otakulore.Models"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <SplitView DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="200">
-        <SplitView.Pane>
-            <StackPanel Margin="10" Spacing="5">
-                <TextBlock Text="Lists"/>
-                <ListView>
-                    <ListViewItem Content="Current"/>
-                    <ListViewItem Content="Completed"/>
-                    <ListViewItem Content="Paused"/>
-                    <ListViewItem Content="Dropped"/>
-                    <ListViewItem Content="Planning"/>
-                </ListView>
-            </StackPanel>
-        </SplitView.Pane>
-        <ListView>
-            <ListView.ItemTemplate>
-                <DataTemplate/>
-            </ListView.ItemTemplate>
-        </ListView>
-    </SplitView>
+   <Grid RowSpacing="10" Margin="10">
+       <Grid.RowDefinitions>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="*"/>
+       </Grid.RowDefinitions>
+       <Grid Grid.Row="0" ColumnSpacing="5">
+           <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="*"/>
+               <ColumnDefinition Width="Auto"/>
+               <ColumnDefinition Width="Auto"/>
+           </Grid.ColumnDefinitions>
+           <TextBox x:Name="SearchBox" Grid.Column="0" PlaceholderText="Search"/>
+           <ComboBox x:Name="StatusDropdown" Grid.Column="1"/>
+           <Button Grid.Column="2" ToolTipService.ToolTip="Filter">
+               <FontIcon Glyph="&#xE71C;"/>
+           </Button>
+       </Grid>
+       <ListView x:Name="MediaEntryList" Grid.Row="1" ItemsSource="{Binding Items}" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+           <ListView.ItemTemplate>
+               <DataTemplate x:DataType="olm:MediaEntryItemModel">
+                   <Grid ColumnSpacing="10" Margin="10">
+                       <Grid.ColumnDefinitions>
+                           <ColumnDefinition Width="Auto"/>
+                           <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
+                       <uic:ImageEx Grid.Column="0" Source="{Binding Entry.Media.CoverImage.LargeImageUrl}" CornerRadius="10" Height="150"/>
+                       <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                           <TextBlock Text="{Binding Entry.Media.Title.Romaji}" FontWeight="Bold" FontSize="16"/>
+                           <uic:MetadataControl Items="{Binding Meta}" Separator=" • "/>
+                       </StackPanel>
+                   </Grid>
+               </DataTemplate>
+           </ListView.ItemTemplate>
+       </ListView>
+   </Grid>
 </Page>

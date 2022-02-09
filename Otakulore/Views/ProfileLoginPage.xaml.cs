@@ -28,7 +28,7 @@ public sealed partial class ProfileLoginPage
             return;
         var token = regex.Match(url).Value;
         App.Settings.UserToken = token;
-        App.NavigateMainContent(typeof(ProfilePage));
+        App.NavigateContent(typeof(ProfilePage));
     }
 
 }

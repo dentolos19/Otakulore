@@ -9,21 +9,24 @@ namespace Otakulore.Views;
 public sealed partial class ProfilePage
 {
 
+    private ProfileViewModel ViewModel => (ProfileViewModel)DataContext;
+
     public ProfilePage()
     {
         InitializeComponent();
     }
 
-    private ProfileViewModel ViewModel => (ProfileViewModel)DataContext;
-
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
         if (App.Settings.UserToken == null)
         {
-            if (await App.ShowDialog("This feature requires an authenticated AniList account!\n\nDo you want to login to use this feature?", "AniList Exclusive Content", true))
-                Frame.Navigate(typeof(ProfileLoginPage));
-            else
-                Frame.Navigate(typeof(HomePage));
+            var model = new NotificationDataModel
+            {
+                Message = "This feature requires an authenticated AniList account.",
+                ContinueText = "Login"
+            };
+            model.ContinueClicked += (_, _) => App.NavigateContent(typeof(ProfileLoginPage));
+            App.ShowNotification(model);
             return;
         }
         App.Client.SetToken(App.Settings.UserToken);

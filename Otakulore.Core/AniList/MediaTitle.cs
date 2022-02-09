@@ -11,11 +11,13 @@ public class MediaTitle
         {
             new("romaji"),
             new("english"),
-            new("native")
+            new("native"),
+            new("userPreferred")
         };
 
     [JsonPropertyName("romaji")] public string Romaji { get; init; }
     [JsonPropertyName("english")] public string? English { get; init; }
     [JsonPropertyName("native")] public string Native { get; init; }
+    [JsonPropertyName("userPreferred")] public string Preferred { get; init; }
 
 }

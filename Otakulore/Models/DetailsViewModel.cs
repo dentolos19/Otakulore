@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
 
 namespace Otakulore.Models;
@@ -44,7 +43,7 @@ public class DetailsViewModel : BaseViewModel
             ImageUrl = data.CoverImage.ExtraLargeImageUrl,
             Title = data.Title.Romaji,
             Subtitle = data.StartDate.Year.HasValue ? data.StartDate.Year.Value.ToString() : "Unknown Year",
-            Description = data.Description != null ? Utilities.HtmlToPlainText(data.Description) : "No description provided.",
+            Description = data.Description ?? "No description provided.",
             Format = (MediaFormat)data.Format,
             Status = data.Status,
             Content = content,

@@ -11,12 +11,12 @@ public class EnumDescriptionConverter : IValueConverter
     {
         if (value is Enum @enum)
             return @enum.GetEnumDescription(true);
-        throw new NotImplementedException();
+        return value;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        throw new NotImplementedException();
+        return value;
     }
 
 }

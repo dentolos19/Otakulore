@@ -10,12 +10,12 @@ public class EnumIntegerConverter : IValueConverter
     {
         if (value is Enum @enum)
             return (int)(object)@enum;
-        throw new NotImplementedException();
+        return value;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        throw new NotImplementedException();
+        return value;
     }
 
 }

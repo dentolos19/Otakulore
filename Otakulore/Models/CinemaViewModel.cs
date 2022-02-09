@@ -7,9 +7,8 @@ namespace Otakulore.Models;
 public class CinemaViewModel : BaseViewModel
 {
 
-    private ResultIndicatorState _state;
-
     private string _url;
+    private ResultIndicatorState _state;
 
     public string Url
     {
@@ -30,8 +29,8 @@ public class CinemaViewModel : BaseViewModel
         State = ResultIndicatorState.Loading;
         var contents = provider switch
         {
-            IAnimeProvider animeProvider => animeProvider.GetAnimeEpisodes(source),
-            IMangaProvider mangaProvider => mangaProvider.GetMangaChapters(source)
+            IAnimeProvider animeProvider => animeProvider.GetContents(source),
+            IMangaProvider mangaProvider => mangaProvider.GetContents(source)
         };
         foreach (var content in contents)
             Items.Add(new ContentItemModel(content));

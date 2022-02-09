@@ -14,7 +14,7 @@
   <Properties>
     <DisplayName>Otakulore</DisplayName>
     <PublisherDisplayName>Dennise Catolos</PublisherDisplayName>
-    <Logo>Resources\Assets\Visuals\StoreLogo.png</Logo>
+    <Logo>Resources\Images\Visuals\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -34,10 +34,10 @@
         DisplayName="Otakulore"
         Description="Otakulore"
         BackgroundColor="transparent"
-        Square150x150Logo="Resources\Assets\Visuals\Square150x150Logo.png"
-        Square44x44Logo="Resources\Assets\Visuals\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Resources\Assets\Visuals\Wide310x150Logo.png"  Square71x71Logo="Resources\Assets\Visuals\SmallTile.png" Square310x310Logo="Resources\Assets\Visuals\LargeTile.png"/>
-        <uap:SplashScreen Image="Resources\Assets\Visuals\SplashScreen.png" />
+        Square150x150Logo="Resources\Images\Visuals\Square150x150Logo.png"
+        Square44x44Logo="Resources\Images\Visuals\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Resources\Images\Visuals\Wide310x150Logo.png"  Square71x71Logo="Resources\Images\Visuals\SmallTile.png" Square310x310Logo="Resources\Images\Visuals\LargeTile.png"/>
+        <uap:SplashScreen Image="Resources\Images\Visuals\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

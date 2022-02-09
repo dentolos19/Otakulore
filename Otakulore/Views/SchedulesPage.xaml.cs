@@ -30,11 +30,8 @@ public sealed partial class SchedulesPage
 
     private void OnNavigationChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
-        if (args.SelectedItem is not NavigationViewItem item)
-            return;
-        var season = (MediaSeason)item.Tag;
-        var year = DateTime.Today.Year;
-        ContentView.Navigate(typeof(SchedulesContentPage), new KeyValuePair<int, MediaSeason>(year, season));
+        if (args.SelectedItem is NavigationViewItem item)
+            ContentView.Navigate(typeof(SchedulePage), new KeyValuePair<MediaSeason, int>((MediaSeason)item.Tag, DateTime.Today.Year));
     }
 
 }

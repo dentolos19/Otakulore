@@ -1,9 +1,3 @@
 ﻿namespace Otakulore.Core;
 
-public interface IMangaProvider : IProvider
-{
-
-    IEnumerable<MediaSource> SearchManga(string query);
-    IEnumerable<MediaContent> GetMangaChapters(MediaSource source);
-
-}
+public interface IMangaProvider : IProvider { }

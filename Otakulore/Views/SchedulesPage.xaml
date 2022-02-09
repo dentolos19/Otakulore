@@ -1,8 +1,9 @@
 ﻿<Page x:Class="Otakulore.Views.SchedulesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      NavigationCacheMode="Enabled" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Enabled">
     <NavigationView x:Name="SchedulesView" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionChanged="OnNavigationChanged">
-        <Frame x:Name="ContentView"/>
+        <Frame x:Name="ContentView" CacheSize="4"/>
     </NavigationView>
 </Page>

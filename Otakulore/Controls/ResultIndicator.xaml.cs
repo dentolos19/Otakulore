@@ -8,11 +8,6 @@ public sealed partial class ResultIndicator
     private static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(ResultIndicator), PropertyMetadata.Create("No Result"));
     private static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(ResultIndicatorState), typeof(ResultIndicator), PropertyMetadata.Create(ResultIndicatorState.None));
 
-    public ResultIndicator()
-    {
-        InitializeComponent();
-    }
-
     public string Text
     {
         get => (string)GetValue(TextProperty);
@@ -23,6 +18,11 @@ public sealed partial class ResultIndicator
     {
         get => (ResultIndicatorState)GetValue(StateProperty);
         set => SetValue(StateProperty, value);
+    }
+
+    public ResultIndicator()
+    {
+        InitializeComponent();
     }
 
 }

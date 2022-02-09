@@ -1,4 +1,6 @@
-﻿using Otakulore.Core;
+﻿using System.Collections.Generic;
+using CommunityToolkit.WinUI.UI.Controls;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
 
 namespace Otakulore.Models;
@@ -6,25 +8,27 @@ namespace Otakulore.Models;
 public class MediaItemModel
 {
 
-    public MediaItemModel(Media data)
-    {
-        Data = data;
-        ImageUrl = Data.CoverImage.LargeImageUrl;
-        BannerImageUrl = Data.BannerImageUrl;
-        Title = Data.Title.Romaji;
-        Format = data.Format.GetEnumDescription(true);
-        Score = Data.Score.HasValue ? Data.Score.Value / 20 : 0;
-        ScoreCaption = data.Score?.ToString() ?? "Unknown";
-        Description = !string.IsNullOrEmpty(Data.Description) ? Utilities.HtmlToPlainText(Data.Description) : "No description provided.";
-    }
-
     public string ImageUrl { get; }
     public string? BannerImageUrl { get; }
     public string Title { get; }
-    public string Format { get; }
+    public IList<MetadataItem> Meta { get; } = new List<MetadataItem>();
     public double Score { get; }
     public string ScoreCaption { get; }
     public string? Description { get; }
-    public Media Data { get; }
+    public Media Media { get; }
+
+    public MediaItemModel(Media media)
+    {
+        Media = media;
+        ImageUrl = Media.CoverImage.LargeImageUrl;
+        BannerImageUrl = Media.BannerImageUrl;
+        Title = Media.Title.Romaji;
+        Meta.Add(new MetadataItem { Label = Media.Format != null ? Media.Format.GetEnumDescription(true) : "Unknown Format" });
+        Meta.Add(new MetadataItem { Label = Media.StartDate.Year.HasValue ? Media.StartDate.Year.Value.ToString() : "????" });
+        Meta.Add(new MetadataItem { Label = Media.Season != null ? Media.Season.GetEnumDescription(true) : "Unknown Season" });
+        Score = Media.Score.HasValue ? Media.Score.Value / 20 : 0;
+        ScoreCaption = media.Score?.ToString() ?? "Unknown";
+        Description = Media.Description ?? "No description provided.";
+    }
 
 }

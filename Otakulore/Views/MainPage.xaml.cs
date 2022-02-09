@@ -34,17 +34,17 @@ public sealed partial class MainPage
         }
     }
 
+    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    {
+        if (ContentView.CanGoBack)
+            ContentView.GoBack();
+    }
+
     private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         var query = sender.Text;
         if (!string.IsNullOrEmpty(query))
             ContentView.Navigate(typeof(SearchPage), query);
-    }
-
-    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-    {
-        if (ContentView.CanGoBack)
-            ContentView.GoBack();
     }
 
 }

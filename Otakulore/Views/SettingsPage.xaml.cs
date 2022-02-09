@@ -33,13 +33,27 @@ public sealed partial class SettingsPage
 
     private void OnResetAllSettings(object sender, RoutedEventArgs args)
     {
-        App.ResetSettings();
-        Frame.Navigate(typeof(HomePage));
+        var model = new NotificationDataModel
+        {
+            Message = "Are you sure that you want to reset all settings? This will also clear all your favorites and sign out from your AniList account.",
+            ContinueText = "Yes"
+        };
+        model.ContinueClicked += (_, _) =>
+        {
+            App.ResetSettings();
+            App.NavigateContent(typeof(HomePage));
+        };
+        App.ShowNotification(model);
     }
 
     private async void OnOpenLocalFolder(object sender, RoutedEventArgs args)
     {
-        await Launcher.LaunchFolderPathAsync(ApplicationData.Current.LocalFolder.Path);
+        await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
+    }
+
+    private void OnPerformTestOperations(object sender, RoutedEventArgs args)
+    {
+        throw new Exception("This is a test exception.");
     }
 
 }

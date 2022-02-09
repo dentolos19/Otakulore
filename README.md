@@ -15,10 +15,10 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
   * [X] Windows (powered by the **new** [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
   * [ ] Android (planned until the stable release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
 * [X] Track your progress with [AniList](https://anilist.co)
-* [X] Manage your [AniList](https://anilist.co) library directly
+* [X] Manage your [AniList](https://anilist.co) library directly within the app
 * [X] Never miss an episode with the built-in anime schedule powered by [AniChart](https://anichart.net)
 * [X] Gathers entertaining content from many sources
-  * [X] Gogoanime (Anime)
+  * [X] AnimeKisa (Anime)
   * [X] Mangakakalot (Manga)
   * ... more to be added soon!
 

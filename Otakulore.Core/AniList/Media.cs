@@ -24,6 +24,7 @@ public class Media
             new("type"),
             new("format"),
             new("status"),
+            new("season"),
             new("genres"),
             new("tags", MediaTag.Selections),
             new("averageScore"),
@@ -45,6 +46,7 @@ public class Media
     [JsonPropertyName("type")] public MediaType Type { get; init; }
     [JsonPropertyName("format")] public MediaFormat? Format { get; init; }
     [JsonPropertyName("status")] public MediaStatus Status { get; init; }
+    [JsonPropertyName("season")] public MediaSeason? Season { get; init; }
     [JsonPropertyName("genres")] public string[]? Genres { get; init; }
     [JsonPropertyName("tags")] public MediaTag[]? Tags { get; init; }
     [JsonPropertyName("averageScore")] public int? Score { get; init; }

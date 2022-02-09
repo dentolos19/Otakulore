@@ -12,12 +12,12 @@ namespace Otakulore.Views;
 public sealed partial class CinemaPage
 {
 
+    private CinemaViewModel ViewModel => (CinemaViewModel)DataContext;
+
     public CinemaPage()
     {
         InitializeComponent();
     }
-
-    private CinemaViewModel ViewModel => (CinemaViewModel)DataContext;
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {

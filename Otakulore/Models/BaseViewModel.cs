@@ -8,22 +8,22 @@ public class BaseViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected void UpdateProperty([CallerMemberName] string? name = null)
+    protected void UpdateProperty([CallerMemberName] string? propertyName = null)
     {
-        OnPropertyChanged(name);
+        OnPropertyChanged(propertyName);
     }
 
-    protected void UpdateProperty<T>(ref T storage, T value, [CallerMemberName] string? name = null)
+    protected void UpdateProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if (Equals(storage, value))
+        if (Equals(field, value))
             return;
-        storage = value;
-        UpdateProperty(name);
+        field = value;
+        UpdateProperty(propertyName);
     }
 
-    private void OnPropertyChanged(string? name = null)
+    private void OnPropertyChanged(string? propertyName = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
 }

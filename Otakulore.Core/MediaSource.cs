@@ -3,8 +3,8 @@
 public class MediaSource
 {
 
-    public string ImageUrl { get; init; }
-    public string Title { get; init; }
-    public string Url { get; init; }
+    public string ImageUrl { get; set; }
+    public string Title { get; set; }
+    public string Url { get; set; }
 
 }

@@ -6,8 +6,8 @@ public class Page
 {
 
     [JsonPropertyName("pageInfo")] public PageInfo Info { get; init; }
-    [JsonPropertyName("media")] public Media[] Content { get; init; }
-    [JsonPropertyName("mediaList")] public MediaList[] ContentList { get; init; }
-    [JsonPropertyName("mediaTrends")] public MediaTrend[] TrendingContent { get; init; }
+    [JsonPropertyName("media")] public Media[] Media { get; init; }
+    [JsonPropertyName("mediaList")] public MediaEntry[] MediaEntries { get; init; }
+    [JsonPropertyName("mediaTrends")] public MediaTrend[] MediaTrends { get; init; }
 
 }

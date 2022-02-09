@@ -28,7 +28,7 @@ public class AniClient
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public async Task<Media[]> SearchMedia(string query, int pageIndex = 1)
+    public async Task<AniPagination<Media>> SearchMedia(string query, MediaSort sort = MediaSort.Relevance, int pageIndex = 1)
     {
         var request = new GraphQLRequest
         {
@@ -39,7 +39,8 @@ public class AniClient
                 {
                     Parameters =
                     {
-                        { "search", query }
+                        { "search", query },
+                        { "sort", sort }
                     }
                 }
             }, new Dictionary<string, object>
@@ -47,8 +48,8 @@ public class AniClient
                 { "page", pageIndex }
             })
         };
-        var response = await _client.SendQueryAsync<AniResponse>(request);
-        return response.Data.Page.Content;
+        var page = (await _client.SendQueryAsync<AniResponse>(request)).Data.Page;
+        return new AniPagination<Media>(page.Info, page.Media);
     }
 
     public async Task<Media> GetMedia(int id)
@@ -64,8 +65,9 @@ public class AniClient
         return response.Data.Media;
     }
 
-    public async Task<Media[]> GetSeasonalMedia(MediaSeason season, int year)
+    public async Task<AniPagination<Media>> GetMediaBySeason(MediaSeason season, int? year = null, int pageIndex = 1)
     {
+        year ??= DateTime.Today.Year;
         var request = new GraphQLRequest
         {
             Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
@@ -79,19 +81,22 @@ public class AniClient
                         { "seasonYear", year }
                     }
                 }
+            }, new Dictionary<string, object>
+            {
+                { "page", pageIndex }
             })
         };
-        var response = await _client.SendQueryAsync<AniResponse>(request);
-        return response.Data.Page.Content;
+        var page = (await _client.SendQueryAsync<AniResponse>(request)).Data.Page;
+        return new AniPagination<Media>(page.Info, page.Media);
     }
 
-    public async Task<MediaTrend[]> GetTrendingMedia()
+    public async Task<MediaTrend[]> GetMediaByTrends()
     {
         var request = new GraphQLRequest
         {
             Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
             {
-                new("pageInfo", PageInfo.Selections),
+                // new("pageInfo", PageInfo.Selections),
                 new("mediaTrends", new GqlSelection[]
                 {
                     new("media", Media.Selections)
@@ -105,43 +110,58 @@ public class AniClient
             })
         };
         var response = await _client.SendQueryAsync<AniResponse>(request);
-        return response.Data.Page.TrendingContent;
+        return response.Data.Page.MediaTrends;
     }
 
-    public async Task<User> GetUser()
+    public async Task<User> GetUser(int? id = null)
     {
         var request = new GraphQLRequest
         {
-            Query = GqlParser.Parse(GqlType.Mutation, "UpdateUser", User.Selections)
+            Query = id.HasValue
+                ? GqlParser.Parse(GqlType.Query, "User", User.Selections, new Dictionary<string, object> { { "id", id } })
+                : GqlParser.Parse(GqlType.Mutation, "UpdateUser", User.Selections)
         };
-        var response = await _client.SendMutationAsync<AniResponse>(request);
-        return response.Data.User;
+        var response = (await _client.SendMutationAsync<AniResponse>(request)).Data;
+        return response.User ?? response.UpdatedUser;
     }
 
-    public async Task<MediaList[]> GetUserList(int id, MediaType type)
+    public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, int index = 1)
     {
         var request = new GraphQLRequest
         {
             Query = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
             {
-                new("mediaList", new GqlSelection[]
-                {
-                    new("status"),
-                    new("progress"),
-                    new("media", Media.Selections)
-                })
+                new("pageInfo", PageInfo.Selections),
+                new("mediaList", MediaEntry.Selections)
                 {
                     Parameters =
                     {
-                        { "userId", id },
-                        { "type", type }
+                        { "userId", id }
                     }
                 }
+            }, new Dictionary<string, object>
+            {
+                { "page", index }
             }),
             Variables = new { id }
         };
-        var response = await _client.SendQueryAsync<AniResponse>(request);
-        return response.Data.Page.ContentList;
+        var response = (await _client.SendQueryAsync<AniResponse>(request)).Data;
+        return new AniPagination<MediaEntry>(response.Page.Info, response.Page.MediaEntries);
+    }
+
+    public async Task<MediaEntry> UpdateMediaEntry(int id, MediaEntryStatus status, int progress)
+    {
+        var request = new GraphQLHttpRequest
+        {
+            Query = GqlParser.Parse(GqlType.Mutation, "SaveMediaListEntry", MediaEntry.Selections, new Dictionary<string, object>
+            {
+                { "id", id },
+                { "status", status },
+                { "progress", progress }
+            })
+        };
+        var response = (await _client.SendMutationAsync<AniResponse>(request)).Data;
+        return response.UpdatedMediaEntry;
     }
 
 }

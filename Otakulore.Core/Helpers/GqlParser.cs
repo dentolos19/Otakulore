@@ -3,18 +3,22 @@
 public static class GqlParser
 {
 
-    public static string Parse(GqlType type, string name, ICollection<GqlSelection> selections, IDictionary<string, object>? parameters = null)
+    public static string Parse(GqlType type, IEnumerable<GqlSelection> selections)
     {
-        var query = type.GetEnumValue() + "{" + name;
-        if (parameters is { Count: > 0 })
-            query += "(" + BuildParameters(parameters) + ")";
-        if (selections.Count > 0)
-            query += "{" + ParseSelections(selections) + "}";
-        query += "}";
-        return query;
+        return type.GetEnumValue() + "{" + BuildSelections(selections) + "}";
     }
 
-    public static string ParseSelections(IEnumerable<GqlSelection> selections)
+    public static string Parse(GqlType type, string name, ICollection<GqlSelection> selections, IDictionary<string, object>? parameters = null)
+    {
+        var selection = new GqlSelection(name, selections);
+        if (parameters is not { Count: > 0 })
+            return Parse(type, new[] { selection });
+        foreach (var entry in parameters)
+            selection.Parameters.Add(entry);
+        return Parse(type, new[] { selection });
+    }
+
+    private static string BuildSelections(IEnumerable<GqlSelection> selections)
     {
         var data = string.Empty;
         var isFirst = true;
@@ -24,13 +28,13 @@ public static class GqlParser
             if (selection.Parameters is { Count: > 0 })
                 data += "(" + BuildParameters(selection.Parameters) + ")";
             if (selection.Selections is { Count: > 0 })
-                data += "{" + ParseSelections(selection.Selections) + "}";
+                data += "{" + BuildSelections(selection.Selections) + "}";
             isFirst = false;
         }
         return data;
     }
 
-    public static string BuildParameters(IDictionary<string, object> parameters)
+    private static string BuildParameters(IDictionary<string, object?> parameters)
     {
         var data = string.Empty;
         foreach (var (name, value) in parameters)
@@ -47,6 +51,7 @@ public static class GqlParser
             {
                 data += value switch
                 {
+                    null => "null",
                     bool @bool => @bool ? "true" : "false",
                     Enum @enum => @enum.GetEnumValue(),
                     _ => value.ToString()
