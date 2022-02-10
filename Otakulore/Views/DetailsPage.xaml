@@ -1,13 +1,13 @@
 ﻿<Page x:Class="Otakulore.Views.DetailsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:xi="using:Microsoft.Xaml.Interactivity"
-      xmlns:xic="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:uic="using:CommunityToolkit.WinUI.UI.Controls"
-      xmlns:olm="using:Otakulore.Models"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+      xmlns:models="using:Otakulore.Models"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <olm:DetailsViewModel/>
+        <models:DetailsViewModel/>
     </Page.DataContext>
     <ScrollViewer>
         <Grid Margin="10" RowSpacing="10">
@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <uic:ImageEx Grid.Column="0" Source="{Binding ImageUrl}" CornerRadius="10"/>
+                <controls:ImageEx Grid.Column="0" Source="{Binding ImageUrl}" CornerRadius="10"/>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -72,17 +72,17 @@
                     </StackPanel>
                     <StackPanel Spacing="5">
                         <TextBlock x:Name="ContentText" FontWeight="Bold">
-                            <xi:Interaction.Behaviors>
-                                <xic:DataTriggerBehavior Binding="{Binding Type, Converter={StaticResource EnumIntegerConverter}}" Value="0">
-                                    <xic:ChangePropertyAction TargetObject="{Binding ElementName=ContentText}" PropertyName="Text" Value="Episodes"/>
-                                </xic:DataTriggerBehavior>
-                                <xic:DataTriggerBehavior Binding="{Binding Type, Converter={StaticResource EnumIntegerConverter}}" Value="1">
-                                    <xic:ChangePropertyAction TargetObject="{Binding ElementName=ContentText}" PropertyName="Text" Value="Chapters"/>
-                                </xic:DataTriggerBehavior>
-                                <xic:DataTriggerBehavior Binding="{Binding Format, Converter={StaticResource EnumIntegerConverter}}" Value="2">
-                                    <xic:ChangePropertyAction TargetObject="{Binding ElementName=ContentText}" PropertyName="Text" Value="Length"/>
-                                </xic:DataTriggerBehavior>
-                            </xi:Interaction.Behaviors>
+                            <interactivity:Interaction.Behaviors>
+                                <interactions:DataTriggerBehavior Binding="{Binding Type, Converter={StaticResource EnumIntegerConverter}}" Value="0">
+                                    <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ContentText}" PropertyName="Text" Value="Episodes"/>
+                                </interactions:DataTriggerBehavior>
+                                <interactions:DataTriggerBehavior Binding="{Binding Type, Converter={StaticResource EnumIntegerConverter}}" Value="1">
+                                    <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ContentText}" PropertyName="Text" Value="Chapters"/>
+                                </interactions:DataTriggerBehavior>
+                                <interactions:DataTriggerBehavior Binding="{Binding Format, Converter={StaticResource EnumIntegerConverter}}" Value="2">
+                                    <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ContentText}" PropertyName="Text" Value="Length"/>
+                                </interactions:DataTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
                         </TextBlock>
                         <TextBlock Text="{Binding Content}"/>
                     </StackPanel>

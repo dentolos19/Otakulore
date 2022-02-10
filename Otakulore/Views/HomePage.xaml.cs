@@ -25,14 +25,14 @@ public sealed partial class HomePage
         if (args.NavigationMode != NavigationMode.New)
             return;
         var season = Utilities.GetSeasonFromDate(DateTime.Today);
-        var popularMedia = await App.Client.SearchMedia(null, MediaSort.Popularity);
-        var trendingMedia = await App.Client.SearchMedia(null, MediaSort.Trending);
+        var popularMedia = await App.Client.GetMediaByTrend(MediaTrendSort.Popularity);
+        var trendingMedia = await App.Client.GetMediaByTrend();
         var seasonalMedia = await App.Client.GetMediaBySeason(season);
         LoadingIndicator.IsLoading = false;
-        foreach (var media in popularMedia.Data)
-            BannerItems.Add(new MediaItemModel(media));
-        foreach (var media in trendingMedia.Data)
-            TrendingItems.Add(new MediaItemModel(media));
+        foreach (var mediaTrend in popularMedia.Data)
+            BannerItems.Add(new MediaItemModel(mediaTrend.Media));
+        foreach (var mediaTrend in trendingMedia.Data)
+            TrendingItems.Add(new MediaItemModel(mediaTrend.Media));
         foreach (var media in seasonalMedia.Data)
             SeasonalItems.Add(new MediaItemModel(media));
     }

@@ -37,7 +37,7 @@ internal static class ClientTests
     [Test]
     public static async Task GetMediaByTrendsTest()
     {
-        var response = await Client.GetMediaByTrends();
+        var response = await Client.GetMediaByTrend();
         Console.WriteLine(ObjectDumper.Dump(response));
     }
 

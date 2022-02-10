@@ -47,9 +47,7 @@ public sealed partial class SchedulePage
 
         public async Task<IEnumerable<MediaItemModel>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
         {
-            var items = (await App.Client.GetMediaBySeason(_season, _year, pageIndex)).Data
-                .Select(media => new MediaItemModel(media));
-            return items;
+            return (await App.Client.GetMediaBySeason(_season, _year, new PageOptions(pageIndex, pageSize))).Data.Select(media => new MediaItemModel(media));
         }
 
     }

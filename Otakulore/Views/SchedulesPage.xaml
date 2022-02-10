@@ -4,6 +4,6 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Enabled">
     <NavigationView x:Name="SchedulesView" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionChanged="OnNavigationChanged">
-        <Frame x:Name="ContentView" CacheSize="4"/>
+        <Frame x:Name="ContentView"/>
     </NavigationView>
 </Page>

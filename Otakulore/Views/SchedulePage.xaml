@@ -6,7 +6,6 @@
     <Grid>
         <GridView ItemsSource="{Binding Items}"
                   ItemTemplate="{StaticResource MediaItemTemplate}"
-                  ItemContainerStyle="{ThemeResource MediaItemContainerStyle}"
                   IsItemClickEnabled="True"
                   ItemClick="OnItemClicked"/>
         <ProgressRing IsActive="{Binding Items.IsLoading}"/>

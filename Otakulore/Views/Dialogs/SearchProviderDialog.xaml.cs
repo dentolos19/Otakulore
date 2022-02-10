@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Controls;
 using Otakulore.Core;
 using Otakulore.Models;
 
@@ -27,7 +26,6 @@ public sealed partial class SearchProviderDialog
         var query = SearchInput.Text;
         if (string.IsNullOrEmpty(query))
             return;
-        ResultIndicator.State = ResultIndicatorState.Loading;
         var results = new List<SourceItemModel>();
         switch (_provider)
         {
@@ -44,7 +42,6 @@ public sealed partial class SearchProviderDialog
                 break;
             }
         }
-        ResultIndicator.State = ResultIndicatorState.None;
         ResultList.Items.Clear();
         foreach (var entry in results)
             ResultList.Items.Add(entry);

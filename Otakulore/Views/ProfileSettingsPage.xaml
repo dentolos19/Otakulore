@@ -10,7 +10,7 @@
         </ComboBox>
         <ComboBox Header="Score Format" SelectedIndex="3">
             <ComboBoxItem Content="100 Point System (55/100)"/>
-            <ComboBoxItem Content="10 Decimal Point System (5.5/10)"/>
+            <ComboBoxItem Content="10 Point Decimal System (5.5/10)"/>
             <ComboBoxItem Content="10 Point System (5/10)"/>
             <ComboBoxItem Content="5 Star System (3/5)"/>
         </ComboBox>

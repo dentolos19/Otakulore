@@ -68,9 +68,7 @@ public sealed partial class SearchPage
 
         public async Task<IEnumerable<MediaItemModel>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
         {
-            var items = (await App.Client.SearchMedia(_query, _sort, pageIndex)).Data
-                .Select(media => new MediaItemModel(media));
-            return items;
+            return (await App.Client.SearchMedia(_query, _sort, new PageOptions(pageIndex, pageSize))).Data.Select(media => new MediaItemModel(media));
         }
 
     }

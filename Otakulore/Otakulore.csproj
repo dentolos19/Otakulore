@@ -80,11 +80,6 @@
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Resources\Styles.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-	<ItemGroup>
 		<Page Update="Views\ProfileOverviewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
@@ -171,11 +166,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Views\Sub\LoginSubPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="Controls\ResultIndicator.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>

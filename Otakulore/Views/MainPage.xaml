@@ -1,7 +1,7 @@
 ﻿<Page x:Class="Otakulore.Views.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:uic="using:CommunityToolkit.WinUI.UI.Controls"
+      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <NavigationView x:Name="NavigationView" PaneTitle="Made with ❤️ for Anime" IsPaneOpen="False" IsBackEnabled="{Binding CanGoBack, ElementName=ContentView}" SelectionChanged="OnNavigationChanged" BackRequested="OnBackRequested">
         <NavigationView.AutoSuggestBox>
@@ -33,7 +33,7 @@
         </NavigationView.FooterMenuItems>
         <Grid>
             <Frame x:Name="ContentView" x:FieldModifier="internal" CacheSize="5"/>
-            <uic:InAppNotification x:Name="NotificationSystem" x:FieldModifier="internal" ContentTemplate="{StaticResource NotificationContentTemplate}"/>
+            <controls:InAppNotification x:Name="NotificationSystem" x:FieldModifier="internal" ContentTemplate="{StaticResource NotificationContentTemplate}"/>
         </Grid>
     </NavigationView>
 </Page>

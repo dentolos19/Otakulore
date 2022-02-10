@@ -1,11 +1,10 @@
 ﻿<Page x:Class="Otakulore.Views.CinemaPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:olc="using:Otakulore.Controls"
-      xmlns:olm="using:Otakulore.Models"
+      xmlns:models="using:Otakulore.Models"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <olm:CinemaViewModel/>
+        <models:CinemaViewModel/>
     </Page.DataContext>
     <Grid>
         <Grid Margin="10" RowSpacing="10">
@@ -15,13 +14,12 @@
             </Grid.RowDefinitions>
             <ComboBox x:Name="ContentSelection" Grid.Row="0" ItemsSource="{Binding Items}" HorizontalAlignment="Stretch" SelectionChanged="OnContentChanged">
                 <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="olm:ContentItemModel">
+                    <DataTemplate x:DataType="models:ContentItemModel">
                         <TextBlock Text="{Binding Content.Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <WebView2 x:Name="WebView" Grid.Row="1" Source="{Binding Url}" NavigationStarting="OnContentNavigating"/>
         </Grid>
-        <olc:ResultIndicator State="{Binding State}"/>
     </Grid>
 </Page>

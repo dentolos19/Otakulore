@@ -11,16 +11,17 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 
 ## Features
 
-* [ ] Runs on multiple platforms
+* [ ] Runs on multiple platforms; so you could watch, read and track anytime and anywhere!
   * [X] Windows (powered by the **new** [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
   * [ ] Android (planned until the stable release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
-* [X] Track your progress with [AniList](https://anilist.co)
-* [X] Manage your [AniList](https://anilist.co) library directly within the app
-* [X] Never miss an episode with the built-in anime schedule powered by [AniChart](https://anichart.net)
-* [X] Gathers entertaining content from many sources
-  * [X] AnimeKisa (Anime)
-  * [X] Mangakakalot (Manga)
-  * ... more to be added soon!
+* [X] Easily track and synchronize your list with [AniList](https://anilist.co)!
+* [X] Get extensive details on your favorite series; including characters, staff and more! (from [AniList](https://anilist.co))
+* [X] Plan your next series to watch with the seasonal calendar (from [AniChart](https://anichart.net))!
+* [X] Efficiently get access to many sources easily!
+  * [X] [AnimeKisa](https://animekisa.tv) (Anime)
+  * [X] [Mangakakalot](https://mangakakalot.com) (Manga)
+  * [ ] [Novelhall](https://novelhall.com) (Novels)
+  * [ ] ... more to be added soon!
 
 ## Screenshots
 
@@ -31,6 +32,3 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 ![](.github/images/4.png)
 ![](.github/images/5.png)
 ![](.github/images/6.png)
-![](.github/images/7.png)
-![](.github/images/8.png)
-![](.github/images/9.png)

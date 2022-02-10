@@ -10,7 +10,6 @@
         <TextBlock Grid.Row="0" Text="Favorites" FontWeight="Bold" FontSize="24"/>
         <GridView x:Name="FavoriteList" Grid.Row="1"
                   ItemTemplate="{StaticResource MediaItemTemplate}"
-                  ItemContainerStyle="{ThemeResource MediaItemContainerStyle}"
                   IsItemClickEnabled="True"
                   ItemClick="OnItemClicked"/>
     </Grid>

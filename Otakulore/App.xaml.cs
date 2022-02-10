@@ -7,6 +7,7 @@ using Otakulore.Core.AniList;
 using Otakulore.Core.Providers;
 using Otakulore.Models;
 using Otakulore.Views;
+using UnhandledExceptionEventArgs = Microsoft.UI.Xaml.UnhandledExceptionEventArgs;
 
 namespace Otakulore;
 
@@ -61,7 +62,7 @@ public partial class App
         Window.Activate();
     }
 
-    private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs args)
+    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs args)
     {
         ShowNotification("An unhandled exception occurred! " + args.Message);
         args.Handled = true;

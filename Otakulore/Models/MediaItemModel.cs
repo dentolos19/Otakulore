@@ -25,7 +25,8 @@ public class MediaItemModel
         Title = Media.Title.Romaji;
         Meta.Add(new MetadataItem { Label = Media.Format != null ? Media.Format.GetEnumDescription(true) : "Unknown Format" });
         Meta.Add(new MetadataItem { Label = Media.StartDate.Year.HasValue ? Media.StartDate.Year.Value.ToString() : "????" });
-        Meta.Add(new MetadataItem { Label = Media.Season != null ? Media.Season.GetEnumDescription(true) : "Unknown Season" });
+        if (Media.Type == MediaType.Anime)
+            Meta.Add(new MetadataItem { Label = Media.Season != null ? Media.Season.GetEnumDescription(true) : "Unknown Season" });
         Score = Media.Score.HasValue ? Media.Score.Value / 20 : 0;
         ScoreCaption = media.Score?.ToString() ?? "Unknown";
         Description = Media.Description ?? "No description provided.";
