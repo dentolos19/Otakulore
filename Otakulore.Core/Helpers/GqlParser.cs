@@ -8,7 +8,7 @@ public static class GqlParser
         return type.GetEnumValue() + "{" + BuildSelections(selections) + "}";
     }
 
-    public static string Parse(GqlType type, string name, ICollection<GqlSelection> selections, IDictionary<string, object>? parameters = null)
+    public static string Parse(GqlType type, string name, ICollection<GqlSelection> selections, IDictionary<string, object?>? parameters = null)
     {
         var selection = new GqlSelection(name, selections);
         if (parameters is not { Count: > 0 })

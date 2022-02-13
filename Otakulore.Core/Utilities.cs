@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Net;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Otakulore.Core.AniList;
 
@@ -40,6 +42,19 @@ public static class Utilities
             >= 172 and < 266 => MediaSeason.Summer,
             _ => MediaSeason.Fall
         };
+    }
+
+    public static string ConvertHtmlToPlainText(string html)
+    {
+        var lineBreakRegex = new Regex(@"(>|$)(\W|\n|\r)+<", RegexOptions.Multiline);
+        var stripFormattingRegex = new Regex(@"<[^>]*(>|$)", RegexOptions.Multiline);
+        var tagWhiteSpaceRegex = new Regex(@"<(br|BR)\s{0,1}\/{0,1}>", RegexOptions.Multiline);
+        var text = html;
+        text = WebUtility.HtmlDecode(text);
+        text = tagWhiteSpaceRegex.Replace(text, "><");
+        text = lineBreakRegex.Replace(text, Environment.NewLine);
+        text = stripFormattingRegex.Replace(text, string.Empty);
+        return text;
     }
 
 }

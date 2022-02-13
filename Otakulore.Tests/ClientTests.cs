@@ -35,13 +35,6 @@ internal static class ClientTests
     }
 
     [Test]
-    public static async Task GetMediaByTrendsTest()
-    {
-        var response = await Client.GetMediaByTrend();
-        Console.WriteLine(ObjectDumper.Dump(response));
-    }
-
-    [Test]
     public static async Task GetUserTest()
     {
         var response = await Client.GetUser(1);
@@ -49,7 +42,7 @@ internal static class ClientTests
     }
 
     [Test]
-    public static async Task GetUserListTest()
+    public static async Task GetUserEntriesTest()
     {
         var response = await Client.GetUserEntries(100);
         Console.WriteLine(ObjectDumper.Dump(response));

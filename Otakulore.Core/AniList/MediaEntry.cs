@@ -15,9 +15,17 @@ public class MediaEntry
             new("media", Media.Selections)
         };
 
+    public static GqlSelection[] MediaSelections =>
+        new GqlSelection[]
+        {
+            new("id"),
+            new("status"),
+            new("progress")
+        };
+
     [JsonPropertyName("id")] public int Id { get; init; }
     [JsonPropertyName("status")] public MediaEntryStatus Status { get; init; }
     [JsonPropertyName("progress")] public int Progress { get; init; }
-    [JsonPropertyName("media")] public Media Media { get; init; }
+    [JsonPropertyName("media")] public Media? Media { get; init; }
 
 }

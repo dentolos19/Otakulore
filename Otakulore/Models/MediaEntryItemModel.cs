@@ -9,14 +9,19 @@ public class MediaEntryItemModel
 {
 
     public IList<MetadataItem> Meta { get; } = new List<MetadataItem>();
-
     public MediaEntry Entry { get; }
 
     public MediaEntryItemModel(MediaEntry entry)
     {
         Entry = entry;
+        Meta.Add(new MetadataItem { Label = entry.Media.Format.GetEnumDescription(true) });
         Meta.Add(new MetadataItem { Label = entry.Status.GetEnumDescription(true) });
-        Meta.Add(new MetadataItem { Label = entry.Progress.ToString() });
+        var totalProgress = Entry.Media.Type switch
+        {
+            MediaType.Anime => Entry.Media.Episodes?.ToString() ?? "?",
+            MediaType.Manga => Entry.Media.Chapters?.ToString() ?? "?"
+        };
+        Meta.Add(new MetadataItem { Label = $"{Entry.Progress}/{totalProgress}" });
     }
 
 }

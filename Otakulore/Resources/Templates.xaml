@@ -31,7 +31,14 @@
                     <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap"/>
                     <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
                     <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" IsReadOnly="True" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Description}" TextTrimming="WordEllipsis" TextWrapping="Wrap" MaxLines="5"/>
+                    <TextBlock>
+                        <Run Text="Popularity 🌟"/>
+                        <Run Text="{Binding Media.Popularity}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Favorites ❤️"/>
+                        <Run Text="{Binding Media.Favorites}"/>
+                    </TextBlock>
                 </StackPanel>
             </ToolTipService.ToolTip>
             <Grid.RowDefinitions>
@@ -41,8 +48,5 @@
             <controls:ImageEx Grid.Row="0" Source="{Binding ImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
             <TextBlock Grid.Row="1" Text="{Binding Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
         </Grid>
-    </DataTemplate>
-    <DataTemplate x:Key="ProviderItemTemplate" x:DataType="models:ProviderItemModel">
-        <Image Source="{Binding Provider.ImageUrl}" ToolTipService.ToolTip="{Binding Provider.Name}" Margin="5" MaxWidth="100" MaxHeight="100"/>
     </DataTemplate>
 </ResourceDictionary>

@@ -1,0 +1,39 @@
+﻿<Page x:Class="Otakulore.Views.Panels.DetailsOverviewPanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Spacing="10">
+            <StackPanel Spacing="2">
+                <TextBlock Text="Format" FontWeight="Bold"/>
+                <TextBlock x:Name="FormatText"/>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Text="Status" FontWeight="Bold"/>
+                <TextBlock x:Name="StatusText"/>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock x:Name="ContentTextLabel" FontWeight="Bold"/>
+                <TextBlock x:Name="ContentText"/>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Text="Start Date" FontWeight="Bold"/>
+                <TextBlock x:Name="StartDateText"/>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Text="End Date" FontWeight="Bold"/>
+                <TextBlock x:Name="EndDateText"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Spacing="10">
+            <StackPanel Spacing="2">
+                <TextBlock Text="Description" FontWeight="Bold"/>
+                <TextBlock x:Name="DescriptionText" TextWrapping="Wrap"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

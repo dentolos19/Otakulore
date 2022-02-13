@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core;
 using Otakulore.Models;
+using Otakulore.Views.Pages;
 
 namespace Otakulore.Views.Dialogs;
 
@@ -18,50 +19,42 @@ public sealed partial class SearchProviderDialog
         XamlRoot = App.Window.Content.XamlRoot;
         InitializeComponent();
         if (!string.IsNullOrEmpty(query))
-            SearchInput.Text = query;
+            SearchInputBox.Text = query;
     }
 
-    private void Search()
+    public void Search()
     {
-        var query = SearchInput.Text;
+        var query = SearchInputBox.Text;
         if (string.IsNullOrEmpty(query))
             return;
+        SearchResultList.Items.Clear();
+        SearchProgressIndicator.IsActive = true;
         var results = new List<SourceItemModel>();
         switch (_provider)
         {
-            case IAnimeProvider animeProvider:
+            case IAnimeProvider provider:
             {
-                var sources = animeProvider.GetSources(query);
+                var sources = provider.GetSources(query);
                 results.AddRange(sources.Select(entry => new SourceItemModel(entry)));
                 break;
             }
-            case IMangaProvider mangaProvider:
+            case IMangaProvider provider:
             {
-                var sources = mangaProvider.GetSources(query);
+                var sources = provider.GetSources(query);
                 results.AddRange(sources.Select(entry => new SourceItemModel(entry)));
                 break;
             }
         }
-        ResultList.Items.Clear();
+        SearchProgressIndicator.IsActive = false;
         foreach (var entry in results)
-            ResultList.Items.Add(entry);
-    }
-
-    private void OnDialogOpened(ContentDialog sender, ContentDialogOpenedEventArgs args)
-    {
-        Search();
-    }
-
-    private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        Search();
+            SearchResultList.Items.Add(entry);
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is not SourceItemModel item)
             return;
-        App.NavigateContent(typeof(CinemaPage), new KeyValuePair<IProvider, object>(_provider, item.Source));
+        App.NavigateFrame(typeof(CinemaPage), new KeyValuePair<IProvider, object>(_provider, item.Source));
         Hide();
     }
 

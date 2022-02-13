@@ -13,6 +13,7 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+		<Content Include="Resources\Images\ComingSoon.png"/>
 		<Content Include="Resources\Images\Icon.png"/>
 		<Content Include="Resources\Images\Visuals\LargeTile.scale-100.png"/>
 		<Content Include="Resources\Images\Visuals\LargeTile.scale-125.png"/>
@@ -80,32 +81,47 @@
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\ProfileOverviewPage.xaml">
+		<Page Update="Resources\Styles.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\ProfileSettingsPage.xaml">
+		<Page Update="Views\Panels\ComingSoonPanel.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\SchedulePage.xaml">
+		<Page Update="Views\Panels\DetailsOverviewPanel.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\ProfileListPage.xaml">
+		<Page Update="Views\Dialogs\FilterMediaDialog.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\MainPage.xaml">
+		<Page Update="Views\Panels\ProfileSettingsPanel.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\ProfilePage.xaml">
+		<Page Update="Views\Panels\SchedulePanel.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\Panels\ProfileListPanel.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\MainView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\Pages\ProfilePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
@@ -115,7 +131,7 @@
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Resources\Assets.xaml">
+		<Page Update="Resources\Images.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
@@ -125,37 +141,37 @@
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\CinemaPage.xaml">
+		<Page Update="Views\Pages\CinemaPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\FavoritesPage.xaml">
+		<Page Update="Views\Pages\FavoritesPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\HomePage.xaml">
+		<Page Update="Views\Pages\HomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\SchedulesPage.xaml">
+		<Page Update="Views\Pages\SchedulesPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\SettingsPage.xaml">
+		<Page Update="Views\Pages\SettingsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\SearchPage.xaml">
+		<Page Update="Views\Pages\SearchPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-		<Page Update="Views\DetailsPage.xaml">
+		<Page Update="Views\Pages\DetailsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>

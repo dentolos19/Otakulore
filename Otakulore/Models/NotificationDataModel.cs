@@ -5,8 +5,8 @@ namespace Otakulore.Models;
 public class NotificationDataModel
 {
 
-    public string Message { get; set; }
-    public string? ContinueText { get; set; }
+    public string Message { get; init; }
+    public string? ContinueText { get; init; }
 
     public event EventHandler? ContinueClicked;
 

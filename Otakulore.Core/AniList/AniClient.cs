@@ -14,6 +14,10 @@ public class AniClient
     private readonly GraphQLHttpClient _client;
     private readonly HttpClient _httpClient;
 
+    public int RateLimit { get; private set; }
+    public int RateRemaining { get; private set; }
+    public bool HasToken { get; private set; }
+
     public AniClient()
     {
         _httpClient = new HttpClient();
@@ -23,14 +27,27 @@ public class AniClient
             _httpClient);
     }
 
+    private void UpdateRateLimiting(HttpHeaders response)
+    {
+        response.TryGetValues("X-RateLimit-Limit", out var rateLimitValues);
+        response.TryGetValues("X-RateLimit-Remaining", out var rateRemainingValues);
+        var rateLimit = rateLimitValues?.FirstOrDefault();
+        var rateRemaining = rateRemainingValues?.FirstOrDefault();
+        if (rateLimit != null)
+            RateLimit = int.Parse(rateLimit);
+        if (rateRemaining != null)
+            RateRemaining = int.Parse(rateRemaining);
+    }
+
     public void SetToken(string token)
     {
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        HasToken = true;
     }
 
-    public async Task<AniPagination<Media>> SearchMedia(string query, MediaSort sort = MediaSort.Relevance, PageOptions? options = null)
+    public async Task<AniPagination<Media>> SearchMedia(string? query, MediaSort sort = MediaSort.Relevance, AniPaginationOptions? options = null)
     {
-        options ??= new PageOptions();
+        options ??= new AniPaginationOptions();
         var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
@@ -42,28 +59,31 @@ public class AniClient
                     { "sort", sort }
                 }
             }
-        }, new Dictionary<string, object>
+        }, new Dictionary<string, object?>
         {
             { "page", options.Index },
             { "perPage", options.Size }
         });
         var request = new GraphQLRequest(requestQuery);
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
         var page = (await _client.SendQueryAsync<AniResponse>(request)).Data.Page;
         return new AniPagination<Media>(page.Info, page.Media);
     }
 
     public async Task<Media> GetMedia(int id)
     {
-        var requestQuery = GqlParser.Parse(GqlType.Query, "Media", Media.Selections, new Dictionary<string, object> { { "id", id } });
+        var requestQuery = GqlParser.Parse(GqlType.Query, "Media", Media.Selections, new Dictionary<string, object?> { { "id", id } });
         var request = new GraphQLRequest(requestQuery);
-        var response = (await _client.SendQueryAsync<AniResponse>(request)).Data;
-        return response.Media;
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        return response.Data.Media;
     }
 
-    public async Task<AniPagination<Media>> GetMediaBySeason(MediaSeason season, int? year = null, PageOptions? options = null)
+    public async Task<AniPagination<Media>> GetMediaBySeason(MediaSeason season, int? year = null, AniPaginationOptions? options = null)
     {
         year ??= DateTime.Today.Year;
-        options ??= new PageOptions();
+        options ??= new AniPaginationOptions();
         var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
@@ -75,41 +95,15 @@ public class AniClient
                     { "seasonYear", year }
                 }
             }
-        }, new Dictionary<string, object>
+        }, new Dictionary<string, object?>
         {
             { "page", options.Index },
             { "perPage", options.Size }
         });
         var request = new GraphQLRequest(requestQuery);
-        var page = (await _client.SendQueryAsync<AniResponse>(request)).Data.Page;
-        return new AniPagination<Media>(page.Info, page.Media);
-    }
-
-    public async Task<AniPagination<MediaTrend>> GetMediaByTrend(MediaTrendSort sort = MediaTrendSort.Trending, PageOptions? options = null)
-    {
-        options ??= new PageOptions();
-        var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
-        {
-            new("pageInfo", PageInfo.Selections),
-            new("mediaTrends", new GqlSelection[]
-            {
-                new("media", Media.Selections)
-            })
-            {
-                Parameters =
-                {
-                    { "sort", sort },
-                    { "trending_not", 0 }
-                }
-            }
-        }, new Dictionary<string, object>
-        {
-            { "page", options.Index },
-            { "perPage", options.Size }
-        });
-        var request = new GraphQLRequest(requestQuery);
-        var page = (await _client.SendQueryAsync<AniResponse>(request)).Data.Page;
-        return new AniPagination<MediaTrend>(page.Info, page.MediaTrends);
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        return new AniPagination<Media>(response.Data.Page.Info, response.Data.Page.Media);
     }
 
     public async Task<User> GetUser(int? id = null)
@@ -117,16 +111,17 @@ public class AniClient
         var request = new GraphQLRequest
         {
             Query = id.HasValue
-                ? GqlParser.Parse(GqlType.Query, "User", User.Selections, new Dictionary<string, object> { { "id", id } })
+                ? GqlParser.Parse(GqlType.Query, "User", User.Selections, new Dictionary<string, object?> { { "id", id } })
                 : GqlParser.Parse(GqlType.Mutation, "UpdateUser", User.Selections)
         };
-        var response = (await _client.SendMutationAsync<AniResponse>(request)).Data;
-        return response.User ?? response.UpdatedUser;
+        var response = await _client.SendMutationAsync<AniResponse>(request);
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        return response.Data.User ?? response.Data.UpdatedUser;
     }
 
-    public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, PageOptions? options = null)
+    public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, AniPaginationOptions? options = null)
     {
-        options ??= new PageOptions();
+        options ??= new AniPaginationOptions();
         var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
@@ -137,27 +132,44 @@ public class AniClient
                     { "userId", id }
                 }
             }
-        }, new Dictionary<string, object>
+        }, new Dictionary<string, object?>
         {
             { "page", options.Index },
             { "perPage", options.Size }
         });
         var request = new GraphQLRequest(requestQuery);
-        var response = (await _client.SendQueryAsync<AniResponse>(request)).Data;
-        return new AniPagination<MediaEntry>(response.Page.Info, response.Page.MediaEntries);
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        return new AniPagination<MediaEntry>(response.Data.Page.Info, response.Data.Page.MediaEntries);
+    }
+
+    public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, MediaType type, AniPaginationOptions? options = null)
+    {
+        options ??= new AniPaginationOptions();
+        var requestQuery = GqlParser.Parse(GqlType.Query, "MediaListCollection", MediaEntryCollection.Selections, new Dictionary<string, object?>
+        {
+            { "userId", id },
+            { "type", type },
+            { "chunk", options.Index },
+            { "perChunk", options.Size },
+            { "sort", MediaEntrySort.LastUpdated }
+        });
+        var request = new GraphQLRequest(requestQuery);
+        var response = await _client.SendQueryAsync<AniResponse>(request);
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        var data = response.Data.MediaEntryCollection.Groups.SelectMany(group => group.Entries).ToList();
+        return new AniPagination<MediaEntry>(response.Data.MediaEntryCollection.HasNextChunk, data);
     }
 
     public async Task<MediaEntry> UpdateMediaEntry(int id, MediaEntryStatus status, int progress)
     {
-        var request = new GraphQLHttpRequest
+        var requestQuery = GqlParser.Parse(GqlType.Mutation, "SaveMediaListEntry", MediaEntry.Selections, new Dictionary<string, object?>
         {
-            Query = GqlParser.Parse(GqlType.Mutation, "SaveMediaListEntry", MediaEntry.Selections, new Dictionary<string, object>
-            {
-                { "id", id },
-                { "status", status },
-                { "progress", progress }
-            })
-        };
+            { "id", id },
+            { "status", status },
+            { "progress", progress }
+        });
+        var request = new GraphQLHttpRequest(requestQuery);
         var response = (await _client.SendMutationAsync<AniResponse>(request)).Data;
         return response.UpdatedMediaEntry;
     }

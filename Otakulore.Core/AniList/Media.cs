@@ -24,16 +24,18 @@ public class Media
             new("type"),
             new("format"),
             new("status"),
-            new("season"),
+            new("popularity"),
+            new("favourites"),
+            new("averageScore"),
             new("genres"),
             new("tags", MediaTag.Selections),
-            new("averageScore"),
             new("startDate", Date.Selections),
             new("endDate", Date.Selections),
-            new("isAdult"),
+            new("season"),
             new("episodes"),
             new("duration"),
-            new("chapters")
+            new("chapters"),
+            new("mediaListEntry", MediaEntry.MediaSelections)
         };
 
     [JsonPropertyName("id")] public int Id { get; init; }
@@ -46,16 +48,19 @@ public class Media
     [JsonPropertyName("type")] public MediaType Type { get; init; }
     [JsonPropertyName("format")] public MediaFormat? Format { get; init; }
     [JsonPropertyName("status")] public MediaStatus Status { get; init; }
-    [JsonPropertyName("season")] public MediaSeason? Season { get; init; }
+    [JsonPropertyName("popularity")] public int? Popularity { get; init; }
+    [JsonPropertyName("favourites")] public int? Favorites { get; init; }
+    [JsonPropertyName("averageScore")] public int? Score { get; init; }
     [JsonPropertyName("genres")] public string[]? Genres { get; init; }
     [JsonPropertyName("tags")] public MediaTag[]? Tags { get; init; }
-    [JsonPropertyName("averageScore")] public int? Score { get; init; }
     [JsonPropertyName("startDate")] public Date StartDate { get; init; }
     [JsonPropertyName("endDate")] public Date EndDate { get; init; }
-    [JsonPropertyName("isAdult")] public bool IsAdult { get; init; }
 
+    [JsonPropertyName("season")] public MediaSeason? Season { get; init; }
     [JsonPropertyName("episodes")] public int? Episodes { get; init; }
     [JsonPropertyName("duration")] public int? Duration { get; init; }
     [JsonPropertyName("chapters")] public int? Chapters { get; init; }
+
+    [JsonPropertyName("mediaListEntry")] public MediaEntry? Entry { get; init; }
 
 }

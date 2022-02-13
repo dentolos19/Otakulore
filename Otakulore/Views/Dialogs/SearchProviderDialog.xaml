@@ -1,31 +1,44 @@
 ﻿<ContentDialog x:Class="Otakulore.Views.Dialogs.SearchProviderDialog"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:uic="using:CommunityToolkit.WinUI.UI.Controls"
-               xmlns:olm="using:Otakulore.Models"
-               Opened="OnDialogOpened">
+               xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+               xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+               xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+               xmlns:models="using:Otakulore.Models"
+               DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <interactivity:Interaction.Behaviors>
+        <interactions:EventTriggerBehavior EventName="Opened">
+            <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
+        </interactions:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
     <Grid RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <AutoSuggestBox x:Name="SearchInput" Grid.Row="0" PlaceholderText="Search" QuerySubmitted="OnSearchRequested"/>
-        <ListView x:Name="ResultList" Grid.Row="1" IsItemClickEnabled="True" ItemClick="OnItemClicked">
+        <AutoSuggestBox x:Name="SearchInputBox" Grid.Row="0" PlaceholderText="Search">
+            <interactivity:Interaction.Behaviors>
+                <interactions:EventTriggerBehavior EventName="QuerySubmitted">
+                    <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
+                </interactions:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </AutoSuggestBox>
+        <ListView x:Name="SearchResultList" Grid.Row="1" IsItemClickEnabled="True" ItemClick="OnItemClicked">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="olm:SourceItemModel">
-                    <Grid ColumnSpacing="10" Height="80" Padding="5">
+                <DataTemplate x:DataType="models:SourceItemModel">
+                    <Grid ColumnSpacing="10" Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <uic:ImageEx Source="{Binding Source.ImageUrl}" EnableLazyLoading="True"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Source.Title}" FontSize="16" VerticalAlignment="Center"/>
+                        <controls:ImageEx Grid.Column="0" Source="{Binding Source.ImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Source.Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ProgressRing x:Name="ResultIndicator" Grid.Row="1"/>
+        <ProgressRing x:Name="SearchProgressIndicator" Grid.Row="1" IsActive="False"/>
         <Button Grid.Row="2" Content="Cancel" HorizontalAlignment="Stretch" Click="OnCancel"/>
     </Grid>
 </ContentDialog>
