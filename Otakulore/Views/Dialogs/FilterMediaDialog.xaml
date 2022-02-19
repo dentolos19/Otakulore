@@ -5,15 +5,19 @@
         <StackPanel Spacing="10">
             <ComboBox Header="Type" HorizontalAlignment="Stretch"/>
             <ComboBox Header="Format" HorizontalAlignment="Stretch"/>
-            <ListView Header="Genres">
-                <CheckBox Content="Placeholder"/>
-                <CheckBox Content="Placeholder"/>
-                <CheckBox Content="Placeholder"/>
+            <ListView x:Name="GenreList" Header="Genres">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-            <ListView Header="Tags">
-                <CheckBox Content="Placeholder"/>
-                <CheckBox Content="Placeholder"/>
-                <CheckBox Content="Placeholder"/>
+            <ListView x:Name="TagList" Header="Tags">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
             <Grid ColumnSpacing="5">
                 <Grid.ColumnDefinitions>

@@ -14,7 +14,7 @@ public static class Utilities
 
     public static HtmlWeb HtmlWeb => _htmlWebInstance ??= new HtmlWeb();
 
-    public static string? GetEnumValue<T>(this T type, bool allowDefaultValue = true)
+    public static string? ToEnumValue<T>(this T type, bool allowDefaultValue = true)
     {
         if (type == null)
             return type.ToString();
@@ -23,7 +23,7 @@ public static class Utilities
         return attributes.Length > 0 ? attributes[0].Value : allowDefaultValue ? type.ToString() : null;
     }
 
-    public static string? GetEnumDescription<T>(this T type, bool allowDefaultValue = false)
+    public static string? ToEnumDescription<T>(this T type, bool allowDefaultValue = false)
     {
         if (type == null)
             return type.ToString();

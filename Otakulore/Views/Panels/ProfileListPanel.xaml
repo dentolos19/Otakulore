@@ -4,7 +4,8 @@
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       xmlns:models="using:Otakulore.Models"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      NavigationCacheMode="Required">
     <Grid Margin="10" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,14 +16,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchBox" Grid.Column="0" PlaceholderText="Search" TextChanged="OnSearchChanged"/>
             <ComboBox x:Name="TypeDropdown" Grid.Column="1" SelectionChanged="OnTypeChanged"/>
             <ComboBox x:Name="StatusDropdown" Grid.Column="2" SelectionChanged="OnStatusChanged"/>
-            <Button Grid.Column="3" ToolTipService.ToolTip="Filter">
-                <FontIcon Glyph="&#xE71C;"/>
-            </Button>
         </Grid>
         <ListView x:Name="List" Grid.Row="1" IsItemClickEnabled="True" ItemClick="OnItemClicked">
             <ListView.ItemTemplate>
@@ -34,7 +31,7 @@
                         </Grid.ColumnDefinitions>
                         <controls:ImageEx Grid.Column="0" Source="{Binding Entry.Media.CoverImage.LargeImageUrl}" CornerRadius="10"/>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Entry.Media.Title.Romaji}" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Entry.Media.Title.Preferred}" FontWeight="Bold" FontSize="16"/>
                             <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
                         </StackPanel>
                     </Grid>

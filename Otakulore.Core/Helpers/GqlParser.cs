@@ -5,10 +5,10 @@ public static class GqlParser
 
     public static string Parse(GqlType type, IEnumerable<GqlSelection> selections)
     {
-        return type.GetEnumValue() + "{" + BuildSelections(selections) + "}";
+        return type.ToEnumValue() + "{" + BuildSelections(selections) + "}";
     }
 
-    public static string Parse(GqlType type, string name, ICollection<GqlSelection> selections, IDictionary<string, object?>? parameters = null)
+    public static string Parse(GqlType type, string name, ICollection<GqlSelection>? selections, IDictionary<string, object?>? parameters = null)
     {
         var selection = new GqlSelection(name, selections);
         if (parameters is not { Count: > 0 })
@@ -38,27 +38,20 @@ public static class GqlParser
     {
         var data = string.Empty;
         foreach (var (name, value) in parameters)
-        {
-            data += (data.Length > 1 ? "," : string.Empty) + name + ":";
-            if (value is string @string)
-            {
-                if (@string.StartsWith("$"))
-                    data += @string[1..];
-                else
-                    data += "\"" + @string + "\"";
-            }
-            else
-            {
-                data += value switch
-                {
-                    null => "null",
-                    bool @bool => @bool ? "true" : "false",
-                    Enum @enum => @enum.GetEnumValue(),
-                    _ => value.ToString()
-                };
-            }
-        }
+            data += (data.Length > 1 ? "," : string.Empty) + name + ":" + ParseObjectString(value);
         return data;
+    }
+
+    private static string? ParseObjectString(object? value)
+    {
+        return value switch
+        {
+            null => "null",
+            string @string => "\"" + @string + "\"",
+            bool @bool => @bool ? "true" : "false",
+            Enum @enum => @enum.ToEnumValue(),
+            _ => value.ToString()
+        };
     }
 
 }

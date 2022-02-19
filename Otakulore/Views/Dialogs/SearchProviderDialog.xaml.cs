@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core;
@@ -16,10 +15,10 @@ public sealed partial class SearchProviderDialog
     public SearchProviderDialog(IProvider provider, string? query = null)
     {
         _provider = provider;
-        XamlRoot = App.Window.Content.XamlRoot;
         InitializeComponent();
         if (!string.IsNullOrEmpty(query))
             SearchInputBox.Text = query;
+        Opened += (_, _) => Search();
     }
 
     public void Search()
@@ -29,25 +28,10 @@ public sealed partial class SearchProviderDialog
             return;
         SearchResultList.Items.Clear();
         SearchProgressIndicator.IsActive = true;
-        var results = new List<SourceItemModel>();
-        switch (_provider)
-        {
-            case IAnimeProvider provider:
-            {
-                var sources = provider.GetSources(query);
-                results.AddRange(sources.Select(entry => new SourceItemModel(entry)));
-                break;
-            }
-            case IMangaProvider provider:
-            {
-                var sources = provider.GetSources(query);
-                results.AddRange(sources.Select(entry => new SourceItemModel(entry)));
-                break;
-            }
-        }
-        SearchProgressIndicator.IsActive = false;
+        var results = _provider.GetSources(query);
         foreach (var entry in results)
-            SearchResultList.Items.Add(entry);
+            SearchResultList.Items.Add(new SourceItemModel(entry));
+        SearchProgressIndicator.IsActive = false;
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)

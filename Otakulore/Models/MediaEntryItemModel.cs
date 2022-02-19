@@ -14,8 +14,8 @@ public class MediaEntryItemModel
     public MediaEntryItemModel(MediaEntry entry)
     {
         Entry = entry;
-        Meta.Add(new MetadataItem { Label = entry.Media.Format.GetEnumDescription(true) });
-        Meta.Add(new MetadataItem { Label = entry.Status.GetEnumDescription(true) });
+        Meta.Add(new MetadataItem { Label = entry.Media.Format.ToEnumDescription(true) });
+        Meta.Add(new MetadataItem { Label = entry.Status.ToEnumDescription(true) });
         var totalProgress = Entry.Media.Type switch
         {
             MediaType.Anime => Entry.Media.Episodes?.ToString() ?? "?",

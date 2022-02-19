@@ -14,10 +14,10 @@ public sealed partial class DetailsOverviewPanel
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.Parameter is not Media media)
+        if (args.Parameter is not MediaExtra media)
             return;
-        FormatText.Text = media.Format.GetEnumDescription(true);
-        StatusText.Text = media.Status.GetEnumDescription(true);
+        FormatText.Text = media.Format.ToEnumDescription(true);
+        StatusText.Text = media.Status.ToEnumDescription(true);
         if (media.Format == MediaFormat.Movie)
         {
             ContentTextLabel.Text = "Length";

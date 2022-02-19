@@ -43,13 +43,13 @@ public sealed partial class HomePage
     private void OnBannerTapped(object sender, TappedRoutedEventArgs args)
     {
         if (PopularList.SelectedItem is MediaItemModel item)
-            App.NavigateFrame(typeof(DetailsPage), item.Media);
+            App.NavigateFrame(typeof(DetailsPage), item.Media.Id);
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            App.NavigateFrame(typeof(DetailsPage), item.Media);
+            App.NavigateFrame(typeof(DetailsPage), item.Media.Id);
     }
 
 }

@@ -11,6 +11,13 @@ internal static class ClientTests
     private static readonly AniClient Client = new();
 
     [Test]
+    public static async Task GetGenresAndTagsTest()
+    {
+        var response = await Client.GetGenresAndTags();
+        Console.WriteLine(ObjectDumper.Dump(response));
+    }
+
+    [Test]
     public static async Task SearchMediaTest()
     {
         var response = await Client.SearchMedia("test");

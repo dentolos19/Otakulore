@@ -27,4 +27,14 @@ internal static class ProvidersTest
         Console.WriteLine(ObjectDumper.Dump(content));
     }
 
+    [Test]
+    public static void NovelhallTest()
+    {
+        var provider = new NovelhallProvider();
+        var sources = provider.GetSources("test");
+        Console.WriteLine(ObjectDumper.Dump(sources));
+        var content = provider.GetContents(sources[0]);
+        Console.WriteLine(ObjectDumper.Dump(content));
+    }
+
 }

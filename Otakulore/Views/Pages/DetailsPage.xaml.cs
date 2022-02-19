@@ -14,8 +14,8 @@ namespace Otakulore.Views.Pages;
 public sealed partial class DetailsPage
 {
 
-    private Media _media;
-    private MediaEntry? _entry;
+    private MediaExtra _media;
+    private MediaEntry? _mediaEntry;
 
     public DetailsPage()
     {
@@ -25,16 +25,17 @@ public sealed partial class DetailsPage
         PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Related", Tag = typeof(ComingSoonPanel) });
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs args)
+    protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.Parameter is not Media media)
+        if (args.Parameter is not int id)
             return;
-        _media = media;
-        _entry = media.Entry;
-        CoverImage.Source = _media.CoverImage.ExtraLargeImageUrl;
+        _media = await App.Client.GetMedia(id);
+        LoadingIndicator.IsLoading = false;
+        _mediaEntry = _media.Entry;
+        CoverImage.Source = _media.CoverImage.LargeImageUrl;
         TitleText.Text = _media.Title.Preferred;
         SubtitleText.Text = _media.StartDate.Year.HasValue ? _media.StartDate.Year.Value.ToString() : "Unknown Year";
-        TrackButton.IsChecked = _entry != null;
+        TrackButton.IsChecked = _mediaEntry != null;
         FavoriteButton.IsChecked = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id) != null;
         foreach (var provider in App.Providers)
             switch (_media.Type)
@@ -52,12 +53,12 @@ public sealed partial class DetailsPage
         if (args.ClickedItem is not ProviderItemModel item)
             return;
         var dialog = new SearchProviderDialog(item.Provider, _media.Title.Preferred);
-        await dialog.ShowAsync();
+        await App.AttachDialog(dialog);
     }
 
     private async void OnTrackRequested(object sender, RoutedEventArgs args)
     {
-        TrackButton.IsChecked = _entry != null;
+        TrackButton.IsChecked = _mediaEntry != null;
         if (!App.Client.HasToken)
         {
             var model = new NotificationDataModel
@@ -69,8 +70,10 @@ public sealed partial class DetailsPage
             App.ShowNotification(model);
             return;
         }
-        var dialog = new ManageTrackerDialog(_entry);
+        var dialog = _mediaEntry != null ? new ManageTrackerDialog(_mediaEntry) : new ManageTrackerDialog(_media.Id);
         await App.AttachDialog(dialog);
+        _mediaEntry = dialog.Result;
+        TrackButton.IsChecked = _mediaEntry != null;
     }
 
     private void OnUpdateFavorite(object sender, RoutedEventArgs args)

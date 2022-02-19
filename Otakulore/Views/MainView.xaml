@@ -8,7 +8,7 @@
             <AutoSuggestBox PlaceholderText="Search" QuerySubmitted="OnSearchRequested"/>
         </NavigationView.AutoSuggestBox>
         <Grid>
-            <Frame x:Name="PageFrame" x:FieldModifier="internal" CacheSize="5" Navigating="OnPageNavigating"/>
+            <Frame x:Name="PageFrame" x:FieldModifier="internal" CacheSize="2" Navigating="OnPageNavigating"/>
             <controls:InAppNotification x:Name="NotificationArea" x:FieldModifier="internal" ContentTemplate="{StaticResource NotificationContentTemplate}"/>
         </Grid>
     </NavigationView>

@@ -18,6 +18,7 @@ namespace Otakulore.Views.Panels;
 public sealed partial class ProfileListPanel
 {
 
+    private bool _isAlreadyNavigated;
     private int _id;
     private AnimeSource? _animeSource;
     private MangaSource? _mangaSource;
@@ -27,9 +28,9 @@ public sealed partial class ProfileListPanel
         InitializeComponent();
         StatusDropdown.Items.Add(new ComboBoxItem { Content = "All" });
         foreach (var status in (MediaType[])Enum.GetValues(typeof(MediaType)))
-            TypeDropdown.Items.Add(new ComboBoxItem { Content = status.GetEnumDescription(true), Tag = status });
+            TypeDropdown.Items.Add(new ComboBoxItem { Content = status.ToEnumDescription(true), Tag = status });
         foreach (var status in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
-            StatusDropdown.Items.Add(new ComboBoxItem { Content = status.GetEnumDescription(true), Tag = status });
+            StatusDropdown.Items.Add(new ComboBoxItem { Content = status.ToEnumDescription(true), Tag = status });
     }
 
     private void UpdateCollection<T>(T source) where T : IIncrementalSource<MediaEntryItemModel>
@@ -53,6 +54,9 @@ public sealed partial class ProfileListPanel
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
+        if (_isAlreadyNavigated)
+            return;
+        _isAlreadyNavigated = true;
         if (args.Parameter is not int id)
             return;
         _id = id;
@@ -92,7 +96,7 @@ public sealed partial class ProfileListPanel
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaEntryItemModel item)
-            App.NavigateFrame(typeof(DetailsPage), item.Entry.Media);
+            App.NavigateFrame(typeof(DetailsPage), item.Entry.MediaId);
     }
 
     public class AnimeSource : IIncrementalSource<MediaEntryItemModel>

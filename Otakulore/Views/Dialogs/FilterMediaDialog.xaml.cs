@@ -7,8 +7,11 @@ public sealed partial class FilterMediaDialog
 
     public FilterMediaDialog()
     {
-        XamlRoot = App.Window.Content.XamlRoot;
         InitializeComponent();
+        foreach (var genre in App.Genres)
+            GenreList.Items.Add(genre);
+        foreach (var tag in App.Tags)
+            TagList.Items.Add(tag.Name);
     }
 
     private void OnFilter(object sender, RoutedEventArgs args)

@@ -16,7 +16,9 @@ public class AniClient
 
     public int RateLimit { get; private set; }
     public int RateRemaining { get; private set; }
-    public bool HasToken { get; private set; }
+    public bool HasToken => _httpClient.DefaultRequestHeaders.Authorization != null;
+
+    public event EventHandler RateUpdated;
 
     public AniClient()
     {
@@ -37,18 +39,31 @@ public class AniClient
             RateLimit = int.Parse(rateLimit);
         if (rateRemaining != null)
             RateRemaining = int.Parse(rateRemaining);
+        RateUpdated?.Invoke(this, EventArgs.Empty);
     }
 
-    public void SetToken(string token)
+    public void SetToken(string? token)
     {
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        HasToken = true;
+        _httpClient.DefaultRequestHeaders.Authorization = token != null ? new AuthenticationHeaderValue("Bearer", token) : null;
+    }
+
+    public async Task<KeyValuePair<string[], MediaTag[]>> GetGenresAndTags()
+    {
+        var request = GqlParser.Parse(GqlType.Query, new GqlSelection[]
+        {
+            new("GenreCollection"),
+            new("MediaTagCollection", MediaTag.Selections)
+        });
+        var response = await _client.SendQueryAsync<JsonDocument>(new GraphQLRequest(request));
+        return new KeyValuePair<string[], MediaTag[]>(
+            response.Data.RootElement.GetProperty("GenreCollection").Deserialize<string[]>(),
+            response.Data.RootElement.GetProperty("MediaTagCollection").Deserialize<MediaTag[]>());
     }
 
     public async Task<AniPagination<Media>> SearchMedia(string? query, MediaSort sort = MediaSort.Relevance, AniPaginationOptions? options = null)
     {
         options ??= new AniPaginationOptions();
-        var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+        var request = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
             new("media", Media.Selections)
@@ -64,27 +79,28 @@ public class AniClient
             { "page", options.Index },
             { "perPage", options.Size }
         });
-        var request = new GraphQLRequest(requestQuery);
-        var response = await _client.SendQueryAsync<AniResponse>(request);
+        var response = await _client.SendQueryAsync<JsonDocument>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        var page = (await _client.SendQueryAsync<AniResponse>(request)).Data.Page;
+        var page = response.Data.RootElement.GetProperty("Page").Deserialize<Page>();
         return new AniPagination<Media>(page.Info, page.Media);
     }
 
-    public async Task<Media> GetMedia(int id)
+    public async Task<MediaExtra> GetMedia(int id)
     {
-        var requestQuery = GqlParser.Parse(GqlType.Query, "Media", Media.Selections, new Dictionary<string, object?> { { "id", id } });
-        var request = new GraphQLRequest(requestQuery);
-        var response = await _client.SendQueryAsync<AniResponse>(request);
+        var request = GqlParser.Parse(GqlType.Query, "Media", MediaExtra.Selections, new Dictionary<string, object?>
+        {
+            { "id", id }
+        });
+        var response = await _client.SendQueryAsync<JsonDocument>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        return response.Data.Media;
+        return response.Data.RootElement.GetProperty("Media").Deserialize<MediaExtra>();
     }
 
     public async Task<AniPagination<Media>> GetMediaBySeason(MediaSeason season, int? year = null, AniPaginationOptions? options = null)
     {
         year ??= DateTime.Today.Year;
         options ??= new AniPaginationOptions();
-        var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+        var request = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
             new("media", Media.Selections)
@@ -100,29 +116,30 @@ public class AniClient
             { "page", options.Index },
             { "perPage", options.Size }
         });
-        var request = new GraphQLRequest(requestQuery);
-        var response = await _client.SendQueryAsync<AniResponse>(request);
+        var response = await _client.SendQueryAsync<JsonDocument>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        return new AniPagination<Media>(response.Data.Page.Info, response.Data.Page.Media);
+        var page = response.Data.RootElement.GetProperty("Page").Deserialize<Page>();
+        return new AniPagination<Media>(page.Info, page.Media);
     }
 
-    public async Task<User> GetUser(int? id = null)
+    public async Task<User?> GetUser(int? id = null)
     {
-        var request = new GraphQLRequest
-        {
-            Query = id.HasValue
-                ? GqlParser.Parse(GqlType.Query, "User", User.Selections, new Dictionary<string, object?> { { "id", id } })
-                : GqlParser.Parse(GqlType.Mutation, "UpdateUser", User.Selections)
-        };
-        var response = await _client.SendMutationAsync<AniResponse>(request);
+        var request = id.HasValue
+            ? GqlParser.Parse(GqlType.Query, "User", User.Selections, new Dictionary<string, object?> { { "id", id } })
+            : GqlParser.Parse(GqlType.Mutation, "UpdateUser", User.Selections);
+        var response = await _client.SendMutationAsync<JsonDocument>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        return response.Data.User ?? response.Data.UpdatedUser;
+        if (response.Data.RootElement.TryGetProperty("User", out var userElement))
+            return userElement.Deserialize<User>();
+        return response.Data.RootElement.TryGetProperty("UpdateUser", out var updatedUserElement)
+            ? updatedUserElement.Deserialize<User>()
+            : null;
     }
 
     public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, AniPaginationOptions? options = null)
     {
         options ??= new AniPaginationOptions();
-        var requestQuery = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+        var request = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
             new("mediaList", MediaEntry.Selections)
@@ -137,16 +154,16 @@ public class AniClient
             { "page", options.Index },
             { "perPage", options.Size }
         });
-        var request = new GraphQLRequest(requestQuery);
-        var response = await _client.SendQueryAsync<AniResponse>(request);
+        var response = await _client.SendQueryAsync<JsonDocument>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        return new AniPagination<MediaEntry>(response.Data.Page.Info, response.Data.Page.MediaEntries);
+        var page = response.Data.RootElement.GetProperty("Page").Deserialize<Page>();
+        return new AniPagination<MediaEntry>(page.Info, page.MediaEntries);
     }
 
     public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, MediaType type, AniPaginationOptions? options = null)
     {
         options ??= new AniPaginationOptions();
-        var requestQuery = GqlParser.Parse(GqlType.Query, "MediaListCollection", MediaEntryCollection.Selections, new Dictionary<string, object?>
+        var request = GqlParser.Parse(GqlType.Query, "MediaListCollection", MediaEntryCollection.Selections, new Dictionary<string, object?>
         {
             { "userId", id },
             { "type", type },
@@ -154,24 +171,35 @@ public class AniClient
             { "perChunk", options.Size },
             { "sort", MediaEntrySort.LastUpdated }
         });
-        var request = new GraphQLRequest(requestQuery);
-        var response = await _client.SendQueryAsync<AniResponse>(request);
+        var response = await _client.SendQueryAsync<JsonElement>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        var data = response.Data.MediaEntryCollection.Groups.SelectMany(group => group.Entries).ToList();
-        return new AniPagination<MediaEntry>(response.Data.MediaEntryCollection.HasNextChunk, data);
+        var collection = response.Data.GetProperty("MediaListCollection").Deserialize<MediaEntryCollection>();
+        var entries = collection.Groups.SelectMany(group => group.Entries).ToList();
+        return new AniPagination<MediaEntry>(collection.HasNextChunk, entries);
     }
 
     public async Task<MediaEntry> UpdateMediaEntry(int id, MediaEntryStatus status, int progress)
     {
-        var requestQuery = GqlParser.Parse(GqlType.Mutation, "SaveMediaListEntry", MediaEntry.Selections, new Dictionary<string, object?>
+        var request = GqlParser.Parse(GqlType.Mutation, "SaveMediaListEntry", MediaEntry.Selections, new Dictionary<string, object?>
         {
-            { "id", id },
+            { "mediaId", id },
             { "status", status },
             { "progress", progress }
         });
-        var request = new GraphQLHttpRequest(requestQuery);
-        var response = (await _client.SendMutationAsync<AniResponse>(request)).Data;
-        return response.UpdatedMediaEntry;
+        var response = await _client.SendMutationAsync<JsonDocument>(new GraphQLHttpRequest(request));
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        return response.Data.RootElement.GetProperty("SaveMediaListEntry").Deserialize<MediaEntry>();
+    }
+
+    public async Task<bool> DeleteMediaEntry(int id)
+    {
+        var request = GqlParser.Parse(GqlType.Mutation, "DeleteMediaListEntry", new GqlSelection[] { new("deleted") }, new Dictionary<string, object?>
+        {
+            { "id", id }
+        });
+        var response = await _client.SendMutationAsync<JsonDocument>(new GraphQLHttpRequest(request));
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        return response.Data.RootElement.GetProperty("DeleteMediaListEntry").GetProperty("deleted").GetBoolean();
     }
 
 }

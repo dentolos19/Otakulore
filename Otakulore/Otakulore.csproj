@@ -15,6 +15,7 @@
 	<ItemGroup>
 		<Content Include="Resources\Images\ComingSoon.png"/>
 		<Content Include="Resources\Images\Icon.png"/>
+		<Content Include="Resources\Images\None.png"/>
 		<Content Include="Resources\Images\Visuals\LargeTile.scale-100.png"/>
 		<Content Include="Resources\Images\Visuals\LargeTile.scale-125.png"/>
 		<Content Include="Resources\Images\Visuals\LargeTile.scale-150.png"/>
@@ -67,6 +68,9 @@
 		<Content Include="Resources\Images\Visuals\Wide310x150Logo.scale-400.png"/>
 	</ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\Files\About.md"/>
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2"/>
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2"/>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0"/>
@@ -79,6 +83,11 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\LoadingView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Resources\Styles.xaml">

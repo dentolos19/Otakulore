@@ -28,7 +28,7 @@
         <Grid RowSpacing="2" Margin="5" Width="150" Height="250">
             <ToolTipService.ToolTip>
                 <StackPanel>
-                    <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Media.Title.Preferred}" FontWeight="Bold" TextWrapping="Wrap"/>
                     <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
                     <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" IsReadOnly="True" HorizontalAlignment="Left"/>
                     <TextBlock>
@@ -45,8 +45,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <controls:ImageEx Grid.Row="0" Source="{Binding ImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
-            <TextBlock Grid.Row="1" Text="{Binding Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+            <controls:ImageEx Grid.Row="0" Source="{Binding Media.CoverImage.LargeImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
+            <TextBlock Grid.Row="1" Text="{Binding Media.Title.Preferred}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

@@ -14,7 +14,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Grid.Column="0" Content="Save" HorizontalAlignment="Stretch" Click="OnSave"/>
-            <Button Grid.Row="0" Grid.Column="1" Content="Delete" HorizontalAlignment="Stretch" Click="OnDelete"/>
+            <Button x:Name="DeleteButton" Grid.Row="0" Grid.Column="1" Content="Delete" HorizontalAlignment="Stretch" Click="OnDelete"/>
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Cancel" HorizontalAlignment="Stretch" Click="OnCancel"/>
         </Grid>
     </StackPanel>

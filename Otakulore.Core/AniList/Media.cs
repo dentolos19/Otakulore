@@ -28,14 +28,12 @@ public class Media
             new("favourites"),
             new("averageScore"),
             new("genres"),
-            new("tags", MediaTag.Selections),
             new("startDate", Date.Selections),
             new("endDate", Date.Selections),
             new("season"),
             new("episodes"),
             new("duration"),
-            new("chapters"),
-            new("mediaListEntry", MediaEntry.MediaSelections)
+            new("chapters")
         };
 
     [JsonPropertyName("id")] public int Id { get; init; }
@@ -52,7 +50,6 @@ public class Media
     [JsonPropertyName("favourites")] public int? Favorites { get; init; }
     [JsonPropertyName("averageScore")] public int? Score { get; init; }
     [JsonPropertyName("genres")] public string[]? Genres { get; init; }
-    [JsonPropertyName("tags")] public MediaTag[]? Tags { get; init; }
     [JsonPropertyName("startDate")] public Date StartDate { get; init; }
     [JsonPropertyName("endDate")] public Date EndDate { get; init; }
 
@@ -60,7 +57,5 @@ public class Media
     [JsonPropertyName("episodes")] public int? Episodes { get; init; }
     [JsonPropertyName("duration")] public int? Duration { get; init; }
     [JsonPropertyName("chapters")] public int? Chapters { get; init; }
-
-    [JsonPropertyName("mediaListEntry")] public MediaEntry? Entry { get; init; }
 
 }

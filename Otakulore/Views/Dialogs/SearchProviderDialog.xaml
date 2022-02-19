@@ -32,7 +32,10 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <controls:ImageEx Grid.Column="0" Source="{Binding Source.ImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
+                        <controls:ImageEx Grid.Column="0"
+                                          Source="{Binding Source.ImageUrl}" Stretch="UniformToFill"
+                                          PlaceholderSource="{StaticResource NoneImage}" PlaceholderStretch="UniformToFill"
+                                          EnableLazyLoading="True" CornerRadius="10"/>
                         <TextBlock Grid.Column="1" Text="{Binding Source.Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>

@@ -21,7 +21,7 @@ public sealed partial class FavoritesPage
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), item.Media);
+            Frame.Navigate(typeof(DetailsPage), item.Media.Id);
     }
 
 }

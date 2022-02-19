@@ -22,7 +22,7 @@ public sealed partial class SearchPage
     {
         InitializeComponent();
         foreach (var sort in (MediaSort[])Enum.GetValues(typeof(MediaSort)))
-            SearchSortBox.Items.Add(new ComboBoxItem { Content = sort.GetEnumDescription(true), Tag = sort });
+            SearchSortBox.Items.Add(new ComboBoxItem { Content = sort.ToEnumDescription(true), Tag = sort });
     }
 
     public void Search()
@@ -47,14 +47,14 @@ public sealed partial class SearchPage
     private async void OnFilterSearch(object sender, RoutedEventArgs args)
     {
         var dialog = new FilterMediaDialog();
-        await dialog.ShowAsync();
+        await App.AttachDialog(dialog);
         App.ShowNotification("This feature is currently not implemented!");
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel item)
-            Frame.Navigate(typeof(DetailsPage), item.Media);
+            Frame.Navigate(typeof(DetailsPage), item.Media.Id);
     }
 
     public class Source : IIncrementalSource<MediaItemModel>
