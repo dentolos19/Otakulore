@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -14,8 +14,8 @@ public class PageInfo
             new("hasNextPage")
         };
 
-    [JsonPropertyName("currentPage")] public int CurrentPageIndex { get; init; }
-    [JsonPropertyName("lastPage")] public int LastPageIndex { get; init; }
-    [JsonPropertyName("hasNextPage")] public bool HasNextPage { get; init; }
+    [JsonProperty("currentPage")] public int CurrentPageIndex { get; init; }
+    [JsonProperty("lastPage")] public int LastPageIndex { get; init; }
+    [JsonProperty("hasNextPage")] public bool HasNextPage { get; init; }
 
 }

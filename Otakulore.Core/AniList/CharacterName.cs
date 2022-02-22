@@ -3,20 +3,18 @@ using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
 
-public class MediaTitle
+public class CharacterName
 {
 
-    internal static GqlSelection[] Selections =>
+    public static GqlSelection[] Selections =>
         new GqlSelection[]
         {
-            new("romaji"),
-            new("english"),
+            new("full"),
             new("native"),
             new("userPreferred")
         };
 
-    [JsonProperty("romaji")] public string Romaji { get; init; }
-    [JsonProperty("english")] public string? English { get; init; }
+    [JsonProperty("full")] public string Romaji { get; init; }
     [JsonProperty("native")] public string Native { get; init; }
     [JsonProperty("userPreferred")] public string Preferred { get; init; }
 

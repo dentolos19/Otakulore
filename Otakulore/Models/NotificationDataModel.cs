@@ -6,7 +6,7 @@ public class NotificationDataModel
 {
 
     public string Message { get; init; }
-    public string? ContinueText { get; init; }
+    public string ContinueText { get; init; } = "null";
 
     public event EventHandler? ContinueClicked;
 

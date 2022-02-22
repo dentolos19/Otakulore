@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -14,8 +14,8 @@ public class MediaTag
             new("description")
         };
 
-    [JsonPropertyName("id")] public int Id { get; init; }
-    [JsonPropertyName("name")] public string Name { get; init; }
-    [JsonPropertyName("description")] public string Description { get; init; }
+    [JsonProperty("id")] public int Id { get; init; }
+    [JsonProperty("name")] public string Name { get; init; }
+    [JsonProperty("description")] public string Description { get; init; }
 
 }

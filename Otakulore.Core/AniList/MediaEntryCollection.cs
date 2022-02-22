@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -13,7 +13,7 @@ public class MediaEntryCollection
             new("hasNextChunk")
         };
 
-    [JsonPropertyName("lists")] public MediaEntryGroup[] Groups { get; init; }
-    [JsonPropertyName("hasNextChunk")] public bool HasNextChunk { get; init; }
+    [JsonProperty("lists")] public MediaEntryGroup[] Groups { get; init; }
+    [JsonProperty("hasNextChunk")] public bool HasNextChunk { get; init; }
 
 }

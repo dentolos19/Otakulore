@@ -12,10 +12,9 @@ public sealed partial class MainView
     public MainView()
     {
         InitializeComponent();
-        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new FontIcon { Glyph = "\xE80F" }, Content = "Home", Tag = typeof(HomePage) });
-        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new FontIcon { Glyph = "\xE734" }, Content = "Favorites", Tag = typeof(FavoritesPage) });
-        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new FontIcon { Glyph = "\xE787" }, Content = "Schedules", Tag = typeof(SchedulesPage) });
-        PageNavigation.FooterMenuItems.Add(new NavigationViewItem { Icon = new FontIcon { Glyph = "\xE77B" }, Content = "Profile", Tag = typeof(ProfilePage) });
+        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Home), Content = "Home", Tag = typeof(HomePage) });
+        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Calendar), Content = "Schedules", Tag = typeof(SchedulesPage) });
+        PageNavigation.FooterMenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Contact), Content = "Profile", Tag = typeof(ProfilePage) });
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
@@ -55,9 +54,8 @@ public sealed partial class MainView
 
     private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        var query = sender.Text;
-        if (!string.IsNullOrEmpty(query))
-            PageFrame.Navigate(typeof(SearchPage), query);
+        PageFrame.Navigate(typeof(SearchPage), sender.Text);
+        PageNavigation.IsPaneOpen = false;
     }
 
 }

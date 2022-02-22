@@ -1,12 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Otakulore.Core.AniList;
 
 public class Page
 {
 
-    [JsonPropertyName("pageInfo")] public PageInfo Info { get; init; }
-    [JsonPropertyName("media")] public Media[]? Media { get; init; }
-    [JsonPropertyName("mediaList")] public MediaEntry[]? MediaEntries { get; init; }
+    [JsonProperty("pageInfo")] public PageInfo Info { get; init; }
+    [JsonProperty("media")] public Media[]? Media { get; init; }
+    [JsonProperty("mediaList")] public MediaEntry[]? MediaEntries { get; init; }
 
 }

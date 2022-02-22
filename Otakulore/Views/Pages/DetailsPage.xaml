@@ -28,7 +28,7 @@
                             <CommandBar.PrimaryCommands>
                                 <AppBarButton ToolTipService.ToolTip="Play">
                                     <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE768;"/>
+                                        <SymbolIcon Symbol="Play"/>
                                     </AppBarButton.Icon>
                                     <AppBarButton.Flyout>
                                         <Flyout>
@@ -44,12 +44,7 @@
                                 </AppBarButton>
                                 <AppBarToggleButton x:Name="TrackButton" ToolTipService.ToolTip="Track" Click="OnTrackRequested">
                                     <AppBarToggleButton.Icon>
-                                        <FontIcon Glyph="&#xE895;"/>
-                                    </AppBarToggleButton.Icon>
-                                </AppBarToggleButton>
-                                <AppBarToggleButton x:Name="FavoriteButton" ToolTipService.ToolTip="Favorite" Click="OnUpdateFavorite">
-                                    <AppBarToggleButton.Icon>
-                                        <FontIcon Glyph="&#xE734;"/>
+                                        <SymbolIcon Symbol="Sync"/>
                                     </AppBarToggleButton.Icon>
                                 </AppBarToggleButton>
                             </CommandBar.PrimaryCommands>

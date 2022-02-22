@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -11,19 +11,15 @@ public class User
         {
             new("id"),
             new("name"),
-            new("avatar", new GqlSelection[]
-            {
-                new("large"),
-                new("medium")
-            }),
+            new("avatar", Image.Selections),
             new("bannerImage"),
             new("about") { Parameters = { { "asHtml", false } } }
         };
 
-    [JsonPropertyName("id")] public int Id { get; init; }
-    [JsonPropertyName("name")] public string Name { get; init; }
-    [JsonPropertyName("avatar")] public Cover Avatar { get; init; }
-    [JsonPropertyName("bannerImage")] public string BannerImageUrl { get; init; }
-    [JsonPropertyName("about")] public string About { get; init; }
+    [JsonProperty("id")] public int Id { get; init; }
+    [JsonProperty("name")] public string Name { get; init; }
+    [JsonProperty("avatar")] public Cover Avatar { get; init; }
+    [JsonProperty("bannerImage")] public string BannerImageUrl { get; init; }
+    [JsonProperty("about")] public string About { get; init; }
 
 }

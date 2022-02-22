@@ -1,13 +1,19 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
 
-public class Cover
+public class Cover : Image
 {
 
-    [JsonPropertyName("extraLarge")] public string? ExtraLargeImageUrl { get; init; }
-    [JsonPropertyName("large")] public string LargeImageUrl { get; init; }
-    [JsonPropertyName("medium")] public string MediumImageUrl { get; init; }
-    [JsonPropertyName("color")] public string? Color { get; init; }
+    public static GqlSelection[] Selections =>
+        Image.Selections.Concat(new GqlSelection[]
+        {
+            new("extraLarge"),
+            new("color")
+        }).ToArray();
+
+    [JsonProperty("extraLarge")] public string ExtraLargeImageUrl { get; init; }
+    [JsonProperty("color")] public string Color { get; init; }
 
 }

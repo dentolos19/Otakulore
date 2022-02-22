@@ -8,8 +8,8 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Helpers;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 
@@ -37,10 +37,18 @@ public sealed partial class SearchPage
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.NavigationMode != NavigationMode.New || args.Parameter is not string query)
+        if (args.NavigationMode != NavigationMode.New)
             return;
-        SearchInputBox.Text = query;
-        SearchSortBox.SelectedIndex = 0;
+        switch (args.Parameter)
+        {
+            case string query:
+                SearchInputBox.Text = query;
+                SearchSortBox.SelectedIndex = 0;
+                break;
+            case MediaSort sort:
+                SearchSortBox.SelectedItem = SearchSortBox.Items.OfType<ComboBoxItem>().First(item => (MediaSort)item.Tag == sort);
+                break;
+        }
         Search();
     }
 

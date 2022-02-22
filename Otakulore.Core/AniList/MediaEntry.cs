@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -25,10 +25,10 @@ public class MediaEntry
             new("progress")
         };
 
-    [JsonPropertyName("id")] public int Id { get; init; }
-    [JsonPropertyName("mediaId")] public int MediaId { get; init; }
-    [JsonPropertyName("status")] public MediaEntryStatus Status { get; init; }
-    [JsonPropertyName("progress")] public int Progress { get; init; }
-    [JsonPropertyName("media")] public Media? Media { get; init; }
+    [JsonProperty("id")] public int Id { get; init; }
+    [JsonProperty("mediaId")] public int MediaId { get; init; }
+    [JsonProperty("status")] public MediaEntryStatus Status { get; init; }
+    [JsonProperty("progress")] public int Progress { get; init; }
+    [JsonProperty("media")] public Media? Media { get; init; }
 
 }

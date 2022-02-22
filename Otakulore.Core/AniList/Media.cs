@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -6,18 +6,17 @@ namespace Otakulore.Core.AniList;
 public class Media
 {
 
+    [JsonProperty("startDate")] private readonly Date _startDate;
+    [JsonProperty("endDate")] private readonly Date _endDate;
+    [JsonProperty("episodes")] private readonly int? _episodes;
+    [JsonProperty("chapters")] private readonly int? _chapters;
+
     public static GqlSelection[] Selections =>
         new GqlSelection[]
         {
             new("id"),
             new("idMal"),
-            new("coverImage", new GqlSelection[]
-            {
-                new("extraLarge"),
-                new("large"),
-                new("medium"),
-                new("color")
-            }),
+            new("coverImage", Cover.Selections),
             new("bannerImage"),
             new("title", MediaTitle.Selections),
             new("description") { Parameters = { { "asHtml", false } } },
@@ -36,26 +35,25 @@ public class Media
             new("chapters")
         };
 
-    [JsonPropertyName("id")] public int Id { get; init; }
-    [JsonPropertyName("idMal")] public int? MalId { get; init; }
+    [JsonProperty("id")] public int Id { get; init; }
+    [JsonProperty("idMal")] public int? MalId { get; init; }
 
-    [JsonPropertyName("coverImage")] public Cover CoverImage { get; init; }
-    [JsonPropertyName("bannerImage")] public string BannerImageUrl { get; init; }
-    [JsonPropertyName("title")] public MediaTitle Title { get; init; }
-    [JsonPropertyName("description")] public string? Description { get; init; }
-    [JsonPropertyName("type")] public MediaType Type { get; init; }
-    [JsonPropertyName("format")] public MediaFormat? Format { get; init; }
-    [JsonPropertyName("status")] public MediaStatus Status { get; init; }
-    [JsonPropertyName("popularity")] public int? Popularity { get; init; }
-    [JsonPropertyName("favourites")] public int? Favorites { get; init; }
-    [JsonPropertyName("averageScore")] public int? Score { get; init; }
-    [JsonPropertyName("genres")] public string[]? Genres { get; init; }
-    [JsonPropertyName("startDate")] public Date StartDate { get; init; }
-    [JsonPropertyName("endDate")] public Date EndDate { get; init; }
+    [JsonProperty("coverImage")] public Cover CoverImage { get; init; }
+    [JsonProperty("bannerImage")] public string BannerImageUrl { get; init; }
+    [JsonProperty("title")] public MediaTitle Title { get; init; }
+    [JsonProperty("description")] public string? Description { get; init; }
+    [JsonProperty("type")] public MediaType Type { get; init; }
+    [JsonProperty("format")] public MediaFormat? Format { get; init; }
+    [JsonProperty("status")] public MediaStatus Status { get; init; }
+    [JsonProperty("popularity")] public int? Popularity { get; init; }
+    [JsonProperty("favourites")] public int? Favorites { get; init; }
+    [JsonProperty("averageScore")] public int? Score { get; init; }
+    [JsonProperty("genres")] public string[]? Genres { get; init; }
+    [JsonProperty("season")] public MediaSeason? Season { get; init; }
+    [JsonProperty("duration")] public int? Duration { get; init; }
 
-    [JsonPropertyName("season")] public MediaSeason? Season { get; init; }
-    [JsonPropertyName("episodes")] public int? Episodes { get; init; }
-    [JsonPropertyName("duration")] public int? Duration { get; init; }
-    [JsonPropertyName("chapters")] public int? Chapters { get; init; }
+    public int? Content => Type switch { MediaType.Anime => _episodes, MediaType.Manga => _chapters };
+    public DateOnly? StartDate => _startDate.ToDateOnly();
+    public DateOnly? EndDate => _endDate.ToDateOnly();
 
 }

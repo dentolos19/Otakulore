@@ -12,7 +12,7 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 ## Features
 
 * [ ] Runs on multiple platforms; so you could watch, read and track anytime and anywhere!
-  * [X] Windows (powered by the **new** [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
+  * [X] Windows (powered by the new [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
   * [ ] Android (planned until the stable release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
 * [X] Easily track and synchronize your list with [AniList](https://anilist.co)!
 * [X] Get extensive details on your favorite series; including characters, staff and more! (from [AniList](https://anilist.co))
@@ -32,3 +32,4 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 ![](.github/images/4.png)
 ![](.github/images/5.png)
 ![](.github/images/6.png)
+![](.github/images/7.png)

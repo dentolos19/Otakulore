@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Otakulore.Core.Helpers;
 
 namespace Otakulore.Core.AniList;
@@ -15,9 +15,9 @@ public class MediaEntryGroup
             new("status")
         };
 
-    [JsonPropertyName("entries")] public MediaEntry[] Entries { get; init; }
-    [JsonPropertyName("name")] public string Name { get; init; }
-    [JsonPropertyName("isCustomList")] public bool IsCustom { get; init; }
-    [JsonPropertyName("status")] public MediaEntryStatus Status { get; init; }
+    [JsonProperty("entries")] public MediaEntry[] Entries { get; init; }
+    [JsonProperty("name")] public string Name { get; init; }
+    [JsonProperty("isCustomList")] public bool IsCustom { get; init; }
+    [JsonProperty("status")] public MediaEntryStatus Status { get; init; }
 
 }

@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Helpers;
 using Otakulore.Models;
 
 namespace Otakulore.Views.Pages;
@@ -50,6 +51,26 @@ public sealed partial class HomePage
     {
         if (args.ClickedItem is MediaItemModel item)
             App.NavigateFrame(typeof(DetailsPage), item.Media.Id);
+    }
+
+    private void OnSeeMorePopular(object sender, RoutedEventArgs args)
+    {
+        App.NavigateFrame(typeof(SearchPage), MediaSort.Popularity);
+    }
+
+    private void OnSeeMoreTrending(object sender, RoutedEventArgs args)
+    {
+        App.NavigateFrame(typeof(SearchPage), MediaSort.Trending);
+    }
+
+    private void OnSeeMoreFavorites(object sender, RoutedEventArgs args)
+    {
+        App.NavigateFrame(typeof(SearchPage), MediaSort.Favorites);
+    }
+
+    private void OnSeeMoreSeasonal(object sender, RoutedEventArgs args)
+    {
+        App.NavigateFrame(typeof(SchedulesPage));
     }
 
 }

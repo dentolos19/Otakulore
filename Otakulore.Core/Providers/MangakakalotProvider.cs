@@ -1,4 +1,6 @@
-﻿namespace Otakulore.Core.Providers;
+﻿using Otakulore.Core.Helpers;
+
+namespace Otakulore.Core.Providers;
 
 public class MangakakalotProvider : IMangaProvider
 {

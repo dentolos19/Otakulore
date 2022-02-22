@@ -3,22 +3,43 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ScrollViewer>
         <StackPanel Spacing="10">
-            <ComboBox Header="Type" HorizontalAlignment="Stretch"/>
-            <ComboBox Header="Format" HorizontalAlignment="Stretch"/>
-            <ListView x:Name="GenreList" Header="Genres">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Content="{Binding}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="TagList" Header="Tags">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Content="{Binding}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <ComboBox x:Name="TypeDropdown" Header="Type" HorizontalAlignment="Stretch"/>
+            <StackPanel Spacing="5">
+                <TextBlock Text="Genre"/>
+                <Grid ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="GenreDropdown" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                    <Button Grid.Column="1">
+                        <SymbolIcon Symbol="Add"/>
+                    </Button>
+                    <Button Grid.Column="2">
+                        <SymbolIcon Symbol="Cancel"/>
+                    </Button>
+                </Grid>
+                <ListView/>
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="Tag"/>
+                <Grid ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="TagDropdown" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                    <Button Grid.Column="1">
+                        <SymbolIcon Symbol="Add"/>
+                    </Button>
+                    <Button Grid.Column="2">
+                        <SymbolIcon Symbol="Cancel"/>
+                    </Button>
+                </Grid>
+                <ListView/>
+            </StackPanel>
             <Grid ColumnSpacing="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

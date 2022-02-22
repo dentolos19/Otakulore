@@ -10,7 +10,14 @@
         <ScrollViewer Padding="10">
             <StackPanel Spacing="10">
                 <StackPanel Spacing="5">
-                    <TextBlock Text="🌟 All-Time Popular" FontWeight="Bold" FontSize="24"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="🌟 All-Time Popular" FontWeight="Bold" FontSize="24"/>
+                        <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMorePopular"/>
+                    </Grid>
                     <FlipView x:Name="PopularList" Height="300">
                         <FlipView.ItemTemplate>
                             <DataTemplate x:DataType="models:MediaItemModel">
@@ -25,10 +32,7 @@
                                         <Border Grid.Column="0" CornerRadius="10">
                                             <Image Source="{Binding Media.CoverImage.ExtraLargeImageUrl}"/>
                                         </Border>
-                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding Media.Title.Preferred}" FontWeight="Bold" FontSize="24"/>
-                                            <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" IsReadOnly="True" HorizontalAlignment="Left"/>
-                                        </StackPanel>
+                                        <TextBlock Grid.Column="1" Text="{Binding Media.Title.Preferred}" FontWeight="Bold" FontSize="24" VerticalAlignment="Center"/>
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
@@ -36,7 +40,14 @@
                     </FlipView>
                 </StackPanel>
                 <StackPanel Spacing="5">
-                    <TextBlock Text="🎇 Trending Now" FontWeight="Bold" FontSize="24"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="🎇 Trending Now" FontWeight="Bold" FontSize="24"/>
+                        <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMoreTrending"/>
+                    </Grid>
                     <GridView x:Name="TrendingList"
                               ItemTemplate="{StaticResource MediaItemTemplate}"
                               ScrollViewer.HorizontalScrollMode="Enabled"
@@ -51,7 +62,14 @@
                     </GridView>
                 </StackPanel>
                 <StackPanel Spacing="5">
-                    <TextBlock Text="❤️ Highly Beloved" FontWeight="Bold" FontSize="24"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="❤️ Highly Beloved" FontWeight="Bold" FontSize="24"/>
+                        <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMoreFavorites"/>
+                    </Grid>
                     <GridView x:Name="FavoriteList"
                               ItemTemplate="{StaticResource MediaItemTemplate}"
                               ScrollViewer.HorizontalScrollMode="Enabled"
@@ -66,7 +84,14 @@
                     </GridView>
                 </StackPanel>
                 <StackPanel Spacing="5">
-                    <TextBlock Text="📺 Releasing This Season" FontWeight="Bold" FontSize="24"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="📺 Releasing This Season" FontWeight="Bold" FontSize="24"/>
+                        <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMoreSeasonal"/>
+                    </Grid>
                     <GridView x:Name="SeasonalList"
                               ItemTemplate="{StaticResource MediaItemTemplate}"
                               ScrollViewer.HorizontalScrollMode="Enabled"

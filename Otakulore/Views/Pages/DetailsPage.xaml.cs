@@ -21,8 +21,8 @@ public sealed partial class DetailsPage
     {
         InitializeComponent();
         PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Overview", Tag = typeof(DetailsOverviewPanel) });
-        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(ComingSoonPanel) });
-        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Related", Tag = typeof(ComingSoonPanel) });
+        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(DetailsCharactersPanel) });
+        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Relations", Tag = typeof(DetailsRelationsPanel) });
     }
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
@@ -34,9 +34,8 @@ public sealed partial class DetailsPage
         _mediaEntry = _media.Entry;
         CoverImage.Source = _media.CoverImage.LargeImageUrl;
         TitleText.Text = _media.Title.Preferred;
-        SubtitleText.Text = _media.StartDate.Year.HasValue ? _media.StartDate.Year.Value.ToString() : "Unknown Year";
+        SubtitleText.Text = _media.StartDate.HasValue ? _media.StartDate.Value.Year.ToString() : "Unknown Year";
         TrackButton.IsChecked = _mediaEntry != null;
-        FavoriteButton.IsChecked = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id) != null;
         foreach (var provider in App.Providers)
             switch (_media.Type)
             {
@@ -74,21 +73,6 @@ public sealed partial class DetailsPage
         await App.AttachDialog(dialog);
         _mediaEntry = dialog.Result;
         TrackButton.IsChecked = _mediaEntry != null;
-    }
-
-    private void OnUpdateFavorite(object sender, RoutedEventArgs args)
-    {
-        var item = App.Settings.Favorites.FirstOrDefault(item => item.Id == _media.Id);
-        if (FavoriteButton.IsChecked == true)
-        {
-            if (item == null)
-                App.Settings.Favorites.Add(_media);
-        }
-        else
-        {
-            if (item != null)
-                App.Settings.Favorites.Remove(item);
-        }
     }
 
     private void OnNavigatePanel(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

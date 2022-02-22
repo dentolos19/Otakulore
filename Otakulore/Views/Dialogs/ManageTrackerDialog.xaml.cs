@@ -2,8 +2,8 @@
 using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Views.Dialogs;
 

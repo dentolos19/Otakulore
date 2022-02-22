@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Views.Panels;
 
@@ -25,20 +25,16 @@ public sealed partial class DetailsOverviewPanel
         }
         else
         {
-            switch (media.Type)
+            ContentTextLabel.Text = media.Type switch
             {
-                case MediaType.Anime:
-                    ContentTextLabel.Text = "Episodes";
-                    ContentText.Text = media.Episodes.HasValue ? media.Episodes.Value.ToString() : "Unknown";
-                    break;
-                case MediaType.Manga:
-                    ContentTextLabel.Text = "Chapters";
-                    ContentText.Text = media.Chapters.HasValue ? media.Chapters.Value.ToString() : "Unknown";
-                    break;
-            }
+                MediaType.Anime => "Episodes",
+                MediaType.Manga => "Chapters",
+                _ => ContentTextLabel.Text
+            };
+            ContentText.Text = media.Content.HasValue ? media.Content.Value.ToString() : "Unknown";
         }
-        StartDateText.Text = media.StartDate.ToString() ?? "Unknown";
-        EndDateText.Text = media.EndDate.ToString() ?? "Unknown";
+        StartDateText.Text = media.StartDate?.ToString() ?? "Unknown";
+        EndDateText.Text = media.EndDate?.ToString() ?? "Unknown";
         DescriptionText.Text = media.Description != null ? Utilities.ConvertHtmlToPlainText(media.Description) : "No description provided.";
     }
 

@@ -85,6 +85,16 @@
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
+		<Page Update="Views\Panels\DetailsCharactersPanel.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Views\Panels\DetailsRelationsPanel.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
 		<Page Update="Views\LoadingView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
@@ -151,11 +161,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Views\Pages\CinemaPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="Views\Pages\FavoritesPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Otakulore.Core.AniList;
 
-namespace Otakulore.Core;
+namespace Otakulore.Core.Helpers;
 
 public static class Utilities
 {

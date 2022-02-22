@@ -14,7 +14,7 @@
             <TextBlock Grid.Column="0" Text="{Binding Message}" TextWrapping="Wrap" VerticalAlignment="Center"/>
             <Button x:Name="ContinueButton" Grid.Column="1" Content="{Binding ContinueText}">
                 <interactivity:Interaction.Behaviors>
-                    <interactions:DataTriggerBehavior Binding="{Binding ContinueText}" ComparisonCondition="Equal" Value="{x:Null}">
+                    <interactions:DataTriggerBehavior Binding="{Binding ContinueText}" Value="null">
                         <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ContinueButton}" PropertyName="Visibility" Value="Collapsed"/>
                     </interactions:DataTriggerBehavior>
                     <interactions:EventTriggerBehavior EventName="Click">
@@ -30,15 +30,6 @@
                 <StackPanel>
                     <TextBlock Text="{Binding Media.Title.Preferred}" FontWeight="Bold" TextWrapping="Wrap"/>
                     <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
-                    <RatingControl Value="{Binding Score}" Caption="{Binding ScoreCaption}" IsReadOnly="True" HorizontalAlignment="Left"/>
-                    <TextBlock>
-                        <Run Text="Popularity 🌟"/>
-                        <Run Text="{Binding Media.Popularity}"/>
-                    </TextBlock>
-                    <TextBlock>
-                        <Run Text="Favorites ❤️"/>
-                        <Run Text="{Binding Media.Favorites}"/>
-                    </TextBlock>
                 </StackPanel>
             </ToolTipService.ToolTip>
             <Grid.RowDefinitions>
@@ -46,6 +37,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <controls:ImageEx Grid.Row="0" Source="{Binding Media.CoverImage.LargeImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
+            <Grid Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Border Background="{ThemeResource AcrylicBackgroundBrush}" CornerRadius="5"/>
+                <TextBlock Text="{Binding Tag}" Margin="5"/>
+            </Grid>
             <TextBlock Grid.Row="1" Text="{Binding Media.Title.Preferred}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
         </Grid>
     </DataTemplate>

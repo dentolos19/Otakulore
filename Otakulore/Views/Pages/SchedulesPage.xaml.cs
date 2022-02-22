@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Helpers;
 using Otakulore.Views.Panels;
 
 namespace Otakulore.Views.Pages;

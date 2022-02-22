@@ -1,27 +1,23 @@
 ﻿using System.Collections.Generic;
 using CommunityToolkit.WinUI.UI.Controls;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Helpers;
 
 namespace Otakulore.Models;
 
 public class MediaItemModel
 {
 
-    public IList<MetadataItem> Meta { get; } = new List<MetadataItem>();
-    public double Score { get; }
-    public string ScoreCaption { get; }
     public Media Media { get; }
+    public string Tag { get; }
+    public IList<MetadataItem> Meta { get; } = new List<MetadataItem>();
 
-    public MediaItemModel(Media media)
+    public MediaItemModel(Media media, string? tag = null)
     {
         Media = media;
+        Tag = tag ?? Media.Format.ToEnumDescription(true);
         Meta.Add(new MetadataItem { Label = Media.Format != null ? Media.Format.ToEnumDescription(true) : "Unknown Format" });
-        Meta.Add(new MetadataItem { Label = Media.StartDate.Year.HasValue ? Media.StartDate.Year.Value.ToString() : "????" });
-        if (Media.Type == MediaType.Anime)
-            Meta.Add(new MetadataItem { Label = Media.Season != null ? Media.Season.ToEnumDescription(true) : "Unknown Season" });
-        Score = Media.Score.HasValue ? Media.Score.Value / 20 : 0;
-        ScoreCaption = media.Score?.ToString() ?? "Unknown";
+        Meta.Add(new MetadataItem { Label = Media.StartDate.HasValue ? Media.StartDate.Value.Year.ToString() : "????" });
     }
 
 }
