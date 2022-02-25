@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{94F4BF1D-10D0-4F90-961B-673F448E907B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Tests", "Otakulore.Tests\Otakulore.Tests.csproj", "{3B785C72-6204-4C25-BA08-380578FD12F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Tests", "Otakulore.Tests\Otakulore.Tests.csproj", "{3B785C72-6204-4C25-BA08-380578FD12F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Core.AniList", "Otakulore.Core.AniList\Otakulore.Core.AniList.csproj", "{908FD8CB-C373-4846-A976-2069A945921F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,18 @@ Global
 		{3B785C72-6204-4C25-BA08-380578FD12F4}.Release|arm64.Build.0 = Release|Any CPU
 		{3B785C72-6204-4C25-BA08-380578FD12F4}.Release|x64.ActiveCfg = Release|Any CPU
 		{3B785C72-6204-4C25-BA08-380578FD12F4}.Release|x64.Build.0 = Release|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Debug|arm64.Build.0 = Debug|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Debug|x64.Build.0 = Debug|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Release|arm64.ActiveCfg = Release|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Release|arm64.Build.0 = Release|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Release|x64.ActiveCfg = Release|Any CPU
+		{908FD8CB-C373-4846-A976-2069A945921F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

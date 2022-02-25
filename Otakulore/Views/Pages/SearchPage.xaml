@@ -24,7 +24,7 @@
                     </interactions:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
             </AutoSuggestBox>
-            <ComboBox x:Name="SearchSortBox" Grid.Column="1">
+            <ComboBox x:Name="SearchSortSelection" Grid.Column="1">
                 <interactivity:Interaction.Behaviors>
                     <interactions:EventTriggerBehavior EventName="SelectionChanged">
                         <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
@@ -32,7 +32,7 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
             <Button Grid.Column="2" ToolTipService.ToolTip="Filter" Click="OnFilterSearch">
-                <FontIcon Glyph="&#xE71C;"/>
+                <SymbolIcon Symbol="Filter"/>
             </Button>
         </Grid>
         <GridView x:Name="SearchResultList" Grid.Row="1" ItemTemplate="{StaticResource MediaItemTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core.AniList;
-using Otakulore.Core.Helpers;
 using Otakulore.Views.Panels;
 
 namespace Otakulore.Views.Pages;
@@ -13,7 +12,6 @@ public sealed partial class SchedulesPage
     public SchedulesPage()
     {
         InitializeComponent();
-        var currentSeason = Utilities.GetSeasonFromDate(DateTime.Today);
         foreach (var season in (MediaSeason[])Enum.GetValues(typeof(MediaSeason)))
         {
             var item = new NavigationViewItem
@@ -22,7 +20,7 @@ public sealed partial class SchedulesPage
                 Tag = season
             };
             PanelNavigation.MenuItems.Add(item);
-            if (season != currentSeason)
+            if (season != App.CurrentSeason)
                 continue;
             item.Content += " (Current)";
             PanelNavigation.SelectedItem = item;

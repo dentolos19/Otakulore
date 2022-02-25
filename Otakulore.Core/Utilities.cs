@@ -3,9 +3,8 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using Otakulore.Core.AniList;
 
-namespace Otakulore.Core.Helpers;
+namespace Otakulore.Core;
 
 public static class Utilities
 {
@@ -30,18 +29,6 @@ public static class Utilities
         var field = type.GetType().GetField(type.ToString());
         var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
         return attributes.Length > 0 ? attributes[0].Description : allowDefaultValue ? type.ToString() : null;
-    }
-
-    public static MediaSeason GetSeasonFromDate(DateTime date)
-    {
-        var day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
-        return day switch
-        {
-            < 80 or >= 355 => MediaSeason.Winter,
-            >= 80 and < 172 => MediaSeason.Spring,
-            >= 172 and < 266 => MediaSeason.Summer,
-            _ => MediaSeason.Fall
-        };
     }
 
     public static string ConvertHtmlToPlainText(string html)

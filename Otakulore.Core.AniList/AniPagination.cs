@@ -16,10 +16,4 @@ public class AniPagination<T>
         Data = data;
     }
 
-    public AniPagination(bool hasNextPage, IList<T> data)
-    {
-        HasNextPage = hasNextPage;
-        Data = data;
-    }
-
 }

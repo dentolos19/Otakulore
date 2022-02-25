@@ -44,7 +44,9 @@ public class AniClient
 
     public void SetToken(string? token)
     {
-        _httpClient.DefaultRequestHeaders.Authorization = token != null ? new AuthenticationHeaderValue("Bearer", token) : null;
+        _httpClient.DefaultRequestHeaders.Authorization = token != null
+            ? new AuthenticationHeaderValue("Bearer", token)
+            : null;
     }
 
     public async Task<KeyValuePair<string[], MediaTag[]>> GetGenresAndTags()
@@ -62,7 +64,7 @@ public class AniClient
 
     public async Task<AniPagination<Media>> SearchMedia(string? query, MediaSort sort = MediaSort.Relevance, AniPaginationOptions? options = null)
     {
-        query = !string.IsNullOrWhiteSpace(query) ? query : null;
+        query = !string.IsNullOrEmpty(query) ? query : null;
         options ??= new AniPaginationOptions();
         var request = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
@@ -159,23 +161,6 @@ public class AniClient
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
         var page = response.Data["Page"].ToObject<Page>();
         return new AniPagination<MediaEntry>(page.Info, page.MediaEntries);
-    }
-
-    public async Task<AniPagination<MediaEntryGroup>> GetUserEntries(int id, MediaType type, AniPaginationOptions? options = null)
-    {
-        options ??= new AniPaginationOptions();
-        var request = GqlParser.Parse(GqlType.Query, "MediaListCollection", MediaEntryCollection.Selections, new Dictionary<string, object?>
-        {
-            { "userId", id },
-            { "type", type },
-            { "chunk", options.Index },
-            { "perChunk", options.Size },
-            { "sort", MediaEntrySort.LastUpdated }
-        });
-        var response = await _client.SendQueryAsync<JObject>(new GraphQLRequest(request));
-        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        var collection = response.Data["MediaListCollection"].ToObject<MediaEntryCollection>();
-        return new AniPagination<MediaEntryGroup>(collection.HasNextChunk, collection.Groups);
     }
 
     public async Task<MediaEntry> UpdateMediaEntry(int id, MediaEntryStatus status, int progress)

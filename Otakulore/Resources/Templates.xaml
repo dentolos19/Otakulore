@@ -5,23 +5,24 @@
                     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
                     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
                     xmlns:models="using:Otakulore.Models">
-    <DataTemplate x:Key="NotificationContentTemplate" x:DataType="models:NotificationDataModel">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Message}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <Button x:Name="ContinueButton" Grid.Column="1" Content="{Binding ContinueText}">
-                <interactivity:Interaction.Behaviors>
-                    <interactions:DataTriggerBehavior Binding="{Binding ContinueText}" Value="null">
-                        <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ContinueButton}" PropertyName="Visibility" Value="Collapsed"/>
-                    </interactions:DataTriggerBehavior>
-                    <interactions:EventTriggerBehavior EventName="Click">
-                        <interactions:CallMethodAction TargetObject="{Binding}" MethodName="InvokeContinueClicked"/>
-                    </interactions:EventTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
-            </Button>
+    <DataTemplate x:Key="CharacterItemTemplate" x:DataType="models:CharacterItemModel">
+        <Grid RowSpacing="2" Margin="5" Width="150" Height="250">
+            <ToolTipService.ToolTip>
+                <StackPanel>
+                    <TextBlock Text="{Binding Character.Details.Name.Preferred}" FontWeight="Bold" TextWrapping="Wrap"/>
+                    <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
+                </StackPanel>
+            </ToolTipService.ToolTip>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <controls:ImageEx Grid.Row="0" Source="{Binding Character.Details.Image.LargeImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
+            <Grid Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Border Background="{ThemeResource AcrylicBackgroundBrush}" CornerRadius="5"/>
+                <TextBlock Text="{Binding Tag}" Margin="5"/>
+            </Grid>
+            <TextBlock Grid.Row="1" Text="{Binding Character.Details.Name.Preferred}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
@@ -42,6 +43,25 @@
                 <TextBlock Text="{Binding Tag}" Margin="5"/>
             </Grid>
             <TextBlock Grid.Row="1" Text="{Binding Media.Title.Preferred}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="NotificationContentTemplate" x:DataType="models:NotificationDataModel">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{Binding Message}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <Button x:Name="ContinueButton" Grid.Column="1" Content="{Binding ContinueText}">
+                <interactivity:Interaction.Behaviors>
+                    <interactions:DataTriggerBehavior Binding="{Binding ContinueText}" Value="null">
+                        <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ContinueButton}" PropertyName="Visibility" Value="Collapsed"/>
+                    </interactions:DataTriggerBehavior>
+                    <interactions:EventTriggerBehavior EventName="Click">
+                        <interactions:CallMethodAction TargetObject="{Binding}" MethodName="InvokeContinueClicked"/>
+                    </interactions:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </Button>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

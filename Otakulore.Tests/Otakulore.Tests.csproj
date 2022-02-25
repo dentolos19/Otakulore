@@ -15,6 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Otakulore.Core.AniList\Otakulore.Core.AniList.csproj"/>
 		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 

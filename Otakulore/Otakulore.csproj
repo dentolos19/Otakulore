@@ -78,11 +78,12 @@
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8"/>
 		<Manifest Include="$(ApplicationManifest)"/>
 	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Otakulore.Core.AniList\Otakulore.Core.AniList.csproj"/>
+		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
+	</ItemGroup>
 	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
 		<ProjectCapability Include="Msix"/>
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="Views\Panels\DetailsCharactersPanel.xaml">

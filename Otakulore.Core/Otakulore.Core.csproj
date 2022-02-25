@@ -7,8 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GraphQL.Client" Version="4.0.2"/>
-		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="4.0.2"/>
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.42"/>
 	</ItemGroup>
 

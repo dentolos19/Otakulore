@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
-using Otakulore.Core.Helpers;
 
 namespace Otakulore.Views.Panels;
 

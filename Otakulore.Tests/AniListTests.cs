@@ -5,10 +5,17 @@ using Otakulore.Core.AniList;
 
 namespace Otakulore.Tests;
 
-internal static class ClientTests
+[TestFixture]
+internal static class AniListTests
 {
 
     private static readonly AniClient Client = new();
+
+    [TearDown]
+    public static void AfterTest()
+    {
+        Console.WriteLine($"Rate Remaining: {Client.RateRemaining}/{Client.RateLimit}");
+    }
 
     [Test]
     public static async Task GetGenresAndTagsTest()

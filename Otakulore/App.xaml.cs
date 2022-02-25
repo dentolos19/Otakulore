@@ -17,10 +17,11 @@ public partial class App
 
     public static Settings Settings { get; set; }
     public static AniClient Client { get; set; }
-
     public static IProvider[] Providers { get; set; }
+
     public static string[] Genres { get; set; }
     public static MediaTag[] Tags { get; set; }
+    public static MediaSeason CurrentSeason { get; set; }
 
     public App()
     {

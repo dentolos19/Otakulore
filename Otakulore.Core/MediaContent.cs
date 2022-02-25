@@ -3,7 +3,13 @@
 public class MediaContent
 {
 
-    public string Name { get; init; }
-    public string Url { get; init; }
+    public string Name { get; }
+    public string Url { get; }
+
+    public MediaContent(string name, string url)
+    {
+        Name = name;
+        Url = url;
+    }
 
 }

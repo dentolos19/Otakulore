@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CommunityToolkit.WinUI.UI.Controls;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
-using Otakulore.Core.Helpers;
 
 namespace Otakulore.Models;
 

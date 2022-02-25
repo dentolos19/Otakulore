@@ -4,13 +4,16 @@ public class GqlSelection
 {
 
     public string Name { get; }
-    public ICollection<GqlSelection>? Selections { get; }
+    public IList<GqlSelection> Selections { get; } = new List<GqlSelection>();
     public IDictionary<string, object?> Parameters { get; } = new Dictionary<string, object?>();
 
-    public GqlSelection(string name, ICollection<GqlSelection>? selections = null)
+    public GqlSelection(string name, IList<GqlSelection>? selections = null, IDictionary<string, object?>? parameters = null)
     {
         Name = name;
-        Selections = selections;
+        if (selections != null)
+            Selections = selections;
+        if (parameters != null)
+            Parameters = parameters;
     }
 
 }

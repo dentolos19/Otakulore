@@ -15,14 +15,8 @@ public class MediaExtra : Media
         {
             new("tags", MediaTag.Selections),
             new("mediaListEntry", MediaEntry.MediaSelections),
-            new("relations", new GqlSelection[]
-            {
-                new("edges", MediaEdge.Selections)
-            }),
-            new("characters", new GqlSelection[]
-            {
-                new("edges", CharacterEdge.Selections)
-            })
+            new("relations", new GqlSelection[] { new("edges", MediaEdge.Selections) }),
+            new("characters", new GqlSelection[] { new("edges", CharacterEdge.Selections) }) { Parameters = { { "sort", "$ROLE" } } }
         }).ToArray();
 
     [JsonProperty("tags")] public MediaTag[]? Tags { get; init; }

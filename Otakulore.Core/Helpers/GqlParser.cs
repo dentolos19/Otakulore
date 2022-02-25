@@ -3,12 +3,12 @@
 public static class GqlParser
 {
 
-    public static string Parse(GqlType type, IEnumerable<GqlSelection> selections)
+    public static string Parse(GqlType type, IList<GqlSelection> selections)
     {
         return type.ToEnumValue() + "{" + BuildSelections(selections) + "}";
     }
 
-    public static string Parse(GqlType type, string name, ICollection<GqlSelection>? selections, IDictionary<string, object?>? parameters = null)
+    public static string Parse(GqlType type, string name, IList<GqlSelection>? selections, IDictionary<string, object?>? parameters = null)
     {
         var selection = new GqlSelection(name, selections);
         if (parameters is not { Count: > 0 })
@@ -18,7 +18,7 @@ public static class GqlParser
         return Parse(type, new[] { selection });
     }
 
-    private static string BuildSelections(IEnumerable<GqlSelection> selections)
+    private static string BuildSelections(IList<GqlSelection> selections)
     {
         var data = string.Empty;
         var isFirst = true;
@@ -47,7 +47,7 @@ public static class GqlParser
         return value switch
         {
             null => "null",
-            string @string => "\"" + @string + "\"",
+            string @string => @string.StartsWith('$') ? @string[1..] : $"\"{@string}\"",
             bool @bool => @bool ? "true" : "false",
             Enum @enum => @enum.ToEnumValue(),
             _ => value.ToString()

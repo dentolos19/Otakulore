@@ -8,8 +8,8 @@ using CommunityToolkit.WinUI;
 using CommunityToolkit.WinUI.UI;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
-using Otakulore.Core.Helpers;
 using Otakulore.Models;
 using Otakulore.Views.Pages;
 

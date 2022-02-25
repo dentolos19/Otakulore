@@ -15,7 +15,7 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
   * [X] Windows (powered by the new [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
   * [ ] Android (planned until the stable release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
 * [X] Easily track and synchronize your list with [AniList](https://anilist.co)!
-* [X] Get extensive details on your favorite series; including characters, staff and more! (from [AniList](https://anilist.co))
+* [X] Get extensive details on your favorite series including characters, staff and more! (from [AniList](https://anilist.co))
 * [X] Plan your next series to watch with the seasonal calendar (from [AniChart](https://anichart.net))!
 * [X] Efficiently get access to many sources easily!
   * [X] [AnimeKisa](https://animekisa.tv) (Anime)

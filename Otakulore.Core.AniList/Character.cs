@@ -20,8 +20,8 @@ public class Character
     [JsonProperty("id")] public int Id { get; init; }
     [JsonProperty("image")] public Image Image { get; init; }
     [JsonProperty("name")] public CharacterName Name { get; init; }
-    [JsonProperty("gender")] public string Gender { get; init; }
-    [JsonProperty("age")] public string Age { get; init; }
+    [JsonProperty("gender")] public string? Gender { get; init; }
+    [JsonProperty("age")] public string? Age { get; init; }
     [JsonProperty("description")] public string Description { get; init; }
 
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.AniList;
@@ -25,6 +26,15 @@ public sealed partial class LoadingView
                 new AnimeKisaProvider(),
                 new MangakakalotProvider(),
                 new NovelhallProvider()
+            };
+            var date = DateTime.Today;
+            var day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
+            App.CurrentSeason = day switch
+            {
+                < 80 or >= 355 => MediaSeason.Winter,
+                >= 80 and < 172 => MediaSeason.Spring,
+                >= 172 and < 266 => MediaSeason.Summer,
+                _ => MediaSeason.Fall
             };
             task.ReportProgress(0, "Authenticating with AniList");
             App.Client = new AniClient();

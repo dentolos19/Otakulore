@@ -8,8 +8,8 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
-using Otakulore.Core.Helpers;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 
@@ -22,13 +22,13 @@ public sealed partial class SearchPage
     {
         InitializeComponent();
         foreach (var sort in (MediaSort[])Enum.GetValues(typeof(MediaSort)))
-            SearchSortBox.Items.Add(new ComboBoxItem { Content = sort.ToEnumDescription(true), Tag = sort });
+            SearchSortSelection.Items.Add(new ComboBoxItem { Content = sort.ToEnumDescription(true), Tag = sort });
     }
 
     public void Search()
     {
         var query = SearchInputBox.Text;
-        var sort = (MediaSort)((ComboBoxItem)SearchSortBox.SelectedItem).Tag;
+        var sort = (MediaSort)((ComboBoxItem)SearchSortSelection.SelectedItem).Tag;
         var collection = new IncrementalLoadingCollection<Source, MediaItemModel>(new Source(query, sort));
         collection.OnStartLoading += () => SearchResultIndicator.IsActive = true;
         collection.OnEndLoading += () => SearchResultIndicator.IsActive = false;
@@ -43,10 +43,10 @@ public sealed partial class SearchPage
         {
             case string query:
                 SearchInputBox.Text = query;
-                SearchSortBox.SelectedIndex = 0;
+                SearchSortSelection.SelectedIndex = 0;
                 break;
             case MediaSort sort:
-                SearchSortBox.SelectedItem = SearchSortBox.Items.OfType<ComboBoxItem>().First(item => (MediaSort)item.Tag == sort);
+                SearchSortSelection.SelectedItem = SearchSortSelection.Items.OfType<ComboBoxItem>().First(item => (MediaSort)item.Tag == sort);
                 break;
         }
         Search();
