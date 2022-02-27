@@ -23,7 +23,7 @@
                         <TextBlock x:Name="VersionText"/>
                     </StackPanel>
                 </Grid>
-                <controls:MarkdownTextBlock x:Name="AboutText" Grid.Row="1" Background="Transparent" LinkClicked="OnOpenMarkdownLink"/>
+                <controls:MarkdownTextBlock x:Name="AboutText" Grid.Row="1" IsTextSelectionEnabled="False" Background="Transparent" LinkClicked="OnOpenMarkdownLink"/>
                 <Grid Grid.Row="2" ColumnSpacing="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

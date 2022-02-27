@@ -23,10 +23,7 @@ public class AniClient
     public AniClient()
     {
         _httpClient = new HttpClient();
-        _client = new GraphQLHttpClient(
-            new GraphQLHttpClientOptions { EndPoint = new Uri("https://graphql.anilist.co") },
-            new NewtonsoftJsonSerializer(),
-            _httpClient);
+        _client = new GraphQLHttpClient(new GraphQLHttpClientOptions { EndPoint = new Uri("https://graphql.anilist.co") }, new NewtonsoftJsonSerializer(), _httpClient);
     }
 
     private void UpdateRateLimiting(HttpHeaders response)
@@ -44,9 +41,7 @@ public class AniClient
 
     public void SetToken(string? token)
     {
-        _httpClient.DefaultRequestHeaders.Authorization = token != null
-            ? new AuthenticationHeaderValue("Bearer", token)
-            : null;
+        _httpClient.DefaultRequestHeaders.Authorization = token != null ? new AuthenticationHeaderValue("Bearer", token) : null;
     }
 
     public async Task<KeyValuePair<string[], MediaTag[]>> GetGenresAndTags()
@@ -57,26 +52,25 @@ public class AniClient
             new("MediaTagCollection", MediaTag.Selections)
         });
         var response = await _client.SendQueryAsync<JObject>(new GraphQLRequest(request));
-        return new KeyValuePair<string[], MediaTag[]>(
-            response.Data["GenreCollection"].ToObject<string[]>(),
-            response.Data["MediaTagCollection"].ToObject<MediaTag[]>());
+        return new KeyValuePair<string[], MediaTag[]>(response.Data["GenreCollection"].ToObject<string[]>(), response.Data["MediaTagCollection"].ToObject<MediaTag[]>());
     }
 
-    public async Task<AniPagination<Media>> SearchMedia(string? query, MediaSort sort = MediaSort.Relevance, AniPaginationOptions? options = null)
+    public async Task<AniPagination<Media>> SearchMedia(AniFilter filter, AniPaginationOptions? options = null)
     {
-        query = !string.IsNullOrEmpty(query) ? query : null;
         options ??= new AniPaginationOptions();
+        var parameters = new Dictionary<string, object?> { { "sort", filter.Sort } };
+        if (filter.Query != null)
+            parameters.Add("search", filter.Query);
+        if (filter.Type != null)
+            parameters.Add("type", filter.Type);
+        if (filter.Genres is { Count: > 0 })
+            parameters.Add("genre_in", filter.Genres);
+        if (filter.Tags is { Count: > 0 })
+            parameters.Add("tag_in", filter.Tags);
         var request = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
         {
             new("pageInfo", PageInfo.Selections),
-            new("media", Media.Selections)
-            {
-                Parameters =
-                {
-                    { "search", query },
-                    { "sort", sort }
-                }
-            }
+            new("media", Media.Selections, parameters)
         }, new Dictionary<string, object?>
         {
             { "page", options.Index },
@@ -84,8 +78,9 @@ public class AniClient
         });
         var response = await _client.SendQueryAsync<JObject>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        var page = response.Data["Page"].ToObject<Page>();
-        return new AniPagination<Media>(page.Info, page.Media);
+        var info = response.Data["Page"]["pageInfo"].ToObject<PageInfo>();
+        var data = response.Data["Page"]["media"].ToObject<Media[]>();
+        return new AniPagination<Media>(info, data);
     }
 
     public async Task<MediaExtra> GetMedia(int id)
@@ -121,11 +116,12 @@ public class AniClient
         });
         var response = await _client.SendQueryAsync<JObject>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        var page = response.Data["Page"].ToObject<Page>();
-        return new AniPagination<Media>(page.Info, page.Media);
+        var info = response.Data["Page"]["pageInfo"].ToObject<PageInfo>();
+        var data = response.Data["Page"]["media"].ToObject<Media[]>();
+        return new AniPagination<Media>(info, data);
     }
 
-    public async Task<User?> GetUser(int? id = null)
+    public async Task<User> GetUser(int? id = null)
     {
         var request = id.HasValue
             ? GqlParser.Parse(GqlType.Query, "User", User.Selections, new Dictionary<string, object?> { { "id", id } })
@@ -134,9 +130,36 @@ public class AniClient
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
         if (response.Data.ContainsKey("User"))
             return response.Data["User"].ToObject<User>();
-        return response.Data.ContainsKey("UpdateUser")
-            ? response.Data["UpdateUser"].ToObject<User>()
-            : null;
+        return response.Data.ContainsKey("UpdateUser") ? response.Data["UpdateUser"].ToObject<User>() : new User();
+    }
+
+    public async Task<AniPagination<UserActivity>> GetUserActivities(int id, AniPaginationOptions? options = null)
+    {
+        options ??= new AniPaginationOptions();
+        var request = GqlParser.Parse(GqlType.Query, "Page", new GqlSelection[]
+        {
+            new("pageInfo", PageInfo.Selections),
+            new("activities", new GqlSelection[]
+            {
+                new("__typename"),
+                new("... on ListActivity", UserActivity.Selections)
+            }, new Dictionary<string, object?>
+            {
+                { "userId", id },
+                { "type", "$MEDIA_LIST" },
+                { "sort", "$ID_DESC" }
+            })
+        }, new Dictionary<string, object?>
+        {
+            { "page", options.Index },
+            { "perPage", options.Size }
+        });
+        var response = await _client.SendQueryAsync<JObject>(new GraphQLRequest(request));
+        UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
+        var info = response.Data["Page"]["pageInfo"].ToObject<PageInfo>();
+        var data = response.Data["Page"]["activities"].ToObject<UserActivity[]>();
+        data = data.Where(item => item.Id != 0).ToArray();
+        return new AniPagination<UserActivity>(info, data);
     }
 
     public async Task<AniPagination<MediaEntry>> GetUserEntries(int id, AniPaginationOptions? options = null)
@@ -159,8 +182,9 @@ public class AniClient
         });
         var response = await _client.SendQueryAsync<JObject>(new GraphQLRequest(request));
         UpdateRateLimiting(response.AsGraphQLHttpResponse().ResponseHeaders);
-        var page = response.Data["Page"].ToObject<Page>();
-        return new AniPagination<MediaEntry>(page.Info, page.MediaEntries);
+        var info = response.Data["Page"]["pageInfo"].ToObject<PageInfo>();
+        var data = response.Data["Page"]["mediaList"].ToObject<MediaEntry[]>();
+        return new AniPagination<MediaEntry>(info, data);
     }
 
     public async Task<MediaEntry> UpdateMediaEntry(int id, MediaEntryStatus status, int progress)

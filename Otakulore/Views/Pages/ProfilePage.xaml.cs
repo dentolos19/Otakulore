@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Panels;
 
@@ -12,12 +12,12 @@ public sealed partial class ProfilePage
 {
 
     private bool _isAlreadyNavigated;
-    private int _id;
+    private User _user;
 
     public ProfilePage()
     {
         InitializeComponent();
-        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Overview", Tag = typeof(ComingSoonPanel) });
+        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Overview", Tag = typeof(ProfileOverviewPanel) });
         PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "List", Tag = typeof(ProfileListPanel) });
     }
 
@@ -37,10 +37,7 @@ public sealed partial class ProfilePage
         if (_isAlreadyNavigated)
             return;
         _isAlreadyNavigated = true;
-        var user = await App.Client.GetUser();
-        _id = user.Id;
-        PersonPictureImage.ProfilePicture = new BitmapImage(new Uri(user.Avatar.LargeImageUrl));
-        PersonNameText.Text = user.Name;
+        _user = await App.Client.GetUser();
         PanelNavigation.SelectedItem = PanelNavigation.MenuItems.First();
         LoadingIndicator.IsLoading = false;
     }
@@ -50,7 +47,7 @@ public sealed partial class ProfilePage
         if (args.IsSettingsSelected)
             PanelFrame.Navigate(typeof(ProfileSettingsPanel));
         else if (args.SelectedItem is NavigationViewItem { Tag: Type type })
-            PanelFrame.Navigate(type, _id);
+            PanelFrame.Navigate(type, _user);
     }
 
 }

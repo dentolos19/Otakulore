@@ -13,8 +13,6 @@ namespace Otakulore;
 public partial class App
 {
 
-    private static Window _window;
-
     public static Settings Settings { get; set; }
     public static AniClient Client { get; set; }
     public static IProvider[] Providers { get; set; }
@@ -28,6 +26,8 @@ public partial class App
         UnhandledException += OnUnhandledException;
         InitializeComponent();
     }
+
+    private static Window _window;
 
     public static void ResetSettings()
     {

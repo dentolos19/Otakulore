@@ -6,7 +6,7 @@ namespace Otakulore.Core.AniList;
 public class Image
 {
 
-    public static GqlSelection[] Selections =>
+    internal static IList<GqlSelection> Selections =>
         new GqlSelection[]
         {
             new("large"),

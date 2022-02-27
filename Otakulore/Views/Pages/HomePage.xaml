@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       xmlns:models="using:Otakulore.Models"
+      xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Required">
@@ -15,22 +16,25 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="🌟 All-Time Popular" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Column="0" Text="🌟 All-Time Popular" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                         <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMorePopular"/>
                     </Grid>
                     <FlipView x:Name="PopularList" Height="300">
                         <FlipView.ItemTemplate>
                             <DataTemplate x:DataType="models:MediaItemModel">
                                 <Grid Tapped="OnBannerTapped">
-                                    <Image Source="{Binding Media.BannerImageUrl}" Stretch="UniformToFill"/>
-                                    <Rectangle Fill="{ThemeResource AcrylicBackgroundBrush}"/>
+                                    <Grid.Background>
+                                        <media:ImageBlendBrush Source="{Binding Media.BannerImageUrl}" Stretch="UniformToFill" Mode="HardLight"/>
+                                    </Grid.Background>
+                                    <!--<Image Source="{Binding Media.BannerImageUrl}" Stretch="UniformToFill"/>
+                                    <Rectangle Fill="{ThemeResource AcrylicBackgroundThemeBrush}"/>-->
                                     <Grid Margin="50,20" ColumnSpacing="20">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" CornerRadius="10">
-                                            <Image Source="{Binding Media.CoverImage.ExtraLargeImageUrl}"/>
+                                            <Image Source="{Binding ImageUrl}"/>
                                         </Border>
                                         <TextBlock Grid.Column="1" Text="{Binding Media.Title.Preferred}" FontWeight="Bold" FontSize="24" VerticalAlignment="Center"/>
                                     </Grid>
@@ -45,7 +49,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="🎇 Trending Now" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Column="0" Text="🎇 Trending Now" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                         <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMoreTrending"/>
                     </Grid>
                     <GridView x:Name="TrendingList"
@@ -67,7 +71,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="❤️ Highly Beloved" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Column="0" Text="❤️ Highly Beloved" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                         <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMoreFavorites"/>
                     </Grid>
                     <GridView x:Name="FavoriteList"
@@ -89,7 +93,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="📺 Releasing This Season" FontWeight="Bold" FontSize="24"/>
+                        <TextBlock Grid.Column="0" Text="📺 Releasing This Season" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                         <HyperlinkButton Grid.Column="1" Content="See More" HorizontalAlignment="Right" Click="OnSeeMoreSeasonal"/>
                     </Grid>
                     <GridView x:Name="SeasonalList"
@@ -107,7 +111,7 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundBrush}">
+        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundThemeBrush}">
             <ProgressRing/>
         </controls:Loading>
     </Grid>

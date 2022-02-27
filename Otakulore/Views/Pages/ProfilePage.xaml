@@ -5,24 +5,10 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Required">
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <PersonPicture x:Name="PersonPictureImage" Grid.Column="0" Margin="10"/>
-                <TextBlock x:Name="PersonNameText" Grid.Column="1" FontWeight="Bold" FontSize="24" VerticalAlignment="Center"/>
-            </Grid>
-            <NavigationView x:Name="PanelNavigation" Grid.Row="1" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" SelectionChanged="OnNavigatePanel">
-                <Frame x:Name="PanelFrame"/>
-            </NavigationView>
-        </Grid>
-        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundBrush}">
+        <NavigationView x:Name="PanelNavigation" Grid.Row="1" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" SelectionChanged="OnNavigatePanel">
+            <Frame x:Name="PanelFrame"/>
+        </NavigationView>
+        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundThemeBrush}">
             <ProgressRing/>
         </controls:Loading>
     </Grid>

@@ -6,7 +6,7 @@ namespace Otakulore.Core.AniList;
 public class MediaTag
 {
 
-    public static GqlSelection[] Selections =>
+    internal static GqlSelection[] Selections =>
         new GqlSelection[]
         {
             new("id"),

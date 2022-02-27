@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Humanizer;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Core;
 using Otakulore.Core.AniList;
 
 namespace Otakulore.Views.Dialogs;
@@ -20,7 +20,7 @@ public sealed partial class ManageTrackerDialog
         _id = Result.MediaId;
         InitializeComponent();
         foreach (var status in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
-            StatusDropdown.Items.Add(new ComboBoxItem { Content = status.ToEnumDescription(true), Tag = status });
+            StatusDropdown.Items.Add(new ComboBoxItem { Content = status.Humanize(), Tag = status });
         StatusDropdown.SelectedItem = StatusDropdown.Items.FirstOrDefault(item => (MediaEntryStatus)((ComboBoxItem)item).Tag == entry.Status);
         ProgressBox.Value = entry.Progress;
     }
@@ -30,7 +30,7 @@ public sealed partial class ManageTrackerDialog
         _id = id;
         InitializeComponent();
         foreach (var status in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
-            StatusDropdown.Items.Add(new ComboBoxItem { Content = status.ToEnumDescription(true), Tag = status });
+            StatusDropdown.Items.Add(new ComboBoxItem { Content = status.Humanize(), Tag = status });
         StatusDropdown.SelectedIndex = 1;
         DeleteButton.IsEnabled = false;
     }

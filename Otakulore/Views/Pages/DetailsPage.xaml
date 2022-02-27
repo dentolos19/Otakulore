@@ -49,8 +49,8 @@
                                 </AppBarToggleButton>
                             </CommandBar.PrimaryCommands>
                         </CommandBar>
-                        <TextBlock x:Name="TitleText" Grid.Row="2" FontWeight="Bold" FontSize="24"/>
-                        <TextBlock x:Name="SubtitleText" Grid.Row="3"/>
+                        <TextBlock x:Name="TitleText" Grid.Row="2" Style="{ThemeResource TitleTextBlockStyle}"/>
+                        <TextBlock x:Name="SubtitleText" Grid.Row="3" Style="{ThemeResource BodyTextBlockStyle}"/>
                     </Grid>
                 </Grid>
                 <NavigationView x:Name="PanelNavigation" Grid.Row="1" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionChanged="OnNavigatePanel">
@@ -58,7 +58,7 @@
                 </NavigationView>
             </Grid>
         </ScrollViewer>
-        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundBrush}">
+        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundThemeBrush}">
             <ProgressRing/>
         </controls:Loading>
     </Grid>

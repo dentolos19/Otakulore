@@ -3,10 +3,10 @@
 public class MangakakalotProvider : IMangaProvider
 {
 
-    private const string Url = "https://mangakakalot.com";
-
     public string ImageUrl => Url + "/themes/home/icons/logo.png";
     public string Name => "Mangakakalot";
+
+    private const string Url = "https://mangakakalot.com";
 
     public IList<MediaSource> GetSources(string query)
     {

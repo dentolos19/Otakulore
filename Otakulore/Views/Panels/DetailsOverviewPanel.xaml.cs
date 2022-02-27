@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml.Navigation;
+﻿using Humanizer;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
 using Otakulore.Core.AniList;
 
@@ -16,8 +18,8 @@ public sealed partial class DetailsOverviewPanel
     {
         if (args.Parameter is not MediaExtra media)
             return;
-        FormatText.Text = media.Format.ToEnumDescription(true);
-        StatusText.Text = media.Status.ToEnumDescription(true);
+        FormatText.Text = media.Format?.Humanize() ?? "Unknown";
+        StatusText.Text = media.Status.Humanize();
         if (media.Format == MediaFormat.Movie)
         {
             ContentTextLabel.Text = "Length";
@@ -35,7 +37,17 @@ public sealed partial class DetailsOverviewPanel
         }
         StartDateText.Text = media.StartDate?.ToString() ?? "Unknown";
         EndDateText.Text = media.EndDate?.ToString() ?? "Unknown";
-        DescriptionText.Text = media.Description != null ? Utilities.ConvertHtmlToPlainText(media.Description) : "No description provided.";
+        DescriptionText.Text = media.Description != null ? Utilities.ConvertHtmlToMarkdown(media.Description) : "No description provided.";
+        if (media.Genres is { Length: > 0 })
+            foreach (var genre in media.Genres)
+                GenreList.Items.Add(genre);
+        else
+            GenreSection.Visibility = Visibility.Collapsed;
+        if (media.Tags is { Length: > 0 })
+            foreach (var tag in media.Tags)
+                TagList.Items.Add(tag.Name);
+        else
+            TagSection.Visibility = Visibility.Collapsed;
     }
 
 }

@@ -4,10 +4,10 @@ using Otakulore.Models;
 
 namespace Otakulore.Views.Panels;
 
-public sealed partial class DetailsCharactersPanel
+public sealed partial class DetailsStaffPanel
 {
 
-    public DetailsCharactersPanel()
+    public DetailsStaffPanel()
     {
         InitializeComponent();
     }
@@ -16,8 +16,8 @@ public sealed partial class DetailsCharactersPanel
     {
         if (args.Parameter is not MediaExtra media)
             return;
-        foreach (var character in media.Characters)
-            CharacterList.Items.Add(new MediaItemModel(character));
+        foreach (var staff in media.Staff)
+            StaffList.Items.Add(new MediaItemModel(staff));
     }
 
 }

@@ -1,11 +1,14 @@
-﻿namespace Otakulore.Core.Helpers;
+﻿using System.Collections;
+using System.Runtime.Serialization;
+
+namespace Otakulore.Core.Helpers;
 
 public static class GqlParser
 {
 
     public static string Parse(GqlType type, IList<GqlSelection> selections)
     {
-        return type.ToEnumValue() + "{" + BuildSelections(selections) + "}";
+        return GetEnumValue(type) + "{" + BuildSelections(selections) + "}";
     }
 
     public static string Parse(GqlType type, string name, IList<GqlSelection>? selections, IDictionary<string, object?>? parameters = null)
@@ -42,16 +45,36 @@ public static class GqlParser
         return data;
     }
 
-    private static string? ParseObjectString(object? value)
+    private static string ParseObjectString(object? value)
     {
         return value switch
         {
             null => "null",
-            string @string => @string.StartsWith('$') ? @string[1..] : $"\"{@string}\"",
+            string @string => @string.StartsWith('$') ? @string.TrimStart('$') : $"\"{@string}\"",
             bool @bool => @bool ? "true" : "false",
-            Enum @enum => @enum.ToEnumValue(),
+            Enum @enum => GetEnumValue(@enum),
+            IEnumerable enumerable => ParseEnumerableString(enumerable),
             _ => value.ToString()
         };
+    }
+
+    private static string ParseEnumerableString(IEnumerable value)
+    {
+        var data = "[";
+        var isFirst = true;
+        foreach (var item in value)
+        {
+            data += (isFirst ? string.Empty : ",") + ParseObjectString(item);
+            isFirst = false;
+        }
+        return data + "]";
+    }
+
+    private static string GetEnumValue(Enum @enum)
+    {
+        var field = @enum.GetType().GetField(@enum.ToString());
+        var attributes = (EnumMemberAttribute[])field.GetCustomAttributes(typeof(EnumMemberAttribute), false);
+        return attributes.Length > 0 ? attributes.First().Value : @enum.ToString();
     }
 
 }

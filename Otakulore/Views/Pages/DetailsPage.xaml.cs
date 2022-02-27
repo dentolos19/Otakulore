@@ -21,8 +21,6 @@ public sealed partial class DetailsPage
     {
         InitializeComponent();
         PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Overview", Tag = typeof(DetailsOverviewPanel) });
-        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(DetailsCharactersPanel) });
-        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Relations", Tag = typeof(DetailsRelationsPanel) });
     }
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
@@ -32,7 +30,7 @@ public sealed partial class DetailsPage
         _media = await App.Client.GetMedia(id);
         LoadingIndicator.IsLoading = false;
         _mediaEntry = _media.Entry;
-        CoverImage.Source = _media.CoverImage.LargeImageUrl;
+        CoverImage.Source = _media.Cover.LargeImageUrl;
         TitleText.Text = _media.Title.Preferred;
         SubtitleText.Text = _media.StartDate.HasValue ? _media.StartDate.Value.Year.ToString() : "Unknown Year";
         TrackButton.IsChecked = _mediaEntry != null;
@@ -44,6 +42,12 @@ public sealed partial class DetailsPage
                     ProviderList.Items.Add(new ProviderItemModel(provider));
                     break;
             }
+        if (_media.Characters is { Length: > 0 })
+            PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(DetailsCharactersPanel) });
+        if (_media.Staff is { Length: > 0 })
+            PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Staff", Tag = typeof(DetailsStaffPanel) });
+        if (_media.Relations is { Length: > 0 })
+            PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Relations", Tag = typeof(DetailsRelationsPanel) });
         PanelNavigation.SelectedItem = PanelNavigation.MenuItems.First();
     }
 

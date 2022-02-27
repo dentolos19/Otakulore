@@ -6,9 +6,9 @@ public class AniPagination<T>
     public int CurrentPageIndex { get; }
     public int LastPageIndex { get; }
     public bool HasNextPage { get; }
-    public IList<T> Data { get; }
+    public T[] Data { get; }
 
-    public AniPagination(PageInfo info, IList<T> data)
+    public AniPagination(PageInfo info, T[] data)
     {
         CurrentPageIndex = info.CurrentPageIndex;
         LastPageIndex = info.LastPageIndex;

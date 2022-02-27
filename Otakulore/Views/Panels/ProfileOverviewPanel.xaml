@@ -1,0 +1,41 @@
+﻿<Page x:Class="Otakulore.Views.Panels.ProfileOverviewPanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid RowSpacing="5" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Padding="10" CornerRadius="10" Background="{ThemeResource AcrylicBaseBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <PersonPicture x:Name="PersonPictureImage" Grid.Column="0" Margin="10"/>
+            <TextBlock x:Name="PersonNameText" Grid.Column="1" Style="{ThemeResource TitleTextBlockStyle}" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1" ColumnSpacing="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Spacing="2" Padding="10" CornerRadius="10" Background="{ThemeResource AcrylicBaseBrush}">
+                <TextBlock Text="About Me" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <controls:MarkdownTextBlock x:Name="AboutText" IsTextSelectionEnabled="False" Background="Transparent"/>
+            </StackPanel>
+            <Grid Grid.Column="1" RowSpacing="5" Padding="10" CornerRadius="10" Background="{ThemeResource AcrylicBaseBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Your Activity" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <Grid Grid.Row="1">
+                    <ListView x:Name="ActivityList" ItemTemplate="{StaticResource MediaItemDetailedTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>
+                    <ProgressRing x:Name="ActivityListIndicator"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

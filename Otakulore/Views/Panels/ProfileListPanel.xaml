@@ -1,8 +1,6 @@
 ﻿<Page x:Class="Otakulore.Views.Panels.ProfileListPanel"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-      xmlns:models="using:Otakulore.Models"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Required">
@@ -21,23 +19,7 @@
             <ComboBox x:Name="TypeDropdown" Grid.Column="1" SelectionChanged="OnTypeChanged"/>
             <ComboBox x:Name="StatusDropdown" Grid.Column="2" SelectionChanged="OnStatusChanged"/>
         </Grid>
-        <ListView x:Name="List" Grid.Row="1" IsItemClickEnabled="True" ItemClick="OnItemClicked">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:MediaEntryItemModel">
-                    <Grid ColumnSpacing="10" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <controls:ImageEx Grid.Column="0" Source="{Binding Entry.Media.CoverImage.LargeImageUrl}" CornerRadius="10"/>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Entry.Media.Title.Preferred}" FontWeight="Bold" FontSize="16"/>
-                            <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <ProgressRing x:Name="ProgressIndicator" Grid.Row="1"/>
+        <ListView x:Name="EntryList" Grid.Row="1" ItemTemplate="{StaticResource MediaItemDetailedTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>
+        <ProgressRing x:Name="EntryListIndicator" Grid.Row="1"/>
     </Grid>
 </Page>

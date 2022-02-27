@@ -6,6 +6,9 @@
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Enabled">
+    <Page.Resources>
+        <XamlUICommand x:Name="SearchCommand" ExecuteRequested="OnSearch"/>
+    </Page.Resources>
     <Grid Margin="10" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,14 +23,14 @@
             <AutoSuggestBox x:Name="SearchInputBox" Grid.Column="0" PlaceholderText="Search">
                 <interactivity:Interaction.Behaviors>
                     <interactions:EventTriggerBehavior EventName="QuerySubmitted">
-                        <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
+                        <interactions:InvokeCommandAction Command="{StaticResource SearchCommand}"/>
                     </interactions:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
             </AutoSuggestBox>
             <ComboBox x:Name="SearchSortSelection" Grid.Column="1">
                 <interactivity:Interaction.Behaviors>
                     <interactions:EventTriggerBehavior EventName="SelectionChanged">
-                        <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
+                        <interactions:InvokeCommandAction Command="{StaticResource SearchCommand}"/>
                     </interactions:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
             </ComboBox>

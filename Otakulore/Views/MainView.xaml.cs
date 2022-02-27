@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core.AniList;
 using Otakulore.Views.Pages;
 
 namespace Otakulore.Views;
@@ -54,7 +55,7 @@ public sealed partial class MainView
 
     private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        PageFrame.Navigate(typeof(SearchPage), sender.Text);
+        PageFrame.Navigate(typeof(SearchPage), new AniFilter { Query = sender.Text });
         PageNavigation.IsPaneOpen = false;
     }
 

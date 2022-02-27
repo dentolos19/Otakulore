@@ -23,9 +23,9 @@ public sealed partial class HomePage
         if (_isAlreadyNavigated)
             return;
         _isAlreadyNavigated = true;
-        var popularMedia = await App.Client.SearchMedia(null, MediaSort.Popularity, new AniPaginationOptions(1, 20));
-        var trendingMedia = await App.Client.SearchMedia(null, MediaSort.Trending);
-        var favoriteMedia = await App.Client.SearchMedia(null, MediaSort.Favorites);
+        var popularMedia = await App.Client.SearchMedia(new AniFilter { Sort = MediaSort.Popularity }, new AniPaginationOptions(1, 10));
+        var trendingMedia = await App.Client.SearchMedia(new AniFilter { Sort = MediaSort.Trending });
+        var favoriteMedia = await App.Client.SearchMedia(new AniFilter { Sort = MediaSort.Favorites });
         var seasonalMedia = await App.Client.GetMediaBySeason(App.CurrentSeason);
         LoadingIndicator.IsLoading = false;
         foreach (var media in popularMedia.Data)
@@ -40,29 +40,29 @@ public sealed partial class HomePage
 
     private void OnBannerTapped(object sender, TappedRoutedEventArgs args)
     {
-        if (PopularList.SelectedItem is MediaItemModel item)
-            App.NavigateFrame(typeof(DetailsPage), item.Media.Id);
+        if (PopularList.SelectedItem is MediaItemModel { Media: Media media })
+            App.NavigateFrame(typeof(DetailsPage), media.Id);
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
-        if (args.ClickedItem is MediaItemModel item)
-            App.NavigateFrame(typeof(DetailsPage), item.Media.Id);
+        if (args.ClickedItem is MediaItemModel { Media: Media media })
+            App.NavigateFrame(typeof(DetailsPage), media.Id);
     }
 
     private void OnSeeMorePopular(object sender, RoutedEventArgs args)
     {
-        App.NavigateFrame(typeof(SearchPage), MediaSort.Popularity);
+        App.NavigateFrame(typeof(SearchPage), new AniFilter { Sort = MediaSort.Popularity });
     }
 
     private void OnSeeMoreTrending(object sender, RoutedEventArgs args)
     {
-        App.NavigateFrame(typeof(SearchPage), MediaSort.Trending);
+        App.NavigateFrame(typeof(SearchPage), new AniFilter { Sort = MediaSort.Trending });
     }
 
     private void OnSeeMoreFavorites(object sender, RoutedEventArgs args)
     {
-        App.NavigateFrame(typeof(SearchPage), MediaSort.Favorites);
+        App.NavigateFrame(typeof(SearchPage), new AniFilter { Sort = MediaSort.Favorites });
     }
 
     private void OnSeeMoreSeasonal(object sender, RoutedEventArgs args)

@@ -6,7 +6,7 @@ namespace Otakulore.Core.AniList;
 public class MediaEdge
 {
 
-    public static GqlSelection[] Selections =>
+    internal static GqlSelection[] Selections =>
         new GqlSelection[]
         {
             new("node", Media.Selections),

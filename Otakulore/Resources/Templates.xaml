@@ -5,31 +5,11 @@
                     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
                     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
                     xmlns:models="using:Otakulore.Models">
-    <DataTemplate x:Key="CharacterItemTemplate" x:DataType="models:CharacterItemModel">
-        <Grid RowSpacing="2" Margin="5" Width="150" Height="250">
-            <ToolTipService.ToolTip>
-                <StackPanel>
-                    <TextBlock Text="{Binding Character.Details.Name.Preferred}" FontWeight="Bold" TextWrapping="Wrap"/>
-                    <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
-                </StackPanel>
-            </ToolTipService.ToolTip>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <controls:ImageEx Grid.Row="0" Source="{Binding Character.Details.Image.LargeImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
-            <Grid Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Border Background="{ThemeResource AcrylicBackgroundBrush}" CornerRadius="5"/>
-                <TextBlock Text="{Binding Tag}" Margin="5"/>
-            </Grid>
-            <TextBlock Grid.Row="1" Text="{Binding Character.Details.Name.Preferred}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
-        </Grid>
-    </DataTemplate>
     <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
         <Grid RowSpacing="2" Margin="5" Width="150" Height="250">
             <ToolTipService.ToolTip>
                 <StackPanel>
-                    <TextBlock Text="{Binding Media.Title.Preferred}" FontWeight="Bold" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Title}" Style="{ThemeResource BaseTextBlockStyle}"/>
                     <controls:MetadataControl Items="{Binding Meta}" Separator=" • "/>
                 </StackPanel>
             </ToolTipService.ToolTip>
@@ -37,12 +17,25 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <controls:ImageEx Grid.Row="0" Source="{Binding Media.CoverImage.LargeImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
+            <controls:ImageEx Grid.Row="0" Source="{Binding ImageUrl}" Stretch="UniformToFill" EnableLazyLoading="True" CornerRadius="10"/>
             <Grid Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Border Background="{ThemeResource AcrylicBackgroundBrush}" CornerRadius="5"/>
-                <TextBlock Text="{Binding Tag}" Margin="5"/>
+                <Border Background="{ThemeResource AcrylicBackgroundThemeBrush}" CornerRadius="5"/>
+                <TextBlock Text="{Binding Tag}" Margin="5" Style="{ThemeResource CaptionTextBlockStyle}"/>
             </Grid>
-            <TextBlock Grid.Row="1" Text="{Binding Media.Title.Preferred}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+            <TextBlock Grid.Row="1" Text="{Binding Title}" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="MediaItemDetailedTemplate" x:DataType="models:MediaItemModel">
+        <Grid ColumnSpacing="10" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <controls:ImageEx Grid.Column="0" Source="{Binding ImageUrl}" CornerRadius="10"/>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <controls:MetadataControl Items="{Binding Meta}" Separator=" • " TextBlockStyle="{ThemeResource CaptionTextBlockStyle}"/>
+            </StackPanel>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="NotificationContentTemplate" x:DataType="models:NotificationDataModel">

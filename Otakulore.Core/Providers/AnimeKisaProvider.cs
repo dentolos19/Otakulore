@@ -3,10 +3,10 @@
 public class AnimeKisaProvider : IAnimeProvider
 {
 
-    private const string Url = "https://animekisa.tv";
-
     public string ImageUrl => Url + "/img/ah_logo.png";
     public string Name => "AnimeKisa";
+
+    private const string Url = "https://animekisa.tv";
 
     public IList<MediaSource> GetSources(string query)
     {

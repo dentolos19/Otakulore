@@ -7,9 +7,9 @@ namespace Otakulore;
 public class Settings
 {
 
-    private static readonly string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
-
     public string? UserToken { get; set; }
+
+    private static readonly string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
 
     public void Save()
     {

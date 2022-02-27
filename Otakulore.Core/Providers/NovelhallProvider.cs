@@ -3,10 +3,10 @@
 public class NovelhallProvider : INovelProvider
 {
 
-    private const string Url = "https://novelhall.com";
-
     public string ImageUrl => Url + "/statics/default/images/logo.b5b4c.png";
     public string Name => "Novelhall";
+
+    private const string Url = "https://novelhall.com";
 
     public IList<MediaSource> GetSources(string query)
     {

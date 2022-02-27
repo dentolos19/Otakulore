@@ -27,7 +27,7 @@ internal static class AniListTests
     [Test]
     public static async Task SearchMediaTest()
     {
-        var response = await Client.SearchMedia("test");
+        var response = await Client.SearchMedia(new AniFilter { Query = "test", Type = MediaType.Anime, Genres = { "Action" } });
         Console.WriteLine(ObjectDumper.Dump(response));
     }
 
@@ -52,6 +52,13 @@ internal static class AniListTests
     public static async Task GetUserTest()
     {
         var response = await Client.GetUser(1);
+        Console.WriteLine(ObjectDumper.Dump(response));
+    }
+
+    [Test]
+    public static async Task GetUserActivitiesTest()
+    {
+        var response = await Client.GetUserActivities(1);
         Console.WriteLine(ObjectDumper.Dump(response));
     }
 

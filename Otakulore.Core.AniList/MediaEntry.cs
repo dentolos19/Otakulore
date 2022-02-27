@@ -6,7 +6,7 @@ namespace Otakulore.Core.AniList;
 public class MediaEntry
 {
 
-    public static GqlSelection[] Selections =>
+    internal static GqlSelection[] Selections =>
         new GqlSelection[]
         {
             new("id"),
@@ -16,7 +16,7 @@ public class MediaEntry
             new("media", Media.Selections)
         };
 
-    public static GqlSelection[] MediaSelections =>
+    internal static GqlSelection[] MediaSelections =>
         new GqlSelection[]
         {
             new("id"),

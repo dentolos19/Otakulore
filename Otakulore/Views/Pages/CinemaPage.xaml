@@ -19,7 +19,7 @@
             </ComboBox>
             <WebView2 x:Name="WebView" Grid.Row="1" NavigationStarting="OnContentNavigating"/>
         </Grid>
-        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundBrush}">
+        <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundThemeBrush}">
             <ProgressRing/>
         </controls:Loading>
     </Grid>

@@ -5,7 +5,7 @@ namespace Otakulore.Core.AniList;
 public class Date
 {
 
-    public static GqlSelection[] Selections =>
+    internal static GqlSelection[] Selections =>
         new GqlSelection[]
         {
             new("year"),

@@ -30,8 +30,8 @@ public sealed partial class SchedulePanel
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
-        if (args.ClickedItem is MediaItemModel item)
-            App.NavigateFrame(typeof(DetailsPage), item.Media.Id);
+        if (args.ClickedItem is MediaItemModel { Media: Media media })
+            App.NavigateFrame(typeof(DetailsPage), media.Id);
     }
 
     public class Source : IIncrementalSource<MediaItemModel>

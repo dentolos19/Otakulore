@@ -1,6 +1,6 @@
-﻿<Page x:Class="Otakulore.Views.Panels.DetailsCharactersPanel"
+﻿<Page x:Class="Otakulore.Views.Panels.DetailsStaffPanel"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <GridView x:Name="CharacterList" ItemTemplate="{StaticResource MediaItemTemplate}"/>
+    <GridView x:Name="StaffList" ItemTemplate="{StaticResource MediaItemTemplate}"/>
 </Page>

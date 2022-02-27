@@ -4,9 +4,9 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <StackPanel Spacing="20" VerticalAlignment="Center">
         <Image Source="{StaticResource IconImage}" Width="120"/>
-        <TextBlock Text="Welcome!" FontSize="24" HorizontalAlignment="Center"/>
+        <TextBlock Text="Welcome!" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
         <StackPanel Spacing="10">
-            <TextBlock x:Name="ProgressStatus" Text="Loading" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="ProgressStatus" Text="Loading" Style="{ThemeResource BodyTextBlockStyle}" HorizontalAlignment="Center"/>
             <ProgressBar x:Name="ProgressIndicator" IsIndeterminate="True" Width="150"/>
         </StackPanel>
     </StackPanel>

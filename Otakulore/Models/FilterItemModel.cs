@@ -1,15 +1,17 @@
-﻿namespace Otakulore.Models;
+﻿using Microsoft.UI.Xaml.Controls;
+
+namespace Otakulore.Models;
 
 public class FilterItemModel
 {
 
-    public string Glyph { get; }
+    public Symbol Symbol { get; }
     public string Text { get; }
     public object Data { get; }
 
-    public FilterItemModel(string glyph, string text, object data)
+    public FilterItemModel(Symbol symbol, string text, object data)
     {
-        Glyph = glyph;
+        Symbol = symbol;
         Text = text;
         Data = data;
     }
