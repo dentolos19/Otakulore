@@ -13,10 +13,10 @@ public class AniClient
     private readonly GraphQLHttpClient _client;
     private readonly HttpClient _httpClient;
 
+    public bool HasToken => _httpClient.DefaultRequestHeaders.Authorization != null;
+
     public int RateLimit { get; private set; }
     public int RateRemaining { get; private set; }
-
-    public bool HasToken => _httpClient.DefaultRequestHeaders.Authorization != null;
 
     public event EventHandler? RateUpdated;
 
@@ -59,7 +59,7 @@ public class AniClient
     {
         options ??= new AniPaginationOptions();
         var parameters = new Dictionary<string, object?> { { "sort", filter.Sort } };
-        if (filter.Query != null)
+        if (!string.IsNullOrEmpty(filter.Query))
             parameters.Add("search", filter.Query);
         if (filter.Type != null)
             parameters.Add("type", filter.Type);
@@ -172,7 +172,8 @@ public class AniClient
             {
                 Parameters =
                 {
-                    { "userId", id }
+                    { "userId", id },
+                    { "sort", "$UPDATED_TIME" }
                 }
             }
         }, new Dictionary<string, object?>

@@ -34,7 +34,7 @@
                     </interactions:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
-            <Button Grid.Column="2" ToolTipService.ToolTip="Filter" Click="OnFilterSearch">
+            <Button Grid.Column="2" ToolTipService.ToolTip="Filter" Click="OnFilter">
                 <SymbolIcon Symbol="Filter"/>
             </Button>
         </Grid>

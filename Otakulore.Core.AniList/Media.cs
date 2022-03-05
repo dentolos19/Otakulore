@@ -6,6 +6,11 @@ namespace Otakulore.Core.AniList;
 public class Media
 {
 
+    [JsonProperty("startDate")] private readonly Date _startDate;
+    [JsonProperty("endDate")] private readonly Date _endDate;
+    [JsonProperty("episodes")] private readonly int? _episodes;
+    [JsonProperty("chapters")] private readonly int? _chapters;
+
     internal static GqlSelection[] Selections =>
         new GqlSelection[]
         {
@@ -30,10 +35,9 @@ public class Media
             new("chapters")
         };
 
-    [JsonProperty("startDate")] private readonly Date _startDate;
-    [JsonProperty("endDate")] private readonly Date _endDate;
-    [JsonProperty("episodes")] private readonly int? _episodes;
-    [JsonProperty("chapters")] private readonly int? _chapters;
+    public int? Content => Type switch { MediaType.Anime => _episodes, MediaType.Manga => _chapters };
+    public DateOnly? StartDate => _startDate.ToDateOnly();
+    public DateOnly? EndDate => _endDate.ToDateOnly();
 
     [JsonProperty("id")] public int Id { get; init; }
     [JsonProperty("idMal")] public int? MalId { get; init; }
@@ -50,8 +54,5 @@ public class Media
     [JsonProperty("genres")] public string[]? Genres { get; init; }
     [JsonProperty("season")] public MediaSeason? Season { get; init; }
     [JsonProperty("duration")] public int? Duration { get; init; }
-    public int? Content => Type switch { MediaType.Anime => _episodes, MediaType.Manga => _chapters };
-    public DateOnly? StartDate => _startDate.ToDateOnly();
-    public DateOnly? EndDate => _endDate.ToDateOnly();
 
 }

@@ -31,21 +31,21 @@ public sealed partial class FilterMediaDialog
             return;
         TypeDropdown.SelectedItem = TypeDropdown.Items.OfType<ComboBoxItem>().FirstOrDefault(item => (MediaType?)item.Tag == filter.Type) ?? TypeDropdown.Items.First();
         foreach (var genre in filter.Genres)
-            GenreList.Items.Add(new FilterItemModel(Symbol.Add, genre, genre));
+            GenreList.Items.Add(new FilterItemModel(genre, genre));
         foreach (var tag in filter.Tags)
-            GenreList.Items.Add(new FilterItemModel(Symbol.Add, tag, tag));
+            TagList.Items.Add(new FilterItemModel(tag, tag));
     }
 
     private void OnAddGenreFilter(object sender, RoutedEventArgs args)
     {
         if (GenreDropdown.SelectedItem is ComboBoxItem { Content: string genre })
-            GenreList.Items.Add(new FilterItemModel(Symbol.Add, genre, genre));
+            GenreList.Items.Add(new FilterItemModel(genre, genre));
     }
 
     private void OnAddTagFilter(object sender, RoutedEventArgs args)
     {
         if (TagDropdown.SelectedItem is ComboBoxItem { Content: string tag })
-            TagList.Items.Add(new FilterItemModel(Symbol.Add, tag, tag));
+            TagList.Items.Add(new FilterItemModel(tag, tag));
     }
 
     private void OnRemoveGenreItem(object sender, RoutedEventArgs args)

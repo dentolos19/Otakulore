@@ -36,12 +36,11 @@ public class NovelhallProvider : INovelProvider
         return contents;
     }
 
-    /*
-    public string GetText(MediaContent content)
+    public bool TryExtractText(MediaContent content, out string text)
     {
         var website = Utilities.HtmlWeb.Load(content.Url);
-        return website.DocumentNode.SelectSingleNode("//article/div[@class='entry-content']").InnerText;
+        text = website.DocumentNode.SelectSingleNode("//article/div[@class='entry-content']").InnerText;
+        return true;
     }
-    */
 
 }

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Common.Collections;
 using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Pages;
@@ -15,7 +13,7 @@ namespace Otakulore.Views.Panels;
 public sealed partial class SchedulePanel
 {
 
-    public IncrementalLoadingCollection<Source, MediaItemModel> Items { get; private set; }
+    public IncrementalLoadingCollection<IncrementalSource<MediaItemModel>, MediaItemModel> Items { get; private set; }
 
     public SchedulePanel()
     {
@@ -24,33 +22,16 @@ public sealed partial class SchedulePanel
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.Parameter is KeyValuePair<MediaSeason, int>(var season, var year))
-            Items = new IncrementalLoadingCollection<Source, MediaItemModel>(new Source(season, year));
+        if (args.Parameter is not KeyValuePair<MediaSeason, int>(var season, var year))
+            return;
+        var source = new IncrementalSource<MediaItemModel>(async (index, size) => (await App.Client.GetMediaBySeason(season, year, new AniPaginationOptions(index + 1, size))).Data.Select(media => new MediaItemModel(media)));
+        Items = new IncrementalLoadingCollection<IncrementalSource<MediaItemModel>, MediaItemModel>(source);
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is MediaItemModel { Media: Media media })
             App.NavigateFrame(typeof(DetailsPage), media.Id);
-    }
-
-    public class Source : IIncrementalSource<MediaItemModel>
-    {
-
-        private readonly MediaSeason _season;
-        private readonly int _year;
-
-        public Source(MediaSeason season, int year)
-        {
-            _season = season;
-            _year = year;
-        }
-
-        public async Task<IEnumerable<MediaItemModel>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
-        {
-            return (await App.Client.GetMediaBySeason(_season, _year, new AniPaginationOptions(pageIndex + 1, pageSize))).Data.Select(media => new MediaItemModel(media));
-        }
-
     }
 
 }

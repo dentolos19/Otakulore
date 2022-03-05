@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Humanizer;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core.AniList;
 using Otakulore.Views.Panels;
@@ -12,25 +13,24 @@ public sealed partial class SchedulesPage
     public SchedulesPage()
     {
         InitializeComponent();
+        var year = DateTime.Now.Year;
         foreach (var season in (MediaSeason[])Enum.GetValues(typeof(MediaSeason)))
         {
             var item = new NavigationViewItem
             {
-                Content = season.ToString(),
-                Tag = season
+                Content = season.Humanize(),
+                Tag = new KeyValuePair<MediaSeason, int>(season, year)
             };
             PanelNavigation.MenuItems.Add(item);
-            if (season != App.CurrentSeason)
-                continue;
-            item.Content += " (Current)";
-            PanelNavigation.SelectedItem = item;
+            if (season == App.CurrentSeason)
+                PanelNavigation.SelectedItem = item;
         }
     }
 
-    private void OnNavigatePanel(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void OnPanelNavigate(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
-        if (args.SelectedItem is NavigationViewItem item)
-            PanelFrame.Navigate(typeof(SchedulePanel), new KeyValuePair<MediaSeason, int>((MediaSeason)item.Tag, DateTime.Today.Year));
+        if (args.SelectedItem is NavigationViewItem { Tag: object parameter })
+            PanelFrame.Navigate(typeof(SchedulePanel), parameter);
     }
 
 }

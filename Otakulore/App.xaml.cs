@@ -4,14 +4,16 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core;
 using Otakulore.Core.AniList;
+using Otakulore.Core.Providers;
 using Otakulore.Models;
 using Otakulore.Views;
-using UnhandledExceptionEventArgs = Microsoft.UI.Xaml.UnhandledExceptionEventArgs;
 
 namespace Otakulore;
 
 public partial class App
 {
+
+    private static Window _window;
 
     public static Settings Settings { get; set; }
     public static AniClient Client { get; set; }
@@ -23,16 +25,58 @@ public partial class App
 
     public App()
     {
-        UnhandledException += OnUnhandledException;
+        UnhandledException += (_, args) =>
+        {
+            ShowNotification("An unhandled exception occurred! " + args.Message);
+            args.Handled = true;
+        };
         InitializeComponent();
     }
 
-    private static Window _window;
-
-    public static void ResetSettings()
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        Settings = new Settings();
-        Settings.Save();
+        Settings = Settings.Load();
+        Providers = new IProvider[]
+        {
+            new GogoanimeProvider(),
+            new MangakakalotProvider(),
+            new NovelhallProvider()
+        };
+
+        var date = DateTime.Today;
+        var day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
+        CurrentSeason = day switch
+        {
+            < 80 or >= 355 => MediaSeason.Winter,
+            >= 80 and < 172 => MediaSeason.Spring,
+            >= 172 and < 266 => MediaSeason.Summer,
+            _ => MediaSeason.Fall
+        };
+
+        Client = new AniClient();
+        Client.RateUpdated += (_, _) =>
+        {
+            var rateLimit = Client.RateLimit;
+            var rateRemaining = Client.RateRemaining;
+            if (Client.RateLimit > 20)
+                return;
+            ShowNotification($"Your rate remaining is running low! ({rateRemaining}/{rateLimit})");
+        };
+        if (Settings.UserToken != null)
+            Client.SetToken(Settings.UserToken);
+
+        Task.Run(async () =>
+        {
+            var (genres, tags) = await Client.GetGenresAndTags();
+            Genres = genres;
+            Tags = tags;
+        });
+
+        var frame = new Frame();
+        _window = new Window { Title = "Otakulore", Content = frame };
+        frame.Navigate(typeof(MainView));
+        _window.Closed += (_, _) => Settings.Save();
+        _window.Activate();
     }
 
     public static void NavigateFrame(Type type, object? parameter = null)
@@ -58,21 +102,6 @@ public partial class App
     {
         dialog.XamlRoot = _window.Content.XamlRoot;
         await dialog.ShowAsync();
-    }
-
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
-    {
-        var frame = new Frame();
-        _window = new Window { Title = "Otakulore", Content = frame };
-        frame.Navigate(typeof(LoadingView));
-        _window.Closed += (_, _) => Settings.Save();
-        _window.Activate();
-    }
-
-    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs args)
-    {
-        ShowNotification("An unhandled exception occurred! " + args.Message);
-        args.Handled = true;
     }
 
 }

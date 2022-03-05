@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.Views.Pages;
@@ -18,20 +20,25 @@ public sealed partial class SearchProviderDialog
         InitializeComponent();
         if (!string.IsNullOrEmpty(query))
             SearchInputBox.Text = query;
-        Opened += (_, _) => Search();
+        SearchCommand.Execute(null);
     }
 
-    public void Search()
+    private async void OnSearch(XamlUICommand sender, ExecuteRequestedEventArgs args)
     {
         var query = SearchInputBox.Text;
         if (string.IsNullOrEmpty(query))
             return;
         SearchResultList.Items.Clear();
         SearchProgressIndicator.IsActive = true;
-        var results = _provider.GetSources(query);
+        var results = await Task.Run(() => _provider.GetSources(query));
         foreach (var entry in results)
             SearchResultList.Items.Add(new SourceItemModel(entry));
         SearchProgressIndicator.IsActive = false;
+    }
+
+    private void OnCancel(object sender, RoutedEventArgs args)
+    {
+        Hide();
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
@@ -39,11 +46,6 @@ public sealed partial class SearchProviderDialog
         if (args.ClickedItem is not SourceItemModel item)
             return;
         App.NavigateFrame(typeof(CinemaPage), new KeyValuePair<IProvider, object>(_provider, item.Source));
-        Hide();
-    }
-
-    private void OnCancel(object sender, RoutedEventArgs args)
-    {
         Hide();
     }
 

@@ -5,7 +5,7 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <NavigationView x:Name="PageNavigation" PaneTitle="Made with ❤️ for Anime" IsPaneOpen="False" IsBackEnabled="{Binding CanGoBack, ElementName=PageFrame}" SelectionChanged="OnNavigatePage" BackRequested="OnBackRequested">
         <NavigationView.AutoSuggestBox>
-            <AutoSuggestBox PlaceholderText="Search" QuerySubmitted="OnSearchRequested"/>
+            <AutoSuggestBox PlaceholderText="Search" QuerySubmitted="OnSearchEntered"/>
         </NavigationView.AutoSuggestBox>
         <Grid>
             <Frame x:Name="PageFrame" x:FieldModifier="internal" CacheSize="5" Navigating="OnPageNavigating"/>

@@ -31,19 +31,14 @@ public sealed partial class MainView
         }
         else
         {
-            if (args.SelectedItem is not NavigationViewItem item)
-                return;
-            var type = (Type?)item.Tag;
-            if (type != null)
+            if (args.SelectedItem is NavigationViewItem { Tag: Type type })
                 PageFrame.Navigate(type);
         }
     }
 
     private void OnPageNavigating(object sender, NavigatingCancelEventArgs args)
     {
-        if (PageNavigation.SelectedItem is not NavigationViewItem { Tag: Type type })
-            return;
-        if (type != args.SourcePageType)
+        if (PageNavigation.SelectedItem is NavigationViewItem { Tag: Type type } && type != args.SourcePageType)
             PageNavigation.SelectedItem = null;
     }
 
@@ -53,7 +48,7 @@ public sealed partial class MainView
             PageFrame.GoBack();
     }
 
-    private void OnSearchRequested(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    private void OnSearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         PageFrame.Navigate(typeof(SearchPage), new AniFilter { Query = sender.Text });
         PageNavigation.IsPaneOpen = false;

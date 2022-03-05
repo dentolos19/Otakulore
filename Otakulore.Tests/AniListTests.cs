@@ -5,8 +5,7 @@ using Otakulore.Core.AniList;
 
 namespace Otakulore.Tests;
 
-[TestFixture]
-internal static class AniListTests
+public static class AniListTests
 {
 
     private static readonly AniClient Client = new();

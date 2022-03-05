@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Enabled">
-    <NavigationView x:Name="PanelNavigation" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionChanged="OnNavigatePanel">
+    <NavigationView x:Name="PanelNavigation" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionChanged="OnPanelNavigate">
         <Frame x:Name="PanelFrame"/>
     </NavigationView>
 </Page>

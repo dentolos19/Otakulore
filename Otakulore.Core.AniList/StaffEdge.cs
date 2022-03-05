@@ -9,7 +9,7 @@ public class StaffEdge
     internal static GqlSelection[] Selections =>
         new GqlSelection[]
         {
-            new("node", Staff.Selections),
+            new("node", Character.Selections),
             new("role")
         };
 

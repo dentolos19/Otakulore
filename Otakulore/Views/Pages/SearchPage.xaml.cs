@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Common.Collections;
 using CommunityToolkit.WinUI;
 using Humanizer;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
@@ -44,13 +41,14 @@ public sealed partial class SearchPage
         _filter.Query = SearchInputBox.Text;
         if (SearchSortSelection.SelectedItem is ComboBoxItem { Tag: MediaSort sort })
             _filter.Sort = sort;
-        var collection = new IncrementalLoadingCollection<Source, MediaItemModel>(new Source(_filter));
+        var source = new IncrementalSource<MediaItemModel>(async (index, size) => (await App.Client.SearchMedia(_filter, new AniPaginationOptions(index + 1, size))).Data.Select(media => new MediaItemModel(media)));
+        var collection = new IncrementalLoadingCollection<IncrementalSource<MediaItemModel>, MediaItemModel>(source, 50);
         collection.OnStartLoading += () => SearchResultIndicator.IsActive = true;
         collection.OnEndLoading += () => SearchResultIndicator.IsActive = false;
         SearchResultList.ItemsSource = collection;
     }
 
-    private async void OnFilterSearch(object sender, RoutedEventArgs args)
+    private async void OnFilter(object sender, RoutedEventArgs args)
     {
         var dialog = new FilterMediaDialog(_filter);
         await App.AttachDialog(dialog);
@@ -64,23 +62,6 @@ public sealed partial class SearchPage
     {
         if (args.ClickedItem is MediaItemModel { Media: Media media })
             Frame.Navigate(typeof(DetailsPage), media.Id);
-    }
-
-    public class Source : IIncrementalSource<MediaItemModel>
-    {
-
-        private readonly AniFilter _filter;
-
-        public Source(AniFilter filter)
-        {
-            _filter = filter;
-        }
-
-        public async Task<IEnumerable<MediaItemModel>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
-        {
-            return (await App.Client.SearchMedia(_filter, new AniPaginationOptions(pageIndex + 1, pageSize))).Data.Select(media => new MediaItemModel(media));
-        }
-
     }
 
 }

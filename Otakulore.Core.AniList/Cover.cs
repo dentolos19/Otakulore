@@ -7,6 +7,8 @@ namespace Otakulore.Core.AniList;
 public class Cover : Image
 {
 
+    [JsonProperty("color")] private readonly string? _colorHex;
+
     internal static GqlSelection[] Selections =>
         Image.Selections.Concat(new GqlSelection[]
         {
@@ -14,9 +16,8 @@ public class Cover : Image
             new("color")
         }).ToArray();
 
-    [JsonProperty("color")] private readonly string? _colorHex;
+    public Color? Color => Utilities.ParseColorHex(_colorHex);
 
     [JsonProperty("extraLarge")] public string ExtraLargeImageUrl { get; init; }
-    public Color? Color => Utilities.ParseColorHex(_colorHex);
 
 }

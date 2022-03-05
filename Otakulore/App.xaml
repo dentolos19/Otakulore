@@ -18,7 +18,7 @@
                     <media:AcrylicBrush x:Key="AcrylicBackgroundThemeBrush" TintColor="Black" TintOpacity="0.4" BlurAmount="8"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-            <media:AcrylicBrush x:Key="AcrylicBaseBrush" TintColor="{ThemeResource SystemBaseLowColor}" TintOpacity="0.2"/>
+            <media:AcrylicBrush x:Key="AcrylicBaseBrush" TintColor="{ThemeResource SystemBaseLowColor}" TintOpacity="0.2" BlurAmount="4"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

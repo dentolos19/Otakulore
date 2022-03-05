@@ -4,13 +4,10 @@
                xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
                xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-               xmlns:models="using:Otakulore.Models"
-               DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <interactivity:Interaction.Behaviors>
-        <interactions:EventTriggerBehavior EventName="Opened">
-            <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
-        </interactions:EventTriggerBehavior>
-    </interactivity:Interaction.Behaviors>
+               xmlns:models="using:Otakulore.Models">
+    <ContentDialog.Resources>
+        <XamlUICommand x:Name="SearchCommand" ExecuteRequested="OnSearch"/>
+    </ContentDialog.Resources>
     <Grid RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,7 +17,7 @@
         <AutoSuggestBox x:Name="SearchInputBox" Grid.Row="0" PlaceholderText="Search">
             <interactivity:Interaction.Behaviors>
                 <interactions:EventTriggerBehavior EventName="QuerySubmitted">
-                    <interactions:CallMethodAction TargetObject="{Binding}" MethodName="Search"/>
+                    <interactions:InvokeCommandAction Command="{StaticResource SearchCommand}"/>
                 </interactions:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </AutoSuggestBox>
@@ -34,9 +31,9 @@
                         </Grid.ColumnDefinitions>
                         <controls:ImageEx Grid.Column="0"
                                           Source="{Binding Source.ImageUrl}" Stretch="UniformToFill"
-                                          PlaceholderSource="{StaticResource NoneImage}" PlaceholderStretch="UniformToFill"
+                                          PlaceholderSource="{StaticResource NoneImage}" PlaceholderStretch="Uniform"
                                           EnableLazyLoading="True" CornerRadius="10"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Source.Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Source.Name}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

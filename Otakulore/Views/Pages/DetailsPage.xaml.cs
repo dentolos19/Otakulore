@@ -37,10 +37,24 @@ public sealed partial class DetailsPage
         foreach (var provider in App.Providers)
             switch (_media.Type)
             {
-                case MediaType.Anime when provider is IAnimeProvider:
-                case MediaType.Manga when provider is IMangaProvider:
-                    ProviderList.Items.Add(new ProviderItemModel(provider));
+                case MediaType.Anime:
+                {
+                    if (provider is IAnimeProvider)
+                        ProviderList.Items.Add(new ProviderItemModel(provider));
                     break;
+                }
+                case MediaType.Manga when _media.Format == MediaFormat.Novel:
+                {
+                    if (provider is INovelProvider)
+                        ProviderList.Items.Add(new ProviderItemModel(provider));
+                    break;
+                }
+                case MediaType.Manga:
+                {
+                    if (provider is IMangaProvider)
+                        ProviderList.Items.Add(new ProviderItemModel(provider));
+                    break;
+                }
             }
         if (_media.Characters is { Length: > 0 })
             PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(DetailsCharactersPanel) });

@@ -2,14 +2,14 @@
 using System.Text.Json;
 using Windows.Storage;
 
-namespace Otakulore;
+namespace Otakulore.Core;
 
 public class Settings
 {
 
-    public string? UserToken { get; set; }
-
     private static readonly string FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "settings.json");
+
+    public string? UserToken { get; set; }
 
     public void Save()
     {

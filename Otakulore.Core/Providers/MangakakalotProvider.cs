@@ -41,4 +41,10 @@ public class MangakakalotProvider : IMangaProvider
         return contents;
     }
 
+    public bool TryExtractImageUrls(MediaContent content, out string[] urls)
+    {
+        urls = Array.Empty<string>();
+        return false;
+    }
+
 }

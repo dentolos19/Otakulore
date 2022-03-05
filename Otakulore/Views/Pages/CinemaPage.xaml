@@ -4,20 +4,37 @@
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       xmlns:models="using:Otakulore.Models"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <XamlUICommand x:Name="BackCommand" CanExecuteRequested="CanNavigateBack" ExecuteRequested="OnNavigateBack"/>
+        <XamlUICommand x:Name="ForwardCommand" CanExecuteRequested="CanNavigateForward" ExecuteRequested="OnNavigateForward"/>
+    </Page.Resources>
     <Grid>
-        <Grid Margin="10" RowSpacing="10">
+        <Grid Margin="10" RowSpacing="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ComboBox x:Name="ContentDropdown" Grid.Row="0" HorizontalAlignment="Stretch" SelectionChanged="OnContentChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="models:ContentItemModel">
-                        <TextBlock Text="{Binding Content.Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <WebView2 x:Name="WebView" Grid.Row="1" NavigationStarting="OnContentNavigating"/>
+            <Grid Grid.Row="0" ColumnSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{StaticResource BackCommand}">
+                    <SymbolIcon Symbol="Back"/>
+                </Button>
+                <ComboBox x:Name="ContentDropdown" Grid.Column="1" HorizontalAlignment="Stretch" SelectionChanged="OnContentChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:ContentItemModel">
+                            <TextBlock Text="{Binding Content.Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Grid.Column="2" Command="{StaticResource ForwardCommand}">
+                    <SymbolIcon Symbol="Forward"/>
+                </Button>
+            </Grid>
+            <WebView2 x:Name="WebView" Grid.Row="1" NavigationCompleted="OnContentNavigated"/>
         </Grid>
         <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundThemeBrush}">
             <ProgressRing/>

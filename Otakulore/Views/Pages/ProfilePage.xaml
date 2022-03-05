@@ -5,7 +5,7 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Required">
     <Grid>
-        <NavigationView x:Name="PanelNavigation" Grid.Row="1" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" SelectionChanged="OnNavigatePanel">
+        <NavigationView x:Name="PanelNavigation" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" SelectionChanged="OnNavigatePanel">
             <Frame x:Name="PanelFrame"/>
         </NavigationView>
         <controls:Loading x:Name="LoadingIndicator" IsLoading="True" Background="{ThemeResource AcrylicBackgroundThemeBrush}">

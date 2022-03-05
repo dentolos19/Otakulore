@@ -1,6 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <BitmapImage x:Key="ComingSoonImage" UriSource="Images/ComingSoon.png"/>
+    <BitmapImage x:Key="FallImage" UriSource="Images/Fall.png"/>
     <BitmapImage x:Key="IconImage" UriSource="Images/Icon.png"/>
     <BitmapImage x:Key="NoneImage" UriSource="Images/None.png"/>
+    <BitmapImage x:Key="SpringImage" UriSource="Images/Spring.png"/>
+    <BitmapImage x:Key="SummerImage" UriSource="Images/Summer.png"/>
+    <BitmapImage x:Key="WinterImage" UriSource="Images/Winter.png"/>
 </ResourceDictionary>

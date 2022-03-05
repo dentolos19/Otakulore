@@ -4,13 +4,13 @@ using Otakulore.Core.Providers;
 
 namespace Otakulore.Tests;
 
-internal static class ProvidersTest
+public static class ProvidersTest
 {
 
     [Test]
-    public static void AnimeKisaTest()
+    public static void GogoanimeTest()
     {
-        var provider = new AnimeKisaProvider();
+        var provider = new GogoanimeProvider();
         var sources = provider.GetSources("test");
         Console.WriteLine(ObjectDumper.Dump(sources));
         var content = provider.GetContents(sources[0]);

@@ -18,7 +18,7 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 * [X] Get extensive details on your favorite series including characters, staff and more! (from [AniList](https://anilist.co))
 * [X] Plan your next series to watch with the seasonal calendar (from [AniChart](https://anichart.net))!
 * [X] Efficiently get access to many sources easily!
-  * [X] [AnimeKisa](https://animekisa.tv) (Anime)
+  * [X] [Gogoanime](https://gogoanime.film) (Anime)
   * [X] [Mangakakalot](https://mangakakalot.com) (Manga)
   * [X] [Novelhall](https://novelhall.com) (Novel)
   * [ ] ... more to be added soon!

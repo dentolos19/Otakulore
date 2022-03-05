@@ -25,13 +25,11 @@
                         <DataTemplate x:DataType="models:FilterItemModel">
                             <Grid ColumnSpacing="5">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <SymbolIcon Grid.Column="0" Symbol="{Binding Symbol}"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Text}" VerticalAlignment="Center"/>
-                                <HyperlinkButton Grid.Column="2" Click="OnRemoveGenreItem">
+                                <TextBlock Grid.Column="0" Text="{Binding Text}" VerticalAlignment="Center"/>
+                                <HyperlinkButton Grid.Column="1" Click="OnRemoveGenreItem">
                                     <SymbolIcon Symbol="Delete"/>
                                 </HyperlinkButton>
                             </Grid>
@@ -56,13 +54,11 @@
                         <DataTemplate x:DataType="models:FilterItemModel">
                             <Grid ColumnSpacing="5">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <SymbolIcon Grid.Column="0" Symbol="{Binding Symbol}"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Text}" VerticalAlignment="Center"/>
-                                <HyperlinkButton Grid.Column="2" Click="OnRemoveTagItem">
+                                <TextBlock Grid.Column="0" Text="{Binding Text}" VerticalAlignment="Center"/>
+                                <HyperlinkButton Grid.Column="1" Click="OnRemoveTagItem">
                                     <SymbolIcon Symbol="Delete"/>
                                 </HyperlinkButton>
                             </Grid>

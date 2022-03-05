@@ -8,6 +8,7 @@ using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Otakulore.Core;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 
@@ -53,7 +54,8 @@ public sealed partial class SettingsPage
         };
         model.ContinueClicked += (_, _) =>
         {
-            App.ResetSettings();
+            App.Settings = new Settings();
+            App.Settings.Save();
             App.NavigateFrame(typeof(HomePage));
             // TODO: replace navigation to home page with app restarting
         };
