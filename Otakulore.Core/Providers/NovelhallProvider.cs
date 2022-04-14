@@ -27,6 +27,8 @@ public class NovelhallProvider : INovelProvider
     {
         var htmlDocument = Utilities.HtmlWeb.Load(source.Url);
         var chapterElements = htmlDocument.DocumentNode.SelectNodes("//div[@id='morelist']/ul/li");
+        if (chapterElements is not { Count: > 0 })
+            return Array.Empty<MediaContent>();
         var contents = new List<MediaContent>();
         foreach (var chapterElement in chapterElements)
         {

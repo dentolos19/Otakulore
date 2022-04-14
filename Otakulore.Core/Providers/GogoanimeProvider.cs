@@ -15,6 +15,8 @@ public class GogoanimeProvider : IAnimeProvider
     {
         var htmlDocument = Utilities.HtmlWeb.Load(Url + "/search.html?keyword=" + Uri.EscapeDataString(query));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
+        if (searchElements is not { Count: > 0 })
+            return Array.Empty<MediaSource>();
         var sources = new List<MediaSource>();
         foreach (var searchElement in searchElements)
         {
@@ -34,6 +36,8 @@ public class GogoanimeProvider : IAnimeProvider
         var id = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
         htmlDocument = Utilities.HtmlWeb.Load(CdnUrl + id);
         var episodeElements = htmlDocument.DocumentNode.SelectNodes("//ul/li");
+        if (episodeElements is not { Count: > 0 })
+            return Array.Empty<MediaContent>();
         var contents = new List<MediaContent>();
         foreach (var episodeElement in episodeElements)
         {

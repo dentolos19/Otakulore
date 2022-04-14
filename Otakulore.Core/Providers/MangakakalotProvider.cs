@@ -31,6 +31,8 @@ public class MangakakalotProvider : IMangaProvider
     {
         var htmlElement = Utilities.HtmlWeb.Load(source.Url);
         var chapterElements = htmlElement.DocumentNode.SelectNodes("//div[@class='panel-story-chapter-list']/ul/li");
+        if (chapterElements is not { Count: > 0 })
+            return Array.Empty<MediaContent>();
         var contents = new List<MediaContent>();
         foreach (var chapterElement in chapterElements)
         {

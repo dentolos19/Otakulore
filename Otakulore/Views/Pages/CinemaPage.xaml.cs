@@ -26,10 +26,16 @@ public sealed partial class CinemaPage
             return;
         _provider = provider;
         await WebView.EnsureCoreWebView2Async();
+        WebView.CoreWebView2.NewWindowRequested += (_, args) => args.Handled = true;
         var contents = _provider.GetContents(source);
         foreach (var content in contents)
             ContentDropdown.Items.Add(new ContentItemModel(content));
         ContentDropdown.SelectedIndex = 0;
+    }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs args)
+    {
+        WebView.Close();
     }
 
     private async void OnContentChanged(object sender, SelectionChangedEventArgs args)

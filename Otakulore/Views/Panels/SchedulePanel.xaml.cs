@@ -25,7 +25,7 @@ public sealed partial class SchedulePanel
         if (args.Parameter is not KeyValuePair<MediaSeason, int>(var season, var year))
             return;
         var source = new IncrementalSource<MediaItemModel>(async (index, size) => (await App.Client.GetMediaBySeason(season, year, new AniPaginationOptions(index + 1, size))).Data.Select(media => new MediaItemModel(media)));
-        Items = new IncrementalLoadingCollection<IncrementalSource<MediaItemModel>, MediaItemModel>(source);
+        Items = new IncrementalLoadingCollection<IncrementalSource<MediaItemModel>, MediaItemModel>(source, 100);
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
