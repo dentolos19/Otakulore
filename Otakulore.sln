@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core", "Otakulore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Tests", "Otakulore.Tests\Otakulore.Tests.csproj", "{3B785C72-6204-4C25-BA08-380578FD12F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Core.AniList", "Otakulore.Core.AniList\Otakulore.Core.AniList.csproj", "{908FD8CB-C373-4846-A976-2069A945921F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core.AniList", "Otakulore.Core.AniList\Otakulore.Core.AniList.csproj", "{908FD8CB-C373-4846-A976-2069A945921F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtakuloreMaui", "OtakuloreMaui\OtakuloreMaui.csproj", "{701EEE5D-6F2A-4138-9016-5C084093AEC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,24 @@ Global
 		{908FD8CB-C373-4846-A976-2069A945921F}.Release|arm64.Build.0 = Release|Any CPU
 		{908FD8CB-C373-4846-A976-2069A945921F}.Release|x64.ActiveCfg = Release|Any CPU
 		{908FD8CB-C373-4846-A976-2069A945921F}.Release|x64.Build.0 = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|arm64.Build.0 = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|arm64.Deploy.0 = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|x64.Build.0 = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|arm64.ActiveCfg = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|arm64.Build.0 = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|arm64.Deploy.0 = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|x64.ActiveCfg = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|x64.Build.0 = Release|Any CPU
+		{701EEE5D-6F2A-4138-9016-5C084093AEC2}.Release|x64.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

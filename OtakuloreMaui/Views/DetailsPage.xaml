@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Views.DetailsPage">
+    <ContentPage.BindingContext>
+        <models:DetailsViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid Padding="10">
+            <StackLayout Spacing="10">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="100"/>
+                    <Label Grid.Column="1" Text="{Binding Title}" FontSize="Title" VerticalOptions="Center"/>
+                </Grid>
+                <StackLayout Spacing="5">
+                    <StackLayout Spacing="2">
+                        <Label Text="Synopsis" FontAttributes="Bold"/>
+                        <Label Text="{Binding Synopsis}"/>
+                    </StackLayout>
+                    <StackLayout Spacing="2">
+                        <Grid ColumnDefinitions="*,*">
+                            <Label Grid.Column="0" HorizontalOptions="Start" Text="Start Date" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding StartDate}"/>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*">
+                            <Label Grid.Column="0" HorizontalOptions="Start" Text="End Date" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding EndDate}"/>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*">
+                            <Label Grid.Column="0" HorizontalOptions="Start" Text="Episodes" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding Episodes}"/>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsLoading}"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>
