@@ -6,30 +6,44 @@
     <ContentPage.BindingContext>
         <models:DetailsViewModel/>
     </ContentPage.BindingContext>
-    <ScrollView>
-        <Grid Padding="10">
+    <ScrollView Padding="10">
+        <Grid>
             <StackLayout Spacing="10">
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                    <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="100"/>
+                    <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="80" HeightRequest="120"/>
                     <Label Grid.Column="1" Text="{Binding Title}" FontSize="Title" VerticalOptions="Center"/>
                 </Grid>
-                <StackLayout Spacing="5">
-                    <StackLayout Spacing="2">
-                        <Label Text="Synopsis" FontAttributes="Bold"/>
-                        <Label Text="{Binding Synopsis}"/>
+                <StackLayout Orientation="{OnIdiom Default=Horizontal, Phone=Vertical}" Spacing="{OnIdiom Default=5, Desktop=10}">
+                    <StackLayout Spacing="{OnIdiom Desktop=2}" IsVisible="{OnIdiom Default=Visible, Phone=Hidden}">
+                        <StackLayout>
+                            <Label Text="Start Date" FontAttributes="Bold"/>
+                            <Label Text="{Binding StartDate}"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="End Date" FontAttributes="Bold"/>
+                            <Label Text="{Binding EndDate}"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Episodes" FontAttributes="Bold"/>
+                            <Label Text="{Binding Episodes}"/>
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout Spacing="2">
+                    <StackLayout>
+                        <Label Text="Description" FontAttributes="Bold"/>
+                        <Label Text="{Binding Description}"/>
+                    </StackLayout>
+                    <StackLayout IsVisible="{OnIdiom Default=Hidden, Phone=Visible}">
                         <Grid ColumnDefinitions="*,*">
-                            <Label Grid.Column="0" HorizontalOptions="Start" Text="Start Date" FontAttributes="Bold"/>
-                            <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding StartDate}"/>
+                            <Label Grid.Column="0" Text="Start Date" HorizontalOptions="Start" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="{Binding StartDate}" HorizontalOptions="End"/>
                         </Grid>
                         <Grid ColumnDefinitions="*,*">
-                            <Label Grid.Column="0" HorizontalOptions="Start" Text="End Date" FontAttributes="Bold"/>
-                            <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding EndDate}"/>
+                            <Label Grid.Column="0" Text="End Date" HorizontalOptions="Start" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="{Binding EndDate}" HorizontalOptions="End"/>
                         </Grid>
                         <Grid ColumnDefinitions="*,*">
-                            <Label Grid.Column="0" HorizontalOptions="Start" Text="Episodes" FontAttributes="Bold"/>
-                            <Label Grid.Column="1" HorizontalOptions="End" Text="{Binding Episodes}"/>
+                            <Label Grid.Column="0" Text="Episodes" HorizontalOptions="Start" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="{Binding Episodes}" HorizontalOptions="End"/>
                         </Grid>
                     </StackLayout>
                 </StackLayout>

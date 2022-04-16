@@ -3,7 +3,7 @@
 public class SearchItemModel
 {
 
-    public long Id { get; init; }
+    public int Id { get; init; }
     public string ImageUrl { get; init; }
     public string Title { get; init; }
 

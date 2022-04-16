@@ -9,7 +9,7 @@
     <Grid RowDefinitions="Auto,*" RowSpacing="10" Margin="10">
         <Entry Grid.Row="0" Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" ReturnCommand="{Binding SearchCommand}"/>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Items}" ItemTapped="OnItemTapped">
+            <ListView ItemsSource="{Binding Items}" HasUnevenRows="True" ItemTapped="OnItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:SearchItemModel">
                         <ViewCell>
