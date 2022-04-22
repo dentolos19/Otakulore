@@ -9,4 +9,9 @@ public class AniFilter
     public IList<string> Genres { get; set; } = new List<string>();
     public IList<string> Tags { get; set; } = new List<string>();
 
+    public AniFilter(string? query = null)
+    {
+        Query = query;
+    }
+
 }

@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:views="clr-namespace:Otakulore.Views"
+       xmlns:pages="clr-namespace:Otakulore.Pages"
        x:Class="Otakulore.AppShell"
        Title="Otakulore">
-    <FlyoutItem Title="Home">
-        <ShellContent Route="home" ContentTemplate="{DataTemplate views:HomePage}"/>
+    <FlyoutItem Title="Home" Route="home">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="SegoeAssets" Glyph="&#xE80F;"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Search">
-        <ShellContent Route="search" ContentTemplate="{DataTemplate views:SearchPage}"/>
+    <FlyoutItem Title="Seasonal" Route="seasonal">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="SegoeAssets" Glyph="&#xE787;"/>
+        </FlyoutItem.Icon>
+        <Tab Title="Winter" Icon="winter.png" Route="winter">
+            <ShellContent>
+                <pages:SeasonalPage Season="Winter"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Spring" Icon="spring.png" Route="spring">
+            <ShellContent>
+                <pages:SeasonalPage Season="Spring"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Summer" Icon="summer.png" Route="summer">
+            <ShellContent>
+                <pages:SeasonalPage Season="Summer"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Fall" Icon="fall.png" Route="fall">
+            <ShellContent>
+                <pages:SeasonalPage Season="Fall"/>
+            </ShellContent>
+        </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Library">
-        <ShellContent Route="library" ContentTemplate="{DataTemplate views:LibraryPage}"/>
+    <FlyoutItem Title="Library" Route="library">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="SegoeAssets" Glyph="&#xE8F1;"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate pages:LibraryPage}"/>
     </FlyoutItem>
 </Shell>

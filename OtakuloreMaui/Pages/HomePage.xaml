@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:Otakulore.Components"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.HomePage">
+    <ContentPage.BindingContext>
+        <models:HomeViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView Padding="10">
+        <StackLayout Spacing="20">
+            <StackLayout Spacing="10">
+                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+                <Frame CornerRadius="10" HeightRequest="400">
+                    <Grid>
+                        <Image Source="banner.jpg"/>
+                        <Label Text="Hello, World!" FontSize="Header" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label.Shadow>
+                                <Shadow/>
+                            </Label.Shadow>
+                        </Label>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+            <StackLayout Spacing="10">
+                <Label Text="🎇 Trending Now" FontSize="Medium"/>
+                <CollectionView ItemsSource="{Binding TrendingItems}" ItemTemplate="{StaticResource MediaItemTemplate}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ActivityIndicator IsRunning="True"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout Spacing="10">
+                <Label Text="❤️ Highly Beloved" FontSize="Medium"/>
+                <CollectionView ItemsSource="{Binding FavoriteItems}" ItemTemplate="{StaticResource MediaItemTemplate}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ActivityIndicator IsRunning="True"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout Spacing="10">
+                <Label Text="🌟 Most Popular" FontSize="Medium"/>
+                <CollectionView ItemsSource="{Binding PopularItems}" ItemTemplate="{StaticResource MediaItemTemplate}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ActivityIndicator IsRunning="True"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

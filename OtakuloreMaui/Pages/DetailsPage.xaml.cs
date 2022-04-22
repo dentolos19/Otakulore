@@ -1,4 +1,4 @@
-namespace Otakulore.Views;
+namespace Otakulore.Pages;
 
 public partial class DetailsPage
 {

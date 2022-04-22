@@ -1,4 +1,4 @@
-﻿using Otakulore.Views;
+﻿using Otakulore.Pages;
 
 namespace Otakulore;
 
@@ -9,6 +9,7 @@ public partial class AppShell
     {
         InitializeComponent();
         Routing.RegisterRoute("details", typeof(DetailsPage));
+        Routing.RegisterRoute("search", typeof(SearchPage));
     }
 
 }

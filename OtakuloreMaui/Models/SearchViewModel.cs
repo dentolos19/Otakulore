@@ -1,39 +1,34 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Otakulore.Core.AniList;
 
 namespace Otakulore.Models;
 
-[ObservableObject]
-public partial class SearchViewModel
+public partial class SearchViewModel : ObservableObject, IQueryAttributable
 {
-
-    private readonly AniClient _client = new();
 
     [ObservableProperty] private string _query;
     [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public ObservableCollection<SearchItemModel> Items { get; }
-    public ICommand SearchCommand { get; }
-
-    public SearchViewModel()
+    [ICommand]
+    private async void Search(string query)
     {
-        Items = new ObservableCollection<SearchItemModel>();
-        SearchCommand = new Command(async () =>
-        {
-            IsLoading = true;
-            Items.Clear();
-            var results = await _client.SearchMedia(new AniFilter { Query = _query });
-            foreach (var item in results.Data)
-                Items.Add(new SearchItemModel
-                {
-                    Id = item.Id,
-                    ImageUrl = item.Cover.ExtraLargeImageUrl,
-                    Title = item.Title.Preferred
-                });
-            IsLoading = false;
-        }, () => !string.IsNullOrEmpty(_query));
+        IsLoading = true;
+        Items.Clear();
+        var results = await App.Client.SearchMedia(new AniFilter { Query = _query });
+        foreach (var item in results.Data)
+            Items.Add(new MediaItemModel(item));
+        IsLoading = false;
+    }
+    
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (!query.ContainsKey("query"))
+            return;
+        Query = Uri.UnescapeDataString((string)query["query"]);
+        Search(Query);
     }
 
 }
