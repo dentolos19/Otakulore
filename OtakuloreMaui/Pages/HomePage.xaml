@@ -3,15 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:components="clr-namespace:Otakulore.Components"
              xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.HomePage">
+             x:Class="Otakulore.Pages.HomePage"
+             Title="Home">
     <ContentPage.BindingContext>
         <models:HomeViewModel/>
     </ContentPage.BindingContext>
+    <Shell.SearchHandler>
+        <SearchHandler Placeholder="Search" Query="{Binding Query, Mode=TwoWay}" Command="{Binding SearchCommand}" CommandParameter="{Binding Query}">
+            <SearchHandler.QueryIcon>
+                <FontImageSource FontFamily="SegoeAssets" Glyph="&#xE1A3;"/>
+            </SearchHandler.QueryIcon>
+        </SearchHandler>
+    </Shell.SearchHandler>
     <ScrollView Padding="10">
         <StackLayout Spacing="20">
             <StackLayout Spacing="10">
-                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
-                <Frame CornerRadius="10" HeightRequest="400">
+                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}" IsVisible="{OnIdiom Default=True, Phone=False}"/>
+                <Frame CornerRadius="10" HeightRequest="{OnIdiom Default=400, Phone=200}">
                     <Grid>
                         <Image Source="banner.jpg"/>
                         <Label Text="Hello, World!" FontSize="Header" HorizontalOptions="Center" VerticalOptions="Center">

@@ -7,34 +7,24 @@ namespace Otakulore.Models;
 
 public partial class SeasonalViewModel : ObservableObject
 {
-
-    private Task? _currentTask;
+    
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
     public MediaSeason? CurrentSeason { get; private set; }
-
-    [ICommand]
-    private void LoadMoreItems()
+    
+    public void SetSeason(MediaSeason season)
     {
-        if (_currentTask is { IsCompleted: false })
-            return;
-        _currentTask = Task.Run(async () =>
+        CurrentSeason = season;
+        Task.Run(async () =>
         {
-            if (CurrentSeason is not { } season)
-                return;
+            Items.Clear();
             IsLoading = true;
             var results = (await App.Client.GetMediaBySeason(season)).Data;
             foreach (var media in results)
                 Items.Add(new MediaItemModel(media));
             IsLoading = false;
         });
-    }
-
-    public void SetSeason(MediaSeason season)
-    {
-        CurrentSeason = season;
-        LoadMoreItems();
     }
 
 }

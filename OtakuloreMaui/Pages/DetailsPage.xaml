@@ -2,19 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.DetailsPage">
+             x:Class="Otakulore.Pages.DetailsPage"
+             Title="Details" Shell.TabBarIsVisible="False">
     <ContentPage.BindingContext>
         <models:DetailsViewModel/>
     </ContentPage.BindingContext>
     <ScrollView Padding="10">
         <Grid>
             <StackLayout Spacing="10">
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <StackLayout Orientation="Horizontal" Spacing="10">
                     <Frame Grid.Column="0" WidthRequest="100" HeightRequest="160">
                         <Image Source="{Binding ImageUrl}"/>
                     </Frame>
-                    <Label Grid.Column="1" Text="{Binding Title}" FontSize="Title" VerticalOptions="Center"/>
-                </Grid>
+                    <StackLayout VerticalOptions="End">
+                        <Label Grid.Column="1" Text="{Binding Title}" FontSize="Title"/>
+                        <Label Grid.Column="1" Text="{Binding Subtitle}"/>
+                    </StackLayout>
+                </StackLayout>
                 <StackLayout Spacing="5">
                     <StackLayout>
                         <Label Text="Description" FontAttributes="Bold"/>

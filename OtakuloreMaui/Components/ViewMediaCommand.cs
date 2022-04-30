@@ -6,6 +6,8 @@ namespace Otakulore.Components;
 public class ViewMediaCommand : ICommand
 {
 
+    public event EventHandler? CanExecuteChanged;
+
     public bool CanExecute(object? parameter)
     {
         return true;
@@ -16,7 +18,5 @@ public class ViewMediaCommand : ICommand
         if (parameter is MediaItemModel item)
             await Shell.Current.GoToAsync("details?id=" + item.Id);
     }
-
-    public event EventHandler? CanExecuteChanged;
 
 }

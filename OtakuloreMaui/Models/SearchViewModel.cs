@@ -11,7 +11,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string _query;
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
-
+    
     [ICommand]
     private async void Search(string query)
     {

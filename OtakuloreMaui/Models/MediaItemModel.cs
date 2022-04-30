@@ -1,4 +1,5 @@
-﻿using Otakulore.Core.AniList;
+﻿using Humanizer;
+using Otakulore.Core.AniList;
 
 namespace Otakulore.Models;
 
@@ -9,6 +10,7 @@ public class MediaItemModel
     public string ImageUrl { get; }
     public string BannerImageUrl { get; }
     public string Title { get; }
+    public string Format { get; }
 
     public MediaItemModel(Media media)
     {
@@ -16,6 +18,7 @@ public class MediaItemModel
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         BannerImageUrl = media.BannerImageUrl;
         Title = media.Title.Preferred;
+        Format = media.Format?.Humanize() ?? "???";
     }
 
 }

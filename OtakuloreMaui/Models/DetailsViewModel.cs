@@ -9,6 +9,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
 
     [ObservableProperty] private string _imageUrl;
     [ObservableProperty] private string _title;
+    [ObservableProperty] private string _subtitle;
     [ObservableProperty] private string _description;
     [ObservableProperty] private string _format;
     [ObservableProperty] private string _content;
@@ -24,6 +25,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         var media = await App.Client.GetMedia(id);
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         Title = media.Title.Preferred;
+        Subtitle = media.StartDate.HasValue ? media.StartDate.Value.Year.ToString() : "????";
         Description = media.Description ?? "No description has been provided.";
         Format = media.Format.Humanize();
         if (media.Content.HasValue)
