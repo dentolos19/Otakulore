@@ -43,6 +43,7 @@
                         </Grid>
                     </StackLayout>
                 </StackLayout>
+                <Button Text="Play" Command="{Binding PlayCommand}"/>
             </StackLayout>
             <ActivityIndicator IsRunning="{Binding IsLoading}"/>
         </Grid>

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Humanizer;
 using Otakulore.Core.AniList;
 
@@ -43,6 +44,12 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         StartDate = media.StartDate.HasValue ? media.StartDate.Value.ToShortDateString() : "???";
         EndDate = media.EndDate.HasValue ? media.EndDate.Value.ToShortDateString() : "???";
         IsLoading = false;
+    }
+
+    [ICommand]
+    private async void Play()
+    {
+        await Shell.Current.GoToAsync("sourceSearcher?query=" + Uri.EscapeDataString(_title));
     }
 
 }

@@ -10,6 +10,7 @@ public partial class AppShell
         InitializeComponent();
         Routing.RegisterRoute("details", typeof(DetailsPage));
         Routing.RegisterRoute("search", typeof(SearchPage));
+        Routing.RegisterRoute("sourceSearcher", typeof(SourceSearcherPage));
     }
 
 }

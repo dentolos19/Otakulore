@@ -20,21 +20,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4"/>
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128"/>
-		<MauiImage Include="Resources\Images\*"/>
-		<MauiFont Include="Resources\Fonts\*"/>
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiImage Include="Resources\Images\*" />
+		<MauiFont Include="Resources\Fonts\*" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-rc2"/>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3"/>
-		<PackageReference Include="Humanizer.Core" Version="2.14.1"/>
+		<PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-rc3" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
+		<PackageReference Include="Humanizer.Core" Version="2.14.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Otakulore.Core.AniList\Otakulore.Core.AniList.csproj"/>
+		<ProjectReference Include="..\Otakulore.Core.AniList\Otakulore.Core.AniList.csproj" />
 	</ItemGroup>
 
 </Project>
