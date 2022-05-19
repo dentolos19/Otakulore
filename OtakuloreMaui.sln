@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32505.426
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AniListNet", "modules\AniListNet\AniListNet\AniListNet.csproj", "{355885AE-CAFD-4F6C-9B79-4137256AF1BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{DF18D081-3682-4682-9CCF-C3FC9F848CE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{2FEB0411-8BFF-439D-9644-2D9816124568}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore", "src\maui\Otakulore\Otakulore.csproj", "{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{355885AE-CAFD-4F6C-9B79-4137256AF1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{355885AE-CAFD-4F6C-9B79-4137256AF1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355885AE-CAFD-4F6C-9B79-4137256AF1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{355885AE-CAFD-4F6C-9B79-4137256AF1BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7E15D70-7A03-4A91-ABB5-0AF42B9E13B9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{355885AE-CAFD-4F6C-9B79-4137256AF1BE} = {DF18D081-3682-4682-9CCF-C3FC9F848CE1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EFC84518-631F-4984-9BD8-C969935165BD}
+	EndGlobalSection
+EndGlobal
