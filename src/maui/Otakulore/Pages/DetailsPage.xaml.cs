@@ -1,9 +1,9 @@
 namespace Otakulore.Pages;
 
-public partial class SourceSearcherPage
+public partial class DetailsPage : ContentPage
 {
 
-    public SourceSearcherPage()
+    public DetailsPage()
     {
         InitializeComponent();
     }

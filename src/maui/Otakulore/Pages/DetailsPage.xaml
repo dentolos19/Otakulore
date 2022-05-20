@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.DetailsPage"
+             Title="Details">
+    <ContentPage.BindingContext>
+        <models:DetailsViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="150">
+            <Frame Grid.Column="0" WidthRequest="100">
+                <Image Source="{Binding ImageUrl}"/>
+            </Frame>
+            <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand">
+                <Label Text="{Binding Title}" FontSize="Title"/>
+                <Label Text="{Binding Subtitle}" FontSize="Caption"/>
+            </StackLayout>
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="10">
+                <StackLayout>
+                    <Label Text="Description" FontAttributes="Bold"/>
+                    <Label Text="{Binding Description}" TextType="Html"/>
+                </StackLayout>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Format" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding Format}" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding ContentLabel}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding Content}" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Start Date" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding StartDate}" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="End Date" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding EndDate}" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

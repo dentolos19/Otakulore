@@ -1,7 +1,11 @@
-﻿namespace Otakulore;
+﻿using AniListNet;
+
+namespace Otakulore;
 
 public partial class App
 {
+
+    public static AniClient Client { get; } = new();
 
     public App()
     {

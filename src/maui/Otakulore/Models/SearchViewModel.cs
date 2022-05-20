@@ -7,27 +7,24 @@ namespace Otakulore.Models;
 public partial class SearchViewModel : ObservableObject, IQueryAttributable
 {
 
-    [ObservableProperty] private string _query;
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.ContainsKey("query"))
+            SearchCommand.Execute(query["query"].ToString());
+    }
+
     [ICommand]
-    private async void Search(string query)
+    private async Task Search(string query)
     {
         IsLoading = true;
+        var results = await App.Client.SearchMediaAsync(query);
         Items.Clear();
-        var results = await App.Client.SearchMedia(new AniFilter { Query = _query });
         foreach (var item in results.Data)
             Items.Add(new MediaItemModel(item));
         IsLoading = false;
-    }
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if (!query.ContainsKey("query"))
-            return;
-        Query = Uri.UnescapeDataString((string)query["query"]);
-        Search(Query);
     }
 
 }

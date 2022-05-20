@@ -8,8 +8,8 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder.UseMauiApp<App>().ConfigureFonts(fonts =>
         {
-            fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-            fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            fonts.AddFont("OpenSans.ttf", "OpenSans");
+            fonts.AddFont("SegoeAssets.ttf", "SegoeAssets");
         });
         return builder.Build();
     }
