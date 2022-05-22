@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:Otakulore.Components"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.HomePage"
              Title="Home">
     <ContentPage.Resources>
         <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
-            <Grid RowDefinitions="*,Auto" RowSpacing="5" Padding="5" WidthRequest="150" HeightRequest="250">
-                <Frame Grid.Row="0">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{StaticResource ViewMediaCommand}" CommandParameter="{Binding Data}"/>
-                    </Frame.GestureRecognizers>
-                    <Image Source="{Binding ImageUrl}"/>
-                </Frame>
-                <Label Grid.Row="1" Text="{Binding Title}" LineBreakMode="TailTruncation" HorizontalOptions="Center"/>
-            </Grid>
+            <Frame>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{StaticResource ViewMediaCommand}" CommandParameter="{Binding Data}"/>
+                </Frame.GestureRecognizers>
+                <Grid RowDefinitions="220,Auto" WidthRequest="150">
+                    <Grid Grid.Row="0" RowDefinitions="5,Auto,*" ColumnDefinitions="5,Auto,*">
+                        <Image Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding ImageUrl}"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Opacity="0.8"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Format}" Margin="5" HorizontalOptions="CenterAndExpand"/>
+                    </Grid>
+                    <Label Grid.Row="1" Text="{Binding Title}" Margin="5" LineBreakMode="TailTruncation" HorizontalOptions="CenterAndExpand"/>
+                </Grid>
+            </Frame>
         </DataTemplate>
     </ContentPage.Resources>
     <ContentPage.BindingContext>
         <models:HomeViewModel/>
     </ContentPage.BindingContext>
+    <Shell.SearchHandler>
+        <components:MediaSearchHandler Placeholder="Search"/>
+    </Shell.SearchHandler>
     <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
+        <!-- TODO: remove search bar once search handler is fixed on windows -->
         <SearchBar Grid.Row="0" Placeholder="Search" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="20">
@@ -28,7 +37,7 @@
                     <Label Text="🎇 Trending Now" FontSize="Medium"/>
                     <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"/>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
                         </CollectionView.ItemsLayout>
                         <CollectionView.EmptyView>
                             <ActivityIndicator IsRunning="True"/>
@@ -39,7 +48,7 @@
                     <Label Text="❤️ Highly Beloved" FontSize="Medium"/>
                     <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"/>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
                         </CollectionView.ItemsLayout>
                         <CollectionView.EmptyView>
                             <ActivityIndicator IsRunning="True"/>
@@ -50,7 +59,7 @@
                     <Label Text="🌟 Most Popular" FontSize="Medium"/>
                     <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"/>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
                         </CollectionView.ItemsLayout>
                         <CollectionView.EmptyView>
                             <ActivityIndicator IsRunning="True"/>

@@ -7,18 +7,18 @@
     <ContentPage.BindingContext>
         <models:DetailsViewModel/>
     </ContentPage.BindingContext>
-    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="150">
-            <Frame Grid.Column="0" WidthRequest="100">
-                <Image Source="{Binding ImageUrl}"/>
-            </Frame>
-            <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand">
-                <Label Text="{Binding Title}" FontSize="Title"/>
-                <Label Text="{Binding Subtitle}" FontSize="Caption"/>
-            </StackLayout>
-        </Grid>
-        <ScrollView Grid.Row="1">
+    <Grid>
+        <ScrollView Padding="10">
             <StackLayout Spacing="10">
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="150">
+                    <Frame Grid.Column="0" WidthRequest="100">
+                        <Image Source="{Binding ImageUrl}"/>
+                    </Frame>
+                    <StackLayout Grid.Column="1" VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding Title}" FontSize="Title"/>
+                        <Label Text="{Binding Subtitle}" FontSize="Caption"/>
+                    </StackLayout>
+                </Grid>
                 <StackLayout>
                     <Label Text="Description" FontAttributes="Bold"/>
                     <Label Text="{Binding Description}" TextType="Html"/>
@@ -43,5 +43,6 @@
                 </StackLayout>
             </StackLayout>
         </ScrollView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

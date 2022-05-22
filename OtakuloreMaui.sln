@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32505.426
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AniListNet", "modules\AniListNet\AniListNet\AniListNet.csproj", "{355885AE-CAFD-4F6C-9B79-4137256AF1BE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{DF18D081-3682-4682-9CCF-C3FC9F848CE1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{DF18D081-3682-4682-9CCF-C3FC9F848CE1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{2FEB0411-8BFF-439D-9644-2D9816124568}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{2FEB0411-8BFF-439D-9644-2D9816124568}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md

@@ -19,11 +19,11 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private async Task Search(string query)
     {
+        Items.Clear();
         IsLoading = true;
         var results = await App.Client.SearchMediaAsync(query);
-        Items.Clear();
-        foreach (var item in results.Data)
-            Items.Add(new MediaItemModel(item));
+        foreach (var data in results.Data)
+            Items.Add(new MediaItemModel(data));
         IsLoading = false;
     }
 

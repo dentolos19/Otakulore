@@ -5,6 +5,12 @@
 
     <x:String x:Key="AppFontFamily">OpenSans</x:String>
 
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="WidthRequest" Value="50"/>
+        <Setter Property="HeightRequest" Value="50"/>
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+    </Style>
+
     <Style TargetType="Frame">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="CornerRadius" Value="10"/>
@@ -16,10 +22,6 @@
     </Style>
 
     <!-- Default Styles -->
-
-    <Style TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
-    </Style>
 
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}"/>

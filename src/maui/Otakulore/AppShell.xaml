@@ -2,7 +2,8 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:pages="clr-namespace:Otakulore.Pages"
-       x:Class="Otakulore.AppShell">
+       x:Class="Otakulore.AppShell"
+       Title="Otakulore">
     <FlyoutItem Title="Home">
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="SegoeAssets" Glyph="&#xE80F;"/>

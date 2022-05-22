@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:Otakulore.Components"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchPage"
              Title="Search">
     <ContentPage.BindingContext>
         <models:SearchViewModel/>
     </ContentPage.BindingContext>
+    <Shell.SearchHandler>
+        <components:MediaSearchHandler Placeholder="Search" SearchBoxVisibility="Expanded"/>
+    </Shell.SearchHandler>
     <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
+        <!-- TODO: remove search bar once search handler is fixed on windows -->
         <SearchBar Grid.Row="0" Placeholder="Search" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
         <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaItemModel">
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5" Padding="5" HeightRequest="150">
-                        <Grid.GestureRecognizers>
+                    <Frame>
+                        <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{StaticResource ViewMediaCommand}" CommandParameter="{Binding Data}"/>
-                        </Grid.GestureRecognizers>
-                        <Frame Grid.Column="0">
-                            <Image Source="{Binding ImageUrl}" WidthRequest="100"/>
-                        </Frame>
-                        <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="CenterAndExpand"/>
-                    </Grid>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="150">
+                            <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="100"/>
+                            <StackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding Title}" FontSize="Title"/>
+                                <Label Text="{Binding Format}" FontSize="Caption"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}"/>
+        <ActivityIndicator Grid.RowSpan="2" IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>
