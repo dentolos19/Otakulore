@@ -20,14 +20,21 @@
     <SolidColorBrush x:Key="MidGrayBrush" Color="{StaticResource MidGray}"/>
     <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}"/>
 
-    <Color x:Key="Yellow100Accent">#F7B548</Color>
-    <Color x:Key="Yellow200Accent">#FFD590</Color>
-    <Color x:Key="Yellow300Accent">#FFE5B9</Color>
-    <Color x:Key="Cyan100Accent">#28C2D1</Color>
-    <Color x:Key="Cyan200Accent">#7BDDEF</Color>
-    <Color x:Key="Cyan300Accent">#C3F2F4</Color>
-    <Color x:Key="Blue100Accent">#3E8EED</Color>
-    <Color x:Key="Blue200Accent">#72ACF1</Color>
-    <Color x:Key="Blue300Accent">#A7CBF6</Color>
+    <!-- my own theme -->
+
+    <x:String x:Key="AppFontFamily">OpenSans</x:String>
+
+    <Color x:Key="ForegroundColor">White</Color>
+
+    <Color x:Key="Accent1">#7858A6</Color>
+    <Color x:Key="Accent2">#5B4B8A</Color>
+    <Color x:Key="Accent3">#4C3575</Color>
+    <Color x:Key="Accent4">#371B58</Color>
+
+    <Color x:Key="Theme1">#4c5265</Color>
+    <Color x:Key="Theme2">#40445a</Color>
+    <Color x:Key="Theme3">#3d3e51</Color>
+    <Color x:Key="Theme4">#323949</Color>
+    <Color x:Key="Theme5">#212129</Color>
 
 </ResourceDictionary>

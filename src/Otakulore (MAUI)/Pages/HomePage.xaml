@@ -14,7 +14,7 @@
                 <Grid RowDefinitions="220,Auto" WidthRequest="150">
                     <Grid Grid.Row="0" RowDefinitions="5,Auto,*" ColumnDefinitions="5,Auto,*">
                         <Image Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding ImageUrl}"/>
-                        <Frame Grid.Row="1" Grid.Column="1" Opacity="0.8"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Opacity="0.6"/>
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding Format}" Margin="5" HorizontalOptions="CenterAndExpand"/>
                     </Grid>
                     <Label Grid.Row="1" Text="{Binding Title}" Margin="5" LineBreakMode="TailTruncation" HorizontalOptions="CenterAndExpand"/>
@@ -25,14 +25,9 @@
     <ContentPage.BindingContext>
         <models:HomeViewModel/>
     </ContentPage.BindingContext>
-    <Shell.SearchHandler>
-        <components:MediaSearchHandler Placeholder="Search"/>
-    </Shell.SearchHandler>
-    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
-        <!-- TODO: remove search bar once search handler is fixed on windows -->
-        <SearchBar Grid.Row="0" Placeholder="Search" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
-        <ScrollView Grid.Row="1">
+    <ScrollView Grid.Row="1" Padding="10">
             <StackLayout Spacing="20">
+                <SearchBar Placeholder="Search" Text="{Binding Query}" SearchCommand="{Binding SearchCommand}"/>
                 <StackLayout Spacing="10">
                     <Label Text="🎇 Trending Now" FontSize="Medium"/>
                     <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
@@ -68,5 +63,4 @@
                 </StackLayout>
             </StackLayout>
         </ScrollView>
-    </Grid>
 </ContentPage>

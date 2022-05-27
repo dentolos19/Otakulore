@@ -1,7 +1,9 @@
-﻿using AniListNet.Objects;
+﻿using AniListNet;
+using AniListNet.Objects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
+using Otakulore.Pages;
 
 namespace Otakulore.Models;
 
@@ -19,6 +21,15 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string _endDate;
     [ObservableProperty] private bool _isLoading = true;
 
+    [ICommand]
+    private async Task Play()
+    {
+        await Shell.Current.GoToAsync(nameof(ProviderSearchPage), new Dictionary<string, object>
+        {
+            { "query", _title }
+        });
+    }
+
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (!query.ContainsKey("id"))
@@ -33,7 +44,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         if (data.Format == MediaFormat.Movie && data.Episodes.GetValueOrDefault(0) == 1)
         {
             ContentLabel = "Duration";
-            Content = data.Duration.HasValue ? new TimeSpan(0, data.Duration.Value, 0).Humanize() : "???";
+            Content = data.Duration.HasValue ? data.Duration.Value.Humanize() : "???";
         }
         else
         {

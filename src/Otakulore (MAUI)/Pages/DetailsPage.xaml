@@ -41,6 +41,7 @@
                         <Label Text="{Binding EndDate}" HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                 </StackLayout>
+                <Button Text="Play" Command="{Binding PlayCommand}"/>
             </StackLayout>
         </ScrollView>
         <ActivityIndicator IsRunning="{Binding IsLoading}"/>

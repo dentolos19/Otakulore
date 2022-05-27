@@ -1,15 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Services;
+using Otakulore.Services.Providers;
 
 namespace Otakulore.Models;
 
-public partial class SearchViewModel : ObservableObject, IQueryAttributable
+public partial class SearchProviderViewModel : ObservableObject, IQueryAttributable
 {
+
+    private readonly IProvider _provider = new GogoanimeProvider();
 
     [ObservableProperty] private string? _query;
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<SourceItemModel> _items = new();
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -24,11 +28,16 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     {
         if (string.IsNullOrEmpty(Query))
             return;
-        Items.Clear();
         IsLoading = true;
-        var results = await App.Client.SearchMediaAsync(Query);
-        foreach (var data in results.Data)
-            Items.Add(new MediaItemModel(data));
+        Items.Clear();
+        var results = await _provider.SearchAsync(Query);
+        if (results == null)
+        {
+            IsLoading = false;
+            return;
+        }
+        foreach (var item in results)
+            Items.Add(new SourceItemModel(item));
         IsLoading = false;
     }
 
