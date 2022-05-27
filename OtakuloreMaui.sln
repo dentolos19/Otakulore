@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore", "src\Otakulore 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Services", "src\Otakulore.Services\Otakulore.Services.csproj", "{AE15E9FE-CEA8-40AE-8EED-53F148BB5CCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Services.Tests", "Otakulore.Services.Tests\Otakulore.Services.Tests.csproj", "{B051C97E-6BC0-4B5B-9ED4-1935299267BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Services.Tests", "src\Otakulore.Services.Tests\Otakulore.Services.Tests.csproj", "{C2B9807D-72B0-4D78-9B0D-D613A744166C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,10 @@ Global
 		{AE15E9FE-CEA8-40AE-8EED-53F148BB5CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE15E9FE-CEA8-40AE-8EED-53F148BB5CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE15E9FE-CEA8-40AE-8EED-53F148BB5CCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B051C97E-6BC0-4B5B-9ED4-1935299267BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B051C97E-6BC0-4B5B-9ED4-1935299267BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B051C97E-6BC0-4B5B-9ED4-1935299267BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B051C97E-6BC0-4B5B-9ED4-1935299267BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2B9807D-72B0-4D78-9B0D-D613A744166C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2B9807D-72B0-4D78-9B0D-D613A744166C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2B9807D-72B0-4D78-9B0D-D613A744166C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2B9807D-72B0-4D78-9B0D-D613A744166C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

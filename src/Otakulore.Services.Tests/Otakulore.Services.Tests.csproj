@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\src\Otakulore.Services\Otakulore.Services.csproj"/>
+		<ProjectReference Include="..\Otakulore.Services\Otakulore.Services.csproj"/>
 	</ItemGroup>
 
 </Project>
