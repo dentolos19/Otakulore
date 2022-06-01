@@ -43,9 +43,9 @@ public sealed partial class CinemaPage
         if (ContentDropdown.SelectedItem is not ContentItemModel item)
             return;
         LoadingIndicator.IsLoading = true;
-        var url = item.Content.Url;
+        var url = item.Data.Url;
         if (_provider is IAnimeProvider provider)
-            url = await Task.Run(() => provider.TryExtractVideoPlayerUrl(item.Content, out var url) ? url : url);
+            url = await Task.Run(() => provider.TryExtractVideoPlayerUrl(item.Data, out var url) ? url : url);
         WebView.CoreWebView2.Navigate(url);
     }
 

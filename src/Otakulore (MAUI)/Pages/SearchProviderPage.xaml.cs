@@ -1,9 +1,9 @@
 namespace Otakulore.Pages;
 
-public partial class ProviderSearchPage
+public partial class SearchProviderPage
 {
 
-    public ProviderSearchPage()
+    public SearchProviderPage()
     {
         InitializeComponent();
     }

@@ -4,7 +4,6 @@
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       xmlns:models="using:Otakulore.Models"
       xmlns:media="using:CommunityToolkit.WinUI.UI.Media"
-      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       NavigationCacheMode="Required">
     <Grid>
@@ -24,7 +23,7 @@
                             <DataTemplate x:DataType="models:MediaItemModel">
                                 <Grid Tapped="OnBannerTapped">
                                     <Grid.Background>
-                                        <media:ImageBlendBrush Source="{Binding Media.BannerImageUrl}" Stretch="UniformToFill" Mode="HardLight"/>
+                                        <media:ImageBlendBrush Source="{Binding BannerImageUrl}" Stretch="UniformToFill" Mode="HardLight"/>
                                     </Grid.Background>
                                     <Grid Margin="50,20" ColumnSpacing="20">
                                         <Grid.ColumnDefinitions>
@@ -34,7 +33,7 @@
                                         <Border Grid.Column="0" CornerRadius="10">
                                             <Image Source="{Binding ImageUrl}"/>
                                         </Border>
-                                        <TextBlock Grid.Column="1" Text="{Binding Media.Title.Preferred}" FontWeight="Bold" FontSize="24" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Title}" FontWeight="Bold" FontSize="24" VerticalAlignment="Center"/>
                                     </Grid>
                                 </Grid>
                             </DataTemplate>

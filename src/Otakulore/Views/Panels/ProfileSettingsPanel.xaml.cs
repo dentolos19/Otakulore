@@ -18,7 +18,7 @@ public sealed partial class ProfileSettingsPanel
 
     private void OnRequestLogout(object sender, RoutedEventArgs args)
     {
-        App.Client.SetToken(null);
+        // App.Client.SetToken(null);
         App.Settings.UserToken = null;
         App.Settings.Save();
         App.NavigateFrame(typeof(HomePage));

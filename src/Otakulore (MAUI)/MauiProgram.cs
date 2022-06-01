@@ -1,4 +1,6 @@
-﻿namespace Otakulore;
+﻿using Otakulore.Models;
+
+namespace Otakulore;
 
 public static class MauiProgram
 {
@@ -11,6 +13,7 @@ public static class MauiProgram
             fonts.AddFont("OpenSans.ttf", "OpenSans");
             fonts.AddFont("SegoeAssets.ttf", "SegoeAssets");
         });
+        builder.Services.AddSingleton<HomeViewModel>();
         return builder.Build();
     }
 

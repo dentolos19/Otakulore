@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Services;
 using Otakulore.Services.Providers;
 
 namespace Otakulore.Models;
@@ -9,11 +8,18 @@ namespace Otakulore.Models;
 public partial class SearchProviderViewModel : ObservableObject, IQueryAttributable
 {
 
-    private readonly IProvider _provider = new GogoanimeProvider();
-
     [ObservableProperty] private string? _query;
     [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] private ProviderItemModel? _selectedProvider;
+    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
     [ObservableProperty] private ObservableCollection<SourceItemModel> _items = new();
+
+    public SearchProviderViewModel()
+    {
+        Providers.Add(new ProviderItemModel(new GogoanimeProvider()));
+        Providers.Add(new ProviderItemModel(new ManganatoProvider()));
+        SelectedProvider = Providers.First();
+    }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -28,9 +34,11 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
     {
         if (string.IsNullOrEmpty(Query))
             return;
+        if (SelectedProvider == null)
+            return;
         IsLoading = true;
         Items.Clear();
-        var results = await _provider.SearchAsync(Query);
+        var results = await SelectedProvider.Provider.SearchAsync(Query);
         if (results == null)
         {
             IsLoading = false;

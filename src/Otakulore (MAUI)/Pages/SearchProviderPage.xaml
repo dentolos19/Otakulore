@@ -2,20 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.ProviderSearchPage"
+             x:Class="Otakulore.Pages.SearchProviderPage"
              Title="Search Provider">
     <ContentPage.BindingContext>
         <models:SearchProviderViewModel/>
     </ContentPage.BindingContext>
     <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10" Padding="10">
         <SearchBar Grid.Row="0" Placeholder="Search" Text="{Binding Query}" SearchCommand="{Binding SearchCommand}"/>
-        <Picker Grid.Row="1">
-            <Picker.Items>
-                <x:String>Test 1</x:String>
-                <x:String>Test 2</x:String>
-                <x:String>Test 3</x:String>
-            </Picker.Items>
-        </Picker>
+        <Picker Grid.Row="1" ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider, Mode=TwoWay}" ItemDisplayBinding="{Binding Name}" HorizontalOptions="FillAndExpand"/>
         <CollectionView Grid.Row="2" ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>

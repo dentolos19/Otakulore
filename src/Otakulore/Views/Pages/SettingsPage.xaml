@@ -41,7 +41,7 @@
             <GridView x:Name="ProviderList" IsItemClickEnabled="True" ItemClick="OnProviderClicked">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="models:ProviderItemModel">
-                        <Image Source="{Binding Provider.ImageUrl}" ToolTipService.ToolTip="{Binding Provider.Name}" Margin="5" Width="100" Height="100"/>
+                        <Image Source="{Binding Data.ImageUrl}" ToolTipService.ToolTip="{Binding Data.Name}" Margin="5" Width="100" Height="100"/>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

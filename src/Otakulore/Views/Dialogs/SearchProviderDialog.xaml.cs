@@ -45,7 +45,7 @@ public sealed partial class SearchProviderDialog
     {
         if (args.ClickedItem is not SourceItemModel item)
             return;
-        App.NavigateFrame(typeof(CinemaPage), new KeyValuePair<IProvider, object>(_provider, item.Source));
+        App.NavigateFrame(typeof(CinemaPage), new KeyValuePair<IProvider, object>(_provider, item.Data));
         Hide();
     }
 

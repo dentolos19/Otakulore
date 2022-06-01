@@ -24,7 +24,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private async Task Play()
     {
-        await Shell.Current.GoToAsync(nameof(ProviderSearchPage), new Dictionary<string, object>
+        await Shell.Current.GoToAsync(nameof(SearchProviderPage), new Dictionary<string, object>
         {
             { "query", _title }
         });

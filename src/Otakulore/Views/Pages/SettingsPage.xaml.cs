@@ -34,14 +34,14 @@ public sealed partial class SettingsPage
     {
         foreach (var provider in App.Providers)
             ProviderList.Items.Add(new ProviderItemModel(provider));
-        RateLimitText.Text = $"Rate Remaining: {App.Client.RateRemaining}/{App.Client.RateLimit}";
+        // RateLimitText.Text = $"Rate Remaining: {App.Client.RateRemaining}/{App.Client.RateLimit}";
     }
 
     private async void OnProviderClicked(object sender, ItemClickEventArgs args)
     {
         if (args.ClickedItem is not ProviderItemModel item)
             return;
-        var dialog = new SearchProviderDialog(item.Provider);
+        var dialog = new SearchProviderDialog(item.Data);
         await App.AttachDialog(dialog);
     }
 

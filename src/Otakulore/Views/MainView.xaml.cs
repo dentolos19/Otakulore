@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using AniListNet.Models;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core.AniList;
 using Otakulore.Views.Pages;
 
 namespace Otakulore.Views;
@@ -23,7 +23,7 @@ public sealed partial class MainView
         PageNavigation.SelectedItem = PageNavigation.MenuItems.First();
     }
 
-    private void OnNavigatePage(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.IsSettingsSelected)
         {
@@ -36,12 +36,6 @@ public sealed partial class MainView
         }
     }
 
-    private void OnPageNavigating(object sender, NavigatingCancelEventArgs args)
-    {
-        if (PageNavigation.SelectedItem is NavigationViewItem { Tag: Type type } && type != args.SourcePageType)
-            PageNavigation.SelectedItem = null;
-    }
-
     private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
         if (PageFrame.CanGoBack)
@@ -50,8 +44,14 @@ public sealed partial class MainView
 
     private void OnSearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        PageFrame.Navigate(typeof(SearchPage), new AniFilter { Query = sender.Text });
+        PageFrame.Navigate(typeof(SearchPage), new SearchMediaFilter { Query = sender.Text });
         PageNavigation.IsPaneOpen = false;
+    }
+
+    private void OnPageNavigating(object sender, NavigatingCancelEventArgs args)
+    {
+        if (PageNavigation.SelectedItem is NavigationViewItem { Tag: Type type } && type != args.SourcePageType)
+            PageNavigation.SelectedItem = null;
     }
 
 }

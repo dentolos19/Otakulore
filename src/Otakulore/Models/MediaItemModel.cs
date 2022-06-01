@@ -1,76 +1,87 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using AniListNet;
+using AniListNet.Objects;
 using CommunityToolkit.WinUI.UI.Controls;
 using Humanizer;
-using Otakulore.Core.AniList;
 
 namespace Otakulore.Models;
 
 public class MediaItemModel
 {
 
-    public object Media { get; }
-    public string ImageUrl { get; }
+    public Uri ImageUrl { get; }
+    public Uri? BannerImageUrl { get; }
     public string Title { get; }
     public string? Tag { get; }
-    public IList<MetadataItem> Meta { get; } = new List<MetadataItem>();
+    public IList<MetadataItem> Meta { get;  } = new List<MetadataItem>();
+    public object Data { get; }
 
     public MediaItemModel(Media media)
     {
-        Media = media;
         ImageUrl = media.Cover.ExtraLargeImageUrl;
-        Title = media.Title.Preferred;
-        Tag = media.Format?.Humanize() ?? "Unknown";
-        Meta.Add(new MetadataItem { Label = media.Format != null ? media.Format?.Humanize() : "Unknown Format" });
-        Meta.Add(new MetadataItem { Label = media.StartDate.HasValue ? media.StartDate.Value.Year.ToString() : "????" });
+        BannerImageUrl = media.BannerImageUrl;
+        Title = media.Title.PreferredTitle;
+        var format = media.Format.Humanize(LetterCasing.Title);
+        Tag = format;
+        Meta.Add(new MetadataItem { Label = format });
+        var startDate = media.StartDate.ToDateOnly();
+        if (startDate.HasValue)
+            Meta.Add(new MetadataItem { Label = startDate.Value.Year.ToString() });
+        Data = media;
     }
 
     public MediaItemModel(MediaEntry entry)
     {
-        Media = entry;
+        Data = entry;
         ImageUrl = entry.Media.Cover.ExtraLargeImageUrl;
-        Title = entry.Media.Title.Preferred;
-        Meta.Add(new MetadataItem { Label = entry.Media.Format?.Humanize() ?? "Unknown Format" });
-        Meta.Add(new MetadataItem { Label = entry.Status.Humanize() });
-        Meta.Add(new MetadataItem { Label = $"{entry.Progress}/{entry.Media.Content?.ToString() ?? "?"}" });
+        Title = entry.Media.Title.PreferredTitle;
+        var format = entry.Media.Format.Humanize(LetterCasing.Title);
+        Tag = format;
+        Meta.Add(new MetadataItem { Label = format });
+        // Meta.Add(new MetadataItem { Label = $"{entry.Progress}/{entry.Media.Content?.ToString() ?? "?"}" });
     }
 
     public MediaItemModel(MediaEdge media)
     {
-        Media = media;
-        ImageUrl = media.Details.Cover.ExtraLargeImageUrl;
-        Title = media.Details.Title.Preferred;
-        Tag = media.Relation.Humanize();
-        Meta.Add(new MetadataItem { Label = media.Details.Format != null ? media.Details.Format?.Humanize() : "Unknown Format" });
-        Meta.Add(new MetadataItem { Label = media.Details.StartDate.HasValue ? media.Details.StartDate.Value.Year.ToString() : "????" });
+        Data = media;
+        ImageUrl = media.Media.Cover.ExtraLargeImageUrl;
+        Title = media.Media.Title.PreferredTitle;
+        var format = media.Relation.Humanize();
+        Tag = format;
+        Meta.Add(new MetadataItem { Label = format });
+        var startDate = media.Media.StartDate.ToDateOnly();
+        Meta.Add(new MetadataItem { Label = startDate.HasValue ? startDate.Value.Year.ToString() : "????" });
     }
 
     public MediaItemModel(CharacterEdge character)
     {
-        Media = character;
-        ImageUrl = character.Details.Image.LargeImageUrl;
-        Title = character.Details.Name.Preferred;
+        Data = character;
+        ImageUrl = character.Character.Image.LargeImageUrl;
+        Title = character.Character.Name.PreferredName;
         var role = character.Role.Humanize();
         Tag = role;
         Meta.Add(new MetadataItem { Label = role });
-        if (character.Details.Gender != null)
-            Meta.Add(new MetadataItem { Label = character.Details.Gender });
-        if (character.Details.Age != null)
-            Meta.Add(new MetadataItem { Label = character.Details.Age });
+        if (character.Character.Gender != null)
+            Meta.Add(new MetadataItem { Label = character.Character.Gender });
+        if (character.Character.Age != null)
+            Meta.Add(new MetadataItem { Label = character.Character.Age });
     }
 
     public MediaItemModel(StaffEdge staff)
     {
-        Media = staff;
-        ImageUrl = staff.Details.Image.LargeImageUrl;
-        Title = staff.Details.Name.Preferred;
+        Data = staff;
+        ImageUrl = staff.Staff.Image.LargeImageUrl;
+        Title = staff.Staff.Name.PreferredName;
         Tag = staff.Role;
         Meta.Add(new MetadataItem { Label = staff.Role });
-        if (staff.Details.Gender != null)
-            Meta.Add(new MetadataItem { Label = staff.Details.Gender });
-        if (staff.Details.Age != null)
-            Meta.Add(new MetadataItem { Label = staff.Details.Age });
+        if (staff.Staff.Gender != null)
+            Meta.Add(new MetadataItem { Label = staff.Staff.Gender });
+        if (staff.Staff.Age != null)
+            Meta.Add(new MetadataItem { Label = staff.Staff.Age });
     }
 
+    /*
     public MediaItemModel(UserActivity activity)
     {
         Media = activity;
@@ -80,5 +91,6 @@ public class MediaItemModel
         if (activity.Progress != null)
             Meta.Add(new MetadataItem { Label = activity.Progress });
     }
+    */
 
 }

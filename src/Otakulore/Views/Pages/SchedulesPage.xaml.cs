@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AniListNet.Objects;
 using Humanizer;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Core.AniList;
 using Otakulore.Views.Panels;
 
 namespace Otakulore.Views.Pages;
@@ -27,7 +27,7 @@ public sealed partial class SchedulesPage
         }
     }
 
-    private void OnPanelNavigate(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void OnNavigatePanel(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.SelectedItem is NavigationViewItem { Tag: object parameter })
             PanelFrame.Navigate(typeof(SchedulePanel), parameter);

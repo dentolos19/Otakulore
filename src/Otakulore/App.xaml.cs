@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AniListNet;
+using AniListNet.Objects;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core;
-using Otakulore.Core.AniList;
 using Otakulore.Core.Providers;
 using Otakulore.Models;
 using Otakulore.Views;
@@ -16,12 +17,13 @@ public partial class App
     private static Window _window;
 
     public static Settings Settings { get; set; }
-    public static AniClient Client { get; set; }
-    public static IProvider[] Providers { get; set; }
 
-    public static string[] Genres { get; set; }
-    public static MediaTag[] Tags { get; set; }
-    public static MediaSeason CurrentSeason { get; set; }
+    public static AniClient Client { get; private set; }
+    public static IProvider[] Providers { get; private set; }
+
+    public static string[] Genres { get; private set; }
+    public static MediaTag[] Tags { get; private set; }
+    public static MediaSeason CurrentSeason { get; private set; }
 
     public App()
     {
@@ -54,22 +56,21 @@ public partial class App
         };
 
         Client = new AniClient();
-        Client.RateUpdated += (_, _) =>
+        Client.RateChanged += (_, args) =>
         {
-            var rateLimit = Client.RateLimit;
-            var rateRemaining = Client.RateRemaining;
-            if (Client.RateLimit > 20)
+            var rateLimit = args.RateLimit;
+            var rateRemaining = args.RateRemaining;
+            if (args.RateRemaining > 20)
                 return;
             ShowNotification($"Your rate remaining is running low! ({rateRemaining}/{rateLimit})");
         };
-        if (Settings.UserToken != null)
-            Client.SetToken(Settings.UserToken);
 
         Task.Run(async () =>
         {
-            var (genres, tags) = await Client.GetGenresAndTags();
-            Genres = genres;
-            Tags = tags;
+            if (Settings.UserToken != null)
+                _ = await Client.TryAuthenticateAsync(Settings.UserToken);
+            Genres = await Client.GetGenreCollectionAsync();
+            Tags = await Client.GetTagCollectionAsync();
         });
 
         var frame = new Frame();

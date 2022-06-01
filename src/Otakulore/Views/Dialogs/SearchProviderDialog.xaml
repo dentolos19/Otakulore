@@ -30,10 +30,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <controls:ImageEx Grid.Column="0"
-                                          Source="{Binding Source.ImageUrl}" Stretch="UniformToFill"
+                                          Source="{Binding Data.ImageUrl}" Stretch="UniformToFill"
                                           PlaceholderSource="{StaticResource NoneImage}" PlaceholderStretch="Uniform"
                                           EnableLazyLoading="True" CornerRadius="10"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Source.Name}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Data.Name}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

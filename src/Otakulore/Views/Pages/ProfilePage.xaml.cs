@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using AniListNet.Objects;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Panels;
 
@@ -11,7 +11,7 @@ namespace Otakulore.Views.Pages;
 public sealed partial class ProfilePage
 {
 
-    private bool _isAlreadyNavigated;
+    private bool _hasAlreadyNavigated;
     private User _user;
 
     public ProfilePage()
@@ -23,7 +23,7 @@ public sealed partial class ProfilePage
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (!App.Client.HasToken)
+        if (!App.Client.IsAuthenticated)
         {
             var model = new NotificationDataModel
             {
@@ -34,10 +34,10 @@ public sealed partial class ProfilePage
             App.ShowNotification(model);
             return;
         }
-        if (_isAlreadyNavigated)
+        if (_hasAlreadyNavigated)
             return;
-        _isAlreadyNavigated = true;
-        _user = await App.Client.GetUser();
+        _hasAlreadyNavigated = true;
+        _user = await App.Client.GetAuthenticatedUserAsync();
         PanelNavigation.SelectedItem = PanelNavigation.MenuItems.First();
         LoadingIndicator.IsLoading = false;
     }

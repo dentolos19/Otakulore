@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using AniListNet.Models;
+using AniListNet.Objects;
 using Humanizer;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Otakulore.Core.AniList;
 
 namespace Otakulore.Views.Dialogs;
 
@@ -17,7 +18,7 @@ public sealed partial class ManageTrackerDialog
     public ManageTrackerDialog(MediaEntry entry)
     {
         Result = entry;
-        _id = Result.MediaId;
+        _id = Result.Media.Id;
         InitializeComponent();
         foreach (var status in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
             StatusDropdown.Items.Add(new ComboBoxItem { Content = status.Humanize(), Tag = status });
@@ -39,7 +40,11 @@ public sealed partial class ManageTrackerDialog
     {
         if (StatusDropdown.SelectedItem is not ComboBoxItem { Tag: MediaEntryStatus status })
             return;
-        Result = await App.Client.UpdateMediaEntry(_id, status, (int)ProgressBox.Value);
+        Result = await App.Client.SaveMediaEntryAsync(_id, new MediaEntryMutation
+        {
+            Status = status,
+            Progress = (int)ProgressBox.Value
+        });
         Hide();
     }
 
@@ -47,7 +52,7 @@ public sealed partial class ManageTrackerDialog
     {
         if (Result == null)
             return;
-        var result = await App.Client.DeleteMediaEntry(Result.Id);
+        var result = await App.Client.DeleteMediaEntryAsync(Result.Id);
         if (result)
             Result = null;
         else

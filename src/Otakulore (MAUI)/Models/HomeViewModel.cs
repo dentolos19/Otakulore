@@ -19,19 +19,19 @@ public partial class HomeViewModel : ObservableObject
     {
         Task.Run(async () =>
         {
-            var results = await App.Client.SearchMediaAsync(new MediaFilter { Sort = MediaSort.Trending });
+            var results = await App.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Trending });
             foreach (var item in results.Data)
                 TrendingItems.Add(new MediaItemModel(item));
         });
         Task.Run(async () =>
         {
-            var results = await App.Client.SearchMediaAsync(new MediaFilter { Sort = MediaSort.Favorites });
+            var results = await App.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Favorites });
             foreach (var item in results.Data)
                 FavoriteItems.Add(new MediaItemModel(item));
         });
         Task.Run(async () =>
         {
-            var results = await App.Client.SearchMediaAsync(new MediaFilter { Sort = MediaSort.Popularity });
+            var results = await App.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Popularity });
             foreach (var item in results.Data)
                 PopularItems.Add(new MediaItemModel(item));
         });

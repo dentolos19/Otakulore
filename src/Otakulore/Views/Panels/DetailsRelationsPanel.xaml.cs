@@ -1,6 +1,6 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using AniListNet.Objects;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Pages;
 
@@ -14,18 +14,20 @@ public sealed partial class DetailsRelationsPanel
         InitializeComponent();
     }
 
-    protected override void OnNavigatedTo(NavigationEventArgs args)
+    protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
-        if (args.Parameter is not MediaExtra media)
+        if (args.Parameter is not Media media)
             return;
-        foreach (var edge in media.Relations)
+        var relations = await App.Client.GetMediaRelationsAsync(media.Id);
+        ProgressIndicator.IsActive = false;
+        foreach (var edge in relations)
             RelationList.Items.Add(new MediaItemModel(edge));
     }
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
-        if (args.ClickedItem is MediaItemModel { Media: MediaEdge media })
-            App.NavigateFrame(typeof(DetailsPage), media.Details.Id);
+        if (args.ClickedItem is MediaItemModel { Data: MediaEdge media })
+            App.NavigateFrame(typeof(DetailsPage), media.Media.Id);
     }
 
 }

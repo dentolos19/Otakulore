@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using AniListNet;
+using AniListNet.Objects;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
-using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Dialogs;
 using Otakulore.Views.Panels;
@@ -14,25 +15,32 @@ namespace Otakulore.Views.Pages;
 public sealed partial class DetailsPage
 {
 
-    private MediaExtra _media;
+    private Media _media;
     private MediaEntry? _mediaEntry;
 
     public DetailsPage()
     {
         InitializeComponent();
         PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Overview", Tag = typeof(DetailsOverviewPanel) });
+        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(DetailsCharactersPanel) });
+        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Staff", Tag = typeof(DetailsStaffPanel) });
+        PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Relations", Tag = typeof(DetailsRelationsPanel) });
     }
 
     protected override async void OnNavigatedTo(NavigationEventArgs args)
     {
         if (args.Parameter is not int id)
             return;
-        _media = await App.Client.GetMedia(id);
+        _media = await App.Client.GetMediaAsync(id);
+        _mediaEntry = await App.Client.GetMediaEntryAsync(_media.Id);
         LoadingIndicator.IsLoading = false;
-        _mediaEntry = _media.Entry;
         CoverImage.Source = _media.Cover.LargeImageUrl;
-        TitleText.Text = _media.Title.Preferred;
-        SubtitleText.Text = _media.StartDate.HasValue ? _media.StartDate.Value.Year.ToString() : "Unknown Year";
+        TitleText.Text = _media.Title.PreferredTitle;
+        var startDate = _media.StartDate.ToDateOnly();
+        if (startDate.HasValue)
+            SubtitleText.Text = startDate.Value.Year.ToString();
+        else
+            SubtitleText.Visibility = Visibility.Collapsed;
         TrackButton.IsChecked = _mediaEntry != null;
         foreach (var provider in App.Providers)
             switch (_media.Type)
@@ -56,12 +64,6 @@ public sealed partial class DetailsPage
                     break;
                 }
             }
-        if (_media.Characters is { Length: > 0 })
-            PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Characters", Tag = typeof(DetailsCharactersPanel) });
-        if (_media.Staff is { Length: > 0 })
-            PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Staff", Tag = typeof(DetailsStaffPanel) });
-        if (_media.Relations is { Length: > 0 })
-            PanelNavigation.MenuItems.Add(new NavigationViewItem { Content = "Relations", Tag = typeof(DetailsRelationsPanel) });
         PanelNavigation.SelectedItem = PanelNavigation.MenuItems.First();
     }
 
@@ -69,14 +71,14 @@ public sealed partial class DetailsPage
     {
         if (args.ClickedItem is not ProviderItemModel item)
             return;
-        var dialog = new SearchProviderDialog(item.Provider, _media.Title.Preferred);
+        var dialog = new SearchProviderDialog(item.Data, _media.Title.PreferredTitle);
         await App.AttachDialog(dialog);
     }
 
     private async void OnTrackRequested(object sender, RoutedEventArgs args)
     {
         TrackButton.IsChecked = _mediaEntry != null;
-        if (!App.Client.HasToken)
+        if (!App.Client.IsAuthenticated)
         {
             var model = new NotificationDataModel
             {

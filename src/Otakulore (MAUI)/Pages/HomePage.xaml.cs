@@ -1,3 +1,5 @@
+using Otakulore.Models;
+
 namespace Otakulore.Pages;
 
 public partial class HomePage
@@ -6,7 +8,7 @@ public partial class HomePage
     public HomePage()
     {
         InitializeComponent();
-        Shell.Current.Handler.UpdateValue("SearchHandler");
+        BindingContext = MauiExtensions.GetService<HomeViewModel>();
     }
 
 }

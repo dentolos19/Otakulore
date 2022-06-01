@@ -37,35 +37,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
-            <StackPanel Spacing="5">
-                <TextBlock Text="Tags"/>
-                <Grid ColumnSpacing="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="TagDropdown" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button Grid.Column="1" Click="OnAddTagFilter">
-                        <SymbolIcon Symbol="Add"/>
-                    </Button>
-                </Grid>
-                <ListView x:Name="TagList">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:FilterItemModel">
-                            <Grid ColumnSpacing="5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Text}" VerticalAlignment="Center"/>
-                                <HyperlinkButton Grid.Column="1" Click="OnRemoveTagItem">
-                                    <SymbolIcon Symbol="Delete"/>
-                                </HyperlinkButton>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
             <Grid ColumnSpacing="5" RowSpacing="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

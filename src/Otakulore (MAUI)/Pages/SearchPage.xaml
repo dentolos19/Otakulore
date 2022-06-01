@@ -5,9 +5,6 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchPage"
              Title="Search">
-    <ContentPage.BindingContext>
-        <models:SearchViewModel/>
-    </ContentPage.BindingContext>
     <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
         <SearchBar Grid.Row="0" Placeholder="Search" Text="{Binding Query}" SearchCommand="{Binding SearchCommand}"/>
         <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">

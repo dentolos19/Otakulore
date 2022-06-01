@@ -7,16 +7,19 @@ namespace Otakulore.Models;
 public partial class SearchViewModel : ObservableObject, IQueryAttributable
 {
 
+    private bool _alreadyAppliedQuery;
+
     [ObservableProperty] private string? _query;
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if (!query.ContainsKey("query"))
+        if (!query.ContainsKey("query") || _alreadyAppliedQuery)
             return;
         Query = query["query"].ToString();
         SearchCommand.Execute(null);
+        _alreadyAppliedQuery = true;
     }
 
     [ICommand]

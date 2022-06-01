@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using AniListNet;
+using AniListNet.Objects;
 using CommunityToolkit.WinUI;
 using CommunityToolkit.WinUI.UI;
 using Humanizer;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Otakulore.Core;
-using Otakulore.Core.AniList;
 using Otakulore.Models;
 using Otakulore.Views.Pages;
 
@@ -31,17 +32,17 @@ public sealed partial class ProfileListPanel
 
     public void RefreshCollection()
     {
-        var incrementalSource = new IncrementalSource<MediaItemModel>(async (index, size) => (await App.Client.GetUserEntries(_id, new AniPaginationOptions(index + 1, size))).Data.Select(entry => new MediaItemModel(entry)));
+        var incrementalSource = new IncrementalSource<MediaItemModel>(async (index, size) => (await App.Client.GetUserEntriesAsync(_id, new AniPaginationOptions(index + 1, size))).Data.Select(entry => new MediaItemModel(entry)));
         var incrementalCollection = new IncrementalLoadingCollection<IncrementalSource<MediaItemModel>, MediaItemModel>(incrementalSource, 500);
         incrementalCollection.OnStartLoading += () => EntryListIndicator.IsActive = true;
         incrementalCollection.OnEndLoading += () => EntryListIndicator.IsActive = false;
         var collection = new AdvancedCollectionView(incrementalCollection, true);
         collection.Filter += filterItem =>
         {
-            if (filterItem is not MediaItemModel { Media: MediaEntry entry })
+            if (filterItem is not MediaItemModel { Data: MediaEntry entry })
                 return false;
             var query = SearchBox.Text;
-            var result = entry.Media.Title.Preferred.Contains(query, StringComparison.OrdinalIgnoreCase);
+            var result = entry.Media.Title.PreferredTitle.Contains(query, StringComparison.OrdinalIgnoreCase);
             if (TypeDropdown.SelectedItem is ComboBoxItem { Tag: MediaType type })
                 result = result && entry.Media.Type == type;
             if (StatusDropdown.SelectedItem is ComboBoxItem { Tag: MediaEntryStatus status })
@@ -82,8 +83,8 @@ public sealed partial class ProfileListPanel
 
     private void OnItemClicked(object sender, ItemClickEventArgs args)
     {
-        if (args.ClickedItem is MediaItemModel { Media: MediaEntry entry })
-            App.NavigateFrame(typeof(DetailsPage), entry.MediaId);
+        if (args.ClickedItem is MediaItemModel { Data: MediaEntry entry })
+            App.NavigateFrame(typeof(DetailsPage), entry.Media.Id);
     }
 
 }

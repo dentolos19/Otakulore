@@ -5,11 +5,13 @@ namespace Otakulore.Models;
 public class ContentItemModel
 {
 
-    public MediaContent Content { get; }
+    public string Name { get; }
+    public MediaContent Data { get; }
 
-    public ContentItemModel(MediaContent content)
+    public ContentItemModel(MediaContent data)
     {
-        Content = content;
+        Name = data.Name;
+        Data = data;
     }
 
 }

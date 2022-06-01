@@ -22,9 +22,6 @@
             </Frame>
         </DataTemplate>
     </ContentPage.Resources>
-    <ContentPage.BindingContext>
-        <models:HomeViewModel/>
-    </ContentPage.BindingContext>
     <ScrollView Grid.Row="1" Padding="10">
             <StackLayout Spacing="20">
                 <SearchBar Placeholder="Search" Text="{Binding Query}" SearchCommand="{Binding SearchCommand}"/>

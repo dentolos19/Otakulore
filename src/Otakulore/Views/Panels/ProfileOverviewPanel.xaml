@@ -31,10 +31,10 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Your Activity" Style="{ThemeResource BaseTextBlockStyle}"/>
-                <Grid Grid.Row="1">
+                <!--<Grid Grid.Row="1">
                     <ListView x:Name="ActivityList" ItemTemplate="{StaticResource MediaItemDetailedTemplate}" IsItemClickEnabled="True" ItemClick="OnItemClicked"/>
                     <ProgressRing x:Name="ActivityListIndicator"/>
-                </Grid>
+                </Grid>-->
             </Grid>
         </Grid>
     </Grid>

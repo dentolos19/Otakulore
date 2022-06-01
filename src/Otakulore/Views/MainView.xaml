@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <NavigationView x:Name="PageNavigation" PaneTitle="Made with ❤️ for Anime" IsPaneOpen="False" IsBackEnabled="{Binding CanGoBack, ElementName=PageFrame}" SelectionChanged="OnNavigatePage" BackRequested="OnBackRequested">
+    <NavigationView x:Name="PageNavigation" PaneTitle="Made with ❤️ for Anime" IsPaneOpen="False" IsBackEnabled="{Binding CanGoBack, ElementName=PageFrame}" SelectionChanged="OnSelectionChanged" BackRequested="OnBackRequested">
         <NavigationView.AutoSuggestBox>
             <AutoSuggestBox PlaceholderText="Search" QuerySubmitted="OnSearchEntered"/>
         </NavigationView.AutoSuggestBox>
