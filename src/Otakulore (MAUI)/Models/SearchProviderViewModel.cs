@@ -10,6 +10,8 @@ namespace Otakulore.Models;
 public partial class SearchProviderViewModel : ObservableObject, IQueryAttributable
 {
 
+    private bool _alreadyAppliedQuery;
+
     [ObservableProperty] private string? _query;
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ProviderItemModel? _selectedProvider;
@@ -25,8 +27,9 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if (!query.ContainsKey("query"))
+        if (!query.ContainsKey("query") || _alreadyAppliedQuery)
             return;
+        _alreadyAppliedQuery = true;
         Query = query["query"].ToString();
         SearchCommand.Execute(null);
     }

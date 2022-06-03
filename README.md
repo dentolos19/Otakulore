@@ -8,25 +8,36 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 
 ## Features
 
-* [ ] Runs on multiple platforms; so you could watch, read and track anytime and anywhere!
+* [X] Runs on multiple platforms; so you could watch, read and track anytime and anywhere!
   * [X] Windows (powered by [Windows App SDK](https://github.com/microsoft/WindowsAppSDK))
-  * [ ] Android (planned until the GA release of [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
-* [X] Easily track and synchronize your list with [AniList](https://anilist.co)!
+  * [X] Android (powered by [.NET MAUI](https://docs.microsoft.com/dotnet/maui/what-is-maui))
+* [X] Easily track and manage your list directly inside the app with [AniList](https://anilist.co)!
 * [X] Get extensive details on your favorite series including characters, staff and more! (from [AniList](https://anilist.co))
 * [X] Plan your next series to watch with the seasonal calendar (from [AniChart](https://anichart.net))!
 * [X] Efficiently get access to many sources easily!
   * [X] [Gogoanime](https://gogoanime.film) (Anime)
   * [X] [Mangakakalot](https://mangakakalot.com) (Manga)
-  * [X] [Novelhall](https://novelhall.com) (Novel)
+  * [ ] [Novelhall](https://novelhall.com) (Novel)
   * [ ] ... more to be added soon!
 
 ## Screenshots
 
-![](.github/images/0.png)
-![](.github/images/1.png)
-![](.github/images/2.png)
-![](.github/images/3.png)
-![](.github/images/4.png)
-![](.github/images/5.png)
-![](.github/images/6.png)
-![](.github/images/7.png)
+<details>
+  <summary>WinAppSdk Version</summary>
+  ![](.github/images/0.png)
+  ![](.github/images/1.png)
+  ![](.github/images/2.png)
+  ![](.github/images/3.png)
+  ![](.github/images/4.png)
+  ![](.github/images/5.png)
+  ![](.github/images/6.png)
+  ![](.github/images/7.png)
+</details>
+
+<details>
+  <summary>.NET MAUI Version (WIP)</summary>
+  ![](.github/images/maui-0.jpg)
+  ![](.github/images/maui-1.jpg)
+  ![](.github/images/maui-2.jpg)
+  ![](.github/images/maui-3.jpg)
+</details>

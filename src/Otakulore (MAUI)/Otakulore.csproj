@@ -24,8 +24,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiIcon Include="Resources\Images\Other\icon.png"/>
-		<MauiSplashScreen Include="Resources\Images\Other\title.png" Color="#7858A6"/>
+		<MauiIcon Include="Resources\appicon.svg"/>
+		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#7858A6"/>
 		<MauiImage Include="Resources\Images\*"/>
 		<MauiFont Include="Resources\Fonts\*"/>
 		<MauiAsset Include="Resources\Raw\*" LogicalName="%(Filename)%(Extension)"/>
@@ -39,6 +39,12 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\modules\AniListNet\AniListNet\AniListNet.csproj"/>
 		<ProjectReference Include="..\Otakulore.Services\Otakulore.Services.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Pages\ContentViewerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

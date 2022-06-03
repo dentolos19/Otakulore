@@ -17,9 +17,9 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     {
         if (!query.ContainsKey("query") || _alreadyAppliedQuery)
             return;
+        _alreadyAppliedQuery = true;
         Query = query["query"].ToString();
         SearchCommand.Execute(null);
-        _alreadyAppliedQuery = true;
     }
 
     [ICommand]

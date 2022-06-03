@@ -3,7 +3,7 @@ using HtmlAgilityPack;
 
 namespace Otakulore.Services.Providers;
 
-public class GogoanimeProvider : IProvider
+public class GogoanimeProvider : IAnimeProvider
 {
 
     public Uri ImageUrl => new("https://gogoanime.gg/img/icon/logo.png");
@@ -27,7 +27,7 @@ public class GogoanimeProvider : IProvider
                 Data = "https://gogoanime.gg" + linkElement.Attributes["href"].Value
             });
         }
-        return Task.FromResult<MediaSource[]?>(mediaSources.ToArray());
+        return Task.FromResult(mediaSources.ToArray());
     }
 
     public Task<MediaContent[]?> GetContentAsync(MediaSource source)
@@ -50,7 +50,14 @@ public class GogoanimeProvider : IProvider
             });
         }
         mediaContents.Reverse();
-        return Task.FromResult<MediaContent[]?>(mediaContents.ToArray());
+        return Task.FromResult(mediaContents.ToArray());
+    }
+
+    public Task<bool> TryExtractVideoPlayer(MediaContent content, out Uri url)
+    {
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(content.Data.ToString());
+        url = new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
+        return Task.FromResult(true);
     }
 
 }

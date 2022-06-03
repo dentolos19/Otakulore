@@ -26,7 +26,7 @@ public class ManganatoProvider : IProvider
                 Data = linkElement.Attributes["href"].Value
             });
         }
-        return Task.FromResult<MediaSource[]?>(mediaSources.ToArray());
+        return Task.FromResult(mediaSources.ToArray());
     }
 
     public Task<MediaContent[]?> GetContentAsync(MediaSource source)
@@ -46,7 +46,7 @@ public class ManganatoProvider : IProvider
             });
         }
         mediaContents.Reverse();
-        return Task.FromResult<MediaContent[]?>(mediaContents.ToArray());
+        return Task.FromResult(mediaContents.ToArray());
     }
 
 }

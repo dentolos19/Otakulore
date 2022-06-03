@@ -2,24 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.SourceViewerPage">
+             x:Class="Otakulore.Pages.SourceViewerPage"
+             Title="{Binding Title}">
     <ContentPage.BindingContext>
         <models:SourceViewerViewModel/>
     </ContentPage.BindingContext>
-    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
-        <CollectionView Grid.Row="0" ItemsSource="{Binding Items}" SelectionMode="Single" SelectionChangedCommand="{Binding NavigateCommand}" SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:ContentItemModel">
-                    <Frame Padding="10">
-                        <Label Text="{Binding Name}"/>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-            </CollectionView.ItemsLayout>
-        </CollectionView>
-        <WebView Grid.Row="1" Source="{Binding CurrentAddress}"/>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}"/>
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ScrollView Padding="10">
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ContentItemModel">
+                        <Frame Padding="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenCommand}" CommandParameter="{Binding Data}"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding Name}"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>
