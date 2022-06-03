@@ -56,7 +56,7 @@ public sealed partial class ManageTrackerDialog
         if (result)
             Result = null;
         else
-            App.ShowNotification("Unable to delete entry!");
+            App.AttachNotification("Unable to delete entry!");
         Hide();
     }
 

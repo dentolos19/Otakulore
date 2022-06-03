@@ -29,7 +29,7 @@ public partial class App
     {
         UnhandledException += (_, args) =>
         {
-            ShowNotification("An unhandled exception occurred! " + args.Message);
+            AttachNotification("An unhandled exception occurred! " + args.Message);
             args.Handled = true;
         };
         InitializeComponent();
@@ -62,7 +62,7 @@ public partial class App
             var rateRemaining = args.RateRemaining;
             if (args.RateRemaining > 20)
                 return;
-            ShowNotification($"Your rate remaining is running low! ({rateRemaining}/{rateLimit})");
+            AttachNotification($"Your rate remaining is running low! ({rateRemaining}/{rateLimit})");
         };
 
         Task.Run(async () =>
@@ -83,20 +83,20 @@ public partial class App
     public static void NavigateFrame(Type type, object? parameter = null)
     {
         if (_window.Content is Frame { Content: MainView page })
-            page.PageFrame.Navigate(type, parameter);
+            page.ContentView.Navigate(type, parameter);
     }
 
-    public static void ShowNotification(NotificationDataModel model)
+    public static void AttachNotification(NotificationDataModel model)
     {
         if (_window.Content is not Frame { Content: MainView page })
             return;
-        model.ContinueClicked += (_, _) => page.NotificationArea.Dismiss();
-        page.NotificationArea.Show(model);
+        model.ContinueClicked += (_, _) => page.NotificationView.Dismiss();
+        page.NotificationView.Show(model);
     }
 
-    public static void ShowNotification(string message)
+    public static void AttachNotification(string message)
     {
-        ShowNotification(new NotificationDataModel { Message = message });
+        AttachNotification(new NotificationDataModel { Message = message });
     }
 
     public static async Task AttachDialog(ContentDialog dialog)

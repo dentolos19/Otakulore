@@ -86,7 +86,7 @@ public sealed partial class DetailsPage
                 ContinueText = "Login"
             };
             model.ContinueClicked += (_, _) => App.NavigateFrame(typeof(LoginPage));
-            App.ShowNotification(model);
+            App.AttachNotification(model);
             return;
         }
         var dialog = _mediaEntry != null ? new ManageTrackerDialog(_mediaEntry) : new ManageTrackerDialog(_media.Id);

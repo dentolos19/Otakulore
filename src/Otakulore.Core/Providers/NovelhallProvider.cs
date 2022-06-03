@@ -1,4 +1,6 @@
-﻿namespace Otakulore.Core.Providers;
+﻿using Otakulore.Services;
+
+namespace Otakulore.Core.Providers;
 
 public class NovelhallProvider : INovelProvider
 {
@@ -10,7 +12,7 @@ public class NovelhallProvider : INovelProvider
 
     public IList<MediaSource> GetSources(string query)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(Url + "/index.php?s=so&module=book&keyword=" + query.Replace(' ', '+'));
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(Url + "/index.php?s=so&module=book&keyword=" + query.Replace(' ', '+'));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//table/tbody/tr");
         if (searchElements is not { Count: > 0 })
             return Array.Empty<MediaSource>();
@@ -25,7 +27,7 @@ public class NovelhallProvider : INovelProvider
 
     public IList<MediaContent> GetContents(MediaSource source)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(source.Url);
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(source.Url);
         var chapterElements = htmlDocument.DocumentNode.SelectNodes("//div[@id='morelist']/ul/li");
         if (chapterElements is not { Count: > 0 })
             return Array.Empty<MediaContent>();
@@ -40,7 +42,7 @@ public class NovelhallProvider : INovelProvider
 
     public bool TryExtractText(MediaContent content, out string text)
     {
-        var website = Utilities.HtmlWeb.Load(content.Url);
+        var website = ServiceUtilities.HtmlWeb.Load(content.Url);
         text = website.DocumentNode.SelectSingleNode("//article/div[@class='entry-content']").InnerText;
         return true;
     }

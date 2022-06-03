@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Otakulore.Core;
 using Otakulore.Models;
+using Otakulore.Services;
 
 namespace Otakulore.Views.Dialogs;
 
@@ -24,7 +25,7 @@ public sealed partial class FilterMediaDialog
         foreach (var genre in App.Genres)
             GenreDropdown.Items.Add(new ComboBoxItem { Content = genre });
         TypeDropdown.SelectedIndex = 0;
-        GenreDropdown.SelectedIndex = Utilities.Random.Next(GenreDropdown.Items.Count);
+        GenreDropdown.SelectedIndex = ServiceUtilities.Random.Next(GenreDropdown.Items.Count);
         if (filter == null)
             return;
         TypeDropdown.SelectedItem = TypeDropdown.Items.OfType<ComboBoxItem>().FirstOrDefault(item => (MediaType?)item.Tag == filter.Type) ?? TypeDropdown.Items.First();

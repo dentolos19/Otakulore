@@ -3,8 +3,10 @@
 public interface IProvider
 {
 
+    public Uri ImageUrl { get; }
     public string Name { get; }
 
-    public Task<MediaSource[]?> SearchAsync(string query);
+    public Task<MediaSource[]?> SearchSourcesAsync(string query);
+    public Task<MediaContent[]?> GetContentAsync(MediaSource source);
 
 }

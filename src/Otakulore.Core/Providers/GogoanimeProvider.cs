@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Otakulore.Services;
 
 namespace Otakulore.Core.Providers;
 
@@ -13,7 +14,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public IList<MediaSource> GetSources(string query)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(Url + "/search.html?keyword=" + Uri.EscapeDataString(query));
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(Url + "/search.html?keyword=" + Uri.EscapeDataString(query));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
         if (searchElements is not { Count: > 0 })
             return Array.Empty<MediaSource>();
@@ -32,9 +33,9 @@ public class GogoanimeProvider : IAnimeProvider
 
     public IList<MediaContent> GetContents(MediaSource source)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(source.Url);
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(source.Url);
         var id = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
-        htmlDocument = Utilities.HtmlWeb.Load(CdnUrl + id);
+        htmlDocument = ServiceUtilities.HtmlWeb.Load(CdnUrl + id);
         var episodeElements = htmlDocument.DocumentNode.SelectNodes("//ul/li");
         if (episodeElements is not { Count: > 0 })
             return Array.Empty<MediaContent>();
@@ -57,7 +58,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public bool TryExtractVideoPlayerUrl(MediaContent content, out string url)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(content.Url);
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(content.Url);
         url = "https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value;
         return true;
     }

@@ -3,13 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <NavigationView x:Name="PageNavigation" PaneTitle="Made with ❤️ for Anime" IsPaneOpen="False" IsBackEnabled="{Binding CanGoBack, ElementName=PageFrame}" SelectionChanged="OnSelectionChanged" BackRequested="OnBackRequested">
+    <NavigationView x:Name="NavigationView"
+                    PaneTitle="Made with ❤️ for Anime"
+                    IsPaneOpen="False"
+                    IsBackEnabled="{Binding CanGoBack, ElementName=ContentView}"
+                    SelectionChanged="OnSelectionChanged"
+                    BackRequested="OnBackRequested">
         <NavigationView.AutoSuggestBox>
             <AutoSuggestBox PlaceholderText="Search" QuerySubmitted="OnSearchEntered"/>
         </NavigationView.AutoSuggestBox>
         <Grid>
-            <Frame x:Name="PageFrame" x:FieldModifier="internal" CacheSize="5" Navigating="OnPageNavigating"/>
-            <controls:InAppNotification x:Name="NotificationArea" x:FieldModifier="internal" ContentTemplate="{StaticResource NotificationContentTemplate}"/>
+            <Frame x:Name="ContentView" x:FieldModifier="internal" CacheSize="5" Navigating="OnPageNavigating"/>
+            <controls:InAppNotification x:Name="NotificationView" x:FieldModifier="internal" ContentTemplate="{StaticResource NotificationContentTemplate}"/>
         </Grid>
     </NavigationView>
 </Page>

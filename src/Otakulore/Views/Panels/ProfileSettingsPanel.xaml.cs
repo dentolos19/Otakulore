@@ -13,7 +13,7 @@ public sealed partial class ProfileSettingsPanel
 
     private void OnRequestSave(object sender, RoutedEventArgs args)
     {
-        App.ShowNotification("This function is unavailable at the moment!");
+        App.AttachNotification("This function is unavailable at the moment!");
     }
 
     private void OnRequestLogout(object sender, RoutedEventArgs args)
@@ -22,7 +22,7 @@ public sealed partial class ProfileSettingsPanel
         App.Settings.UserToken = null;
         App.Settings.Save();
         App.NavigateFrame(typeof(HomePage));
-        App.ShowNotification("You have been logged out!");
+        App.AttachNotification("You have been logged out!");
     }
 
 }

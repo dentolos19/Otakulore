@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.SourceViewerPage">
+    <ContentPage.BindingContext>
+        <models:SourceViewerViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Items}" SelectionMode="Single" SelectionChangedCommand="{Binding NavigateCommand}" SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ContentItemModel">
+                    <Frame Padding="10">
+                        <Label Text="{Binding Name}"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+        <WebView Grid.Row="1" Source="{Binding CurrentAddress}"/>
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

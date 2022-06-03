@@ -31,7 +31,7 @@ public sealed partial class ProfilePage
                 ContinueText = "Login"
             };
             model.ContinueClicked += (_, _) => App.NavigateFrame(typeof(LoginPage));
-            App.ShowNotification(model);
+            App.AttachNotification(model);
             return;
         }
         if (_hasAlreadyNavigated)

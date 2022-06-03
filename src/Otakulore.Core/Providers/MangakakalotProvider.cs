@@ -1,4 +1,6 @@
-﻿namespace Otakulore.Core.Providers;
+﻿using Otakulore.Services;
+
+namespace Otakulore.Core.Providers;
 
 public class MangakakalotProvider : IMangaProvider
 {
@@ -10,7 +12,7 @@ public class MangakakalotProvider : IMangaProvider
 
     public IList<MediaSource> GetSources(string query)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(Url + "/search/story/" + query.Replace(' ', '_'));
+        var htmlDocument = ServiceUtilities.HtmlWeb.Load(Url + "/search/story/" + query.Replace(' ', '_'));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='panel_story_list']/div[@class='story_item']");
         if (searchElements is not { Count: > 0 })
             return Array.Empty<MediaSource>();
@@ -29,7 +31,7 @@ public class MangakakalotProvider : IMangaProvider
 
     public IList<MediaContent> GetContents(MediaSource source)
     {
-        var htmlElement = Utilities.HtmlWeb.Load(source.Url);
+        var htmlElement = ServiceUtilities.HtmlWeb.Load(source.Url);
         var chapterElements = htmlElement.DocumentNode.SelectNodes("//div[@class='panel-story-chapter-list']/ul/li");
         if (chapterElements is not { Count: > 0 })
             return Array.Empty<MediaContent>();

@@ -17,6 +17,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:SourceItemModel">
                     <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenCommand}" CommandParameter="{Binding Data}"/>
+                        </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="150">
                             <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="100"/>
                             <Label Grid.Column="1" Text="{Binding Title}" FontSize="Title" VerticalOptions="CenterAndExpand"/>

@@ -13,45 +13,45 @@ public sealed partial class MainView
     public MainView()
     {
         InitializeComponent();
-        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Home), Content = "Home", Tag = typeof(HomePage) });
-        PageNavigation.MenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Calendar), Content = "Schedules", Tag = typeof(SchedulesPage) });
-        PageNavigation.FooterMenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Contact), Content = "Profile", Tag = typeof(ProfilePage) });
+        NavigationView.MenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Home), Content = "Home", Tag = typeof(HomePage) });
+        NavigationView.MenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Calendar), Content = "Schedules", Tag = typeof(SchedulesPage) });
+        NavigationView.FooterMenuItems.Add(new NavigationViewItem { Icon = new SymbolIcon(Symbol.Contact), Content = "Profile", Tag = typeof(ProfilePage) });
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs args)
     {
-        PageNavigation.SelectedItem = PageNavigation.MenuItems.First();
+        NavigationView.SelectedItem = NavigationView.MenuItems.First();
     }
 
     private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.IsSettingsSelected)
         {
-            PageFrame.Navigate(typeof(SettingsPage));
+            ContentView.Navigate(typeof(SettingsPage));
         }
         else
         {
             if (args.SelectedItem is NavigationViewItem { Tag: Type type })
-                PageFrame.Navigate(type);
+                ContentView.Navigate(type);
         }
     }
 
     private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
-        if (PageFrame.CanGoBack)
-            PageFrame.GoBack();
+        if (ContentView.CanGoBack)
+            ContentView.GoBack();
     }
 
     private void OnSearchEntered(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        PageFrame.Navigate(typeof(SearchPage), new SearchMediaFilter { Query = sender.Text });
-        PageNavigation.IsPaneOpen = false;
+        ContentView.Navigate(typeof(SearchPage), new SearchMediaFilter { Query = sender.Text });
+        NavigationView.IsPaneOpen = false;
     }
 
     private void OnPageNavigating(object sender, NavigatingCancelEventArgs args)
     {
-        if (PageNavigation.SelectedItem is NavigationViewItem { Tag: Type type } && type != args.SourcePageType)
-            PageNavigation.SelectedItem = null;
+        if (NavigationView.SelectedItem is NavigationViewItem { Tag: Type type } && type != args.SourcePageType)
+            NavigationView.SelectedItem = null;
     }
 
 }

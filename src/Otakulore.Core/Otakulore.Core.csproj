@@ -7,8 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.42"/>
-		<PackageReference Include="ReverseMarkdown" Version="3.23.0"/>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+		<PackageReference Include="ReverseMarkdown" Version="3.23.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Otakulore.Services\Otakulore.Services.csproj" />
 	</ItemGroup>
 
 </Project>

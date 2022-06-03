@@ -59,7 +59,7 @@ public sealed partial class SettingsPage
             App.NavigateFrame(typeof(HomePage));
             // TODO: replace navigation to home page with app restarting
         };
-        App.ShowNotification(model);
+        App.AttachNotification(model);
     }
 
     private async void OnOpenLocalFolder(object sender, RoutedEventArgs args)

@@ -9,7 +9,7 @@
         <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
             <Frame>
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{StaticResource ViewMediaCommand}" CommandParameter="{Binding Data}"/>
+                    <TapGestureRecognizer Command="{Binding OpenCommand}"/>
                 </Frame.GestureRecognizers>
                 <Grid RowDefinitions="220,Auto" WidthRequest="150">
                     <Grid Grid.Row="0" RowDefinitions="5,Auto,*" ColumnDefinitions="5,Auto,*">

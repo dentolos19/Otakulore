@@ -1,9 +1,11 @@
 ﻿using AniListNet.Objects;
+using CommunityToolkit.Mvvm.Input;
 using Humanizer;
+using Otakulore.Pages;
 
 namespace Otakulore.Models;
 
-public class MediaItemModel
+public partial class MediaItemModel
 {
 
     public Uri ImageUrl { get; }
@@ -17,6 +19,15 @@ public class MediaItemModel
         Title = data.Title.PreferredTitle;
         Format = data.Format.Humanize(LetterCasing.Title);
         Data = data;
+    }
+
+    [ICommand]
+    private async Task Open()
+    {
+        await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+        {
+            { "id", Data.Id }
+        });
     }
 
 }
