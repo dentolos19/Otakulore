@@ -24,20 +24,20 @@ Ever wanted to have everything in one place? Tracking your progress, watching an
 
 <details>
   <summary>WinAppSdk Version</summary>
-  ![](.github/images/0.png)
-  ![](.github/images/1.png)
-  ![](.github/images/2.png)
-  ![](.github/images/3.png)
-  ![](.github/images/4.png)
-  ![](.github/images/5.png)
-  ![](.github/images/6.png)
-  ![](.github/images/7.png)
+  <img src=".github/images/0.png"/>
+  <img src=".github/images/1.png"/>
+  <img src=".github/images/2.png"/>
+  <img src=".github/images/3.png"/>
+  <img src=".github/images/4.png"/>
+  <img src=".github/images/5.png"/>
+  <img src=".github/images/6.png"/>
+  <img src=".github/images/7.png"/>
 </details>
 
 <details>
   <summary>.NET MAUI Version (WIP)</summary>
-  ![](.github/images/maui-0.jpg)
-  ![](.github/images/maui-1.jpg)
-  ![](.github/images/maui-2.jpg)
-  ![](.github/images/maui-3.jpg)
+  <img src=".github/images/maui-0.jpg"/>
+  <img src=".github/images/maui-1.jpg"/>
+  <img src=".github/images/maui-2.jpg"/>
+  <img src=".github/images/maui-3.jpg"/>
 </details>
