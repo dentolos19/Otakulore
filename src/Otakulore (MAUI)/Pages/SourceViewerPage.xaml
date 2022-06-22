@@ -14,7 +14,7 @@
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ContentItemModel">
+                    <DataTemplate x:DataType="models:MediaContentItemModel">
                         <Frame Padding="10">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenCommand}" CommandParameter="{Binding Data}"/>

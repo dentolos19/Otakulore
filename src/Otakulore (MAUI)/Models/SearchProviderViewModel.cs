@@ -16,7 +16,7 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ProviderItemModel? _selectedProvider;
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
-    [ObservableProperty] private ObservableCollection<SourceItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<MediaSourceItemModel> _items = new();
 
     public SearchProviderViewModel()
     {
@@ -50,7 +50,7 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
             return;
         }
         foreach (var item in results)
-            Items.Add(new SourceItemModel(item, SelectedProvider.Provider));
+            Items.Add(new MediaSourceItemModel(item, SelectedProvider.Provider));
         IsLoading = false;
     }
 

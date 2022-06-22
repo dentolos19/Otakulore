@@ -11,6 +11,8 @@
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+		<WindowsPackageType>None</WindowsPackageType>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
@@ -82,7 +84,7 @@
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2"/>
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Media" Version="7.1.2"/>
 		<PackageReference Include="Humanizer.Core" Version="2.14.1"/>
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3"/>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0"/>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197"/>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8"/>
 		<PackageReference Include="ReverseMarkdown" Version="3.23.1"/>

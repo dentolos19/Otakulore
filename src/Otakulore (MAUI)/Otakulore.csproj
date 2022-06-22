@@ -41,10 +41,4 @@
 		<ProjectReference Include="..\Otakulore.Services\Otakulore.Services.csproj"/>
 	</ItemGroup>
 
-	<ItemGroup>
-		<MauiXaml Update="Pages\ContentViewerPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-	</ItemGroup>
-
 </Project>

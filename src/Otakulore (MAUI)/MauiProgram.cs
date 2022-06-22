@@ -14,6 +14,7 @@ public static class MauiProgram
             fonts.AddFont("SegoeAssets.ttf", "SegoeAssets");
         });
         builder.Services.AddSingleton<HomeViewModel>();
+        builder.Services.AddSingleton<LibraryViewModel>();
         return builder.Build();
     }
 

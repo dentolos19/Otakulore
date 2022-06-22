@@ -4,7 +4,7 @@ using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class SourceItemModel
+public partial class MediaSourceItemModel
 {
 
     public Uri ImageUrl { get; }
@@ -12,7 +12,7 @@ public partial class SourceItemModel
     public MediaSource Data { get; }
     public IProvider Provider { get; }
 
-    public SourceItemModel(MediaSource data, IProvider provider)
+    public MediaSourceItemModel(MediaSource data, IProvider provider)
     {
         ImageUrl = data.ImageUrl;
         Title = data.Title;

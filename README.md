@@ -4,7 +4,7 @@ An app for tracking, watching and reading all about anime and manga!
 
 Ever wanted to have everything in one place? Tracking your progress, watching anime, reading manga and so on. And I thought that I wanted to solve this problem, and this project came to life. This app allows you to sync with your [AniList](https://anilist.co) account and manage your library directly on the app itself, and also includes the schedules of the currently airing anime (powered by [AniChart](https://anichart.net)) so you never miss an episode, and most importantly, watch or read your favorite anime or manga from various sources without having to search each of them!
 
-> **Note**: For this project, the development will probably be very slow as I am the only one working on this project and at the same time I will be studying for my national exams that I am taking this year (2022) so I will have very less time to work on this project.
+> **Note**: This project is currently on [Hiatus](https://dictionary.cambridge.org/dictionary/english/hiatus) as I am currently studying for my exams.
 
 ## Features
 

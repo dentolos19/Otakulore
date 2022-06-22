@@ -4,14 +4,14 @@ using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class ContentItemModel
+public partial class MediaContentItemModel
 {
 
     public string Name { get; }
     public MediaContent Data { get; }
     public IProvider Provider { get; }
 
-    public ContentItemModel(MediaContent data, IProvider provider)
+    public MediaContentItemModel(MediaContent data, IProvider provider)
     {
         Name = data.Name;
         Data = data;

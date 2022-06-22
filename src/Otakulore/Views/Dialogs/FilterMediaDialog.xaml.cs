@@ -30,7 +30,7 @@ public sealed partial class FilterMediaDialog
             return;
         TypeDropdown.SelectedItem = TypeDropdown.Items.OfType<ComboBoxItem>().FirstOrDefault(item => (MediaType?)item.Tag == filter.Type) ?? TypeDropdown.Items.First();
         foreach (var genre in filter.Genres)
-            GenreList.Items.Add(new FilterItemModel(genre, genre));
+            GenreList.Items.Add(new FilterItemModel(genre.Key, genre));
     }
 
     private void OnAddGenreFilter(object sender, RoutedEventArgs args)
@@ -52,7 +52,7 @@ public sealed partial class FilterMediaDialog
         var genres = GenreList.Items.OfType<FilterItemModel>().ToArray().Select(item => item.Data).OfType<string>().ToArray();
         if (genres.Length > 0)
             foreach (var item in genres)
-                Result.Genres.Add(item);
+                Result.Genres.Add(item, true);
         Hide();
     }
 

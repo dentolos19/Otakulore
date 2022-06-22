@@ -22,7 +22,7 @@ public class MediaItemModel
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         BannerImageUrl = media.BannerImageUrl;
         Title = media.Title.PreferredTitle;
-        var format = media.Format.Humanize(LetterCasing.Title);
+        var format = media.Format?.Humanize(LetterCasing.Title);
         Tag = format;
         Meta.Add(new MetadataItem { Label = format });
         var startDate = media.StartDate.ToDateOnly();

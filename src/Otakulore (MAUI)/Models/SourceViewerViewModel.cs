@@ -11,7 +11,7 @@ public partial class SourceViewerViewModel : ObservableObject, IQueryAttributabl
 
     [ObservableProperty] private string _title;
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private ObservableCollection<ContentItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<MediaContentItemModel> _items = new();
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -27,7 +27,7 @@ public partial class SourceViewerViewModel : ObservableObject, IQueryAttributabl
             var contents = await provider.GetContentAsync(data);
             IsLoading = false;
             foreach (var item in contents)
-                Items.Add(new ContentItemModel(item, provider));
+                Items.Add(new MediaContentItemModel(item, provider));
         });
     }
 

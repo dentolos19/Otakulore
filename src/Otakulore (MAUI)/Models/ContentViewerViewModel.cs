@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
@@ -21,7 +22,9 @@ public partial class ContentViewerViewModel : ObservableObject, IQueryAttributab
         {
             Task.Run(async () =>
             {
+                IsLoading = true;
                 var hasVideoUrl = await animeProvider.TryExtractVideoPlayer(data, out var videoUrl);
+                IsLoading = false;
                 CurrentAddress = hasVideoUrl
                     ? videoUrl
                     : new Uri(data.Data.ToString());
@@ -31,6 +34,12 @@ public partial class ContentViewerViewModel : ObservableObject, IQueryAttributab
         {
             CurrentAddress = new Uri(data.Data.ToString());
         }
+    }
+
+    [ICommand]
+    private async Task Back()
+    {
+        await Shell.Current.GoToAsync("..");
     }
 
 }
