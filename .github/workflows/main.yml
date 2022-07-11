@@ -1,10 +1,5 @@
 name: Automatic Release Workflow
-on:
-  push:
-    branches: [ main ]
-    paths:
-      - Otakulore/**
-  workflow_dispatch:
+on: [ push ]
 env:
    RELEASE_TAG: Commitly
 jobs:
@@ -28,10 +23,10 @@ jobs:
           java-version: 11
       - name: Install MAUI Workloads
         run: |
-          dotnet workload install maui
+          dotnet workload install maui-android
           dotnet workload install android
       - name: Publish Project
-        run: dotnet publish --configuration Release --framework net6.0-android --output build/
+        run: dotnet publish Otakulore/Otakulore.csproj --configuration Release --framework net6.0-android --output build/
       - name: Create Package
         uses: vimtor/action-zip@v1
         with:
