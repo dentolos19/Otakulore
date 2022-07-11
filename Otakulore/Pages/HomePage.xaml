@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.HomePage"
+             x:DataType="models:HomeViewModel"
+             Title="Home">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
+            <Frame WidthRequest="150">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ViewCommand}"/>
+                </Frame.GestureRecognizers>
+                <Grid RowDefinitions="Auto,*">
+                    <Image Grid.Row="0" Source="{Binding ImageUrl}" HeightRequest="220"/>
+                    <Label Grid.Row="1" Text="{Binding Title}" Margin="2" LineBreakMode="TailTruncation" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Frame>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <Shell.SearchHandler>
+        <SearchHandler Placeholder="Search" Query="{Binding Query, Mode=TwoWay}" Command="{Binding SearchCommand}" CommandParameter="{Binding Query}"/>
+    </Shell.SearchHandler>
+    <ScrollView Padding="10">
+        <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="🎇 Trending Now" FontSize="Medium"/>
+                <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ActivityIndicator IsRunning="True"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="❤️ Highly Beloved" FontSize="Medium"/>
+                <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ActivityIndicator IsRunning="True"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="🌟 Most Popular" FontSize="Medium"/>
+                <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ActivityIndicator IsRunning="True"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

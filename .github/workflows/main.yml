@@ -1,0 +1,53 @@
+name: Automatic Release Workflow
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - Otakulore/**
+  workflow_dispatch:
+env:
+   RELEASE_TAG: Commitly
+jobs:
+  main:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: microsoft
+          java-version: 11
+      - name: Install MAUI Workloads
+        run: |
+          dotnet workload install maui
+          dotnet workload install android
+      - name: Publish Project
+        run: dotnet publish --configuration Release --framework net6.0-android --output build/
+      - name: Create Package
+        uses: vimtor/action-zip@v1
+        with:
+          files: build/*.apk
+          dest: ${{ github.event.repository.name }}.zip
+      - name: Delete Existing Tag
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          delete_release: true
+      - name: Deploy Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{ github.event.repository.name }}.zip
+          prerelease: true
+          tag: ${{ env.RELEASE_TAG }}
+          commit: main

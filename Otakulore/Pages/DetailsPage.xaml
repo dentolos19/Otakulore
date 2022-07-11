@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.DetailsPage"
+             x:DataType="models:DetailsViewModel"
+             Title="Details">
+    <Grid>
+        <ScrollView Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <Frame>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Grid.Column="0" Source="{Binding ImageUrl}" HeightRequest="200"/>
+                        <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
+                            <Label Text="{Binding Title}" FontSize="Title"/>
+                            <Label Text="{Binding Subtitle}"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+                <Frame Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Description" FontAttributes="Bold"/>
+                        <Label Text="{Binding Description}" TextType="Html"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Padding="10">
+                    <VerticalStackLayout>
+                        <Grid>
+                            <Label HorizontalOptions="Start" Text="Format" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding Format}"/>
+                        </Grid>
+                        <Grid>
+                            <Label HorizontalOptions="Start" Text="{Binding ContentLabel}" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding Content}"/>
+                        </Grid>
+                        <Grid>
+                            <Label HorizontalOptions="Start" Text="Start Date" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding StartDate}"/>
+                        </Grid>
+                        <Grid>
+                            <Label HorizontalOptions="Start" Text="End Date" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding EndDate}"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Padding="10">
+                    <VerticalStackLayout Spacing="10">
+                        <Button Text="Play" Command="{Binding PlayCommand}"/>
+                        <Button Text="Track"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

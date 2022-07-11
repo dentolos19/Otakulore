@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+
+		<!-- Display name -->
+		<ApplicationTitle>Otakulore</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>me.dennise.otakulore</ApplicationId>
+		<ApplicationIdGuid>FD0FB44C-0B1E-4C8E-A362-490105A4A5D6</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\Images\Other\appicon.svg" ForegroundFile="Resources\Images\Other\appiconfg.svg" Color="#512BD4"/>
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512BD4" BaseSize="128,128"/>
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*"/>
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208"/>
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*"/>
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AniListNet" Version="1.2.0"/>
+		<PackageReference Include="CommunityToolkit.Maui" Version="1.0.0"/>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2"/>
+		<PackageReference Include="Humanizer.Core" Version="2.14.1"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Otakulore.Core\Otakulore.Core.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Pages\ContentViewerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+</Project>

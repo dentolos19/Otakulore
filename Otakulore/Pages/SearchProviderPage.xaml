@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.SearchProviderPage"
+             x:DataType="models:SearchProviderViewModel"
+             Title="Search Provider">
+    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
+        <SearchBar Grid.Row="0" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SourceItemModel">
+                    <Frame Padding="10">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Label Text="{Binding Name}"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <ActivityIndicator Grid.RowSpan="2" IsRunning="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>
