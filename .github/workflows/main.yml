@@ -30,7 +30,7 @@ jobs:
       - name: Create Package
         uses: vimtor/action-zip@v1
         with:
-          files: build/*.apk
+          files: build/
           dest: ${{ github.event.repository.name }}.zip
       - name: Delete Existing Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
