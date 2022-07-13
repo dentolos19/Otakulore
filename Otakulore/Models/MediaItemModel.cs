@@ -22,7 +22,7 @@ public partial class MediaItemModel
     }
 
     [ICommand]
-    private void View()
+    private void Open()
     {
         MauiHelper.Navigate(
             typeof(DetailsPage),

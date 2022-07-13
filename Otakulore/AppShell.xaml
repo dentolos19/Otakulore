@@ -7,4 +7,7 @@
     <FlyoutItem Title="Home" Icon="{StaticResource HomeGlyph}">
         <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
     </FlyoutItem>
+    <FlyoutItem Title="Settings" Icon="{StaticResource SettingsGlyph}">
+        <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}"/>
+    </FlyoutItem>
 </Shell>

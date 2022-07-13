@@ -5,9 +5,15 @@
              x:Class="Otakulore.Pages.SearchProviderPage"
              x:DataType="models:SearchProviderViewModel"
              Title="Search Provider">
-    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
-        <SearchBar Grid.Row="0" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10" Padding="10">
+        <SearchBar Grid.Row="0"
+                   Text="{Binding Query, Mode=TwoWay}"
+                   SearchCommand="{Binding SearchCommand}"/>
+        <Picker Grid.Row="1"
+                ItemsSource="{Binding Providers}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedIndex="{Binding SelectedProvider, Mode=TwoWay}"/>
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
             </CollectionView.ItemsLayout>
@@ -22,6 +28,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator Grid.RowSpan="2" IsRunning="{Binding IsLoading}"/>
+        <ActivityIndicator Grid.RowSpan="3" IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

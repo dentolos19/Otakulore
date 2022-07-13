@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.SettingsPage"
+             Title="Settings">
+    <ScrollView Padding="10">
+        <VerticalStackLayout Spacing="10">
+            <Frame Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="General" FontAttributes="Bold"/>
+                    <Label Text="Coming Soon!" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="Providers" FontAttributes="Bold"/>
+                    <CollectionView ItemsSource="{Binding Providers}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ProviderItemModel">
+                                <Frame Padding="10" BackgroundColor="{StaticResource Theme3}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Label Text="{Binding Name}"/>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="Credits" FontAttributes="Bold"/>
+                    <Label Text="{Binding Credits}"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -67,4 +67,10 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         );
     }
 
+    [ICommand]
+    private Task Track()
+    {
+        return Task.CompletedTask; // TODO
+    }
+
 }

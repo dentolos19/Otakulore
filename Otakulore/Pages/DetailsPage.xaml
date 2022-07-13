@@ -46,7 +46,7 @@
                 <Frame Padding="10">
                     <VerticalStackLayout Spacing="10">
                         <Button Text="Play" Command="{Binding PlayCommand}"/>
-                        <Button Text="Track"/>
+                        <Button Text="Track" Command="{Binding TrackCommand}"/>
                     </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>

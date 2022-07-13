@@ -9,6 +9,10 @@
         <Setter Property="Aspect" Value="AspectFill"/>
     </Style>
 
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{StaticResource Theme2}"/>
+    </Style>
+
     <Style TargetType="Frame">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="CornerRadius" Value="10"/>
@@ -23,7 +27,7 @@
         <Setter Property="Shell.BackgroundColor" Value="{StaticResource Theme2}"/>
         <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Theme2}"/>
 
-        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource Primary}, Default={StaticResource White}}"/>
+        <!--<Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource Primary}, Default={StaticResource White}}"/>-->
         <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"/>
         <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"/>
         <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}"/>
@@ -33,11 +37,7 @@
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}"/>
     </Style>
 
-    <!-- below are styles provided by template -->
-
-    <Style TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
-    </Style>
+    <!-- below are styles provided by project template -->
 
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"/>

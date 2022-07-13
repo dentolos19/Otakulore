@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Otakulore.Core;
 
 namespace Otakulore.Models;
@@ -24,6 +25,7 @@ public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributa
         {
             Url = content.Data.ToString();
         }
+        Debug.WriteLine("URL: " + Url);
         IsLoading = false;
     }
 

@@ -7,5 +7,6 @@
     <x:String x:FieldModifier="private" x:Key="GlyphFontFamily">SegoeAssets</x:String>
 
     <FontImageSource x:Key="HomeGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE80F;"/>
+    <FontImageSource x:Key="SettingsGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE713;"/>
 
 </ResourceDictionary>

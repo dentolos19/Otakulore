@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

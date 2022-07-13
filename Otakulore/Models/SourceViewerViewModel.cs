@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Otakulore.Core;
-using Otakulore.Core.Providers;
 
 namespace Otakulore.Models;
 

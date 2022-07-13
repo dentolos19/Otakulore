@@ -1,0 +1,9 @@
+﻿Thank you for using my app!
+
+Please note that this build may be unstable.
+
+This app is developed and running thanks to...
+- AniList & AniChart (the services providing you with the extensive library of Anime & Manga)
+- AniListNet (the fast and simple service to interface with AniList & AniChart)
+
+The app icon is from an Anime called My Dress-Up Darling.
