@@ -14,7 +14,7 @@ An app for tracking, watching and reading all about anime and manga!
 - [ ] Plan your next series to watch with the seasonal calendar (from [AniChart](https://anichart.net))!
 - [X] Efficiently get access to many sources easily!
   - [X] [Gogoanime](https://gogoanime.film) (Anime)
-  - [ ] [Mangakakalot](https://mangakakalot.com) (Manga)
+  - [X] [Mangakakalot](https://mangakakalot.com) (Manga)
   - [ ] [Novelhall](https://novelhall.com) (Novel)
   - [ ] ... more to be added soon!
 

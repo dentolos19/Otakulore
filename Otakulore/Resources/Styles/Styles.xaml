@@ -10,6 +10,7 @@
     </Style>
 
     <Style TargetType="Label">
+        <Setter Property="TextColor" Value="White"/>
         <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -25,8 +26,31 @@
         </Setter>
     </Style>
 
+    <Style TargetType="SearchBar">
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}"/>
+        <Setter Property="CancelButtonColor" Value="{StaticResource Gray500}"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal"/>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"/>
+                            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{StaticResource Theme2}"/>
+        <Setter Property="WidthRequest" Value="50"/>
     </Style>
 
     <Style TargetType="Frame">
@@ -192,7 +216,7 @@
     </Style>
 
     <Style TargetType="Picker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
+        <Setter Property="TextColor" Value="White"/>
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}"/>
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
@@ -249,28 +273,6 @@
 
     <Style TargetType="RefreshView">
         <Setter Property="RefreshColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}"/>
-    </Style>
-
-    <Style TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
-        <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}"/>
-        <Setter Property="CancelButtonColor" Value="{StaticResource Gray500}"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal"/>
-                    <VisualState x:Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"/>
-                            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"/>
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
     </Style>
 
     <Style TargetType="SearchHandler">

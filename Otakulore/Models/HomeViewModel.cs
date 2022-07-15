@@ -41,7 +41,7 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private Task Search(string query)
     {
-        return MauiHelper.Navigate(
+        return MauiHelper.NavigateTo(
             typeof(SearchPage),
             new Dictionary<string, object>
             {

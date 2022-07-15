@@ -58,7 +58,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private Task Play()
     {
-        return MauiHelper.Navigate(
+        return MauiHelper.NavigateTo(
             typeof(SearchProviderPage),
             new Dictionary<string, object>
             {

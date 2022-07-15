@@ -19,7 +19,7 @@ public partial class ProviderItemModel
     [ICommand]
     private Task Open()
     {
-        return MauiHelper.Navigate(
+        return MauiHelper.NavigateTo(
             typeof(SearchProviderPage),
             new Dictionary<string, object>
             {

@@ -21,7 +21,7 @@ public partial class ContentItemModel
     [ICommand]
     private Task Play()
     {
-        return MauiHelper.Navigate(
+        return MauiHelper.NavigateTo(
             typeof(ContentViewerPage),
             new Dictionary<string, object>
             {

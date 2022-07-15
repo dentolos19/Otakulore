@@ -19,11 +19,16 @@ public static class MauiHelper
         Routing.RegisterRoute(type.Name, type);
     }
 
-    public static Task Navigate(Type type, IDictionary<string, object>? parameters = null)
+    public static Task NavigateTo(Type type, IDictionary<string, object>? parameters = null)
     {
         return parameters is { Count: > 0 }
             ? Shell.Current.GoToAsync(type.Name, parameters)
             : Shell.Current.GoToAsync(type.Name);
+    }
+
+    public static Task NavigateBack()
+    {
+        return Shell.Current.GoToAsync("..");
     }
 
 }

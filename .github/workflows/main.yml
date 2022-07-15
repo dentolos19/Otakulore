@@ -1,5 +1,9 @@
 name: Automatic Release Workflow
-on: [ push ]
+on:
+  push:
+    paths:
+      - Otakulore/**
+  workflow_dispatch:
 env:
    RELEASE_TAG: Commitly
 jobs:

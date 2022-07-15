@@ -12,6 +12,7 @@ public class VariableService
     {
         var service = new VariableService();
         service.Providers.Add(new GogoanimeProvider());
+        service.Providers.Add(new ManganatoProvider());
         return service;
     }
 

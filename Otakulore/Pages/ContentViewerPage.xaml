@@ -4,10 +4,10 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.ContentViewerPage"
              x:DataType="models:ContentViewerViewModel"
-             Title="Content Viewer"
-             Shell.NavBarIsVisible="False">
-    <Grid>
-        <WebView x:Name="WebView" Source="{Binding Url}"/>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
+             Title="Content Viewer" Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="20,Auto,*" ColumnDefinitions="20,Auto,*">
+        <WebView Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding Url}"/>
+        <ActivityIndicator Grid.RowSpan="3" Grid.ColumnSpan="3" IsRunning="{Binding IsLoading}"/>
+        <ImageButton Grid.Row="1" Grid.Column="1" Source="{StaticResource BackGlyph}" Command="{Binding BackCommand}"/>
     </Grid>
 </ContentPage>

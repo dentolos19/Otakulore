@@ -21,7 +21,7 @@ public partial class SourceItemModel
     [ICommand]
     private Task Open()
     {
-        return MauiHelper.Navigate(
+        return MauiHelper.NavigateTo(
             typeof(SourceViewerPage),
             new Dictionary<string, object>
             {

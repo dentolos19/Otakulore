@@ -24,7 +24,7 @@ public partial class MediaItemModel
     [ICommand]
     private void Open()
     {
-        MauiHelper.Navigate(
+        MauiHelper.NavigateTo(
             typeof(DetailsPage),
             new Dictionary<string, object>
             {
