@@ -4,15 +4,15 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchProviderPage"
              x:DataType="models:SearchProviderViewModel"
-             Title="Search Provider">
-    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10" Padding="10">
+             Title="Search Provider" Padding="10">
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
         <SearchBar Grid.Row="0"
                    Text="{Binding Query, Mode=TwoWay}"
                    SearchCommand="{Binding SearchCommand}"/>
         <Picker Grid.Row="1"
                 ItemsSource="{Binding Providers}"
                 ItemDisplayBinding="{Binding Name}"
-                SelectedIndex="{Binding SelectedProvider, Mode=TwoWay}"/>
+                SelectedItem="{Binding SelectedProvider, Mode=TwoWay}"/>
         <CollectionView Grid.Row="2" ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
@@ -27,7 +27,16 @@
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Grid>
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       IsVisible="{Binding IsLoading}"/>
+                    <Label Text="No results found."
+                           IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </CollectionView.EmptyView>
         </CollectionView>
-        <ActivityIndicator Grid.RowSpan="3" IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

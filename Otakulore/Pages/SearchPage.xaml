@@ -5,28 +5,40 @@
              x:Class="Otakulore.Pages.SearchPage"
              x:DataType="models:SearchViewModel"
              Title="Search" Padding="10">
-    <CollectionView ItemsSource="{Binding Items}">
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:MediaItemModel">
-                <Frame>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                    </Frame.GestureRecognizers>
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
-                        <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="{Binding Title}" FontSize="Title"/>
-                            <Label Text="{Binding Tag}"/>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-        <CollectionView.EmptyView>
-            <ActivityIndicator IsRunning="True"/>
-        </CollectionView.EmptyView>
-    </CollectionView>
+    <Grid RowDefinitions="Auto,*" RowSpacing="10">
+        <SearchBar Grid.Row="0"
+                   Text="{Binding Query, Mode=TwoWay}"
+                   SearchCommand="{Binding SearchCommand}"/>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:MediaItemModel">
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
+                            <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Title}" FontSize="Title"/>
+                                <Label Text="{Binding Tag}"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Grid>
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       IsVisible="{Binding IsLoading}"/>
+                    <Label Text="No results found."
+                           IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
 </ContentPage>

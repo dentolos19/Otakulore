@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Core", "Otakulore.Core\Otakulore.Core.csproj", "{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,10 +23,6 @@ Global
 		{9F5F4DEE-85FD-4689-AF8E-16935B17E149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F5F4DEE-85FD-4689-AF8E-16935B17E149}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9F5F4DEE-85FD-4689-AF8E-16935B17E149}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC9355EF-F7BB-4D79-A13D-B6AE5F68C922}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
