@@ -26,7 +26,7 @@ jobs:
           dotnet workload install maui
           dotnet workload install android
       - name: Publish Project
-        run: dotnet publish Otakulore/Otakulore.csproj --configuration Release --framework net6.0-android --output build/
+        run: dotnet publish --framework net6.0-android --configuration Release --output build/
       - name: Create Package
         uses: vimtor/action-zip@v1
         with:
