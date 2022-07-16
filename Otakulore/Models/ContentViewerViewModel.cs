@@ -29,9 +29,9 @@ public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributa
     }
 
     [ICommand]
-    private async Task Back()
+    private Task Back()
     {
-        await Shell.Current.GoToAsync("..");
+        return MauiHelper.NavigateBack();
     }
 
 }

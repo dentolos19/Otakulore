@@ -10,7 +10,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public Task<MediaSource[]?> GetSources(string query)
     {
-        var htmlDocument = ProviderUtilities.HtmlWeb.Load("https://gogoanime.gg/search.html?keyword=" + Uri.EscapeDataString(query));
+        var htmlDocument = Utilities.HtmlWeb.Load("https://gogoanime.gg/search.html?keyword=" + Uri.EscapeDataString(query));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
         if (searchElements is not { Count: > 0 })
             return Task.FromResult<MediaSource[]?>(null);
@@ -31,7 +31,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public Task<MediaContent[]?> GetContents(MediaSource source)
     {
-        var htmlDocument = ProviderUtilities.HtmlWeb.Load(source.Data.ToString());
+        var htmlDocument = Utilities.HtmlWeb.Load(source.Data.ToString());
         var id = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
         htmlDocument = new HtmlWeb().Load("https://ajax.gogocdn.net/ajax/load-list-episode?ep_start=0&ep_end=10000&id=" + id);
         var episodeElements = htmlDocument.DocumentNode.SelectNodes("//ul/li");
@@ -53,7 +53,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public Task<bool> TryExtractVideoPlayerUrl(MediaContent content, out Uri url)
     {
-        var htmlDocument = ProviderUtilities.HtmlWeb.Load(content.Data.ToString());
+        var htmlDocument = Utilities.HtmlWeb.Load(content.Data.ToString());
         url = new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
         return Task.FromResult(true);
     }

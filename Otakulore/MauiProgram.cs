@@ -22,8 +22,9 @@ public static class MauiProgram
             });
 
         builder.Services.AddSingleton<AniClient>();
-        builder.Services.AddSingleton<ResourceService>(ResourceService.Initialize());
-        builder.Services.AddSingleton<VariableService>(VariableService.Initialize());
+        builder.Services.AddSingleton(ResourceService.Initialize());
+        builder.Services.AddSingleton(SettingsService.Initialize());
+        builder.Services.AddSingleton(VariableService.Initialize());
 
         builder.Services.AddSingleton<HomeViewModel>();
         builder.Services.AddSingleton<SettingsViewModel>();

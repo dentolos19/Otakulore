@@ -7,7 +7,7 @@ public class ManganatoProvider : IProvider
 
     public Task<MediaSource[]?> GetSources(string query)
     {
-        var htmlDocument = ProviderUtilities.HtmlWeb.Load("https://manganato.com/search/story/" + query.Replace(' ', '_'));
+        var htmlDocument = Utilities.HtmlWeb.Load("https://manganato.com/search/story/" + query.Replace(' ', '_'));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='panel-search-story']/div[@class='search-story-item']");
         if (searchElements is not { Count: > 0 })
             return Task.FromResult<MediaSource[]?>(null);
@@ -28,7 +28,7 @@ public class ManganatoProvider : IProvider
 
     public Task<MediaContent[]?> GetContents(MediaSource source)
     {
-        var htmlDocument = ProviderUtilities.HtmlWeb.Load(source.Data.ToString());
+        var htmlDocument = Utilities.HtmlWeb.Load(source.Data.ToString());
         var chapterElements = htmlDocument.DocumentNode.SelectNodes("//ul[@class='row-content-chapter']/li");
         if (chapterElements is not { Count: > 0 })
             return Task.FromResult<MediaContent[]?>(null);

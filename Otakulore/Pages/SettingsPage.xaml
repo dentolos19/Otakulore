@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SettingsPage"
              Title="Settings">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
             <Frame Padding="10">
-                <VerticalStackLayout>
+                <VerticalStackLayout Spacing="5">
                     <Label Text="General" FontAttributes="Bold"/>
-                    <Label Text="Coming Soon!" HorizontalOptions="Center"/>
+                    <Grid>
+                        <Label Text="Theme" HorizontalOptions="Start" VerticalOptions="Center"/>
+                        <Picker SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}" HorizontalOptions="End">
+                            <Picker.Behaviors>
+                                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UpdateCommand}"/>
+                            </Picker.Behaviors>
+                            <Picker.Items>
+                                <x:String>Default</x:String>
+                                <x:String>Lavender</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
             <Frame Padding="10">
-                <VerticalStackLayout>
+                <VerticalStackLayout Spacing="5">
                     <Label Text="Providers" FontAttributes="Bold"/>
                     <CollectionView ItemsSource="{Binding Providers}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:ProviderItemModel">
                                 <Frame Padding="10" BackgroundColor="{StaticResource Theme3}">
@@ -30,7 +45,7 @@
                 </VerticalStackLayout>
             </Frame>
             <Frame Padding="10">
-                <VerticalStackLayout>
+                <VerticalStackLayout Spacing="5">
                     <Label Text="Credits" FontAttributes="Bold"/>
                     <Label Text="{Binding Credits}"/>
                 </VerticalStackLayout>

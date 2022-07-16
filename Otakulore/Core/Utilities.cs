@@ -2,7 +2,7 @@
 
 namespace Otakulore.Core;
 
-public class ProviderUtilities
+public static class Utilities
 {
     
     private static HtmlWeb? _htmlWebInstance;
