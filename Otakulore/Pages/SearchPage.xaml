@@ -9,7 +9,10 @@
         <SearchBar Grid.Row="0"
                    Text="{Binding Query, Mode=TwoWay}"
                    SearchCommand="{Binding SearchCommand}"/>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Items}"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding AccumulateCommand}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
             </CollectionView.ItemsLayout>

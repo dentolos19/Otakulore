@@ -32,7 +32,6 @@ public partial class SettingsViewModel : ObservableObject
             _settings.ThemeIndex = ThemeIndex;
             await Toast.Make("Please restart this app to take effect.").Show();
         }
-        _settings.Save();
     }
 
 }
