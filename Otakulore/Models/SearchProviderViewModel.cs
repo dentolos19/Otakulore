@@ -17,7 +17,7 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
 
     public SearchProviderViewModel(VariableService variableService)
     {
-        foreach (var provider in variableService.Providers)
+        foreach (var provider in variableService.ContentProviders)
             Providers.Add(new ProviderItemModel(provider));
         SelectedProvider = Providers.First();
     }
@@ -38,8 +38,11 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
         Items.Clear();
         IsLoading = true;
         var sources = await SelectedProvider.Provider.GetSources(Query);
-        if (sources == null)
+        if (sources is not { Length: > 0 })
+        {
+            IsLoading = false;
             return;
+        }
         foreach (var item in sources)
             Items.Add(new SourceItemModel(item, SelectedProvider.Provider));
         IsLoading = false;

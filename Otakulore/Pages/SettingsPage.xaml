@@ -7,7 +7,7 @@
              Title="Settings">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
-            <Frame Padding="10">
+            <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="General" FontAttributes="Bold"/>
                     <Grid>
@@ -28,7 +28,7 @@
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
-            <Frame Padding="10">
+            <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Providers" FontAttributes="Bold"/>
                     <CollectionView ItemsSource="{Binding Providers}">
@@ -48,7 +48,7 @@
                     </CollectionView>
                 </VerticalStackLayout>
             </Frame>
-            <Frame Padding="10">
+            <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Credits" FontAttributes="Bold"/>
                     <Label Text="{Binding Credits}"/>

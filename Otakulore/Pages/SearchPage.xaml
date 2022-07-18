@@ -18,12 +18,12 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaItemModel">
-                    <Frame>
+                    <Frame BackgroundColor="{DynamicResource Theme2}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OpenCommand}"/>
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
-                            <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                            <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label Text="{Binding Title}" FontSize="Title"/>
                                 <Label Text="{Binding Tag}"/>
@@ -34,14 +34,12 @@
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
                 <Grid>
-                    <ActivityIndicator IsRunning="{Binding IsLoading}"
-                                       IsVisible="{Binding IsLoading}"/>
                     <Label Text="No results found."
-                           IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"/>
                 </Grid>
             </CollectionView.EmptyView>
         </CollectionView>
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

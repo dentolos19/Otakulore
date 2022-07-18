@@ -7,3 +7,5 @@ This app is developed and running thanks to...
 - AniListNet (the fast and simple service to interface with AniList & AniChart)
 
 The app icon is from an Anime called My Dress-Up Darling.
+
+Created by Dennise Catolos

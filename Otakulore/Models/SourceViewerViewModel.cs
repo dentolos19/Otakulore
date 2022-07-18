@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Otakulore.Core;
 
@@ -7,6 +8,7 @@ namespace Otakulore.Models;
 public partial class SourceViewerViewModel : ObservableObject, IQueryAttributable
 {
 
+    [ObservableProperty] private string _title;
     [ObservableProperty] private bool _isLoading = true;
     [ObservableProperty] private ObservableCollection<ContentItemModel> _items = new();
 
@@ -16,7 +18,13 @@ public partial class SourceViewerViewModel : ObservableObject, IQueryAttributabl
             return;
         if (query["source"] is not MediaSource source || query["provider"] is not IProvider provider)
             return;
+        Title = source.Title;
         var contents = await provider.GetContents(source);
+        if (contents is null)
+        {
+            IsLoading = false;
+            return;
+        }
         foreach (var item in contents)
             Items.Add(new ContentItemModel(item, provider));
         IsLoading = false;

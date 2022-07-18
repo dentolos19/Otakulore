@@ -8,7 +8,7 @@
     <Grid>
         <ScrollView Padding="10">
             <VerticalStackLayout Spacing="10">
-                <Frame>
+                <Frame BackgroundColor="{DynamicResource Theme2}">
                     <Grid ColumnDefinitions="Auto,*">
                         <Image Grid.Column="0" Source="{Binding ImageUrl}" HeightRequest="200"/>
                         <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
@@ -17,13 +17,13 @@
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>
-                <Frame Padding="10">
+                <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                     <VerticalStackLayout>
                         <Label Text="Description" FontAttributes="Bold"/>
                         <Label Text="{Binding Description}" TextType="Html"/>
                     </VerticalStackLayout>
                 </Frame>
-                <Frame Padding="10">
+                <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                     <VerticalStackLayout>
                         <Grid>
                             <Label HorizontalOptions="Start" Text="Format" FontAttributes="Bold"/>
@@ -43,7 +43,7 @@
                         </Grid>
                     </VerticalStackLayout>
                 </Frame>
-                <Frame Padding="10">
+                <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                     <VerticalStackLayout Spacing="10">
                         <Button Text="Play" Command="{Binding PlayCommand}"/>
                         <Button Text="Track" Command="{Binding TrackCommand}"/>

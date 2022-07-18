@@ -7,7 +7,7 @@
              Title="Home">
     <ContentPage.Resources>
         <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
-            <Frame WidthRequest="150">
+            <Frame WidthRequest="150" BackgroundColor="{DynamicResource Theme3}">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenCommand}"/>
                 </Frame.GestureRecognizers>
@@ -23,39 +23,45 @@
     </Shell.SearchHandler>
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
-            <VerticalStackLayout Spacing="10">
-                <Label Text="🎇 Trending Now" FontSize="Medium"/>
-                <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.EmptyView>
-                        <ActivityIndicator IsRunning="True"/>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-            </VerticalStackLayout>
-            <VerticalStackLayout Spacing="10">
-                <Label Text="❤️ Highly Beloved" FontSize="Medium"/>
-                <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.EmptyView>
-                        <ActivityIndicator IsRunning="True"/>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-            </VerticalStackLayout>
-            <VerticalStackLayout Spacing="10">
-                <Label Text="🌟 Most Popular" FontSize="Medium"/>
-                <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.EmptyView>
-                        <ActivityIndicator IsRunning="True"/>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-            </VerticalStackLayout>
+            <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="🎇 Trending Now" FontSize="Medium"/>
+                    <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.EmptyView>
+                            <ActivityIndicator IsRunning="True"/>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="❤️ Highly Beloved" FontSize="Medium"/>
+                    <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.EmptyView>
+                            <ActivityIndicator IsRunning="True"/>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="🌟 Most Popular" FontSize="Medium"/>
+                    <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.EmptyView>
+                            <ActivityIndicator IsRunning="True"/>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

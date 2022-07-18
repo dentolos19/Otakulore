@@ -4,23 +4,37 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SourceViewerPage"
              x:DataType="models:SourceViewerViewModel"
-             Title="Source Viewer">
-    <Grid Padding="10">
-        <CollectionView ItemsSource="{Binding Items}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:ContentItemModel">
-                    <Frame Padding="10">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PlayCommand}"/>
-                        </Frame.GestureRecognizers>
-                        <Label Text="{Binding Name}"/>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
+             Title="Source Viewer" Padding="10">
+    <Grid RowDefinitions="Auto,*" RowSpacing="10">
+        <Frame Grid.Row="0" Padding="10" BackgroundColor="{DynamicResource Theme2}">
+            <Label Text="{Binding Title}" FontSize="Title"/>
+        </Frame>
+        <Frame Grid.Row="1" Padding="10" BackgroundColor="{DynamicResource Theme2}">
+            <Grid>
+                <CollectionView ItemsSource="{Binding Items}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ContentItemModel">
+                            <Frame Padding="10" BackgroundColor="{DynamicResource Theme3}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PlayCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding Name}"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Grid>
+                            <Label Text="No results found."
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+                <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

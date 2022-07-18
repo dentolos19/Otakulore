@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using AniListNet;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -42,7 +43,10 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         IsLoading = true;
         var results = await _client.SearchMediaAsync(Query);
         if (results.Data is not { Length: > 0 })
+        {
+            IsLoading = false;
             return;
+        }
         _accumulationQuery = Query;
         _currentPageIndex = results.CurrentPageIndex;
         _hasNextPage = results.HasNextPage;
@@ -61,6 +65,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         if (results.Data is not { Length: > 0 })
         {
             _hasNextPage = false;
+            IsLoading = false;
             return;
         }
         _hasNextPage = results.HasNextPage;

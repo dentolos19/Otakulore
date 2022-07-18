@@ -19,7 +19,7 @@ public partial class SettingsViewModel : ObservableObject
     {
         _settings = settingsService;
         Credits = resourceService.Credits;
-        foreach (var provider in variableService.Providers)
+        foreach (var provider in variableService.ContentProviders)
             Providers.Add(new ProviderItemModel(provider));
         ThemeIndex = _settings.ThemeIndex;
     }
@@ -30,7 +30,7 @@ public partial class SettingsViewModel : ObservableObject
         if (_settings.ThemeIndex != ThemeIndex)
         {
             _settings.ThemeIndex = ThemeIndex;
-            await Toast.Make("Please restart this app to take effect.").Show();
+            await Toast.Make("Restart this app to take effect.").Show();
         }
     }
 
