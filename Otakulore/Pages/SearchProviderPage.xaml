@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchProviderPage"
              x:DataType="models:SearchProviderViewModel"
              Title="Search Provider" Padding="10">
-    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
-        <SearchBar Grid.Row="0"
-                   Text="{Binding Query, Mode=TwoWay}"
-                   SearchCommand="{Binding SearchCommand}"/>
-        <Picker Grid.Row="1"
-                ItemsSource="{Binding Providers}"
-                ItemDisplayBinding="{Binding Name}"
-                SelectedItem="{Binding SelectedProvider, Mode=TwoWay}"/>
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Items}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:SourceItemModel">
-                    <Frame Padding="10">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                        </Frame.GestureRecognizers>
-                        <Label Text="{Binding Name}"/>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
+    <Grid RowDefinitions="Auto,*" RowSpacing="10">
+        <Frame Grid.Row="0" Padding="10">
+            <VerticalStackLayout Spacing="5">
+                <SearchBar Text="{Binding Query, Mode=TwoWay}"
+                           SearchCommand="{Binding SearchCommand}"/>
                 <Grid>
-                    <ActivityIndicator IsRunning="{Binding IsLoading}"
-                                       IsVisible="{Binding IsLoading}"/>
-                    <Label Text="No results found."
-                           IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
+                    <Label Text="Provider" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Picker ItemsSource="{Binding Providers}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedProvider, Mode=TwoWay}"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center">
+                        <Picker.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SearchCommand}"/>
+                        </Picker.Behaviors>
+                    </Picker>
                 </Grid>
-            </CollectionView.EmptyView>
-        </CollectionView>
+            </VerticalStackLayout>
+        </Frame>
+        <Frame Grid.Row="1" Padding="10">
+            <Grid>
+                <CollectionView ItemsSource="{Binding Items}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SourceItemModel">
+                            <Frame Padding="10" BackgroundColor="{DynamicResource Theme3}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding Name}"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Grid>
+                            <Label Text="No results found."
+                                   IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+                <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

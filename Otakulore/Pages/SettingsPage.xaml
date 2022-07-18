@@ -11,8 +11,12 @@
                 <VerticalStackLayout Spacing="5">
                     <Label Text="General" FontAttributes="Bold"/>
                     <Grid>
-                        <Label Text="Theme" HorizontalOptions="Start" VerticalOptions="Center"/>
-                        <Picker SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}" HorizontalOptions="End">
+                        <Label Text="Theme"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"/>
+                        <Picker SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center">
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UpdateCommand}"/>
                             </Picker.Behaviors>

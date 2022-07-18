@@ -1,6 +1,6 @@
 ﻿Thank you for using my app!
 
-Please note that this build may be unstable.
+Please note that this app does not host advertisements! Providers sends you to third-party websites that enables you to watch or read content, but they may contain advertisements.
 
 This app is developed and running thanks to...
 - AniList & AniChart (the services providing you with the extensive library of Anime & Manga)
