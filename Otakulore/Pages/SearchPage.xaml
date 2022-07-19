@@ -6,40 +6,44 @@
              x:DataType="models:SearchViewModel"
              Title="Search" Padding="10">
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
-        <SearchBar Grid.Row="0"
-                   Text="{Binding Query, Mode=TwoWay}"
-                   SearchCommand="{Binding SearchCommand}"/>
-        <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Items}"
-                        RemainingItemsThreshold="1"
-                        RemainingItemsThresholdReachedCommand="{Binding AccumulateCommand}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:MediaItemModel">
-                    <Frame BackgroundColor="{DynamicResource Theme2}">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                        </Frame.GestureRecognizers>
-                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
-                            <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Title}" FontSize="Title"/>
-                                <Label Text="{Binding Tag}"/>
-                            </VerticalStackLayout>
+        <Frame Grid.Row="0" Padding="10" BackgroundColor="{DynamicResource Theme2}">
+            <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+        </Frame>
+        <Frame Grid.Row="1" Padding="10" BackgroundColor="{DynamicResource Theme2}">
+            <Grid>
+                <CollectionView Grid.Row="1"
+                                ItemsSource="{Binding Items}"
+                                RemainingItemsThreshold="1"
+                                RemainingItemsThresholdReachedCommand="{Binding AccumulateCommand}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:MediaItemModel">
+                            <Frame BackgroundColor="{DynamicResource Theme3}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
+                                    <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Title}" FontSize="Title"/>
+                                        <Label Text="{Binding Tag}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Grid>
+                            <Label Text="No results found."
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
                         </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <Grid>
-                    <Label Text="No results found."
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
-                </Grid>
-            </CollectionView.EmptyView>
-        </CollectionView>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+                <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

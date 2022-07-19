@@ -45,6 +45,40 @@
                 </Frame>
                 <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
                     <VerticalStackLayout Spacing="10">
+                        <Label Text="Genres" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding Genres}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <Frame Padding="5" BackgroundColor="{DynamicResource Theme3}">
+                                        <Label Text="{Binding}"/>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Tags" FontAttributes="Bold"/>
+                        <CollectionView ItemsSource="{Binding Tags}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <Frame Padding="5" BackgroundColor="{DynamicResource Theme3}">
+                                        <Label Text="{Binding}"/>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Padding="10" BackgroundColor="{DynamicResource Theme2}">
+                    <VerticalStackLayout Spacing="10">
                         <Button Text="Play" Command="{Binding PlayCommand}"/>
                         <Button Text="Track" Command="{Binding TrackCommand}"/>
                     </VerticalStackLayout>

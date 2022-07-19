@@ -35,14 +35,12 @@ jobs:
           [IO.File]::WriteAllBytes("certificate.pfx", $bytes)
           $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText -Force
           Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
-      - name: Restore Dependencies
-        run: dotnet restore
       - name: Publish Project (Windows)
-        run: dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release
+        run: dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release --output build/windows/
       - name: Create Package (Windows)
         uses: vimtor/action-zip@v1
         with:
-          files: Otakulore/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/Otakulore_1.0.0.1_Test/
+          files: Otakulore/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/Otakulore_1.0.0.1_Test/ # this is too specific
           dest: ${{ github.event.repository.name }}-windows.zip
       - name: Publish Project (Android)
         run: dotnet publish --framework net6.0-android --configuration Release --output build/android/
@@ -51,7 +49,6 @@ jobs:
         with:
           files: build/android/
           dest: ${{ github.event.repository.name }}-android.zip
-
       - name: Delete Existing Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:
@@ -62,7 +59,7 @@ jobs:
       - name: Deploy Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ github.event.repository.name }}-windows.zip ${{ github.event.repository.name }}-android.zip
+          artifacts: "${{ github.event.repository.name }}-windows.zip,${{ github.event.repository.name }}-android.zip"
           prerelease: true
           tag: ${{ env.RELEASE_TAG }}
           commit: main

@@ -61,6 +61,14 @@
         <Setter Property="BackgroundColor" Value="{DynamicResource Theme1}"/>
     </Style>
 
+    <Style TargetType="TabbedPage">
+        <Setter Property="BarTextColor" Value="{DynamicResource ForegroundColor}"/>
+        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}"/>
+        <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"/>
+        <Setter Property="BackgroundColor" Value="{DynamicResource Theme1}"/>
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource Theme1}"/>
+    </Style>
+
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
         <Setter Property="Shell.BackgroundColor" Value="{DynamicResource Theme2}"/>
         <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource Theme2}"/>
@@ -377,13 +385,6 @@
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}"/>
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}"/>
         <Setter Property="IconColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}"/>
-    </Style>
-
-    <Style TargetType="TabbedPage">
-        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"/>
-        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
-        <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"/>
-        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}"/>
     </Style>
 
 </ResourceDictionary>

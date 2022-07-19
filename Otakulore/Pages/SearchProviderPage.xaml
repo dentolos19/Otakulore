@@ -9,8 +9,7 @@
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10" BackgroundColor="{DynamicResource Theme2}">
             <VerticalStackLayout Spacing="5">
-                <SearchBar Text="{Binding Query, Mode=TwoWay}"
-                           SearchCommand="{Binding SearchCommand}"/>
+                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
                 <Grid>
                     <Label Text="Provider" HorizontalOptions="Start" VerticalOptions="Center"/>
                     <Picker ItemsSource="{Binding Providers}"

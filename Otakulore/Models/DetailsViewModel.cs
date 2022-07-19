@@ -21,6 +21,8 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string _contentLabel;
     [ObservableProperty] private string _startDate;
     [ObservableProperty] private string _endDate;
+    [ObservableProperty] private string[] _genres;
+    [ObservableProperty] private string[] _tags;
     [ObservableProperty] private bool _isLoading = true;
 
     public DetailsViewModel(AniClient client)
@@ -34,24 +36,27 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
             return;
         if (query["id"] is not int id)
             return;
-        var data = await _client.GetMediaAsync(id);
-        ImageUrl = data.Cover.ExtraLargeImageUrl;
-        Title = data.Title.PreferredTitle;
-        Subtitle = data.Type == MediaType.Anime && data.Season.HasValue && data.SeasonYear.HasValue
-            ? $"{data.Season} {data.SeasonYear}"
-            : data.StartDate.Year.HasValue
-                ? data.StartDate.Year.Value.ToString()
-                : data.Type.ToString();
-        Description = data.Description ?? "No description provided.";
-        Format = data.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
-        Content = data.Episodes.HasValue
-            ? data.Episodes.Value.ToString()
-            : data.Chapters.HasValue
-                ? data.Chapters.Value.ToString()
+        var media = await _client.GetMediaAsync(id);
+        ImageUrl = media.Cover.ExtraLargeImageUrl;
+        Title = media.Title.PreferredTitle;
+        Subtitle = media.Type == MediaType.Anime && media.Season.HasValue && media.SeasonYear.HasValue
+            ? $"{media.Season} {media.SeasonYear}"
+            : media.StartDate.Year.HasValue
+                ? media.StartDate.Year.Value.ToString()
+                : media.Type.ToString();
+        Description = media.Description ?? "No description provided.";
+        Format = media.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
+        Content = media.Episodes.HasValue
+            ? media.Episodes.Value.ToString()
+            : media.Chapters.HasValue
+                ? media.Chapters.Value.ToString()
                 : "Unknown";
-        ContentLabel = data.Type == MediaType.Anime ? "Episodes" : "Chapters";
-        StartDate = data.StartDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
-        EndDate = data.EndDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
+        ContentLabel = media.Type == MediaType.Anime ? "Episodes" : "Chapters";
+        StartDate = media.StartDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
+        EndDate = media.EndDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
+        Genres = media.Genres;
+        var tags = await _client.GetMediaTagsAsync(id);
+        Tags = tags.Select(item => item.Name).ToArray();
         IsLoading = false;
     }
 
