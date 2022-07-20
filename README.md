@@ -6,11 +6,11 @@ An app for tracking, watching and reading all about anime and manga!
 
 ## Usage
 
-1. Download the respective builds from the [releases page](release)
+1. Download the respective builds from the [releases page](https://github.com/dentolos19/Otakulore/releases)
 2. Extract *all* the files inside the zip file
-3. Follow the steps according to your current operating system
+3. Follow the steps below according to your current operating system
   - For **Windows** users,
-    1. Install the certificate file (`.cef`) to trust the author ([me](..))
+    1. Install the certificate file (`.cer`) to trust the author ([me](https://github.com/dentolos19))
       - Must sure you install it inside your `Local Machine`
       - It must be placed inside `Trusted People` of the certificate store
       - Learn more from this [documentation](https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview#installing-the-app)

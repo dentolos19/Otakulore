@@ -7,9 +7,11 @@
              x:DataType="models:SearchProviderViewModel"
              Title="Search Provider" Padding="10">
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
-        <Frame Grid.Row="0" Padding="10" BackgroundColor="{DynamicResource Theme2}">
+        <Frame Grid.Row="0" Padding="10">
             <VerticalStackLayout Spacing="5">
-                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+                <SearchBar Placeholder="Search"
+                           Text="{Binding Query, Mode=TwoWay}"
+                           SearchCommand="{Binding SearchCommand}"/>
                 <Grid>
                     <Label Text="Provider" HorizontalOptions="Start" VerticalOptions="Center"/>
                     <Picker ItemsSource="{Binding Providers}"
@@ -24,7 +26,7 @@
                 </Grid>
             </VerticalStackLayout>
         </Frame>
-        <Frame Grid.Row="1" Padding="10" BackgroundColor="{DynamicResource Theme2}">
+        <Frame Grid.Row="1" Padding="10">
             <Grid>
                 <CollectionView ItemsSource="{Binding Items}">
                     <CollectionView.ItemsLayout>
@@ -41,11 +43,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>
-                        <Grid>
-                            <Label Text="No results found."
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
-                        </Grid>
+                        <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
                     </CollectionView.EmptyView>
                 </CollectionView>
                 <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>

@@ -9,16 +9,20 @@ public class ResourceService
     {
         var task = Task.Run(async () =>
         {
-            await using var creditsStream = await FileSystem.OpenAppPackageFileAsync("Credits.txt");
-            using var reader = new StreamReader(creditsStream);
             return new ResourceService
             {
-                Credits = await reader.ReadToEndAsync()
+                Credits = await GetStringResource("Credits.txt")
             };
         });
         task.Wait();
         return task.Result;
+    }
 
+    private static async Task<string> GetStringResource(string name)
+    {
+        await using var stream = await FileSystem.OpenAppPackageFileAsync(name);
+        using var reader = new StreamReader(stream);
+        return await reader.ReadToEndAsync();
     }
 
 }

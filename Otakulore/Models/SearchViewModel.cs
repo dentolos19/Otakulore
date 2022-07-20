@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using AniListNet;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -72,6 +72,12 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         foreach (var item in results.Data)
             Items.Add(new MediaItemModel(item));
         IsLoading = false;
+    }
+
+    [ICommand]
+    private async Task Filter()
+    {
+        await Toast.Make("This feature is not implemented yet!").Show();
     }
 
 }

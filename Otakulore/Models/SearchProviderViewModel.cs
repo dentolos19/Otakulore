@@ -17,7 +17,7 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
 
     public SearchProviderViewModel(VariableService variableService)
     {
-        foreach (var provider in variableService.ContentProviders)
+        foreach (var provider in variableService.Providers)
             Providers.Add(new ProviderItemModel(provider));
         SelectedProvider = Providers.First();
     }

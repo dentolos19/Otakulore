@@ -5,15 +5,14 @@ namespace Otakulore.Services;
 
 public class VariableService
 {
-
-    public IList<ResourceDictionary> InitialDictionaries { get; } = new List<ResourceDictionary>();
-    public IList<IProvider> ContentProviders { get; } = new List<IProvider>();
+    
+    public IList<IProvider> Providers { get; } = new List<IProvider>();
 
     public static VariableService Initialize()
     {
         var service = new VariableService();
-        service.ContentProviders.Add(new GogoanimeProvider());
-        service.ContentProviders.Add(new ManganatoProvider());
+        service.Providers.Add(new GogoanimeProvider());
+        service.Providers.Add(new ManganatoProvider());
         return service;
     }
 

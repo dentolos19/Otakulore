@@ -8,5 +8,6 @@
     <FontImageSource x:Key="HomeGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE80F;"/>
     <FontImageSource x:Key="SettingsGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE713;"/>
     <FontImageSource x:Key="BackGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE72B;"/>
+    <FontImageSource x:Key="FilterGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE71C;"/>
 
 </ResourceDictionary>

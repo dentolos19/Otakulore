@@ -19,7 +19,7 @@ public partial class SettingsViewModel : ObservableObject
     {
         _settings = settingsService;
         Credits = resourceService.Credits;
-        foreach (var provider in variableService.ContentProviders)
+        foreach (var provider in variableService.Providers)
             Providers.Add(new ProviderItemModel(provider));
         ThemeIndex = _settings.ThemeIndex;
     }
