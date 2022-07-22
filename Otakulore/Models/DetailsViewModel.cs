@@ -12,6 +12,8 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
 
     private readonly AniClient _client;
 
+    private bool _queryApplied;
+
     [ObservableProperty] private Uri _imageUrl;
     [ObservableProperty] private string _title;
     [ObservableProperty] private string _subtitle;
@@ -32,6 +34,9 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (_queryApplied)
+            return;
+        _queryApplied = true;
         if (!query.ContainsKey("id"))
             return;
         if (query["id"] is not int id)

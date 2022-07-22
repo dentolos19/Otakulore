@@ -5,9 +5,35 @@
        x:Class="Otakulore.AppShell"
        Title="Otakulore">
     <FlyoutItem Title="Home" Icon="{StaticResource HomeGlyph}">
-        <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
+        <ShellContent>
+            <pages:HomePage/>
+        </ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Seasonal" Icon="{StaticResource CalendarGlyph}">
+        <Tab Title="Winter" Icon="winter.png">
+            <ShellContent>
+                <pages:SeasonalPage Season="Winter"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Spring" Icon="spring.png">
+            <ShellContent>
+                <pages:SeasonalPage Season="Spring"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Summer" Icon="summer.png">
+            <ShellContent>
+                <pages:SeasonalPage Season="Summer"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Fall" Icon="fall.png">
+            <ShellContent>
+                <pages:SeasonalPage Season="Fall"/>
+            </ShellContent>
+        </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Settings" Icon="{StaticResource SettingsGlyph}">
-        <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}"/>
+        <ShellContent>
+            <pages:SettingsPage/>
+        </ShellContent>
     </FlyoutItem>
 </Shell>

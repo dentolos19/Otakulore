@@ -8,7 +8,9 @@ namespace Otakulore.Models;
 
 public partial class SearchProviderViewModel : ObservableObject, IQueryAttributable
 {
-    
+
+    private bool _queryApplied;
+
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private string _query;
     [ObservableProperty] private ProviderItemModel _selectedProvider;
@@ -24,6 +26,9 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (_queryApplied)
+            return;
+        _queryApplied = true;
         if (query.ContainsKey("provider") && query["provider"] is IProvider provider)
             SelectedProvider = Providers.FirstOrDefault(item => item.Provider == provider) ?? SelectedProvider;
         if (!query.ContainsKey("query") || query["query"] is not string searchQuery)

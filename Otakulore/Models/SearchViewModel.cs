@@ -11,12 +11,13 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
 
     private readonly AniClient _client;
 
+    private bool _queryApplied;
     private string _accumulationQuery;
     private int _currentPageIndex;
     private bool _hasNextPage;
 
-    [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private string _query;
+    [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
     public SearchViewModel(AniClient client)
@@ -26,6 +27,9 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (_queryApplied)
+            return;
+        _queryApplied = true;
         if (!query.ContainsKey("query"))
             return;
         if (query["query"] is not string searchQuery)

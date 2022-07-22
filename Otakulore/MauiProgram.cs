@@ -29,6 +29,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<HomeViewModel>();
         builder.Services.AddSingleton<SettingsViewModel>();
         builder.Services.AddSingleton<SearchViewModel>();
+        builder.Services.AddTransient<SeasonalViewModel>();
         builder.Services.AddTransient<DetailsViewModel>();
         builder.Services.AddTransient<SearchProviderViewModel>();
         builder.Services.AddTransient<SourceViewerViewModel>();
