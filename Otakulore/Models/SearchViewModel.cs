@@ -14,7 +14,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     private readonly AniClient _client;
 
     private bool _queryApplied;
-    private SearchMediaFilter _accumulationFilter;
+    private SearchMediaFilter _accumulationFilter = new();
     private int _currentPageIndex;
     private bool _hasNextPage;
 
@@ -37,11 +37,14 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         if (_queryApplied)
             return;
         _queryApplied = true;
-        if (!query.ContainsKey("query"))
+        if (!query.ContainsKey("filter"))
             return;
-        if (query["query"] is not string searchQuery)
+        if (query["filter"] is not SearchMediaFilter filter)
             return;
-        Query = searchQuery;
+        _accumulationFilter = filter;
+        if (!string.IsNullOrEmpty(filter.Query))
+            Query = _accumulationFilter.Query;
+        SelectedSort = _accumulationFilter.Sort;
         await Search();
     }
 
@@ -52,7 +55,8 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
             return;
         Items.Clear();
         IsLoading = true;
-        _accumulationFilter = new SearchMediaFilter { Query = Query, Sort = SelectedSort };
+        _accumulationFilter.Query = Query;
+        _accumulationFilter.Sort = SelectedSort;
         var results = await _client.SearchMediaAsync(_accumulationFilter);
         if (results.Data is not { Length: > 0 })
         {
@@ -88,7 +92,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private async Task Filter()
     {
-        await Toast.Make("This feature is not implemented yet!").Show();
+        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement feature
     }
 
 }

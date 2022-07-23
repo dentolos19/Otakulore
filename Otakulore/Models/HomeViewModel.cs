@@ -51,7 +51,7 @@ public partial class HomeViewModel : ObservableObject
             typeof(SearchPage),
             new Dictionary<string, object>
             {
-                { "query", query }
+                { "filter", new SearchMediaFilter { Query = query } }
             }
         );
     }
@@ -59,19 +59,37 @@ public partial class HomeViewModel : ObservableObject
     [ICommand]
     private Task SeeMoreTrending()
     {
-        return Task.CompletedTask; // TODO
+        return MauiHelper.NavigateTo(
+            typeof(SearchPage),
+            new Dictionary<string, object>
+            {
+                { "filter", new SearchMediaFilter { Sort = MediaSort.Trending } }
+            }
+        );
     }
 
     [ICommand]
     private Task SeeMoreFavorite()
     {
-        return Task.CompletedTask; // TODO
+        return MauiHelper.NavigateTo(
+            typeof(SearchPage),
+            new Dictionary<string, object>
+            {
+                { "filter", new SearchMediaFilter { Sort = MediaSort.Favorites } }
+            }
+        );
     }
 
     [ICommand]
     private Task SeeMorePopular()
     {
-        return Task.CompletedTask; // TODO
+        return MauiHelper.NavigateTo(
+            typeof(SearchPage),
+            new Dictionary<string, object>
+            {
+                { "filter", new SearchMediaFilter { Sort = MediaSort.Popularity } }
+            }
+        );
     }
 
 }

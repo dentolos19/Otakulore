@@ -30,6 +30,10 @@
                             <Label HorizontalOptions="End" Text="{Binding Format}"/>
                         </Grid>
                         <Grid>
+                            <Label HorizontalOptions="Start" Text="Status" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding Status}"/>
+                        </Grid>
+                        <Grid>
                             <Label HorizontalOptions="Start" Text="{Binding ContentLabel}" FontAttributes="Bold"/>
                             <Label HorizontalOptions="End" Text="{Binding Content}"/>
                         </Grid>
@@ -42,6 +46,22 @@
                             <Label HorizontalOptions="End" Text="{Binding EndDate}"/>
                         </Grid>
                     </VerticalStackLayout>
+                </Frame>
+                <Frame Padding="10">
+                    <Grid ColumnDefinitions="*,*,*">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="{Binding Popularity}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="Popularity"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="{Binding Score}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="Score"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label Text="{Binding Favorites}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="Favorites"/>
+                        </VerticalStackLayout>
+                    </Grid>
                 </Frame>
                 <Frame Padding="10">
                     <VerticalStackLayout Spacing="10">

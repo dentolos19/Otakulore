@@ -2,8 +2,6 @@
 
 An app for tracking, watching and reading all about anime and manga!
 
-> **Note**: This project is currently being rewritten from scratch with [.NET MAUI](https://github.com/dotnet/maui)! Beware, the commitly releases may be very buggy!
-
 ## Usage
 
 1. Download the respective builds from the [releases page](https://github.com/dentolos19/Otakulore/releases)
@@ -44,3 +42,6 @@ An app for tracking, watching and reading all about anime and manga!
 ![](.github/miscellaneous/preview2.png)
 ![](.github/miscellaneous/preview3.png)
 ![](.github/miscellaneous/preview4.png)
+![](.github/miscellaneous/preview5.png)
+![](.github/miscellaneous/preview6.png)
+![](.github/miscellaneous/preview7.png)
