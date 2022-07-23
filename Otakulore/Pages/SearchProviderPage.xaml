@@ -13,7 +13,7 @@
                            Text="{Binding Query, Mode=TwoWay}"
                            SearchCommand="{Binding SearchCommand}"/>
                 <Grid>
-                    <Label Text="Provider" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Provider" VerticalOptions="Center"/>
                     <Picker ItemsSource="{Binding Providers}"
                             ItemDisplayBinding="{Binding Name}"
                             SelectedItem="{Binding SelectedProvider, Mode=TwoWay}"

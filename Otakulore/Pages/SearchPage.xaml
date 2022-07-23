@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchPage"
              x:DataType="models:SearchViewModel"
              Title="Search" Padding="10">
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10">
-            <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+            <VerticalStackLayout Spacing="5">
+                <SearchBar Placeholder="Search"
+                           Text="{Binding Query, Mode=TwoWay}"
+                           SearchCommand="{Binding SearchCommand}"/>
+                <Grid>
+                    <Label Text="Sort" VerticalOptions="Center"/>
+                    <Picker ItemsSource="{Binding Sorts}"
+                            SelectedItem="{Binding SelectedSort, Mode=TwoWay}"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center">
+                        <Picker.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SearchCommand}"/>
+                        </Picker.Behaviors>
+                    </Picker>
+                </Grid>
+            </VerticalStackLayout>
         </Frame>
         <Frame Grid.Row="1" Padding="10">
             <Grid>
@@ -37,13 +53,12 @@
                         <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
                     </CollectionView.EmptyView>
                 </CollectionView>
-                <ImageButton Source="{StaticResource FilterGlyph}"
-                             Style="{StaticResource CircleImageButtonStyle}"
-                             BackgroundColor="{StaticResource Theme4}"
-                             Command="{Binding FilterCommand}"
-                             Padding="10"
-                             HorizontalOptions="End"
-                             VerticalOptions="End"/>
+                <Button Text="Filter"
+                        Margin="10"
+                        BackgroundColor="{DynamicResource Theme4}"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Command="{Binding FilterCommand}"/>
                 <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
             </Grid>
         </Frame>

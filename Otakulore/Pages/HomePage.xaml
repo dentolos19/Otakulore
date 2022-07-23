@@ -28,41 +28,59 @@
         <VerticalStackLayout Spacing="10">
             <Frame Padding="10">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="🎇 Trending Now" FontSize="Medium"/>
-                    <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.EmptyView>
-                            <ActivityIndicator IsRunning="True"/>
-                        </CollectionView.EmptyView>
-                    </CollectionView>
+                    <Grid>
+                        <Label Text="🎇 Trending Now" FontSize="Medium" VerticalOptions="Center"/>
+                        <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMoreTrendingCommand}"/>
+                    </Grid>
+                    <Grid>
+                        <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.EmptyView>
+                                <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                        <ActivityIndicator IsRunning="{Binding IsTrendingLoading}"/>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
             <Frame Padding="10">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="❤️ Highly Beloved" FontSize="Medium"/>
-                    <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.EmptyView>
-                            <ActivityIndicator IsRunning="True"/>
-                        </CollectionView.EmptyView>
-                    </CollectionView>
+                    <Grid>
+                        <Label Text="❤️ Highly Beloved" FontSize="Medium" VerticalOptions="Center"/>
+                        <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMoreFavoriteCommand}"/>
+                    </Grid>
+                    <Grid>
+                        <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.EmptyView>
+                                <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                        <ActivityIndicator IsRunning="{Binding IsFavoriteLoading}"/>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
             <Frame Padding="10">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="🌟 Most Popular" FontSize="Medium"/>
-                    <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.EmptyView>
-                            <ActivityIndicator IsRunning="True"/>
-                        </CollectionView.EmptyView>
-                    </CollectionView>
+                    <Grid>
+                        <Label Text="🌟 Most Popular" FontSize="Medium" VerticalOptions="Center"/>
+                        <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMorePopularCommand}"/>
+                    </Grid>
+                    <Grid>
+                        <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.EmptyView>
+                                <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                        <ActivityIndicator IsRunning="{Binding IsPopularLoading}"/>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
         </VerticalStackLayout>

@@ -1,7 +1,31 @@
-﻿namespace Otakulore;
+﻿using Otakulore.Models;
+using Otakulore.Services;
+
+namespace Otakulore;
 
 public static class MauiHelper
 {
+
+    public static MauiAppBuilder SetupServices(this MauiAppBuilder builder)
+    {
+        builder.Services.AddSingleton(ResourceService.Initialize());
+        builder.Services.AddSingleton(SettingsService.Initialize());
+        builder.Services.AddSingleton(VariableService.Initialize());
+        return builder;
+    }
+
+    public static MauiAppBuilder SetupViewModels(this MauiAppBuilder builder)
+    {
+        builder.Services.AddTransient<ContentViewerViewModel>();
+        builder.Services.AddTransient<DetailsViewModel>();
+        builder.Services.AddSingleton<HomeViewModel>();
+        builder.Services.AddTransient<SearchProviderViewModel>();
+        builder.Services.AddSingleton<SearchViewModel>();
+        builder.Services.AddTransient<SeasonalViewModel>();
+        builder.Services.AddSingleton<SettingsViewModel>();
+        builder.Services.AddTransient<SourceViewerViewModel>();
+        return builder;
+    }
 
     public static TService? GetService<TService>()
     {

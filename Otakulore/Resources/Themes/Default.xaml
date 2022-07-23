@@ -4,7 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="Otakulore.Resources.Themes.Default">
 
-    <x:String x:Key="FontFamily">OpenSans</x:String>
+    <x:String x:Key="FontFamily">Poppins</x:String>
     <Color x:Key="ForegroundColor">White</Color>
     <Color x:Key="Theme1">#212129</Color>
     <Color x:Key="Theme2">#323949</Color>
