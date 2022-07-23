@@ -5,7 +5,7 @@ on:
       - Otakulore/**
   workflow_dispatch:
 env:
-   RELEASE_TAG: Commitly
+  RELEASE_TAG: Commitly
 jobs:
   main:
     runs-on: windows-latest
@@ -36,15 +36,15 @@ jobs:
           $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText -Force
           Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
       - name: Publish Project
-        run: .github/miscellaneous/publish.ps1
-        shell: pwsh
-        env:
-          projectName: ${{ github.event.repository.name }}
-          projectBuild: ${{ github.run_number }}
-          windowsTargetFramework: net6.0-windows10.0.19041.0
-          windowsOutputFile: ${{ github.event.repository.name }}-windows.zip
-          androidTargetFramework: net6.0-android
-          androidOutputFile: ${{ github.event.repository.name }}-android.zip
+        run: |
+          dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }}
+          dotnet publish --framework net6.0-android --configuration Release -property:ApplicationVersion=${{ github.run_number }}
+      - name: Package Artifacts
+        run: |
+          $windowsArtifacts = (Get-ChildItem -Recurse -Path Otakulore/bin/Release/net*-windows*/**/AppPackages/* -Filter *.msix -Exclude *WindowsAppRuntime*.msix).FullName
+          $androidArtifacts = (Get-ChildItem -Recurse -Path Otakulore/bin/Release/net*-android -Filter *.apk).FullName
+          Compress-Archive -Path $windowsArtifacts -DestinationPath ${{ github.event.repository.name }}-windows.zip
+          Compress-Archive -Path $androidArtifacts -DestinationPath ${{ github.event.repository.name }}-android.zip
       - name: Delete Existing Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:

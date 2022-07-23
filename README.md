@@ -32,11 +32,11 @@ An app for tracking, watching and reading all about anime and manga!
 
 > **Note**: These previews were taken on the commitly release! So these will not mostly represent the final product.
 
-![](.github/miscellaneous/preview0.png)
-![](.github/miscellaneous/preview1.png)
-![](.github/miscellaneous/preview2.png)
-![](.github/miscellaneous/preview3.png)
-![](.github/miscellaneous/preview4.png)
-![](.github/miscellaneous/preview5.png)
-![](.github/miscellaneous/preview6.png)
-![](.github/miscellaneous/preview7.png)
+![](.github/images/0.png)
+![](.github/images/1.png)
+![](.github/images/2.png)
+![](.github/images/3.png)
+![](.github/images/4.png)
+![](.github/images/5.png)
+![](.github/images/6.png)
+![](.github/images/7.png)
