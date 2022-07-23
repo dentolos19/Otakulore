@@ -29,7 +29,8 @@ public partial class SettingsViewModel : ObservableObject
         #if ANDROID
         AppVersion = $"{VersionTracking.CurrentVersion} ({VersionTracking.CurrentBuild})";
         #else
-        AppVersion = $"{VersionTracking.CurrentVersion.Remove(VersionTracking.CurrentVersion.Length - 2)} ({VersionTracking.CurrentVersion[VersionTracking.CurrentBuild.Length - 1]})";
+        var version = VersionTracking.CurrentVersion;
+        AppVersion = $"{version.Remove(version.LastIndexOf("."))} ({version.Split('.')[3]})";
         #endif
     }
     

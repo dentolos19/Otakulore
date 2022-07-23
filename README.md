@@ -8,16 +8,11 @@ An app for tracking, watching and reading all about anime and manga!
 2. Extract *all* the files inside the zip file
 3. Follow the steps below according to your current operating system
   - For **Windows** users,
-    1. Install the certificate file (`.cer`) to trust the author ([me](https://github.com/dentolos19))
-      - Must sure you install it inside your `Local Machine`
-      - It must be placed inside `Trusted People` of the certificate store
-      - Learn more from this [documentation](https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview#installing-the-app)
-    2. Install the application (`.msix`)
-    3. Done!
+    1. Follow this [documentation](https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview#installing-the-app) for installation
+    2. Done!
   - For **Android** users,
-    1. Make sure the app that you are using to install this app is able to install unknown apps (e.g. File Manager)
-    2. Install the only `.apk` file
-    3. Done!
+    1. Install the `.apk` file
+    2. Done!
 
 ## Features
 
