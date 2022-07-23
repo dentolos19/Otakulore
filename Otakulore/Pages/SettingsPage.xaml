@@ -54,6 +54,18 @@
                     <Label Text="{Binding Credits}"/>
                 </VerticalStackLayout>
             </Frame>
+            <Frame Padding="10">
+                <Grid ColumnDefinitions="*,*">
+                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                        <Label Text="{Binding AppVersion}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                        <Label Text="App Version"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                        <Label Text="{Binding RateRemaining}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                        <Label Text="Rate Remaining"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

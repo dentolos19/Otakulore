@@ -38,6 +38,13 @@ jobs:
       - name: Publish Project
         run: .github/miscellaneous/publish.ps1
         shell: pwsh
+        env:
+          projectName: ${{ github.event.repository.name }}
+          projectBuild: ${{ github.run_number }}
+          windowsTargetFramework: net6.0-windows10.0.19041.0
+          windowsOutputFile: ${{ github.event.repository.name }}-windows.zip
+          androidTargetFramework: net6.0-android
+          androidOutputFile: ${{ github.event.repository.name }}-android.zip
       - name: Delete Existing Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:

@@ -1,12 +1,10 @@
-$projectName = "Otakulore"
-
 Set-Location (Get-Item $PSScriptRoot).Parent.Parent.FullName
 
-dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release --output build/windows
-dotnet publish --framework net6.0-android --configuration Release --output build/android
+dotnet publish --framework $env:windowsTargetFramework --configuration Release -property:ApplicationVersion=$env:projectBuild
+dotnet publish --framework $env:androidTargetFramework --configuration Release -property:ApplicationVersion=$env:projectBuild
 
-$windowsBuild = (Get-ChildItem -Recurse -Path $projectName/bin/Release/net*-windows*/**/AppPackages/* -Filter *.msix -Exclude *WindowsAppRuntime*.msix).FullName
-$androidBuild = (Get-ChildItem -Recurse -Path build/android -Filter *.apk).FullName
+$windowsBuild = (Get-ChildItem -Recurse -Path $env:projectName/bin/Release/net*-windows*/**/AppPackages/* -Filter *.msix -Exclude *WindowsAppRuntime*.msix).FullName
+$androidBuild = (Get-ChildItem -Recurse -Path $env:projectName/bin/Release/net*-android -Filter *.apk).FullName
 
-Compress-Archive -Path $windowsBuild -DestinationPath $projectName-windows.zip
-Compress-Archive -Path $androidBuild -DestinationPath $projectName-android.zip
+Compress-Archive -Path $windowsBuild -CompressionLevel Optimal -DestinationPath $env:windowsOutputFile
+Compress-Archive -Path $androidBuild -CompressionLevel Optimal -DestinationPath $env:androidOutputFile

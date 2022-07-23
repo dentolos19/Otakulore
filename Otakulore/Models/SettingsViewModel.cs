@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using AniListNet;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,17 +14,25 @@ public partial class SettingsViewModel : ObservableObject
 
     [ObservableProperty] private int _themeIndex;
     [ObservableProperty] private string _credits;
+    [ObservableProperty] private string _appVersion;
+    [ObservableProperty] private string _rateRemaining = "Unknown";
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
-    public SettingsViewModel(ResourceService resourceService, SettingsService settingsService, VariableService variableService)
+    public SettingsViewModel(AniClient client, ResourceService resourceService, SettingsService settingsService, VariableService variableService)
     {
-        _settings = settingsService;
-        Credits = resourceService.Credits;
+        client.RateChanged += (_, args) => RateRemaining = args.RateRemaining.ToString();
+            _settings = settingsService;
         foreach (var provider in variableService.Providers)
             Providers.Add(new ProviderItemModel(provider));
         ThemeIndex = _settings.ThemeIndex;
+        Credits = resourceService.Credits;
+        #if ANDROID
+        AppVersion = $"{VersionTracking.CurrentVersion} ({VersionTracking.CurrentBuild})";
+        #else
+        AppVersion = $"{VersionTracking.CurrentVersion.Remove(VersionTracking.CurrentVersion.Length - 2)} ({VersionTracking.CurrentVersion[VersionTracking.CurrentBuild.Length - 1]})";
+        #endif
     }
-
+    
     [ICommand]
     private async Task Update()
     {

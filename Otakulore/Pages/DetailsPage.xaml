@@ -50,15 +50,15 @@
                 <Frame Padding="10">
                     <Grid ColumnDefinitions="*,*,*">
                         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
-                            <Label Text="{Binding Popularity}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Popularity}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
                             <Label Text="Popularity"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                            <Label Text="{Binding Score}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Score}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
                             <Label Text="Score"/>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
-                            <Label Text="{Binding Favorites}" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Favorites}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
                             <Label Text="Favorites"/>
                         </VerticalStackLayout>
                     </Grid>
