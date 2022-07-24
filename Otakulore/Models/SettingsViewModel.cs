@@ -30,7 +30,11 @@ public partial class SettingsViewModel : ObservableObject
         AppVersion = $"{VersionTracking.CurrentVersion} ({VersionTracking.CurrentBuild})";
         #else
         var version = VersionTracking.CurrentVersion;
-        AppVersion = $"{version.Remove(version.LastIndexOf("."))} ({version.Split('.')[3]})";
+        var buildVersion = version.Split('.')[3];
+        #if DEBUG
+        buildVersion = "Debug";
+        #endif
+        AppVersion = $"{version.Remove(version.LastIndexOf("."))} ({buildVersion})";
         #endif
     }
     

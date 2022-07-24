@@ -5,5 +5,7 @@ Please note that this app does not host advertisements! Our content providers se
 This app is developed and running thanks to...
 - .NET MAUI (the framework that is powering this app)
 - AniList & AniChart (the services providing you with the extensive library of Anime & Manga)
+- Gogoanime (Provider for Anime content)
+- Manganato (Provider for Manga content)
 
 Created by Dennise Catolos
