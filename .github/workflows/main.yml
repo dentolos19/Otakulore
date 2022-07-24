@@ -35,9 +35,11 @@ jobs:
           [IO.File]::WriteAllBytes("certificate.pfx", $bytes)
           $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText -Force
           Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
+          $thumbprint = (Get-PfxCertificate -FilePath Certificate.pfx -Password $password).Thumbprint
+          echo "::set-env name=thumbprint::$thumbprint"
       - name: Publish Project
         run: |
-          dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }}
+          dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }} -property:GenerateAppxPackageOnBuild=true -property:AppxPackageSigningEnabled=true -property:PackageCertificateThumbprint=$thumbprint
           dotnet publish --framework net6.0-android --configuration Release -property:ApplicationVersion=${{ github.run_number }}
       - name: Package Artifacts
         run: |

@@ -20,12 +20,6 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="$(TargetFramework.Contains('windows')) and '$(Configuration)' == 'Release'">
-		<GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
-		<AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
-		<PackageCertificateThumbprint>6CE14AF75B217FE5FFEE61968BB0477A5C5F4AE6</PackageCertificateThumbprint>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<MauiIcon Include="Resources\Images\Other\appicon.svg" ForegroundFile="Resources\Images\Other\appiconfg.svg" Color="#512BD4"/>
 		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512BD4" BaseSize="128,128"/>
