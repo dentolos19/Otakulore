@@ -7,7 +7,7 @@ namespace Otakulore.Models;
 public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributable
 {
 
-    [ObservableProperty] private string _url;
+    [ObservableProperty] private Uri? _url;
     [ObservableProperty] private bool _isLoading = true;
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -19,11 +19,15 @@ public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributa
         if (provider is IAnimeProvider animeProvider)
         {
             var hasExtracted = await animeProvider.TryExtractVideoPlayerUrl(content, out var url);
-            Url = hasExtracted ? url.ToString() : content.Data.ToString();
+            Url = new Uri(hasExtracted ? url.ToString() : content.Data.ToString());
+            #if ANDROID
+            Platform.CurrentActivity.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Landscape;
+            #endif
         }
         else
         {
-            Url = content.Data.ToString();
+            Url = new Uri(content.Data.ToString());
         }
         IsLoading = false;
     }
@@ -31,6 +35,11 @@ public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributa
     [ICommand]
     private Task Back()
     {
+        #if ANDROID
+        Platform.CurrentActivity.Window.ClearFlags(WindowManagerFlags.Fullscreen);
+        Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Portrait;
+        #endif
+        Url = new Uri("https://dentolos19.github.io");
         return MauiHelper.NavigateBack();
     }
 

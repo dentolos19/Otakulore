@@ -9,8 +9,8 @@
         <ScrollView Padding="10">
             <VerticalStackLayout Spacing="10">
                 <Frame>
-                    <Grid ColumnDefinitions="Auto,*">
-                        <Image Grid.Column="0" Source="{Binding ImageUrl}" HeightRequest="200"/>
+                    <Grid ColumnDefinitions="150,*">
+                        <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
                         <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
                             <Label Text="{Binding Title}" FontSize="Title"/>
                             <Label Text="{Binding Subtitle}"/>

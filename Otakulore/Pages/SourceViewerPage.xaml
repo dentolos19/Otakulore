@@ -4,7 +4,7 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SourceViewerPage"
              x:DataType="models:SourceViewerViewModel"
-             Title="Source Viewer" Padding="10">
+             Title="Source Viewer" Padding="10" Shell.TabBarIsVisible="False">
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10">
             <Label Text="{Binding Title}" FontSize="Title"/>

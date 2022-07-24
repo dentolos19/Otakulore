@@ -4,10 +4,16 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.ContentViewerPage"
              x:DataType="models:ContentViewerViewModel"
-             Title="Content Viewer" Shell.NavBarIsVisible="False">
+             Title="Content Viewer" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <Grid RowDefinitions="20,Auto,*" ColumnDefinitions="20,Auto,*">
         <WebView Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding Url}"/>
         <ActivityIndicator Grid.RowSpan="3" Grid.ColumnSpan="3" IsRunning="{Binding IsLoading}"/>
-        <ImageButton Grid.Row="1" Grid.Column="1" Source="{StaticResource BackGlyph}" Command="{Binding BackCommand}"/>
+        <ImageButton Grid.Row="1" Grid.Column="1"
+                     Source="{StaticResource BackGlyph}"
+                     IsVisible="{OnPlatform True, WinUI=False}"
+                     Command="{Binding BackCommand}"/>
     </Grid>
 </ContentPage>

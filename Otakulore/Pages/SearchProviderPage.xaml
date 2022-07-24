@@ -5,7 +5,7 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchProviderPage"
              x:DataType="models:SearchProviderViewModel"
-             Title="Search Provider" Padding="10">
+             Title="Search Provider" Padding="10" Shell.TabBarIsVisible="False">
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10">
             <VerticalStackLayout Spacing="5">
