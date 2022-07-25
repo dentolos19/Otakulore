@@ -1,4 +1,5 @@
-﻿using Otakulore.Core;
+﻿using AniListNet;
+using Otakulore.Core;
 using Otakulore.Core.Providers;
 
 namespace Otakulore.Services;
@@ -6,7 +7,8 @@ namespace Otakulore.Services;
 public class VariableService
 {
     
-    public IList<IProvider> Providers { get; } = new List<IProvider>();
+    public AniClient Client { get; set; }
+    public IList<IProvider> Providers { get; set; } = new List<IProvider>();
 
     public static VariableService Initialize()
     {

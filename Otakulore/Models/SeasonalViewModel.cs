@@ -4,13 +4,14 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Services;
 
 namespace Otakulore.Models;
 
 public partial class SeasonalViewModel : ObservableObject
 {
 
-    private readonly AniClient _client;
+    private readonly DataService _data;
 
     private SearchMediaFilter? _accumulationFilter;
     private int _currentPageIndex;
@@ -25,9 +26,9 @@ public partial class SeasonalViewModel : ObservableObject
         set => _accumulationFilter = new SearchMediaFilter { Season = value };
     }
 
-    public SeasonalViewModel(AniClient client)
+    public SeasonalViewModel()
     {
-        _client = client;
+        _data = MauiHelper.GetService<DataService>();
     }
 
     [ICommand]
@@ -36,7 +37,7 @@ public partial class SeasonalViewModel : ObservableObject
         if (IsLoading || !_hasNextPage)
             return;
         IsLoading = true;
-        var results = await _client.SearchMediaAsync(_accumulationFilter, new AniPaginationOptions(++_currentPageIndex));
+        var results = await _data.Client.SearchMediaAsync(_accumulationFilter, new AniPaginationOptions(++_currentPageIndex));
         if (results.Data is not { Length: > 0 })
         {
             _hasNextPage = false;

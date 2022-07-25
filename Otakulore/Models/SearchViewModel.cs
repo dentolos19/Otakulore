@@ -5,13 +5,14 @@ using AniListNet.Parameters;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Services;
 
 namespace Otakulore.Models;
 
 public partial class SearchViewModel : ObservableObject, IQueryAttributable
 {
 
-    private readonly AniClient _client;
+    private readonly DataService _data;
 
     private bool _queryApplied;
     private SearchMediaFilter _accumulationFilter = new();
@@ -24,9 +25,9 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private ObservableCollection<MediaSort> _sorts = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public SearchViewModel(AniClient client)
+    public SearchViewModel()
     {
-        _client = client;
+        _data = MauiHelper.GetService<DataService>();
         var sorts = (MediaSort[])Enum.GetValues(typeof(MediaSort));
         foreach (var sort in sorts)
             Sorts.Add(sort);
@@ -57,7 +58,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         IsLoading = true;
         _accumulationFilter.Query = Query;
         _accumulationFilter.Sort = SelectedSort;
-        var results = await _client.SearchMediaAsync(_accumulationFilter);
+        var results = await _data.Client.SearchMediaAsync(_accumulationFilter);
         if (results.Data is not { Length: > 0 })
         {
             IsLoading = false;
@@ -76,7 +77,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         if (IsLoading || !_hasNextPage)
             return;
         IsLoading = true;
-        var results = await _client.SearchMediaAsync(_accumulationFilter, new AniPaginationOptions(++_currentPageIndex));
+        var results = await _data.Client.SearchMediaAsync(_accumulationFilter, new AniPaginationOptions(++_currentPageIndex));
         if (results.Data is not { Length: > 0 })
         {
             _hasNextPage = false;
@@ -92,7 +93,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private async Task Filter()
     {
-        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement feature
+        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement filtering
     }
 
     [ICommand]

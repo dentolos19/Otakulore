@@ -6,6 +6,24 @@ namespace Otakulore.Services;
 public class SettingsService
 {
 
+    public string? AccessToken
+    {
+        get => GetValue<string>();
+        set => SetValue(value);
+    }
+
+    public string? UserAvatarUrl
+    {
+        get => GetValue<string>();
+        set => SetValue(value);
+    }
+
+    public string? UserName
+    {
+        get => GetValue<string>();
+        set => SetValue(value);
+    }
+
     public int ThemeIndex
     {
         get => GetValue(0);
@@ -29,9 +47,14 @@ public class SettingsService
             : JsonSerializer.Deserialize<TObject>(json);
     }
 
-    private static void SetValue(object value, [CallerMemberName] string propertyName = null!)
+    private static void SetValue(object? value, [CallerMemberName] string propertyName = null!)
     {
-        if (IsStoreableType(value.GetType()))
+        if (value is null)
+        {
+            if (Preferences.Default.ContainsKey(propertyName))
+                Preferences.Default.Remove(propertyName);
+        }
+        else if (IsStoreableType(value.GetType()))
         {
             Preferences.Default.Set(propertyName, value);
         }

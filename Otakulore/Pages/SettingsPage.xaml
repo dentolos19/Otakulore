@@ -4,6 +4,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SettingsPage"
+             x:DataType="models:SettingsViewModel"
              Title="Settings">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
@@ -11,9 +12,7 @@
                 <VerticalStackLayout Spacing="5">
                     <Label Text="General" FontAttributes="Bold"/>
                     <Grid>
-                        <Label Text="Theme"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Center"/>
+                        <Label Text="Theme" VerticalOptions="Center"/>
                         <Picker SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center">
@@ -25,6 +24,16 @@
                                 <x:String>Lavender</x:String>
                             </Picker.Items>
                         </Picker>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="AniList" FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="5">
+                        <Image Grid.Column="0" Source="{Binding AvatarUrl}" HeightRequest="30"/>
+                        <Label Grid.Column="1" Text="{Binding Username}" VerticalOptions="Center"/>
+                        <Button Grid.Column="3" Text="{x:Bind IsLoggedIn ? 'Logout' : 'Login'}" VerticalOptions="Center" Command="{Binding LoginCommand}"/>
                     </Grid>
                 </VerticalStackLayout>
             </Frame>

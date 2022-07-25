@@ -1,5 +1,4 @@
-﻿using AniListNet;
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
 
 namespace Otakulore;
 
@@ -17,9 +16,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans.ttf", "OpenSans");
                 fonts.AddFont("Poppins.ttf", "Poppins");
                 fonts.AddFont("SegoeAssets.ttf", "SegoeAssets");
-            });
-        builder.Services.AddSingleton<AniClient>();
-        builder
+            })
             .SetupServices()
             .SetupViewModels();
         return builder.Build();

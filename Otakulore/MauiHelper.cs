@@ -1,4 +1,5 @@
 ﻿using Otakulore.Models;
+using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore;
@@ -8,6 +9,7 @@ public static class MauiHelper
 
     public static MauiAppBuilder SetupServices(this MauiAppBuilder builder)
     {
+        builder.Services.AddSingleton(DataService.Initialize());
         builder.Services.AddSingleton(ResourceService.Initialize());
         builder.Services.AddSingleton(SettingsService.Initialize());
         builder.Services.AddSingleton(VariableService.Initialize());
@@ -24,7 +26,24 @@ public static class MauiHelper
         builder.Services.AddTransient<SeasonalViewModel>();
         builder.Services.AddSingleton<SettingsViewModel>();
         builder.Services.AddTransient<SourceViewerViewModel>();
+        builder.Services.AddTransient<TrackViewModel>();
         return builder;
+    }
+
+    public static void SetupRoutes()
+    {
+        AddRoute(typeof(ContentViewerPage));
+        AddRoute(typeof(DetailsPage));
+        AddRoute(typeof(LoginPage));
+        AddRoute(typeof(SearchPage));
+        AddRoute(typeof(SearchProviderPage));
+        AddRoute(typeof(SourceViewerPage));
+        AddRoute(typeof(TrackPage));
+    }
+
+    private static void AddRoute(Type type)
+    {
+        Routing.RegisterRoute(type.Name, type);
     }
 
     public static TService? GetService<TService>()
@@ -36,11 +55,6 @@ public static class MauiHelper
         #else
         return default(TService);
         #endif
-    }
-
-    public static void AddRoute(Type type)
-    {
-        Routing.RegisterRoute(type.Name, type);
     }
 
     public static Task NavigateTo(Type type, IDictionary<string, object>? parameters = null)

@@ -5,15 +5,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
 using Otakulore.Pages;
+using Otakulore.Services;
 
 namespace Otakulore.Models;
 
 public partial class DetailsViewModel : ObservableObject, IQueryAttributable
 {
 
-    private readonly AniClient _client;
+    private readonly DataService _data;
 
     private bool _queryApplied;
+    private int _id;
 
     [ObservableProperty] private Uri _imageUrl;
     [ObservableProperty] private string _title;
@@ -32,9 +34,9 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string[] _tags;
     [ObservableProperty] private bool _isLoading = true;
 
-    public DetailsViewModel(AniClient client)
+    public DetailsViewModel()
     {
-        _client = client;
+        _data = MauiHelper.GetService<DataService>();
     }
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -46,7 +48,8 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
             return;
         if (query["id"] is not int id)
             return;
-        var media = await _client.GetMediaAsync(id);
+        _id = id;
+        var media = await _data.Client.GetMediaAsync(_id);
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         Title = media.Title.PreferredTitle;
         Subtitle = media.Type == MediaType.Anime && media.Season.HasValue && media.SeasonYear.HasValue
@@ -69,7 +72,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         Score = media.MeanScore.HasValue ? media.MeanScore.Value + "%" : "Unknown";
         Favorites = media.Favorites.ToString();
         Genres = media.Genres;
-        var tags = await _client.GetMediaTagsAsync(id);
+        var tags = await _data.Client.GetMediaTagsAsync(id);
         Tags = tags.Select(item => item.Name).ToArray();
         IsLoading = false;
     }
@@ -89,7 +92,20 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private async Task Track()
     {
-        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement feature
+        if (_data.Client.IsAuthenticated)
+        {
+            await MauiHelper.NavigateTo(
+                typeof(TrackPage),
+                new Dictionary<string, object>
+                {
+                    { "id", _id }
+                }
+            );
+        }
+        else
+        {
+            await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
+        }
     }
 
 }
