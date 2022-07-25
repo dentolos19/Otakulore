@@ -95,4 +95,11 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement feature
     }
 
+    [ICommand]
+    private async Task Back()
+    {
+        _queryApplied = false;
+        await MauiHelper.NavigateBack();
+    }
+
 }

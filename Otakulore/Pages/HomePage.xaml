@@ -18,14 +18,11 @@
             </Frame>
         </DataTemplate>
     </ContentPage.Resources>
-    <Shell.SearchHandler>
-        <SearchHandler Placeholder="Search"
-                       Query="{Binding Query, Mode=TwoWay}"
-                       Command="{Binding SearchCommand}"
-                       CommandParameter="{Binding Query}"/>
-    </Shell.SearchHandler>
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
+            <Frame Padding="10">
+                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+            </Frame>
             <Frame Padding="10">
                 <VerticalStackLayout Spacing="10">
                     <Grid>

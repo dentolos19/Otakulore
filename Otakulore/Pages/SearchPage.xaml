@@ -6,6 +6,9 @@
              x:Class="Otakulore.Pages.SearchPage"
              x:DataType="models:SearchViewModel"
              Title="Search" Padding="10">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10">
             <VerticalStackLayout Spacing="5">
