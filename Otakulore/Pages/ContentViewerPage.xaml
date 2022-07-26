@@ -8,12 +8,8 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}"/>
     </Shell.BackButtonBehavior>
-    <Grid RowDefinitions="20,Auto,*" ColumnDefinitions="20,Auto,*">
-        <WebView Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding Url}"/>
-        <ActivityIndicator Grid.RowSpan="3" Grid.ColumnSpan="3" IsRunning="{Binding IsLoading}"/>
-        <ImageButton Grid.Row="1" Grid.Column="1"
-                     Source="{StaticResource BackGlyph}"
-                     IsVisible="{OnPlatform True, WinUI=False}"
-                     Command="{Binding BackCommand}"/>
+    <Grid>
+        <WebView Source="{Binding Url}"/>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

@@ -27,15 +27,26 @@ public partial class LibraryViewModel : ObservableObject
                 return;
             var user = await _data.Client.GetAuthenticatedUserAsync();
             _userId = user.Id;
-            await AccumulateCommand.ExecuteAsync(null);
         }
         else
         {
             _userId = null;
-            _currentPageIndex = 0;
-            _hasNextPage = true;
-            await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
         }
+        await Refresh();
+    }
+
+    [ICommand]
+    private async Task Refresh()
+    {
+        Items.Clear();
+        if (!_userId.HasValue)
+        {
+            await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
+            return;
+        }
+        _currentPageIndex = 0;
+        _hasNextPage = true;
+        await Accumulate();
     }
 
     [ICommand]

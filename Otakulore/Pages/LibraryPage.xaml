@@ -14,7 +14,7 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaEntryItemModel">
-                    <Frame BackgroundColor="{DynamicResource Theme2}">
+                    <Frame>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OpenCommand}"/>
                         </Frame.GestureRecognizers>
@@ -32,6 +32,13 @@
                 <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
         </CollectionView>
-        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+        <Button Text="{StaticResource RefreshGlyph}"
+                FontFamily="{StaticResource GlyphFontFamily}"
+                Background="{DynamicResource Theme3}"
+                Margin="10"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Command="{Binding RefreshCommand}"/>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

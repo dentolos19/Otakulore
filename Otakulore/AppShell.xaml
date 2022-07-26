@@ -4,12 +4,12 @@
        xmlns:pages="clr-namespace:Otakulore.Pages"
        x:Class="Otakulore.AppShell"
        Title="Otakulore">
-    <FlyoutItem Title="Home" Icon="{StaticResource HomeGlyph}">
+    <FlyoutItem Title="Home" Icon="{StaticResource HomeGlyphImage}">
         <ShellContent>
             <pages:HomePage/>
         </ShellContent>
     </FlyoutItem>
-    <FlyoutItem Title="Seasonal" Icon="{StaticResource CalendarGlyph}">
+    <FlyoutItem Title="Seasonal" Icon="{StaticResource CalendarGlyphImage}">
         <Tab Title="Winter" Icon="winter.png">
             <ShellContent>
                 <pages:SeasonalPage Season="Winter"/>
@@ -31,12 +31,12 @@
             </ShellContent>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Library" Icon="{StaticResource LibraryGlyph}">
+    <FlyoutItem Title="Library" Icon="{StaticResource LibraryGlyphImage}">
         <ShellContent>
             <pages:LibraryPage/>
         </ShellContent>
     </FlyoutItem>
-    <FlyoutItem Title="Settings" Icon="{StaticResource SettingsGlyph}">
+    <FlyoutItem Title="Settings" Icon="{StaticResource SettingsGlyphImage}">
         <ShellContent>
             <pages:SettingsPage/>
         </ShellContent>

@@ -3,13 +3,15 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <x:String x:FieldModifier="private" x:Key="GlyphFontFamily">SegoeAssets</x:String>
+    <x:String x:Key="GlyphFontFamily">SegoeAssets</x:String>
 
-    <FontImageSource x:Key="HomeGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE80F;"/>
-    <FontImageSource x:Key="SettingsGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE713;"/>
-    <FontImageSource x:Key="BackGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE72B;"/>
-    <FontImageSource x:Key="FilterGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE71C;"/>
-    <FontImageSource x:Key="CalendarGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE787;"/>
-    <FontImageSource x:Key="LibraryGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE8F1;"/>
+    <x:String x:Key="RefreshGlyph">&#xE72C;</x:String>
+    <x:String x:Key="FilterGlyph">&#xE71C;</x:String>
+    <x:String x:Key="BackGlyph">&#xE72B;</x:String>
+
+    <FontImageSource x:Key="HomeGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE80F;"/>
+    <FontImageSource x:Key="CalendarGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE787;"/>
+    <FontImageSource x:Key="LibraryGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE8F1;"/>
+    <FontImageSource x:Key="SettingsGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE713;"/>
 
 </ResourceDictionary>

@@ -14,7 +14,7 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaItemModel">
-                    <Frame BackgroundColor="{DynamicResource Theme2}">
+                    <Frame>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OpenCommand}"/>
                         </Frame.GestureRecognizers>

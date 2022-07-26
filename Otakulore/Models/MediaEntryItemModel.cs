@@ -7,7 +7,11 @@ public class MediaEntryItemModel : MediaItemModel
 
     public MediaEntryItemModel(MediaEntry data) : base(data.Media)
     {
-        Tag = $"{data.Status} • {data.Progress}/{data.MaxProgress ?? '?'}";
+        Tag = data.Status
+              + " • "
+              + data.Progress
+              + "/"
+              + (data.MaxProgress.HasValue ? data.MaxProgress.Value : "?");
     }
 
 }

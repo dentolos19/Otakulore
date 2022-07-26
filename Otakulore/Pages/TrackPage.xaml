@@ -5,7 +5,7 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.TrackPage"
              x:DataType="models:TrackViewModel"
-             Title="Track">
+             Title="Track" Shell.TabBarIsVisible="False">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
             <Frame Padding="10">

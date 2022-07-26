@@ -56,9 +56,10 @@
                         <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
                     </CollectionView.EmptyView>
                 </CollectionView>
-                <Button Text="Filter"
-                        Margin="10"
+                <Button Text="{StaticResource FilterGlyph}"
+                        FontFamily="{StaticResource GlyphFontFamily}"
                         BackgroundColor="{DynamicResource Theme4}"
+                        Margin="10"
                         HorizontalOptions="End"
                         VerticalOptions="End"
                         Command="{Binding FilterCommand}"/>
