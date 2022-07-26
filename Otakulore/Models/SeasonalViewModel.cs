@@ -11,7 +11,7 @@ namespace Otakulore.Models;
 public partial class SeasonalViewModel : ObservableObject
 {
 
-    private readonly DataService _data;
+    private readonly DataService _data = MauiHelper.GetService<DataService>();
 
     private SearchMediaFilter? _accumulationFilter;
     private int _currentPageIndex;
@@ -24,11 +24,6 @@ public partial class SeasonalViewModel : ObservableObject
     {
         get => _accumulationFilter?.Season ?? MediaSeason.Winter;
         set => _accumulationFilter = new SearchMediaFilter { Season = value };
-    }
-
-    public SeasonalViewModel()
-    {
-        _data = MauiHelper.GetService<DataService>();
     }
 
     [ICommand]

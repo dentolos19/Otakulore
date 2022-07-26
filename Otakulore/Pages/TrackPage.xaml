@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.TrackPage"
              x:DataType="models:TrackViewModel"
              Title="Track">
-    <Label Text="Coming Soon!" HorizontalOptions="Center" VerticalOptions="Center"/>
+    <ScrollView Padding="10">
+        <VerticalStackLayout Spacing="10">
+            <Frame Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Entry" FontAttributes="Bold"/>
+                    <Grid>
+                        <Label Text="Status" VerticalOptions="Center"/>
+                        <Picker ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status, Mode=TwoWay}" HorizontalOptions="End"/>
+                    </Grid>
+                    <Grid>
+                        <Label Text="Progress" VerticalOptions="Center"/>
+                        <Entry Text="{Binding Progress, Mode=TwoWay}" Keyboard="Numeric" HorizontalOptions="End">
+                            <Entry.Behaviors>
+                                <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged"
+                                                                   MinimumValue="0"
+                                                                   MaximumDecimalPlaces="0">
+                                    <toolkit:NumericValidationBehavior.InvalidStyle>
+                                        <Style TargetType="Entry">
+                                            <Setter Property="TextColor" Value="Red"/>
+                                        </Style>
+                                    </toolkit:NumericValidationBehavior.InvalidStyle>
+                                </toolkit:NumericValidationBehavior>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </Grid>
+                    <Grid>
+                        <Label Text="Start Date" VerticalOptions="Center"/>
+                        <DatePicker Date="{Binding StartDate}" HorizontalOptions="End"/>
+                    </Grid>
+                    <Grid>
+                        <Label Text="Complete Date" VerticalOptions="Center"/>
+                        <DatePicker Date="{Binding CompleteDate}" HorizontalOptions="End"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Actions" FontAttributes="Bold"/>
+                    <Button Text="Save" Command="{Binding SaveCommand}"/>
+                    <Button Text="Delete" Command="{Binding DeleteCommand}"/>
+                    <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

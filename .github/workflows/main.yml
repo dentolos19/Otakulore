@@ -33,7 +33,7 @@ jobs:
         run: |
           $bytes = [System.Convert]::FromBase64String("${{ secrets.SIGNING_CERTIFICATE }}")
           [IO.File]::WriteAllBytes("certificate.pfx", $bytes)
-          $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText -Force
+          $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText
           Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
           $thumbprint = (Get-PfxCertificate -FilePath Certificate.pfx -Password $password).Thumbprint
           dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }} -property:GenerateAppxPackageOnBuild=true -property:AppxPackageSigningEnabled=true -property:PackageCertificateThumbprint=$thumbprint

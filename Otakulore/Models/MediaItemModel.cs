@@ -11,7 +11,7 @@ public partial class MediaItemModel
     public int Id { get; }
     public Uri ImageUrl { get; }
     public string Title { get; }
-    public string Tag { get; }
+    public string Tag { get; set; }
 
     public MediaItemModel(Media data)
     {

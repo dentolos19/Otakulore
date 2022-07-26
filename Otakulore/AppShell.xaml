@@ -31,6 +31,11 @@
             </ShellContent>
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Library" Icon="{StaticResource LibraryGlyph}">
+        <ShellContent>
+            <pages:LibraryPage/>
+        </ShellContent>
+    </FlyoutItem>
     <FlyoutItem Title="Settings" Icon="{StaticResource SettingsGlyph}">
         <ShellContent>
             <pages:SettingsPage/>

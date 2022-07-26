@@ -21,6 +21,7 @@ public static class MauiHelper
         builder.Services.AddTransient<ContentViewerViewModel>();
         builder.Services.AddTransient<DetailsViewModel>();
         builder.Services.AddSingleton<HomeViewModel>();
+        builder.Services.AddSingleton<LibraryViewModel>();
         builder.Services.AddTransient<SearchProviderViewModel>();
         builder.Services.AddSingleton<SearchViewModel>();
         builder.Services.AddTransient<SeasonalViewModel>();
@@ -34,6 +35,7 @@ public static class MauiHelper
     {
         AddRoute(typeof(ContentViewerPage));
         AddRoute(typeof(DetailsPage));
+        AddRoute(typeof(LibraryPage));
         AddRoute(typeof(LoginPage));
         AddRoute(typeof(SearchPage));
         AddRoute(typeof(SearchProviderPage));

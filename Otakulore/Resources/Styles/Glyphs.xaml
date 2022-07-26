@@ -10,5 +10,6 @@
     <FontImageSource x:Key="BackGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE72B;"/>
     <FontImageSource x:Key="FilterGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE71C;"/>
     <FontImageSource x:Key="CalendarGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE787;"/>
+    <FontImageSource x:Key="LibraryGlyph" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE8F1;"/>
 
 </ResourceDictionary>
