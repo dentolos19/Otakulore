@@ -4,12 +4,12 @@ public class MediaContent
 {
 
     public string Name { get; }
-    public object Data { get; }
+    public Uri Url { get; }
 
-    public MediaContent(string name, object data)
+    public MediaContent(string name, Uri url)
     {
         Name = name;
-        Data = data;
+        Url = url;
     }
 
 }

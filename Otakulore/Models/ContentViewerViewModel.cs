@@ -23,7 +23,7 @@ public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributa
         if (provider is IAnimeProvider animeProvider)
         {
             var hasExtracted = await animeProvider.TryExtractVideoPlayerUrl(content, out var url);
-            Url = new Uri(hasExtracted ? url.ToString() : content.Data.ToString());
+            Url = hasExtracted ? url : content.Url;
             #if ANDROID
             Platform.CurrentActivity.Window.AddFlags(WindowManagerFlags.Fullscreen);
             Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Landscape;
@@ -31,7 +31,7 @@ public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributa
         }
         else
         {
-            Url = new Uri(content.Data.ToString());
+            Url = content.Url;
         }
         IsLoading = false;
     }

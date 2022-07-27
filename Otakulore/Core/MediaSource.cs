@@ -5,13 +5,13 @@ public class MediaSource
 
     public Uri ImageUrl { get; }
     public string Title { get; }
-    public object Data { get; }
+    public Uri Url { get; }
 
-    public MediaSource(Uri imageUrl, string title, object data)
+    public MediaSource(Uri imageUrl, string title, Uri url)
     {
         ImageUrl = imageUrl;
         Title = title;
-        Data = data;
+        Url = url;
     }
 
 }

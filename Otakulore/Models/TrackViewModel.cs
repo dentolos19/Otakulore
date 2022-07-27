@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using AniListNet.Objects;
+using AniListNet.Parameters;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,10 +13,14 @@ public partial class TrackViewModel : ObservableObject, IQueryAttributable
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
 
+    private int _id;
+
     [ObservableProperty] private MediaEntryStatus _status = MediaEntryStatus.Planning;
     [ObservableProperty] private string _progress = "0";
-    [ObservableProperty] private DateTime? _startDate;
-    [ObservableProperty] private DateTime? _completeDate;
+    [ObservableProperty] private bool _startDateEnabled;
+    [ObservableProperty] private DateTime _startDate = DateTime.Today;
+    [ObservableProperty] private bool _completeDateEnabled;
+    [ObservableProperty] private DateTime _completeDate = DateTime.Today;
     [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statuses = new();
 
     public TrackViewModel()
@@ -30,25 +35,66 @@ public partial class TrackViewModel : ObservableObject, IQueryAttributable
             return;
         if (query["id"] is not int id)
             return;
-        var entry = await _data.Client.GetMediaEntryAsync(id);
+        _id = id;
+        var entry = await _data.Client.GetMediaEntryAsync(_id);
         if (entry is null)
             return;
         Status = entry.Status;
         Progress = entry.Progress.ToString();
-        StartDate = entry.StartDate.ToDateTime();
-        CompleteDate = entry.CompleteDate.ToDateTime();
+        var startDate = entry.StartDate.ToDateTime();
+        var completeDate = entry.CompleteDate.ToDateTime();
+        if (startDate.HasValue)
+        {
+            StartDateEnabled = true;
+            StartDate = startDate.Value;
+        }
+        if (completeDate.HasValue)
+        {
+            CompleteDateEnabled = true;
+            CompleteDate = completeDate.Value;
+        }
     }
 
     [ICommand]
     private async Task Save()
     {
-        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement feature
+        if (!int.TryParse(Progress, out var progress))
+        {
+            await Toast.Make("Make sure your progress value is valid!").Show();
+            return;
+        }
+        try
+        {
+            var mutation = new MediaEntryMutation
+            {
+                Status = Status,
+                Progress = progress
+            };
+            if (StartDateEnabled)
+                mutation.StartDate = StartDate;
+            if (CompleteDateEnabled)
+                mutation.CompleteDate = CompleteDate;
+            await _data.Client.SaveMediaEntryAsync(_id, mutation);
+            await MauiHelper.NavigateBack();
+        }
+        catch
+        {
+            await Toast.Make("The operation was unsuccessful!").Show();
+        }
     }
 
     [ICommand]
     private async Task Delete()
     {
-        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement feature
+        try
+        {
+            _ = await _data.Client.DeleteMediaEntryAsync(_id);
+            await MauiHelper.NavigateBack();
+        }
+        catch
+        {
+            await Toast.Make("The operation was unsuccessful!").Show();
+        }
     }
 
     [ICommand]

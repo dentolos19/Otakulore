@@ -23,7 +23,7 @@ public class GogoanimeProvider : IAnimeProvider
             (
                 new Uri(imageElement.Attributes["src"].Value),
                 imageElement.Attributes["alt"].Value,
-                "https://gogoanime.gg" + linkElement.Attributes["href"].Value
+                new Uri("https://gogoanime.gg" + linkElement.Attributes["href"].Value)
             ));
         }
         return Task.FromResult(mediaSources.ToArray());
@@ -31,7 +31,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public Task<MediaContent[]?> GetContents(MediaSource source)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(source.Data.ToString());
+        var htmlDocument = Utilities.HtmlWeb.Load(source.Url.ToString());
         var id = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
         htmlDocument = new HtmlWeb().Load("https://ajax.gogocdn.net/ajax/load-list-episode?ep_start=0&ep_end=10000&id=" + id);
         var episodeElements = htmlDocument.DocumentNode.SelectNodes("//ul/li");
@@ -44,7 +44,7 @@ public class GogoanimeProvider : IAnimeProvider
             var nameElement = linkElement.SelectSingleNode("./div[@class='name']");
             mediaContents.Add(new MediaContent(
                 "Episode " + Regex.Match(nameElement.InnerText, @"\d+").Value,
-                "https://gogoanime.gg" + linkElement.Attributes["href"].Value.Trim()
+                new Uri("https://gogoanime.gg" + linkElement.Attributes["href"].Value.Trim())
             ));
         }
         mediaContents.Reverse();
@@ -53,7 +53,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public Task<bool> TryExtractVideoPlayerUrl(MediaContent content, out Uri url)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(content.Data.ToString());
+        var htmlDocument = Utilities.HtmlWeb.Load(content.Url.ToString());
         url = new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
         return Task.FromResult(true);
     }

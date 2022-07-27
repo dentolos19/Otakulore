@@ -20,7 +20,7 @@ public class ManganatoProvider : IProvider
             (
                 new Uri(imageElement.Attributes["src"].Value),
                 linkElement.Attributes["title"].Value,
-                linkElement.Attributes["href"].Value
+                new Uri(linkElement.Attributes["href"].Value)
             ));
         }
         return Task.FromResult(mediaSources.ToArray());
@@ -28,7 +28,7 @@ public class ManganatoProvider : IProvider
 
     public Task<MediaContent[]?> GetContents(MediaSource source)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(source.Data.ToString());
+        var htmlDocument = Utilities.HtmlWeb.Load(source.Url.ToString());
         var chapterElements = htmlDocument.DocumentNode.SelectNodes("//ul[@class='row-content-chapter']/li");
         if (chapterElements is not { Count: > 0 })
             return Task.FromResult<MediaContent[]?>(null);
@@ -39,7 +39,7 @@ public class ManganatoProvider : IProvider
             mediaContents.Add(new MediaContent
             (
                 linkElement.InnerText,
-                linkElement.Attributes["href"].Value
+                new Uri(linkElement.Attributes["href"].Value)
             ));
         }
         mediaContents.Reverse();

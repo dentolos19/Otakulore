@@ -31,13 +31,15 @@
                             </Entry.Behaviors>
                         </Entry>
                     </Grid>
-                    <Grid>
-                        <Label Text="Start Date" VerticalOptions="Center"/>
-                        <DatePicker Date="{Binding StartDate}" HorizontalOptions="End"/>
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="5">
+                        <Label Grid.Column="0" Text="Start Date" VerticalOptions="Center"/>
+                        <Switch Grid.Column="2" IsToggled="{Binding StartDateEnabled}" VerticalOptions="Center"/>
+                        <DatePicker Grid.Column="3" Date="{Binding StartDate}" IsEnabled="{Binding StartDateEnabled}" VerticalOptions="Center"/>
                     </Grid>
-                    <Grid>
-                        <Label Text="Complete Date" VerticalOptions="Center"/>
-                        <DatePicker Date="{Binding CompleteDate}" HorizontalOptions="End"/>
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="5">
+                        <Label Grid.Column="0" Text="Complete Date" VerticalOptions="Center"/>
+                        <Switch Grid.Column="2" IsToggled="{Binding CompleteDateEnabled}" VerticalOptions="Center"/>
+                        <DatePicker Grid.Column="3" Date="{Binding CompleteDate}" IsEnabled="{Binding CompleteDateEnabled}" VerticalOptions="Center"/>
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
