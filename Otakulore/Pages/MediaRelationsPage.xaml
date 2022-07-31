@@ -3,18 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.LibraryPage"
-             x:DataType="models:LibraryViewModel"
-             Title="Library" Padding="10">
+             x:Class="Otakulore.Pages.MediaRelationsPage"
+             x:DataType="models:MediaRelationsViewModel"
+             Title="Relations" Padding="10">
     <Grid>
-        <CollectionView ItemsSource="{Binding Items}"
-                        RemainingItemsThreshold="1"
-                        RemainingItemsThresholdReachedCommand="{Binding AccumulateCommand}">
+        <CollectionView ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:MediaEntryItemModel">
+                <DataTemplate x:DataType="models:MediaRelationItemModel">
                     <Frame>
                         <syncfusion:SfEffectsView TouchDownEffects="Ripple">
                             <syncfusion:SfEffectsView.GestureRecognizers>
@@ -35,12 +33,6 @@
                 <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
         </CollectionView>
-        <ImageButton Source="{StaticResource RefreshGlyphImage}"
-                     Background="{DynamicResource Theme3}"
-                     Margin="10"
-                     HorizontalOptions="End"
-                     VerticalOptions="End"
-                     Command="{Binding RefreshCommand}"/>
         <ActivityIndicator IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

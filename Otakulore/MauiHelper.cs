@@ -22,12 +22,15 @@ public static class MauiHelper
         builder.Services.AddTransient<DetailsViewModel>();
         builder.Services.AddSingleton<HomeViewModel>();
         builder.Services.AddSingleton<LibraryViewModel>();
+        builder.Services.AddTransient<MediaCharactersViewModel>();
+        builder.Services.AddTransient<MediaRelationsViewModel>();
+        builder.Services.AddTransient<MediaTrackViewModel>();
+        builder.Services.AddTransient<MediaTrackViewModel>();
         builder.Services.AddTransient<SearchProviderViewModel>();
-        builder.Services.AddSingleton<SearchViewModel>();
+        builder.Services.AddTransient<SearchViewModel>();
         builder.Services.AddTransient<SeasonalViewModel>();
         builder.Services.AddSingleton<SettingsViewModel>();
         builder.Services.AddTransient<SourceViewerViewModel>();
-        builder.Services.AddTransient<TrackViewModel>();
         return builder;
     }
 
@@ -37,10 +40,12 @@ public static class MauiHelper
         AddRoute(typeof(DetailsPage));
         AddRoute(typeof(LibraryPage));
         AddRoute(typeof(LoginPage));
+        AddRoute(typeof(MediaCharactersPage));
+        AddRoute(typeof(MediaRelationsPage));
+        AddRoute(typeof(MediaTrackPage));
         AddRoute(typeof(SearchPage));
         AddRoute(typeof(SearchProviderPage));
         AddRoute(typeof(SourceViewerPage));
-        AddRoute(typeof(TrackPage));
     }
 
     private static void AddRoute(Type type)

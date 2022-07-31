@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.LibraryPage"
-             x:DataType="models:LibraryViewModel"
-             Title="Library" Padding="10">
+             x:Class="Otakulore.Pages.MediaCharactersPage"
+             x:DataType="models:MediaCharactersViewModel"
+             Title="Characters" Padding="10">
     <Grid>
         <CollectionView ItemsSource="{Binding Items}"
                         RemainingItemsThreshold="1"
@@ -14,17 +14,14 @@
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:MediaEntryItemModel">
+                <DataTemplate x:DataType="models:CharacterItemModel">
                     <Frame>
                         <syncfusion:SfEffectsView TouchDownEffects="Ripple">
-                            <syncfusion:SfEffectsView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                            </syncfusion:SfEffectsView.GestureRecognizers>
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
                                 <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                    <Label Text="{Binding Title}" FontSize="Title"/>
-                                    <Label Text="{Binding Tag}"/>
+                                    <Label Text="{Binding Name}" FontSize="Title"/>
+                                    <Label Text="{Binding Role}"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </syncfusion:SfEffectsView>
@@ -35,12 +32,6 @@
                 <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
             </CollectionView.EmptyView>
         </CollectionView>
-        <ImageButton Source="{StaticResource RefreshGlyphImage}"
-                     Background="{DynamicResource Theme3}"
-                     Margin="10"
-                     HorizontalOptions="End"
-                     VerticalOptions="End"
-                     Command="{Binding RefreshCommand}"/>
         <ActivityIndicator IsRunning="{Binding IsLoading}"/>
     </Grid>
 </ContentPage>

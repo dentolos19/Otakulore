@@ -5,13 +5,20 @@
 
     <x:String x:Key="GlyphFontFamily">SegoeAssets</x:String>
 
+    <x:String x:Key="HomeGlyph">&#xE80F;</x:String>
+    <x:String x:Key="CalendarGlyph">&#xE787;</x:String>
+    <x:String x:Key="LibraryGlyph">&#xE8F1;</x:String>
+    <x:String x:Key="SettingsGlyph">&#xE713;</x:String>
     <x:String x:Key="RefreshGlyph">&#xE72C;</x:String>
     <x:String x:Key="FilterGlyph">&#xE71C;</x:String>
     <x:String x:Key="BackGlyph">&#xE72B;</x:String>
 
-    <FontImageSource x:Key="HomeGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE80F;"/>
-    <FontImageSource x:Key="CalendarGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE787;"/>
-    <FontImageSource x:Key="LibraryGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE8F1;"/>
-    <FontImageSource x:Key="SettingsGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="&#xE713;"/>
+    <FontImageSource x:Key="HomeGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource HomeGlyph}"/>
+    <FontImageSource x:Key="CalendarGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource CalendarGlyph}"/>
+    <FontImageSource x:Key="LibraryGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource LibraryGlyph}"/>
+    <FontImageSource x:Key="SettingsGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource SettingsGlyph}"/>
+    <FontImageSource x:Key="RefreshGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource RefreshGlyph}"/>
+    <FontImageSource x:Key="FilterGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource FilterGlyph}"/>
+    <FontImageSource x:Key="BackGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource BackGlyph}"/>
 
 </ResourceDictionary>

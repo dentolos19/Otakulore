@@ -1,5 +1,4 @@
-﻿using AniListNet;
-using AniListNet.Objects;
+﻿using AniListNet.Objects;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -80,13 +79,25 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ICommand]
     private Task ShowCharacters()
     {
-        return Toast.Make("This feature is not yet implemented.").Show();
+        return MauiHelper.NavigateTo(
+            typeof(MediaCharactersPage),
+            new Dictionary<string, object>
+            {
+                { "id", _id }
+            }
+        );
     }
 
     [ICommand]
     private Task ShowRelations()
     {
-        return Toast.Make("This feature is not yet implemented.").Show();
+        return MauiHelper.NavigateTo(
+            typeof(MediaRelationsPage),
+            new Dictionary<string, object>
+            {
+                { "id", _id }
+            }
+        );
     }
 
     [ICommand]
@@ -107,7 +118,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         if (_data.Client.IsAuthenticated)
         {
             await MauiHelper.NavigateTo(
-                typeof(TrackPage),
+                typeof(MediaTrackPage),
                 new Dictionary<string, object>
                 {
                     { "id", _id }

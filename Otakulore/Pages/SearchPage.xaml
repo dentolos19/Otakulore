@@ -7,9 +7,6 @@
              x:Class="Otakulore.Pages.SearchPage"
              x:DataType="models:SearchViewModel"
              Title="Search" Padding="10">
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding BackCommand}"/>
-    </Shell.BackButtonBehavior>
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10">
             <VerticalStackLayout Spacing="5">
@@ -59,13 +56,12 @@
                         <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
                     </CollectionView.EmptyView>
                 </CollectionView>
-                <Button Text="{StaticResource FilterGlyph}"
-                        FontFamily="{StaticResource GlyphFontFamily}"
-                        BackgroundColor="{DynamicResource Theme4}"
-                        Margin="10"
-                        HorizontalOptions="End"
-                        VerticalOptions="End"
-                        Command="{Binding FilterCommand}"/>
+                <ImageButton Source="{StaticResource FilterGlyphImage}"
+                             BackgroundColor="{DynamicResource Theme4}"
+                             Margin="10"
+                             HorizontalOptions="End"
+                             VerticalOptions="End"
+                             Command="{Binding FilterCommand}"/>
                 <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
             </Grid>
         </Frame>
