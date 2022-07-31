@@ -78,6 +78,18 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     }
 
     [ICommand]
+    private Task ShowCharacters()
+    {
+        return Toast.Make("This feature is not yet implemented.").Show();
+    }
+
+    [ICommand]
+    private Task ShowRelations()
+    {
+        return Toast.Make("This feature is not yet implemented.").Show();
+    }
+
+    [ICommand]
     private Task Play()
     {
         return MauiHelper.NavigateTo(

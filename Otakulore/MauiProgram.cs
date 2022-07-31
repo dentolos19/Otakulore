@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace Otakulore;
 
@@ -17,6 +18,7 @@ public static class MauiProgram
                 fonts.AddFont("Poppins.ttf", "Poppins");
                 fonts.AddFont("SegoeAssets.ttf", "SegoeAssets");
             })
+            .ConfigureSyncfusionCore()
             .SetupServices()
             .SetupViewModels();
         return builder.Build();

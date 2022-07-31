@@ -98,6 +98,12 @@
                     </VerticalStackLayout>
                 </Frame>
                 <Frame Padding="10">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Grid.Column="0" Text="Characters" Command="{Binding ShowCharactersCommand}"/>
+                        <Button Grid.Column="1" Text="Relations" Command="{Binding ShowRelationsCommand}"/>
+                    </Grid>
+                </Frame>
+                <Frame Padding="10">
                     <VerticalStackLayout Spacing="10">
                         <Button Text="Play" Command="{Binding PlayCommand}"/>
                         <Button Text="Track" Command="{Binding TrackCommand}"/>

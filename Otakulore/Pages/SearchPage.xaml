@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchPage"
              x:DataType="models:SearchViewModel"
@@ -39,16 +40,18 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:MediaItemModel">
                             <Frame BackgroundColor="{DynamicResource Theme3}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                                </Frame.GestureRecognizers>
-                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
-                                    <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
-                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                        <Label Text="{Binding Title}" FontSize="Title"/>
-                                        <Label Text="{Binding Tag}"/>
-                                    </VerticalStackLayout>
-                                </Grid>
+                                <syncfusion:SfEffectsView TouchDownEffects="Ripple">
+                                    <syncfusion:SfEffectsView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                                    </syncfusion:SfEffectsView.GestureRecognizers>
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
+                                        <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                            <Label Text="{Binding Title}" FontSize="Title"/>
+                                            <Label Text="{Binding Tag}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </syncfusion:SfEffectsView>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

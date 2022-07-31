@@ -19,7 +19,7 @@ public partial class ContentItemModel
     }
 
     [ICommand]
-    private Task Play()
+    private Task Open()
     {
         return MauiHelper.NavigateTo(
             typeof(ContentViewerPage),
