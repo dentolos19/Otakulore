@@ -5,6 +5,7 @@ using AniListNet.Parameters;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
@@ -91,9 +92,9 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     }
 
     [ICommand]
-    private async Task Filter()
+    private Task Filter()
     {
-        await Toast.Make("This feature is not implemented yet!").Show(); // TODO: implement filtering
+        return MauiHelper.NavigateTo(typeof(SearchFilterPage));
     }
 
 }

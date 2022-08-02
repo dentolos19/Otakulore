@@ -26,6 +26,7 @@ public static class MauiHelper
         builder.Services.AddTransient<MediaRelationsViewModel>();
         builder.Services.AddTransient<MediaTrackViewModel>();
         builder.Services.AddTransient<MediaTrackViewModel>();
+        builder.Services.AddTransient<SearchFilterViewModel>();
         builder.Services.AddTransient<SearchProviderViewModel>();
         builder.Services.AddTransient<SearchViewModel>();
         builder.Services.AddTransient<SeasonalViewModel>();
@@ -43,6 +44,7 @@ public static class MauiHelper
         AddRoute(typeof(MediaCharactersPage));
         AddRoute(typeof(MediaRelationsPage));
         AddRoute(typeof(MediaTrackPage));
+        AddRoute(typeof(SearchFilterPage));
         AddRoute(typeof(SearchPage));
         AddRoute(typeof(SearchProviderPage));
         AddRoute(typeof(SourceViewerPage));

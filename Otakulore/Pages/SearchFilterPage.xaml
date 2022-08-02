@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.SearchFilterPage"
+             x:DataType="models:SearchFilterViewModel"
+             Title="Filter">
+    <ScrollView Padding="10">
+        <VerticalStackLayout Spacing="10">
+            <Frame Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Filter" FontAttributes="Bold"/>
+                    <Grid>
+                        <Label Text="Content Type" VerticalOptions="Center"/>
+                        <Picker ItemsSource="{Binding Types}" SelectedItem="{Binding Type, Mode=TwoWay}" HorizontalOptions="End"/>
+                    </Grid>
+                    <Grid>
+                        <Label Text="On Your List" VerticalOptions="Center"/>
+                        <CheckBox IsChecked="{Binding OnList}" HorizontalOptions="End"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Actions" FontAttributes="Bold"/>
+                    <Button Text="Filter" Command="{Binding FilterCommand}"/>
+                    <Button Text="Reset" Command="{Binding ResetCommand}"/>
+                    <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
