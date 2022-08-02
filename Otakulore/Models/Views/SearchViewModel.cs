@@ -2,7 +2,6 @@
 using AniListNet;
 using AniListNet.Objects;
 using AniListNet.Parameters;
-using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Pages;

@@ -1,10 +1,11 @@
-name: Automatic Release Workflow
+name: Commitly
 on:
   push:
     paths:
       - Otakulore/**
   workflow_dispatch:
 env:
+  PROJECT_PATH: Otakulore/Otakulore.csproj
   RELEASE_TAG: Commitly
 jobs:
   main:
@@ -34,27 +35,27 @@ jobs:
           $bytes = [System.Convert]::FromBase64String("${{ secrets.SIGNING_CERTIFICATE }}")
           [IO.File]::WriteAllBytes("certificate.pfx", $bytes)
           $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText
-          Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
+          Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
           $thumbprint = (Get-PfxCertificate -FilePath Certificate.pfx -Password $password).Thumbprint
-          dotnet publish --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }} -property:GenerateAppxPackageOnBuild=true -property:AppxPackageSigningEnabled=true -property:PackageCertificateThumbprint=$thumbprint
-          dotnet publish --framework net6.0-android --configuration Release -property:ApplicationVersion=${{ github.run_number }}
+          dotnet publish ${{ env.PROJECT_PATH }} --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }} -property:GenerateAppxPackageOnBuild=true -property:AppxPackageSigningEnabled=true -property:PackageCertificateThumbprint=$thumbprint
+          dotnet publish ${{ env.PROJECT_PATH }} --framework net6.0-android --configuration Release -property:ApplicationVersion=${{ github.run_number }}
       - name: Package Artifacts
         run: |
           $windowsArtifacts = (Get-ChildItem -Recurse -Path Otakulore/bin/Release/net*-windows*/**/AppPackages/* -Filter *.msix -Exclude *WindowsAppRuntime*.msix).FullName
           $androidArtifacts = (Get-ChildItem -Recurse -Path Otakulore/bin/Release/net*-android -Filter *.apk).FullName
           Compress-Archive -Path $windowsArtifacts -DestinationPath ${{ github.event.repository.name }}-windows.zip
           Compress-Archive -Path $androidArtifacts -DestinationPath ${{ github.event.repository.name }}-android.zip
-      - name: Delete Existing Tag
+      - name: Delete (Existing) Commitly Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           delete_release: true
-      - name: Deploy Release
+      - name: Deploy Artifacts
         uses: ncipollo/release-action@v1
         with:
           artifacts: "${{ github.event.repository.name }}-windows.zip,${{ github.event.repository.name }}-android.zip"
           prerelease: true
           tag: ${{ env.RELEASE_TAG }}
-          commit: main
+          commit: main # TODO: use environment variable
