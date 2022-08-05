@@ -1,14 +1,14 @@
-﻿#if ANDROID
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core;
+#if ANDROID
 using Android.Content.PM;
 using Android.Views;
 #endif
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core;
 
 namespace Otakulore.Models;
 
-public partial class ContentViewerViewModel : ObservableObject,  IQueryAttributable
+public partial class ContentViewerViewModel : ObservableObject, IQueryAttributable
 {
 
     [ObservableProperty] private Uri? _url;

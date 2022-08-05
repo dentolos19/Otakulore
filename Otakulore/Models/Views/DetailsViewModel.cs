@@ -116,7 +116,6 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     private async Task Track()
     {
         if (_data.Client.IsAuthenticated)
-        {
             await MauiHelper.NavigateTo(
                 typeof(MediaTrackPage),
                 new Dictionary<string, object>
@@ -124,11 +123,8 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
                     { "id", _id }
                 }
             );
-        }
         else
-        {
             await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
-        }
     }
 
 }

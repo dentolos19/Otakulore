@@ -11,6 +11,7 @@ public partial class MediaItemModel
     public int Id { get; }
     public Uri ImageUrl { get; }
     public string Title { get; }
+    public string Subtitle { get; protected init; }
     public string Tag { get; protected init; }
 
     public MediaItemModel(Media data)
@@ -18,11 +19,11 @@ public partial class MediaItemModel
         Id = data.Id;
         ImageUrl = data.Cover.ExtraLargeImageUrl;
         Title = data.Title.PreferredTitle;
-        Tag = data.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
-        if (data.Entry is null)
-            return;
-        Tag += $" • {data.Entry.Status} • {data.Entry.Progress}/"
-            + (data.Entry.MaxProgress.HasValue ? data.Entry.MaxProgress.Value : "?");
+        Subtitle = data.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
+        Tag = Subtitle;
+        if (data.Entry is not null)
+            Subtitle += $" • {data.Entry.Status} • {data.Entry.Progress}/"
+                        + (data.Entry.MaxProgress.HasValue ? data.Entry.MaxProgress.Value : "?");
     }
 
     [ICommand]

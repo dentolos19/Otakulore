@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace Otakulore.Services;
@@ -38,9 +38,7 @@ public class SettingsService
     private static TObject? GetValue<TObject>(TObject? defaultValue = default, [CallerMemberName] string propertyName = null!)
     {
         if (IsStoreableType(typeof(TObject)))
-        {
             return Preferences.Default.Get(propertyName, defaultValue);
-        }
         var json = Preferences.Default.Get(propertyName, string.Empty);
         return string.IsNullOrEmpty(json)
             ? defaultValue

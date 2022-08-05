@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui.Alerts;
-using Otakulore.Pages;
 using Otakulore.Resources.Themes;
 using Otakulore.Services;
 
@@ -27,9 +26,7 @@ public partial class AppShell
             {
                 var hasAuthenticated = await data.Client.TryAuthenticateAsync(settings.AccessToken);
                 if (!hasAuthenticated)
-                {
                     await Toast.Make("Unable to authenticate with AniList!").Show();
-                }
             });
         }
 

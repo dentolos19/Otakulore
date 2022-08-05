@@ -17,7 +17,7 @@ public partial class LibraryViewModel : ObservableObject
     private bool _hasNextPage = true;
 
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private ObservableCollection<MediaEntryItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
     public async Task CheckAuthenticationStatus()
     {
@@ -57,7 +57,7 @@ public partial class LibraryViewModel : ObservableObject
         if (IsLoading || !_hasNextPage)
             return;
         IsLoading = true;
-        var results = await _data.Client.GetUserEntriesAsync(_userId.Value, new AniPaginationOptions(++_currentPageIndex));
+        var results = await _data.Client.GetUserEntriesAsync(_userId.Value, default, new AniPaginationOptions(++_currentPageIndex));
         if (results.Data is not { Length: > 0 })
         {
             _hasNextPage = false;
@@ -66,7 +66,7 @@ public partial class LibraryViewModel : ObservableObject
         }
         _hasNextPage = results.HasNextPage;
         foreach (var item in results.Data)
-            Items.Add(new MediaEntryItemModel(item));
+            Items.Add(new MediaItemModel(item.Media));
         IsLoading = false;
     }
 

@@ -14,7 +14,7 @@
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:MediaEntryItemModel">
+                <DataTemplate x:DataType="models:MediaItemModel">
                     <Frame>
                         <syncfusion:SfEffectsView TouchDownEffects="Ripple">
                             <syncfusion:SfEffectsView.GestureRecognizers>
@@ -24,7 +24,7 @@
                                 <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                                     <Label Text="{Binding Title}" FontSize="Title"/>
-                                    <Label Text="{Binding Tag}"/>
+                                    <Label Text="{Binding Subtitle}"/>
                                 </VerticalStackLayout>
                             </Grid>
                         </syncfusion:SfEffectsView>

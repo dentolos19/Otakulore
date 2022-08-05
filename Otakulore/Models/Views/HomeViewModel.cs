@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using AniListNet;
 using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;

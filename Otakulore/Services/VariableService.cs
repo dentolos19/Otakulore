@@ -6,7 +6,7 @@ namespace Otakulore.Services;
 
 public class VariableService
 {
-    
+
     public AniClient Client { get; set; }
     public IList<IProvider> Providers { get; set; } = new List<IProvider>();
 

@@ -93,4 +93,4 @@ public partial class SettingsViewModel : ObservableObject
         }
     }
 
-} 
+}
