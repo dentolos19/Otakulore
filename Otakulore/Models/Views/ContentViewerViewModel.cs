@@ -36,7 +36,7 @@ public partial class ContentViewerViewModel : ObservableObject, IQueryAttributab
         IsLoading = false;
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Back()
     {
         #if ANDROID

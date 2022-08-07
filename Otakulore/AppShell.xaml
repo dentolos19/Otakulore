@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:models="clr-namespace:Otakulore.Models"
        xmlns:pages="clr-namespace:Otakulore.Pages"
        x:Class="Otakulore.AppShell"
+       x:DataType="models:AppShellViewModel"
        Title="Otakulore">
+    <Shell.FlyoutHeader>
+        <Grid ColumnDefinitions="Auto,*"
+              ColumnSpacing="10"
+              Padding="10"
+              HeightRequest="80"
+              BackgroundColor="{DynamicResource Theme3}">
+            <Image Grid.Column="0" Source="icon.png"/>
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label Text="Otakulore" FontSize="Title"/>
+                <Label Text="{Binding AppVersion}" FontSize="Caption"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <Grid Padding="10" BackgroundColor="{DynamicResource Theme3}">
+            <Label Text="Rate Remaining"/>
+            <Label Text="{Binding RateRemaining}" HorizontalOptions="End"/>
+        </Grid>
+    </Shell.FlyoutFooter>
     <FlyoutItem Title="Home" Icon="{StaticResource HomeGlyphImage}">
         <ShellContent>
             <pages:HomePage/>

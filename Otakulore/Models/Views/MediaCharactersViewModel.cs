@@ -11,6 +11,7 @@ public partial class MediaCharactersViewModel : ObservableObject, IQueryAttribut
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
 
+    private bool _queryApplied;
     private int? _id;
     private int _currentPageIndex;
     private bool _hasNextPage = true;
@@ -20,6 +21,9 @@ public partial class MediaCharactersViewModel : ObservableObject, IQueryAttribut
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (_queryApplied)
+            return;
+        _queryApplied = true;
         if (!query.ContainsKey("id"))
             return;
         if (query["id"] is not int id)
@@ -28,7 +32,7 @@ public partial class MediaCharactersViewModel : ObservableObject, IQueryAttribut
         await Accumulate();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Accumulate()
     {
         if (!_id.HasValue)

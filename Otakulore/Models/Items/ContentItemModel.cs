@@ -18,7 +18,7 @@ public partial class ContentItemModel
         Provider = provider;
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Open()
     {
         return MauiHelper.NavigateTo(

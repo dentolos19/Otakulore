@@ -35,7 +35,7 @@ public partial class LibraryViewModel : ObservableObject
         await Refresh();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Refresh()
     {
         Items.Clear();
@@ -49,7 +49,7 @@ public partial class LibraryViewModel : ObservableObject
         await Accumulate();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Accumulate()
     {
         if (!_userId.HasValue)

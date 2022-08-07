@@ -55,7 +55,7 @@ public partial class MediaTrackViewModel : ObservableObject, IQueryAttributable
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Save()
     {
         if (!int.TryParse(Progress, out var progress))
@@ -83,7 +83,7 @@ public partial class MediaTrackViewModel : ObservableObject, IQueryAttributable
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Delete()
     {
         try
@@ -97,7 +97,7 @@ public partial class MediaTrackViewModel : ObservableObject, IQueryAttributable
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Cancel()
     {
         return MauiHelper.NavigateBack();

@@ -12,6 +12,7 @@ public partial class SearchFilterViewModel : ObservableObject, IQueryAttributabl
 
     private SearchMediaFilter _filter = new();
 
+    [ObservableProperty] private bool _typeEnabled;
     [ObservableProperty] private MediaType _type = MediaType.Anime;
     [ObservableProperty] private bool _onList;
     [ObservableProperty] private ObservableCollection<MediaType> _types = new();
@@ -35,27 +36,27 @@ public partial class SearchFilterViewModel : ObservableObject, IQueryAttributabl
             OnList = _filter.OnList.Value;
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Filter()
     {
-        _filter.Type = Type;
+        _filter.Type = TypeEnabled ? Type : null;
         _filter.OnList = OnList;
-        return Shell.Current.GoToAsync($"../../{nameof(SearchPage)}", new Dictionary<string, object>
+        return Shell.Current.GoToAsync($"../{nameof(SearchPage)}", new Dictionary<string, object>
         {
             { "filter", _filter }
         });
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Reset()
     {
-        return Shell.Current.GoToAsync($"../../{nameof(SearchPage)}", new Dictionary<string, object>
+        return Shell.Current.GoToAsync($"../{nameof(SearchPage)}", new Dictionary<string, object>
         {
             { "filter", new SearchMediaFilter { Query = _filter.Query, Sort = _filter.Sort } }
         });
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Cancel()
     {
         return MauiHelper.NavigateBack();

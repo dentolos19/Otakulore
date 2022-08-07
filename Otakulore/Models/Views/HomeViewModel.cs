@@ -45,19 +45,19 @@ public partial class HomeViewModel : ObservableObject
         });
     }
 
-    [ICommand]
-    private Task Search(string query)
+    [RelayCommand]
+    private Task Search()
     {
         return MauiHelper.NavigateTo(
             typeof(SearchPage),
             new Dictionary<string, object>
             {
-                { "filter", new SearchMediaFilter { Query = query } }
+                { "filter", new SearchMediaFilter { Query = Query } }
             }
         );
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task SeeMoreTrending()
     {
         return MauiHelper.NavigateTo(
@@ -69,7 +69,7 @@ public partial class HomeViewModel : ObservableObject
         );
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task SeeMoreFavorite()
     {
         return MauiHelper.NavigateTo(
@@ -81,7 +81,7 @@ public partial class HomeViewModel : ObservableObject
         );
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task SeeMorePopular()
     {
         return MauiHelper.NavigateTo(

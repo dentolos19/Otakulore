@@ -1,4 +1,5 @@
-﻿using Otakulore.Models;
+﻿using CommunityToolkit.Maui;
+using Otakulore.Models;
 using Otakulore.Pages;
 using Otakulore.Services;
 
@@ -18,6 +19,8 @@ public static class MauiHelper
 
     public static MauiAppBuilder SetupViewModels(this MauiAppBuilder builder)
     {
+        builder.Services.AddSingleton<AppShellViewModel>();
+        builder.Services.AddTransient<CharacterDetailsViewModel>();
         builder.Services.AddTransient<ContentViewerViewModel>();
         builder.Services.AddTransient<DetailsViewModel>();
         builder.Services.AddSingleton<HomeViewModel>();
@@ -37,6 +40,7 @@ public static class MauiHelper
 
     public static void SetupRoutes()
     {
+        AddRoute(typeof(CharacterDetailsPage));
         AddRoute(typeof(ContentViewerPage));
         AddRoute(typeof(DetailsPage));
         AddRoute(typeof(LibraryPage));

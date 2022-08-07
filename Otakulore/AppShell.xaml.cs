@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using Otakulore.Models;
 using Otakulore.Resources.Themes;
 using Otakulore.Services;
 
@@ -10,6 +11,7 @@ public partial class AppShell
     public AppShell()
     {
         InitializeComponent();
+        BindingContext = MauiHelper.GetService<AppShellViewModel>();
 
         var data = MauiHelper.GetService<DataService>();
         var settings = MauiHelper.GetService<SettingsService>();

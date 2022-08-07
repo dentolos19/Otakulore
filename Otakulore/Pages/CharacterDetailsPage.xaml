@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="using:Otakulore.Models"
+             x:Class="Otakulore.Pages.CharacterDetailsPage"
+             x:DataType="models:CharacterDetailsViewModel"
+             Title="Character">
+    <Grid>
+        <ScrollView Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <Frame>
+                    <Grid ColumnDefinitions="150,*">
+                        <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                        <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
+                            <Label Text="{Binding Name}" FontSize="Title"/>
+                            <Label Text="{Binding Favorites}" FontSize="Caption"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+                <Frame Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Description" FontAttributes="Bold"/>
+                        <Label Text="{Binding Description}" TextType="Html"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Padding="10">
+                    <VerticalStackLayout>
+                        <Grid>
+                            <Label Text="Gender" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding Gender}"/>
+                        </Grid>
+                        <Grid>
+                            <Label Text="Date of Birth" FontAttributes="Bold"/>
+                            <Label HorizontalOptions="End" Text="{Binding DateOfBirth}"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

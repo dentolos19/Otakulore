@@ -12,7 +12,7 @@ namespace Otakulore.Models;
 public partial class SearchViewModel : ObservableObject, IQueryAttributable
 {
 
-    private readonly DataService _data;
+    private readonly DataService _data = MauiHelper.GetService<DataService>();
 
     private bool _queryApplied;
     private SearchMediaFilter _accumulationFilter = new();
@@ -27,7 +27,6 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
 
     public SearchViewModel()
     {
-        _data = MauiHelper.GetService<DataService>();
         var sorts = (MediaSort[])Enum.GetValues(typeof(MediaSort));
         foreach (var sort in sorts)
             Sorts.Add(sort);
@@ -49,7 +48,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         await Search();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Search()
     {
         if (IsLoading)
@@ -71,7 +70,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         IsLoading = false;
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Accumulate()
     {
         if (IsLoading || !_hasNextPage)
@@ -90,7 +89,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
         IsLoading = false;
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Filter()
     {
         return MauiHelper.NavigateTo(typeof(SearchFilterPage));

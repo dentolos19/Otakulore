@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core;
 using Otakulore.Pages;
 using Otakulore.Services;
 
@@ -10,8 +11,8 @@ namespace Otakulore.Models;
 public partial class SettingsViewModel : ObservableObject
 {
 
-    private readonly DataService _data;
-    private readonly SettingsService _settings;
+    private readonly DataService _data = MauiHelper.GetService<DataService>();
+    private readonly SettingsService _settings = MauiHelper.GetService<SettingsService>();
 
     [ObservableProperty] private string _avatarUrl;
     [ObservableProperty] private string _username;
@@ -24,8 +25,6 @@ public partial class SettingsViewModel : ObservableObject
 
     public SettingsViewModel()
     {
-        _data = MauiHelper.GetService<DataService>();
-        _settings = MauiHelper.GetService<SettingsService>();
         var resources = MauiHelper.GetService<ResourceService>();
         var variables = MauiHelper.GetService<VariableService>();
         _data.Client.RateChanged += (_, args) => RateRemaining = args.RateRemaining.ToString();
@@ -33,20 +32,7 @@ public partial class SettingsViewModel : ObservableObject
             Providers.Add(new ProviderItemModel(provider));
         ThemeIndex = _settings.ThemeIndex;
         Credits = resources.Credits;
-        #if ANDROID
-        var buildVersion = VersionTracking.CurrentBuild;
-        #if DEBUG
-        buildVersion = "Debug";
-        #endif
-        AppVersion = $"{VersionTracking.CurrentVersion} ({buildVersion})";
-        #else
-        var version = VersionTracking.CurrentVersion;
-        var buildVersion = version.Split('.')[3];
-        #if DEBUG
-        buildVersion = "Debug";
-        #endif
-        AppVersion = $"{version.Remove(version.LastIndexOf("."))} ({buildVersion})";
-        #endif
+        AppVersion = Utilities.GetVersionString();
     }
 
     public async Task CheckAuthenticationStatus()
@@ -68,7 +54,7 @@ public partial class SettingsViewModel : ObservableObject
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Update()
     {
         if (_settings.ThemeIndex != ThemeIndex)
@@ -78,7 +64,7 @@ public partial class SettingsViewModel : ObservableObject
         }
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Login()
     {
         if (IsLoggedIn)

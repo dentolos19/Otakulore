@@ -26,7 +26,7 @@ public partial class SeasonalViewModel : ObservableObject
         set => _accumulationFilter = new SearchMediaFilter { Season = value };
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Accumulate()
     {
         if (IsLoading || !_hasNextPage)

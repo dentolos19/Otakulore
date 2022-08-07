@@ -26,7 +26,7 @@ public partial class MediaItemModel
                         + (data.Entry.MaxProgress.HasValue ? data.Entry.MaxProgress.Value : "?");
     }
 
-    [ICommand]
+    [RelayCommand]
     private void Open()
     {
         MauiHelper.NavigateTo(

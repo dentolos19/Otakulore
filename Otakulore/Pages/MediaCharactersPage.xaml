@@ -17,6 +17,9 @@
                 <DataTemplate x:DataType="models:CharacterItemModel">
                     <Frame>
                         <syncfusion:SfEffectsView TouchDownEffects="Ripple">
+                            <syncfusion:SfEffectsView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                            </syncfusion:SfEffectsView.GestureRecognizers>
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
                                 <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">

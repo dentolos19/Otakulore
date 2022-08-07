@@ -37,7 +37,7 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
         await Search();
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Search()
     {
         Items.Clear();

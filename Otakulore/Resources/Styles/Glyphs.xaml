@@ -13,12 +13,12 @@
     <x:String x:Key="FilterGlyph">&#xE71C;</x:String>
     <x:String x:Key="BackGlyph">&#xE72B;</x:String>
 
-    <FontImageSource x:Key="HomeGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource HomeGlyph}"/>
-    <FontImageSource x:Key="CalendarGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource CalendarGlyph}"/>
-    <FontImageSource x:Key="LibraryGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource LibraryGlyph}"/>
-    <FontImageSource x:Key="SettingsGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource SettingsGlyph}"/>
-    <FontImageSource x:Key="RefreshGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource RefreshGlyph}"/>
-    <FontImageSource x:Key="FilterGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource FilterGlyph}"/>
-    <FontImageSource x:Key="BackGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource BackGlyph}"/>
+    <FontImageSource x:Key="HomeGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource HomeGlyph}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="CalendarGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource CalendarGlyph}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="LibraryGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource LibraryGlyph}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="SettingsGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource SettingsGlyph}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="RefreshGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource RefreshGlyph}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="FilterGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource FilterGlyph}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="BackGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{StaticResource BackGlyph}" Color="{DynamicResource ForegroundColor}"/>
 
 </ResourceDictionary>

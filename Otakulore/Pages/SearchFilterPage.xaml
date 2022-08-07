@@ -10,13 +10,14 @@
             <Frame Padding="10">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Filter" FontAttributes="Bold"/>
-                    <Grid>
-                        <Label Text="Content Type" VerticalOptions="Center"/>
-                        <Picker ItemsSource="{Binding Types}" SelectedItem="{Binding Type, Mode=TwoWay}" HorizontalOptions="End"/>
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="5">
+                        <Label Grid.Column="0" Text="Type" VerticalOptions="Center"/>
+                        <CheckBox Grid.Column="2" IsChecked="{Binding TypeEnabled}" VerticalOptions="Center"/>
+                        <Picker Grid.Column="3" ItemsSource="{Binding Types}" SelectedItem="{Binding Type, Mode=TwoWay}" IsEnabled="{Binding TypeEnabled}" VerticalOptions="Center" HorizontalOptions="End"/>
                     </Grid>
                     <Grid>
-                        <Label Text="On Your List" VerticalOptions="Center"/>
-                        <CheckBox IsChecked="{Binding OnList}" HorizontalOptions="End"/>
+                        <Label Text="On List" VerticalOptions="Center"/>
+                        <CheckBox IsChecked="{Binding OnList}" HorizontalOptions="End" VerticalOptions="Center"/>
                     </Grid>
                 </VerticalStackLayout>
             </Frame>

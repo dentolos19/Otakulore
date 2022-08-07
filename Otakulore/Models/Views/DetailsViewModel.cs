@@ -76,7 +76,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         IsLoading = false;
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task ShowCharacters()
     {
         return MauiHelper.NavigateTo(
@@ -88,7 +88,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         );
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task ShowRelations()
     {
         return MauiHelper.NavigateTo(
@@ -100,7 +100,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         );
     }
 
-    [ICommand]
+    [RelayCommand]
     private Task Play()
     {
         return MauiHelper.NavigateTo(
@@ -112,7 +112,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
         );
     }
 
-    [ICommand]
+    [RelayCommand]
     private async Task Track()
     {
         if (_data.Client.IsAuthenticated)
