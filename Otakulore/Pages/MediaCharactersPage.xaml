@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaCharactersPage"
              x:DataType="models:MediaCharactersViewModel"
@@ -16,10 +16,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:CharacterItemModel">
                     <Frame>
-                        <syncfusion:SfEffectsView TouchDownEffects="Ripple">
-                            <syncfusion:SfEffectsView.GestureRecognizers>
+                        <sf:SfEffectsView TouchDownEffects="Ripple">
+                            <sf:SfEffectsView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                            </syncfusion:SfEffectsView.GestureRecognizers>
+                            </sf:SfEffectsView.GestureRecognizers>
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
                                 <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
@@ -27,7 +27,7 @@
                                     <Label Text="{Binding Role}"/>
                                 </VerticalStackLayout>
                             </Grid>
-                        </syncfusion:SfEffectsView>
+                        </sf:SfEffectsView>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

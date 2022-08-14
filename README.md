@@ -6,9 +6,8 @@ An app for tracking, watching and reading all about anime and manga!
 
 - For **Windows** users,
   1. Download `Otakulore-windows.zip` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
-  2. Extract *all* the files inside the zip file
-  3. Follow this [documentation](https://docs.microsoft.com/en-us/dotnet/maui/windows/deployment/overview#installing-the-app) for installation
-  4. Done!
+  2. Follow this [documentation](https://docs.microsoft.com/dotnet/maui/windows/deployment/overview#installing-the-app) for installation
+  3. Done!
 - For **Android** users,
   1. Download `Otakulore-android.zip` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
   2. Extract and install the `.apk` file

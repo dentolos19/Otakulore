@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.HomePage"
              x:DataType="models:HomeViewModel"
@@ -9,10 +9,10 @@
     <ContentPage.Resources>
         <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
             <Frame WidthRequest="150" BackgroundColor="{DynamicResource Theme3}">
-                <syncfusion:SfEffectsView TouchDownEffects="Ripple">
-                    <syncfusion:SfEffectsView.GestureRecognizers>
+                <sf:SfEffectsView TouchDownEffects="Ripple">
+                    <sf:SfEffectsView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                    </syncfusion:SfEffectsView.GestureRecognizers>
+                    </sf:SfEffectsView.GestureRecognizers>
                     <Grid RowDefinitions="Auto,*">
                         <Grid Grid.Row="0" RowDefinitions="5,Auto,*" ColumnDefinitions="5,Auto,*">
                             <Image Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding ImageUrl}" HeightRequest="220"/>
@@ -21,7 +21,7 @@
                         </Grid>
                         <Label Grid.Row="1" Text="{Binding Title}" Margin="2" LineBreakMode="TailTruncation" HorizontalTextAlignment="Center"/>
                     </Grid>
-                </syncfusion:SfEffectsView>
+                </sf:SfEffectsView>
             </Frame>
         </DataTemplate>
     </ContentPage.Resources>

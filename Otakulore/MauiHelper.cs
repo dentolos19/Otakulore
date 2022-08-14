@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui;
-using Otakulore.Models;
+﻿using Otakulore.Models;
 using Otakulore.Pages;
 using Otakulore.Services;
 
@@ -29,6 +28,7 @@ public static class MauiHelper
         builder.Services.AddTransient<MediaRelationsViewModel>();
         builder.Services.AddTransient<MediaTrackViewModel>();
         builder.Services.AddTransient<MediaTrackViewModel>();
+        builder.Services.AddSingleton<ScheduleViewModel>();
         builder.Services.AddTransient<SearchFilterViewModel>();
         builder.Services.AddTransient<SearchProviderViewModel>();
         builder.Services.AddTransient<SearchViewModel>();

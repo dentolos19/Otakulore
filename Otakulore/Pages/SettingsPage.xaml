@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:tk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SettingsPage"
              x:DataType="models:SettingsViewModel"
@@ -18,11 +18,12 @@
                                 HorizontalOptions="End"
                                 VerticalOptions="Center">
                             <Picker.Behaviors>
-                                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UpdateCommand}"/>
+                                <tk:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UpdateCommand}"/>
                             </Picker.Behaviors>
                             <Picker.Items>
                                 <x:String>Default</x:String>
                                 <x:String>Lavender</x:String>
+                                <x:String>White (Beta)</x:String>
                             </Picker.Items>
                         </Picker>
                     </Grid>
@@ -48,12 +49,12 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:ProviderItemModel">
                                 <Frame BackgroundColor="{StaticResource Theme3}">
-                                    <syncfusion:SfEffectsView>
-                                        <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <sf:SfEffectsView>
+                                        <sf:SfEffectsView.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                                        </syncfusion:SfEffectsView.GestureRecognizers>
+                                        </sf:SfEffectsView.GestureRecognizers>
                                         <Label Text="{Binding Name}" Margin="10"/>
-                                    </syncfusion:SfEffectsView>
+                                    </sf:SfEffectsView>
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

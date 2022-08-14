@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:tk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaTrackPage"
              x:DataType="models:MediaTrackViewModel"
@@ -19,15 +19,15 @@
                         <Label Text="Progress" VerticalOptions="Center"/>
                         <Entry Text="{Binding Progress, Mode=TwoWay}" Keyboard="Numeric" HorizontalOptions="End">
                             <Entry.Behaviors>
-                                <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged"
+                                <tk:NumericValidationBehavior Flags="ValidateOnValueChanged"
                                                                    MinimumValue="0"
                                                                    MaximumDecimalPlaces="0">
-                                    <toolkit:NumericValidationBehavior.InvalidStyle>
+                                    <tk:NumericValidationBehavior.InvalidStyle>
                                         <Style TargetType="Entry">
                                             <Setter Property="TextColor" Value="Red"/>
                                         </Style>
-                                    </toolkit:NumericValidationBehavior.InvalidStyle>
-                                </toolkit:NumericValidationBehavior>
+                                    </tk:NumericValidationBehavior.InvalidStyle>
+                                </tk:NumericValidationBehavior>
                             </Entry.Behaviors>
                         </Entry>
                     </Grid>

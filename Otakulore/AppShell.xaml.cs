@@ -19,7 +19,10 @@ public partial class AppShell
         switch (settings.ThemeIndex)
         {
             case 1:
-                Application.Current?.Resources.MergedDictionaries.Add(new Lavender());
+                Application.Current.Resources.MergedDictionaries.Add(new Lavender());
+                break;
+            case 2:
+                Application.Current.Resources.MergedDictionaries.Add(new White());
                 break;
         }
         if (!string.IsNullOrEmpty(settings.AccessToken))

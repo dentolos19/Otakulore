@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SourceViewerPage"
              x:DataType="models:SourceViewerViewModel"
@@ -19,12 +19,12 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:ContentItemModel">
                             <Frame BackgroundColor="{DynamicResource Theme3}">
-                                <syncfusion:SfEffectsView TouchDownEffects="Ripple">
-                                    <syncfusion:SfEffectsView.GestureRecognizers>
+                                <sf:SfEffectsView TouchDownEffects="Ripple">
+                                    <sf:SfEffectsView.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                                    </syncfusion:SfEffectsView.GestureRecognizers>
+                                    </sf:SfEffectsView.GestureRecognizers>
                                     <Label Text="{Binding Name}" Margin="10"/>
-                                </syncfusion:SfEffectsView>
+                                </sf:SfEffectsView>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

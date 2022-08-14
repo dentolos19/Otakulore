@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sfScheduler="clr-namespace:Syncfusion.Maui.Scheduler;assembly=Syncfusion.Maui.Scheduler"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.SchedulePage"
+             x:DataType="models:ScheduleViewModel"
+             Title="Schedule">
+    <sfScheduler:SfScheduler View="Day" AppointmentsSource="{Binding Items}">
+        <sfScheduler:SfScheduler.DaysView>
+            <sfScheduler:SchedulerDaysView TimeIntervalHeight="100"/>
+        </sfScheduler:SfScheduler.DaysView>
+        <sfScheduler:SfScheduler.AppointmentMapping>
+            <sfScheduler:SchedulerAppointmentMapping
+                Subject="Title"
+                StartTime="Time"
+                EndTime="EndTime"/>
+        </sfScheduler:SfScheduler.AppointmentMapping>
+    </sfScheduler:SfScheduler>
+</ContentPage>

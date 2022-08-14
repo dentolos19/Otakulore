@@ -30,7 +30,12 @@
             <pages:HomePage/>
         </ShellContent>
     </FlyoutItem>
-    <FlyoutItem Title="Seasonal" Icon="{StaticResource CalendarGlyphImage}">
+    <FlyoutItem Title="Schedule (Beta)" Icon="{StaticResource ScheduleGlyphImage}">
+        <ShellContent>
+            <pages:SchedulePage/>
+        </ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Seasonal" Icon="{StaticResource SeasonalGlyphImage}">
         <Tab Title="Winter" Icon="winter.png">
             <ShellContent>
                 <pages:SeasonalPage Season="Winter"/>
