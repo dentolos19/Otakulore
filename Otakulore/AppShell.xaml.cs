@@ -21,19 +21,14 @@ public partial class AppShell
             case 1:
                 Application.Current.Resources.MergedDictionaries.Add(new Lavender());
                 break;
-            case 2:
-                Application.Current.Resources.MergedDictionaries.Add(new White());
-                break;
         }
         if (!string.IsNullOrEmpty(settings.AccessToken))
-        {
             Task.Run(async () =>
             {
                 var hasAuthenticated = await data.Client.TryAuthenticateAsync(settings.AccessToken);
                 if (!hasAuthenticated)
                     await Toast.Make("Unable to authenticate with AniList!").Show();
             });
-        }
 
         MauiHelper.SetupRoutes();
     }

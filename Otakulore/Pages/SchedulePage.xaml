@@ -6,7 +6,7 @@
              x:Class="Otakulore.Pages.SchedulePage"
              x:DataType="models:ScheduleViewModel"
              Title="Schedule">
-    <sfScheduler:SfScheduler View="Day" AppointmentsSource="{Binding Items}">
+    <sfScheduler:SfScheduler View="Day" AppointmentsSource="{Binding Items}" Tapped="OnTapped">
         <sfScheduler:SfScheduler.DaysView>
             <sfScheduler:SchedulerDaysView TimeIntervalHeight="100"/>
         </sfScheduler:SfScheduler.DaysView>

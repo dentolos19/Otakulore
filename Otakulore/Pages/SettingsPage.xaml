@@ -23,7 +23,6 @@
                             <Picker.Items>
                                 <x:String>Default</x:String>
                                 <x:String>Lavender</x:String>
-                                <x:String>White (Beta)</x:String>
                             </Picker.Items>
                         </Picker>
                     </Grid>

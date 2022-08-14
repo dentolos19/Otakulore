@@ -166,10 +166,8 @@
     </Style>
 
     <Style TargetType="DatePicker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="TextColor" Value="{DynamicResource ForegroundColor}"/>
         <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="14"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -205,10 +203,8 @@
     </Style>
 
     <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="TextColor" Value="{DynamicResource ForegroundColor}"/>
         <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="14"/>
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -230,11 +226,9 @@
     </Style>
 
     <Style TargetType="Picker">
-        <Setter Property="TextColor" Value="White"/>
-        <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{DynamicResource ForegroundColor}"/>
+        <Setter Property="TitleColor" Value="{DynamicResource ForegroundColor}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -364,10 +358,8 @@
     </Style>
 
     <Style TargetType="TimePicker">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TextColor" Value="{DynamicResource ForegroundColor}"/>
         <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
-        <Setter Property="FontSize" Value="14"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

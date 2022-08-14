@@ -20,8 +20,8 @@
                         <Entry Text="{Binding Progress, Mode=TwoWay}" Keyboard="Numeric" HorizontalOptions="End">
                             <Entry.Behaviors>
                                 <tk:NumericValidationBehavior Flags="ValidateOnValueChanged"
-                                                                   MinimumValue="0"
-                                                                   MaximumDecimalPlaces="0">
+                                                              MinimumValue="0"
+                                                              MaximumDecimalPlaces="0">
                                     <tk:NumericValidationBehavior.InvalidStyle>
                                         <Style TargetType="Entry">
                                             <Setter Property="TextColor" Value="Red"/>

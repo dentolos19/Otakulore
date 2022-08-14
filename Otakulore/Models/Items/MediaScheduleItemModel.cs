@@ -5,19 +5,21 @@ namespace Otakulore.Models;
 public class MediaScheduleItemModel
 {
 
+    public int Id { get; }
     public string Title { get; }
     public DateTime Time { get; }
     public DateTime EndTime { get; }
 
-    public MediaScheduleItemModel(MediaSchedule media)
+    public MediaScheduleItemModel(MediaSchedule data)
     {
-        Title = media.Media.Title.PreferredTitle + (media.Media.Type == MediaType.Anime && media.Media.Episodes.HasValue
-            ? media.Media.Format == MediaFormat.Movie
+        Id = data.Media.Id;
+        Title = data.Media.Title.PreferredTitle + (data.Media.Type == MediaType.Anime && data.Media.Episodes.HasValue
+            ? data.Media.Format == MediaFormat.Movie
                 ? string.Empty
-                : $" (Episode {media.Media.Episodes})"
+                : $" (Episode {data.Media.Episodes})"
             : string.Empty);
-        Time = media.AiringTime;
-        // EndTime = Time.AddMinutes(media.Media.Duration?.TotalMinutes ?? 30);
+        Time = data.AiringTime;
+        // EndTime = Time.AddMinutes(data.Media.Duration?.TotalMinutes ?? 30);
         EndTime = Time.AddMinutes(30);
     }
 
