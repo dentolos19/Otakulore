@@ -14,9 +14,9 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans.ttf", "OpenSans");
+                fonts.AddFont("MaterialIcons.ttf", "MaterialIcons");
                 fonts.AddFont("Poppins.ttf", "Poppins");
-                fonts.AddFont("SegoeAssets.ttf", "SegoeAssets");
+                fonts.AddFont("SegoeIcons.ttf", "SegoeIcons");
             })
             .ConfigureSyncfusionCore()
             .SetupServices()

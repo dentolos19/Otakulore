@@ -29,7 +29,7 @@ public partial class CharacterDetailsViewModel : ObservableObject, IQueryAttribu
         ImageUrl = character.Image.LargeImageUrl;
         Name = character.Name.PreferredName;
         Favorites = "❤️ " + character.Favorites;
-        Description = character.Description;
+        Description = character.Description ?? "No description provided.";
         Gender = character.Gender ?? "Unknown";
         DateOfBirth = character.DateOfBirth.ToDateTime()?.ToShortDateString() ?? "Unknown";
         IsLoading = false;
