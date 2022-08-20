@@ -1,12 +1,15 @@
-name: Commitly
+name: Canary
 on:
   push:
     paths:
       - Otakulore/**
   workflow_dispatch:
+concurrency:
+  group: release
+  cancel-in-progress: true
 env:
   PROJECT_PATH: Otakulore/Otakulore.csproj
-  RELEASE_TAG: Commitly
+  RELEASE_TAG: Canary
 jobs:
   main:
     runs-on: windows-latest
@@ -45,17 +48,17 @@ jobs:
           $androidArtifacts = (Get-ChildItem -Recurse -Path Otakulore/bin/Release/net*-android -Filter *.apk).FullName
           Compress-Archive -Path $windowsArtifacts -DestinationPath ${{ github.event.repository.name }}-windows.zip
           Compress-Archive -Path $androidArtifacts -DestinationPath ${{ github.event.repository.name }}-android.zip
-      - name: Delete (Existing) Commitly Tag
+      - name: Delete (Existing) Release Tag
         uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           delete_release: true
-      - name: Deploy Artifacts
+      - name: Deploy Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "${{ github.event.repository.name }}-windows.zip,${{ github.event.repository.name }}-android.zip"
           prerelease: true
           tag: ${{ env.RELEASE_TAG }}
-          commit: main # TODO: use environment variable
+          commit: ${{ github.event.repository.default_branch }}

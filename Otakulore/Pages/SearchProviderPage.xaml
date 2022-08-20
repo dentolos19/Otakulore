@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:tk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchProviderPage"
              x:DataType="models:SearchProviderViewModel"
@@ -21,7 +21,7 @@
                             HorizontalOptions="End"
                             VerticalOptions="Center">
                         <Picker.Behaviors>
-                            <tk:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SearchCommand}"/>
+                            <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SearchCommand}"/>
                         </Picker.Behaviors>
                     </Picker>
                 </Grid>
@@ -36,12 +36,12 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:SourceItemModel">
                             <Frame BackgroundColor="{DynamicResource Theme3}">
-                                <sf:SfEffectsView TouchDownEffects="Ripple">
-                                    <sf:SfEffectsView.GestureRecognizers>
+                                <syncfusion:SfEffectsView TouchDownEffects="Ripple">
+                                    <syncfusion:SfEffectsView.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                                    </sf:SfEffectsView.GestureRecognizers>
+                                    </syncfusion:SfEffectsView.GestureRecognizers>
                                     <Label Text="{Binding Name}" Margin="10"/>
-                                </sf:SfEffectsView>
+                                </syncfusion:SfEffectsView>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

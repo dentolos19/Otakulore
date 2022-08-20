@@ -2,14 +2,16 @@
 
 An app for tracking, watching and reading all about anime and manga!
 
+> **Note**: This project is powered by [AniList](https://anilist.co) with the API wrapper, [AniList.NET](https://github.com/dentolos19/AniListNet).
+
 ## Usage
 
 - For **Windows** users,
-  1. Download `Otakulore-windows.zip` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
+  1. Download the latest `Otakulore-windows.zip` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
   2. Follow this [documentation](https://docs.microsoft.com/dotnet/maui/windows/deployment/overview#installing-the-app) for installation
   3. Done!
 - For **Android** users,
-  1. Download `Otakulore-android.zip` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
+  1. Download the latest `Otakulore-android.zip` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
   2. Extract and install the `.apk` file
   3. Done!
 
@@ -29,7 +31,7 @@ An app for tracking, watching and reading all about anime and manga!
 
 ## Previews
 
-> **Note**: These previews were taken on the commitly release! So these will not mostly represent the final product.
+> **Note**: These previews were taken on the canary release! So these will not mostly represent the final product.
 
 ![](.github/images/0.gif)
 ![](.github/images/1.gif)

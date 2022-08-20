@@ -92,7 +92,10 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     private Task Filter()
     {
-        return MauiHelper.NavigateTo(typeof(SearchFilterPage));
+        return MauiHelper.NavigateTo(typeof(SearchFilterPage), new Dictionary<string, object>
+        {
+            { "filter", _accumulationFilter }
+        });
     }
 
 }

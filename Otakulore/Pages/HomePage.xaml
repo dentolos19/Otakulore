@@ -1,30 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.HomePage"
              x:DataType="models:HomeViewModel"
              Title="Home">
-    <ContentPage.Resources>
-        <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
-            <Frame WidthRequest="150" BackgroundColor="{DynamicResource Theme3}">
-                <sf:SfEffectsView TouchDownEffects="Ripple">
-                    <sf:SfEffectsView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                    </sf:SfEffectsView.GestureRecognizers>
-                    <Grid RowDefinitions="Auto,*">
-                        <Grid Grid.Row="0" RowDefinitions="5,Auto,*" ColumnDefinitions="5,Auto,*">
-                            <Image Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding ImageUrl}" HeightRequest="220"/>
-                            <BoxView Grid.Row="1" Grid.Column="1" Opacity="0.5" CornerRadius="10" Color="{DynamicResource Theme3}"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Tag}" Opacity="1" Margin="5,2"/>
-                        </Grid>
-                        <Label Grid.Row="1" Text="{Binding Title}" Margin="2" LineBreakMode="TailTruncation" HorizontalTextAlignment="Center"/>
-                    </Grid>
-                </sf:SfEffectsView>
-            </Frame>
-        </DataTemplate>
-    </ContentPage.Resources>
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
             <Frame Padding="10">
@@ -37,7 +17,7 @@
                         <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMoreTrendingCommand}"/>
                     </Grid>
                     <Grid>
-                        <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding TrendingItems}">
+                        <CollectionView ItemTemplate="{StaticResource MediaItemVerticalTemplate}" ItemsSource="{Binding TrendingItems}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
                             </CollectionView.ItemsLayout>
@@ -56,7 +36,7 @@
                         <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMoreFavoriteCommand}"/>
                     </Grid>
                     <Grid>
-                        <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding FavoriteItems}">
+                        <CollectionView ItemTemplate="{StaticResource MediaItemVerticalTemplate}" ItemsSource="{Binding FavoriteItems}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
                             </CollectionView.ItemsLayout>
@@ -75,7 +55,7 @@
                         <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMorePopularCommand}"/>
                     </Grid>
                     <Grid>
-                        <CollectionView ItemTemplate="{StaticResource MediaItemTemplate}" ItemsSource="{Binding PopularItems}">
+                        <CollectionView ItemTemplate="{StaticResource MediaItemVerticalTemplate}" ItemsSource="{Binding PopularItems}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
                             </CollectionView.ItemsLayout>
