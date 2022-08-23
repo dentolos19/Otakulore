@@ -20,7 +20,7 @@ public partial class ScheduleViewModel : ObservableObject
             var today = DateTime.Today;
             var firstDayOfMonth = new DateTime(today.Year, today.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var results = await _data.Client.GetMediaSchedulesAsync(new MediaScheduleFilter
+            var results = await _data.Client.GetMediaSchedulesAsync(new MediaSchedulesFilter
             {
                 StartedAfterDate = firstDayOfMonth,
                 EndedBeforeDate = lastDayOfMonth

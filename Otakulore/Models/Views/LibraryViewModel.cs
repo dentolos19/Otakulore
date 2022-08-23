@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using AniListNet;
+using AniListNet.Objects;
+using AniListNet.Parameters;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,8 +18,24 @@ public partial class LibraryViewModel : ObservableObject
     private int _currentPageIndex;
     private bool _hasNextPage = true;
 
+    [ObservableProperty] private MediaType _type = MediaType.Anime;
+    [ObservableProperty] private ObservableCollection<MediaType> _types = new();
+    [ObservableProperty] private MediaEntryStatus _status = MediaEntryStatus.Current;
+    [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statuses = new();
+    [ObservableProperty] private MediaEntrySort _sort = MediaEntrySort.LastUpdated;
+    [ObservableProperty] private ObservableCollection<MediaEntrySort> _sorts = new();
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
+
+    public LibraryViewModel()
+    {
+        foreach (var @enum in (MediaType[])Enum.GetValues(typeof(MediaType)))
+            Types.Add(@enum);
+        foreach (var @enum in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
+            Statuses.Add(@enum);
+        foreach (var @enum in (MediaEntrySort[])Enum.GetValues(typeof(MediaEntrySort)))
+            Sorts.Add(@enum);
+    }
 
     public async Task CheckAuthenticationStatus()
     {
@@ -32,7 +50,7 @@ public partial class LibraryViewModel : ObservableObject
         {
             _userId = null;
         }
-        await Refresh();
+        await RefreshCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]
@@ -57,7 +75,12 @@ public partial class LibraryViewModel : ObservableObject
         if (IsLoading || !_hasNextPage)
             return;
         IsLoading = true;
-        var results = await _data.Client.GetUserEntriesAsync(_userId.Value, default, new AniPaginationOptions(++_currentPageIndex));
+        var results = await _data.Client.GetUserEntriesAsync(_userId.Value, new MediaEntryFilter
+        {
+            Type = Type,
+            Status = Status,
+            Sort = Sort
+        }, new AniPaginationOptions(++_currentPageIndex));
         if (results.Data is not { Length: > 0 })
         {
             _hasNextPage = false;

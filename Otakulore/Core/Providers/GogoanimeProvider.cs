@@ -10,7 +10,7 @@ public class GogoanimeProvider : IAnimeProvider
 
     public Task<MediaSource[]?> GetSources(string query)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load("https://gogoanime.gg/search.html?keyword=" + Uri.EscapeDataString(query));
+        var htmlDocument = Utilities.HtmlWeb.Load("https://gogoanime.tel/search.html?keyword=" + Uri.EscapeDataString(query));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
         if (searchElements is not { Count: > 0 })
             return Task.FromResult<MediaSource[]?>(null);
@@ -23,7 +23,7 @@ public class GogoanimeProvider : IAnimeProvider
             (
                 new Uri(imageElement.Attributes["src"].Value),
                 imageElement.Attributes["alt"].Value,
-                new Uri("https://gogoanime.gg" + linkElement.Attributes["href"].Value)
+                new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value)
             ));
         }
         return Task.FromResult(mediaSources.ToArray());
@@ -44,7 +44,7 @@ public class GogoanimeProvider : IAnimeProvider
             var nameElement = linkElement.SelectSingleNode("./div[@class='name']");
             mediaContents.Add(new MediaContent(
                 "Episode " + Regex.Match(nameElement.InnerText, @"\d+").Value,
-                new Uri("https://gogoanime.gg" + linkElement.Attributes["href"].Value.Trim())
+                new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value.Trim())
             ));
         }
         mediaContents.Reverse();

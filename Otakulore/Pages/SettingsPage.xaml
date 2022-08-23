@@ -30,7 +30,7 @@
             </Frame>
             <Frame Padding="10">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="AniList" FontAttributes="Bold"/>
+                    <Label Text="Tracker" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="5">
                         <Image Grid.Column="0" Source="{Binding AvatarUrl}" HeightRequest="30"/>
                         <Label Grid.Column="1" Text="{Binding Username}" VerticalOptions="Center"/>
