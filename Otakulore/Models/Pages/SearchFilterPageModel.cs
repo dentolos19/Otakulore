@@ -3,11 +3,13 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core.Attributes;
 using Otakulore.Pages;
 
 namespace Otakulore.Models;
 
-public partial class SearchFilterViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class SearchFilterPageModel : ObservableObject, IQueryAttributable
 {
 
     private SearchMediaFilter _filter = new();
@@ -17,7 +19,7 @@ public partial class SearchFilterViewModel : ObservableObject, IQueryAttributabl
     [ObservableProperty] private bool _onList;
     [ObservableProperty] private ObservableCollection<MediaType> _types = new();
 
-    public SearchFilterViewModel()
+    public SearchFilterPageModel()
     {
         foreach (var @enum in (MediaType[])Enum.GetValues(typeof(MediaType)))
             Types.Add(@enum);

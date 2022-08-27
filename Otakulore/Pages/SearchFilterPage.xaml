@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchFilterPage"
-             x:DataType="models:SearchFilterViewModel"
+             x:DataType="models:SearchFilterPageModel"
              Title="Filter">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">

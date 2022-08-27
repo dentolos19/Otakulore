@@ -4,7 +4,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Scheduler;assembly=Syncfusion.Maui.Scheduler"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SchedulePage"
-             x:DataType="models:ScheduleViewModel"
+             x:DataType="models:SchedulePageModel"
              Title="Schedule">
     <syncfusion:SfScheduler View="Day" AppointmentsSource="{Binding Items}" Tapped="OnTapped">
         <syncfusion:SfScheduler.DaysView>

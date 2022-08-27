@@ -2,11 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Core;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class SearchProviderViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class SearchProviderPageModel : ObservableObject, IQueryAttributable
 {
 
     private bool _queryApplied;
@@ -17,7 +19,7 @@ public partial class SearchProviderViewModel : ObservableObject, IQueryAttributa
     [ObservableProperty] private ObservableCollection<SourceItemModel> _items = new();
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
-    public SearchProviderViewModel(VariableService variableService)
+    public SearchProviderPageModel(VariableService variableService)
     {
         foreach (var provider in variableService.Providers)
             Providers.Add(new ProviderItemModel(provider));

@@ -8,14 +8,14 @@ public partial class SeasonalPage
 
     private bool _hasNavigated;
 
-    private SeasonalViewModel Context => (SeasonalViewModel)BindingContext;
+    private SeasonalPageModel Context => (SeasonalPageModel)BindingContext;
 
     public MediaSeason Season { get; set; }
 
     public SeasonalPage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<SeasonalViewModel>();
+        BindingContext = MauiHelper.GetService<SeasonalPageModel>();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

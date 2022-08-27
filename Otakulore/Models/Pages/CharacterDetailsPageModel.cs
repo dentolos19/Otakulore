@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class CharacterDetailsViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class CharacterDetailsPageModel : ObservableObject, IQueryAttributable
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();

@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Otakulore.Core;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class AppShellViewModel : ObservableObject
+[AsSingletonService]
+public partial class AppShellModel : ObservableObject
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
@@ -12,7 +14,7 @@ public partial class AppShellViewModel : ObservableObject
     [ObservableProperty] private string _appVersion;
     [ObservableProperty] private string _rateRemaining;
 
-    public AppShellViewModel()
+    public AppShellModel()
     {
         _data.Client.RateChanged += (_, args) => RateRemaining = args.RateRemaining.ToString();
         AppVersion = Utilities.GetVersionString();

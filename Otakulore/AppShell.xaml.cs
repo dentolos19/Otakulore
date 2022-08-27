@@ -11,7 +11,7 @@ public partial class AppShell
     public AppShell()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<AppShellViewModel>();
+        BindingContext = MauiHelper.GetService<AppShellModel>();
 
         var data = MauiHelper.GetService<DataService>();
         var settings = MauiHelper.GetService<SettingsService>();

@@ -8,7 +8,7 @@ public partial class HomePage
     public HomePage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<HomeViewModel>();
+        BindingContext = MauiHelper.GetService<HomePageModel>();
     }
 
 }

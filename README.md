@@ -29,7 +29,7 @@ An app for tracking, watching and reading all about anime and manga!
   - [ ] [Novelhall](https://novelhall.com) (Novel)
   - [ ] ... more to be added soon!
 
-## Previews
+## Images
 
 > **Note**: These previews were taken on the canary release! So these will not mostly represent the final product.
 

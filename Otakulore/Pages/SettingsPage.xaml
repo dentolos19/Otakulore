@@ -5,7 +5,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SettingsPage"
-             x:DataType="models:SettingsViewModel"
+             x:DataType="models:SettingsPageModel"
              Title="Settings">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">

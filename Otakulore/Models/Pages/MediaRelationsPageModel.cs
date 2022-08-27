@@ -1,10 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class MediaRelationsViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class MediaRelationsPageModel : ObservableObject, IQueryAttributable
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();

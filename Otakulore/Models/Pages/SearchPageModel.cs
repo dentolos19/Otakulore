@@ -4,12 +4,14 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core.Attributes;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class SearchViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class SearchPageModel : ObservableObject, IQueryAttributable
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
@@ -25,7 +27,7 @@ public partial class SearchViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private ObservableCollection<MediaSort> _sorts = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public SearchViewModel()
+    public SearchPageModel()
     {
         var sorts = (MediaSort[])Enum.GetValues(typeof(MediaSort));
         foreach (var sort in sorts)

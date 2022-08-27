@@ -5,11 +5,14 @@ using AniListNet.Parameters;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Humanizer;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class LibraryViewModel : ObservableObject
+[AsSingletonService]
+public partial class LibraryPageModel : ObservableObject
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
@@ -22,19 +25,20 @@ public partial class LibraryViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<MediaType> _types = new();
     [ObservableProperty] private MediaEntryStatus _status = MediaEntryStatus.Current;
     [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statuses = new();
-    [ObservableProperty] private MediaEntrySort _sort = MediaEntrySort.LastUpdated;
-    [ObservableProperty] private ObservableCollection<MediaEntrySort> _sorts = new();
+    [ObservableProperty] private BaseItemModel<MediaEntrySort> _sort;
+    [ObservableProperty] private ObservableCollection<BaseItemModel<MediaEntrySort>> _sorts = new();
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public LibraryViewModel()
+    public LibraryPageModel()
     {
         foreach (var @enum in (MediaType[])Enum.GetValues(typeof(MediaType)))
             Types.Add(@enum);
         foreach (var @enum in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
             Statuses.Add(@enum);
         foreach (var @enum in (MediaEntrySort[])Enum.GetValues(typeof(MediaEntrySort)))
-            Sorts.Add(@enum);
+            Sorts.Add(new BaseItemModel<MediaEntrySort>(@enum.Humanize(LetterCasing.Title), @enum));
+        Sort = Sorts.Where(item => item.Data == MediaEntrySort.LastUpdated).FirstOrDefault(Sorts.First());
     }
 
     public async Task CheckAuthenticationStatus()
@@ -79,7 +83,7 @@ public partial class LibraryViewModel : ObservableObject
         {
             Type = Type,
             Status = Status,
-            Sort = Sort
+            Sort = Sort.Data
         }, new AniPaginationOptions(++_currentPageIndex));
         if (results.Data is not { Length: > 0 })
         {

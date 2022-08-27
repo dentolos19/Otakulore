@@ -1,38 +1,48 @@
 ﻿using System.Collections.ObjectModel;
 using AniListNet;
-using AniListNet.Objects;
-using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class SeasonalViewModel : ObservableObject
+[AsTransientService]
+public partial class MediaCharactersPageModel : ObservableObject, IQueryAttributable
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
 
-    private SearchMediaFilter? _accumulationFilter;
+    private bool _queryApplied;
+    private int? _id;
     private int _currentPageIndex;
     private bool _hasNextPage = true;
 
     [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<CharacterItemModel> _items = new();
 
-    public MediaSeason Season
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        get => _accumulationFilter?.Season ?? MediaSeason.Winter;
-        set => _accumulationFilter = new SearchMediaFilter { Season = value };
+        if (_queryApplied)
+            return;
+        _queryApplied = true;
+        if (!query.ContainsKey("id"))
+            return;
+        if (query["id"] is not int id)
+            return;
+        _id = id;
+        await Accumulate();
     }
 
     [RelayCommand]
     private async Task Accumulate()
     {
+        if (!_id.HasValue)
+            return;
         if (IsLoading || !_hasNextPage)
             return;
         IsLoading = true;
-        var results = await _data.Client.SearchMediaAsync(_accumulationFilter, new AniPaginationOptions(++_currentPageIndex));
+        var results = await _data.Client.GetMediaCharactersAsync(_id.Value, new AniPaginationOptions(++_currentPageIndex));
         if (results.Data is not { Length: > 0 })
         {
             _hasNextPage = false;
@@ -41,7 +51,7 @@ public partial class SeasonalViewModel : ObservableObject
         }
         _hasNextPage = results.HasNextPage;
         foreach (var item in results.Data)
-            Items.Add(new MediaItemModel(item));
+            Items.Add(new CharacterItemModel(item));
         IsLoading = false;
     }
 

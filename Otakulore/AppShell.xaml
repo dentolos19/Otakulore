@@ -4,7 +4,7 @@
        xmlns:models="clr-namespace:Otakulore.Models"
        xmlns:pages="clr-namespace:Otakulore.Pages"
        x:Class="Otakulore.AppShell"
-       x:DataType="models:AppShellViewModel"
+       x:DataType="models:AppShellModel"
        Title="Otakulore">
     <Shell.FlyoutHeader>
         <Grid ColumnDefinitions="Auto,*"

@@ -3,12 +3,14 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core.Attributes;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class HomeViewModel : ObservableObject
+[AsSingletonService]
+public partial class HomePageModel : ObservableObject
 {
 
     [ObservableProperty] private string _query;
@@ -19,7 +21,7 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<MediaItemModel> _favoriteItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _popularItems = new();
 
-    public HomeViewModel()
+    public HomePageModel()
     {
         var data = MauiHelper.GetService<DataService>();
         Task.Run(async () =>

@@ -4,7 +4,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaCharactersPage"
-             x:DataType="models:MediaCharactersViewModel"
+             x:DataType="models:MediaCharactersPageModel"
              Title="Characters" Padding="10">
     <Grid>
         <CollectionView ItemsSource="{Binding Items}"

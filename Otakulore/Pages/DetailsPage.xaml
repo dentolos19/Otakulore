@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.DetailsPage"
-             x:DataType="models:DetailsViewModel"
+             x:DataType="models:DetailsPageModel"
              Title="Details" Shell.TabBarIsVisible="False">
     <Grid>
         <ScrollView Padding="10">
@@ -12,7 +12,7 @@
                     <Grid ColumnDefinitions="150,*">
                         <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
                         <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
-                            <Label Text="{Binding Title}" FontSize="Title"  MaxLines="3" LineBreakMode="TailTruncation"/>
+                            <Label Text="{Binding Title}" FontSize="Title" MaxLines="3" LineBreakMode="TailTruncation"/>
                             <Label Text="{Binding Subtitle}"/>
                         </VerticalStackLayout>
                     </Grid>

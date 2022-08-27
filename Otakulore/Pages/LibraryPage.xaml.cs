@@ -5,12 +5,12 @@ namespace Otakulore.Pages;
 public partial class LibraryPage
 {
 
-    private LibraryViewModel Context => (LibraryViewModel)BindingContext;
+    private LibraryPageModel Context => (LibraryPageModel)BindingContext;
 
     public LibraryPage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<LibraryViewModel>();
+        BindingContext = MauiHelper.GetService<LibraryPageModel>();
     }
 
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)

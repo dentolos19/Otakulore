@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Core;
+using Otakulore.Core.Attributes;
 #if ANDROID
 using Android.Content.PM;
 using Android.Views;
@@ -8,7 +9,8 @@ using Android.Views;
 
 namespace Otakulore.Models;
 
-public partial class ContentViewerViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class ContentViewerPageModel : ObservableObject, IQueryAttributable
 {
 
     [ObservableProperty] private Uri? _url;

@@ -4,11 +4,13 @@ using AniListNet.Parameters;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class MediaTrackViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class MediaTrackPageModel : ObservableObject, IQueryAttributable
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
@@ -23,7 +25,7 @@ public partial class MediaTrackViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private DateTime _completeDate = DateTime.Today;
     [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statuses = new();
 
-    public MediaTrackViewModel()
+    public MediaTrackPageModel()
     {
         foreach (var @enum in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
             Statuses.Add(@enum);

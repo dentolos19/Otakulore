@@ -3,12 +3,14 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Core;
+using Otakulore.Core.Attributes;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class SettingsViewModel : ObservableObject
+[AsSingletonService]
+public partial class SettingsPageModel : ObservableObject
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
@@ -23,7 +25,7 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private string _rateRemaining = "Unknown";
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
-    public SettingsViewModel()
+    public SettingsPageModel()
     {
         var resources = MauiHelper.GetService<ResourceService>();
         var variables = MauiHelper.GetService<VariableService>();

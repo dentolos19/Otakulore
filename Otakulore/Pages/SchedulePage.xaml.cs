@@ -9,7 +9,7 @@ public partial class SchedulePage
     public SchedulePage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<ScheduleViewModel>();
+        BindingContext = MauiHelper.GetService<SchedulePageModel>();
     }
 
     private async void OnTapped(object? sender, SchedulerTappedEventArgs args)

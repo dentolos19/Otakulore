@@ -5,7 +5,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchProviderPage"
-             x:DataType="models:SearchProviderViewModel"
+             x:DataType="models:SearchProviderPageModel"
              Title="Search Provider" Padding="10" Shell.TabBarIsVisible="False">
     <Grid RowDefinitions="Auto,*" RowSpacing="10">
         <Frame Grid.Row="0" Padding="10">

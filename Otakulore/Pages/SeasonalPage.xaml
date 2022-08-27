@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SeasonalPage"
-             x:DataType="models:SeasonalViewModel"
+             x:DataType="models:SeasonalPageModel"
              Title="Seasonal" Padding="10">
     <Grid>
         <CollectionView ItemTemplate="{StaticResource MediaItemHorizontalTemplate}"

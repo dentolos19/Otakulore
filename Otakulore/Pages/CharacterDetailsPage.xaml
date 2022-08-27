@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.CharacterDetailsPage"
-             x:DataType="models:CharacterDetailsViewModel"
+             x:DataType="models:CharacterDetailsPageModel"
              Title="Character">
     <Grid>
         <ScrollView Padding="10">

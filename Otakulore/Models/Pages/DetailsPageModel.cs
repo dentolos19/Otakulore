@@ -3,12 +3,14 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
+using Otakulore.Core.Attributes;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class DetailsViewModel : ObservableObject, IQueryAttributable
+[AsTransientService]
+public partial class DetailsPageModel : ObservableObject, IQueryAttributable
 {
 
     private readonly DataService _data;
@@ -33,7 +35,7 @@ public partial class DetailsViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string[] _tags;
     [ObservableProperty] private bool _isLoading = true;
 
-    public DetailsViewModel()
+    public DetailsPageModel()
     {
         _data = MauiHelper.GetService<DataService>();
     }

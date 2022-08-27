@@ -8,7 +8,6 @@ concurrency:
   group: release
   cancel-in-progress: true
 env:
-  PROJECT_PATH: Otakulore/Otakulore.csproj
   RELEASE_TAG: Canary
 jobs:
   main:
@@ -40,8 +39,8 @@ jobs:
           $password = ConvertTo-SecureString -String ${{ secrets.SIGNING_KEY }} -AsPlainText
           Import-PfxCertificate -FilePath certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
           $thumbprint = (Get-PfxCertificate -FilePath Certificate.pfx -Password $password).Thumbprint
-          dotnet publish ${{ env.PROJECT_PATH }} --framework net6.0-windows10.0.19041.0 --configuration Release -property:ApplicationVersion=${{ github.run_number }} -property:GenerateAppxPackageOnBuild=true -property:AppxPackageSigningEnabled=true -property:PackageCertificateThumbprint=$thumbprint
-          dotnet publish ${{ env.PROJECT_PATH }} --framework net6.0-android --configuration Release -property:ApplicationVersion=${{ github.run_number }}
+          dotnet publish Otakulore/Otakulore.csproj -f net6.0-windows10.0.19041.0 -c Release -p:ApplicationVersion=${{ github.run_number }} -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=$thumbprint
+          dotnet publish Otakulore/Otakulore.csproj -f net6.0-android -c Release -p:ApplicationVersion=${{ github.run_number }}
       - name: Package Artifacts
         run: |
           $windowsArtifacts = (Get-ChildItem -Recurse -Path Otakulore/bin/Release/net*-windows*/**/AppPackages/* -Filter *.msix -Exclude *WindowsAppRuntime*.msix).FullName

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.HomePage"
-             x:DataType="models:HomeViewModel"
+             x:DataType="models:HomePageModel"
              Title="Home">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">

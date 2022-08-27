@@ -2,18 +2,20 @@
 using AniListNet;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-public partial class ScheduleViewModel : ObservableObject
+[AsSingletonService]
+public partial class SchedulePageModel : ObservableObject
 {
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
 
     [ObservableProperty] private ObservableCollection<MediaScheduleItemModel> _items = new();
 
-    public ScheduleViewModel()
+    public SchedulePageModel()
     {
         Task.Run(async () =>
         {
