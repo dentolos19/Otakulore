@@ -31,7 +31,7 @@
                     <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                         <Label Text="{Binding Title}" FontSize="Title" MaxLines="2" LineBreakMode="TailTruncation"/>
-                        <Label Text="{Binding Tag}"/>
+                        <Label Text="{Binding Subtitle}"/>
                     </VerticalStackLayout>
                 </Grid>
             </sf:SfEffectsView>

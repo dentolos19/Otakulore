@@ -1,4 +1,4 @@
-name: Build .NET MAUI
+name: Canary
 on:
   push:
     paths:
@@ -56,6 +56,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          lfs: true
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
