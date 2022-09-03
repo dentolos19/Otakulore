@@ -5,7 +5,8 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaTrackPage"
              x:DataType="models:MediaTrackPageModel"
-             Title="Track" Shell.TabBarIsVisible="False">
+             Shell.TabBarIsVisible="False"
+             Title="Track">
     <ScrollView Padding="10">
         <VerticalStackLayout Spacing="10">
             <Frame Padding="10">

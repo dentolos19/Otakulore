@@ -19,13 +19,45 @@ public partial class SeasonalPageModel : ObservableObject
     private int _currentPageIndex;
     private bool _hasNextPage = true;
 
+    [ObservableProperty] private string _info = "Hello World!";
+    [ObservableProperty] private int _year = DateTime.Now.Year;
+    [ObservableProperty] private ObservableCollection<int> _years = new();
     [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public MediaSeason Season
+    public MediaSeason? Season
     {
-        get => _accumulationFilter?.Season ?? MediaSeason.Winter;
-        set => _accumulationFilter = new SearchMediaFilter { Season = value };
+        get => _accumulationFilter?.Season ?? null;
+        set
+        {
+            Info = value switch
+            {
+                MediaSeason.Winter => "November to February",
+                MediaSeason.Spring => "March to May",
+                MediaSeason.Summer => "May to September",
+                MediaSeason.Fall => "September to November"
+            };
+            _accumulationFilter ??= new SearchMediaFilter();
+            _accumulationFilter.Season = value;
+        }
+    }
+
+    public SeasonalPageModel()
+    {
+        var currentYear = DateTime.Now.Year + 1;
+        for (var index = 0; index < 5; index++)
+            Years.Add(currentYear--);
+    }
+
+    [RelayCommand]
+    private async Task Refresh()
+    {
+        Items.Clear();
+        _currentPageIndex = 0;
+        _hasNextPage = true;
+        _accumulationFilter ??= new SearchMediaFilter();
+        _accumulationFilter.SeasonYear = Year;
+        await Accumulate();
     }
 
     [RelayCommand]

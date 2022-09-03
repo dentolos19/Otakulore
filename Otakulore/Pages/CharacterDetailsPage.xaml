@@ -4,6 +4,7 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.CharacterDetailsPage"
              x:DataType="models:CharacterDetailsPageModel"
+             Shell.TabBarIsVisible="False"
              Title="Character">
     <Grid>
         <ScrollView Padding="10">

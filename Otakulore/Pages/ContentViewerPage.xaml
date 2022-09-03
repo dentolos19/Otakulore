@@ -4,7 +4,9 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.ContentViewerPage"
              x:DataType="models:ContentViewerPageModel"
-             Title="Content Viewer" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False">
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             Title="Content Viewer">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}"/>
     </Shell.BackButtonBehavior>

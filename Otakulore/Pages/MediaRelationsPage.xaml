@@ -4,8 +4,9 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaRelationsPage"
              x:DataType="models:MediaRelationsPageModel"
-             Title="Relations" Padding="10">
-    <Grid>
+             Shell.TabBarIsVisible="False"
+             Title="Relations">
+    <Grid Padding="10">
         <CollectionView ItemTemplate="{StaticResource MediaItemHorizontalTemplate}" ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>

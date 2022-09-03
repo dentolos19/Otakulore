@@ -5,8 +5,9 @@
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaCharactersPage"
              x:DataType="models:MediaCharactersPageModel"
-             Title="Characters" Padding="10">
-    <Grid>
+             Shell.TabBarIsVisible="False"
+             Title="Characters">
+    <Grid Padding="10">
         <CollectionView ItemsSource="{Binding Items}"
                         RemainingItemsThreshold="1"
                         RemainingItemsThresholdReachedCommand="{Binding AccumulateCommand}">

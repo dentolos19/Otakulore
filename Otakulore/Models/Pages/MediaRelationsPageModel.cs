@@ -11,11 +11,15 @@ public partial class MediaRelationsPageModel : ObservableObject, IQueryAttributa
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
 
+    private bool _queryApplied;
+
     [ObservableProperty] private bool _isLoading = true;
     [ObservableProperty] private ObservableCollection<MediaRelationItemModel> _items = new();
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (_queryApplied)
+            return;
         if (!query.ContainsKey("id"))
             return;
         if (query["id"] is not int id)
