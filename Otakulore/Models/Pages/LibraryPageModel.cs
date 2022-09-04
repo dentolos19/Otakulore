@@ -17,7 +17,7 @@ public partial class LibraryPageModel : ObservableObject
 
     private readonly DataService _data = MauiHelper.GetService<DataService>();
 
-    private int? _userId;
+    private int? _id;
     private int _currentPageIndex;
     private bool _hasNextPage = true;
 
@@ -45,14 +45,14 @@ public partial class LibraryPageModel : ObservableObject
     {
         if (_data.Client.IsAuthenticated)
         {
-            if (_userId is not null)
+            if (_id is not null)
                 return;
             var user = await _data.Client.GetAuthenticatedUserAsync();
-            _userId = user.Id;
+            _id = user.Id;
         }
         else
         {
-            _userId = null;
+            _id = null;
         }
         await RefreshCommand.ExecuteAsync(null);
     }
@@ -61,7 +61,7 @@ public partial class LibraryPageModel : ObservableObject
     private async Task Refresh()
     {
         Items.Clear();
-        if (!_userId.HasValue)
+        if (!_id.HasValue)
         {
             await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
             return;
@@ -74,12 +74,12 @@ public partial class LibraryPageModel : ObservableObject
     [RelayCommand]
     private async Task Accumulate()
     {
-        if (!_userId.HasValue)
+        if (!_id.HasValue)
             return;
         if (IsLoading || !_hasNextPage)
             return;
         IsLoading = true;
-        var results = await _data.Client.GetUserEntriesAsync(_userId.Value, new MediaEntryFilter
+        var results = await _data.Client.GetUserEntriesAsync(_id.Value, new MediaEntryFilter
         {
             Type = Type,
             Status = Status,

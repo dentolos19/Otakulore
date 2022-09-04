@@ -57,6 +57,11 @@
             </ShellContent>
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Favorites" Icon="{StaticResource FavoriteGlyphImage}">
+        <ShellContent>
+            <pages:FavoritesPage/>
+        </ShellContent>
+    </FlyoutItem>
     <FlyoutItem Title="Library" Icon="{StaticResource LibraryGlyphImage}">
         <ShellContent>
             <pages:LibraryPage/>

@@ -12,9 +12,47 @@
                 <Frame>
                     <Grid ColumnDefinitions="150,*">
                         <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                        <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
-                            <Label Text="{Binding Title}" FontSize="Title" MaxLines="3" LineBreakMode="TailTruncation"/>
-                            <Label Text="{Binding Subtitle}"/>
+                        <Grid Grid.Column="1" RowDefinitions="Auto,*" Padding="10">
+                            <HorizontalStackLayout Grid.Row="0" Spacing="5" FlowDirection="RightToLeft">
+                                <ImageButton Source="{StaticResource FavoriteGlyphImage}"
+                                             Command="{Binding ToggleFavoriteCommand}"
+                                             WidthRequest="50">
+                                    <ImageButton.Triggers>
+                                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsFavorite}" Value="False">
+                                            <Setter Property="Source" Value="{StaticResource FavoriteOutlineGlyphImage}"/>
+                                        </DataTrigger>
+                                    </ImageButton.Triggers>
+                                </ImageButton>
+                                <ImageButton Source="{StaticResource TrackGlyphImage}"
+                                             Command="{Binding TrackCommand}"
+                                             WidthRequest="50"/>
+                                <ImageButton Source="{StaticResource PlayGlyphImage}"
+                                             Command="{Binding PlayCommand}"
+                                             WidthRequest="50"/>
+                            </HorizontalStackLayout>
+                            <VerticalStackLayout Grid.Row="1" VerticalOptions="End">
+                                <Label Text="{Binding Title}"
+                                       FontSize="Title"
+                                       MaxLines="3"
+                                       LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Subtitle}"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Grid>
+                </Frame>
+                <Frame Padding="10">
+                    <Grid ColumnDefinitions="*,*,*">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="{Binding Popularity}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="Popularity"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="{Binding Score}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="Score"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label Text="{Binding Favorites}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                            <Label Text="Favorites"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>
@@ -47,22 +85,6 @@
                             <Label HorizontalOptions="End" Text="{Binding EndDate}"/>
                         </Grid>
                     </VerticalStackLayout>
-                </Frame>
-                <Frame Padding="10">
-                    <Grid ColumnDefinitions="*,*,*">
-                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
-                            <Label Text="{Binding Popularity}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
-                            <Label Text="Popularity"/>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                            <Label Text="{Binding Score}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
-                            <Label Text="Score"/>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
-                            <Label Text="{Binding Favorites}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
-                            <Label Text="Favorites"/>
-                        </VerticalStackLayout>
-                    </Grid>
                 </Frame>
                 <Frame Padding="10">
                     <VerticalStackLayout Spacing="10">
@@ -103,12 +125,6 @@
                         <Button Grid.Column="0" Text="Characters" Command="{Binding ShowCharactersCommand}"/>
                         <Button Grid.Column="1" Text="Relations" Command="{Binding ShowRelationsCommand}"/>
                     </Grid>
-                </Frame>
-                <Frame Padding="10">
-                    <VerticalStackLayout Spacing="10">
-                        <Button Text="Play" Command="{Binding PlayCommand}"/>
-                        <Button Text="Track" Command="{Binding TrackCommand}"/>
-                    </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>
         </ScrollView>

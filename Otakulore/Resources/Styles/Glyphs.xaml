@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?xaml-comp compile="true"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:global="clr-namespace:Otakulore.Resources.Styles">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <x:String x:Key="GlyphFontFamily">MaterialIcons</x:String>
 
-    <FontImageSource x:Key="HomeGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.Home}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="ScheduleGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.Calendar}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="SeasonalGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.CalendarClock}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="LibraryGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.Library}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="SettingsGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.Cog}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="RefreshGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.Refresh}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="FilterGlyphImage" FontFamily="{StaticResource GlyphFontFamily}" Glyph="{x:Static global:Icons.Filter}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="HomeGlyphImage" Glyph="&#xe88a;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="ScheduleGlyphImage" Glyph="&#xe916;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="SeasonalGlyphImage" Glyph="&#xe616;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="LibraryGlyphImage" Glyph="&#xe54b;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="SettingsGlyphImage" Glyph="&#xe8b8;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+
+    <FontImageSource x:Key="RefreshGlyphImage" Glyph="&#xe5d5;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="FilterGlyphImage" Glyph="&#xef4f;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="PlayGlyphImage" Glyph="&#xe037;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="TrackGlyphImage" Glyph="&#xe3c9;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="FavoriteGlyphImage" Glyph="&#xe87d;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="FavoriteOutlineGlyphImage" Glyph="&#xe87e;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
 
 </ResourceDictionary>

@@ -17,6 +17,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
 
     private bool _queryApplied;
     private int _id;
+    private MediaType _type;
 
     [ObservableProperty] private Uri _imageUrl;
     [ObservableProperty] private string _title;
@@ -33,6 +34,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string _favorites;
     [ObservableProperty] private string[] _genres;
     [ObservableProperty] private string[] _tags;
+    [ObservableProperty] private bool _isFavorite;
     [ObservableProperty] private bool _isLoading = true;
 
     public DetailsPageModel()
@@ -51,6 +53,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
             return;
         _id = id;
         var media = await _data.Client.GetMediaAsync(_id);
+        _type = media.Type;
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         Title = media.Title.PreferredTitle;
         Subtitle = media.Type == MediaType.Anime && media.Season.HasValue && media.SeasonYear.HasValue
@@ -75,6 +78,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
         Genres = media.Genres;
         var tags = await _data.Client.GetMediaTagsAsync(id);
         Tags = tags.Select(item => item.Name).ToArray();
+        IsFavorite = media.IsFavorite;
         IsLoading = false;
     }
 
@@ -125,6 +129,15 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
                     { "id", _id }
                 }
             );
+        else
+            await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
+    }
+
+    [RelayCommand]
+    private async Task ToggleFavorite()
+    {
+        if (_data.Client.IsAuthenticated)
+            IsFavorite = await _data.Client.ToggleMediaFavoriteAsync(_id, _type);
         else
             await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
     }
