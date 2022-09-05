@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using AniListNet;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Core.Attributes;

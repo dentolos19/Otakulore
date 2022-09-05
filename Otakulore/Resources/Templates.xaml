@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:sf="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+                    xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
                     xmlns:models="clr-namespace:Otakulore.Models"
                     x:Class="Otakulore.Resources.Templates">
     <DataTemplate x:Key="MediaItemVerticalTemplate" x:DataType="models:MediaItemModel">
         <Frame WidthRequest="150" BackgroundColor="{DynamicResource Theme3}">
-            <sf:SfEffectsView TouchDownEffects="Ripple">
-                <sf:SfEffectsView.GestureRecognizers>
+            <syncfusion:SfEffectsView TouchDownEffects="Ripple">
+                <syncfusion:SfEffectsView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                </sf:SfEffectsView.GestureRecognizers>
+                </syncfusion:SfEffectsView.GestureRecognizers>
                 <Grid RowDefinitions="Auto,*">
                     <Grid Grid.Row="0" RowDefinitions="5,Auto,*" ColumnDefinitions="5,Auto,*">
                         <Image Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{Binding ImageUrl}" HeightRequest="220"/>
@@ -18,15 +18,15 @@
                     </Grid>
                     <Label Grid.Row="1" Text="{Binding Title}" Margin="2" LineBreakMode="TailTruncation" HorizontalTextAlignment="Center"/>
                 </Grid>
-            </sf:SfEffectsView>
+            </syncfusion:SfEffectsView>
         </Frame>
     </DataTemplate>
     <DataTemplate x:Key="MediaItemHorizontalTemplate" x:DataType="models:MediaItemModel">
         <Frame BackgroundColor="{DynamicResource Theme3}">
-            <sf:SfEffectsView TouchDownEffects="Ripple">
-                <sf:SfEffectsView.GestureRecognizers>
+            <syncfusion:SfEffectsView TouchDownEffects="Ripple">
+                <syncfusion:SfEffectsView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                </sf:SfEffectsView.GestureRecognizers>
+                </syncfusion:SfEffectsView.GestureRecognizers>
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="200">
                     <Image Grid.Column="0" Source="{Binding ImageUrl}" WidthRequest="130"/>
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
@@ -34,7 +34,7 @@
                         <Label Text="{Binding Subtitle}"/>
                     </VerticalStackLayout>
                 </Grid>
-            </sf:SfEffectsView>
+            </syncfusion:SfEffectsView>
         </Frame>
     </DataTemplate>
 </ResourceDictionary>

@@ -15,6 +15,8 @@
     <FontImageSource x:Key="FilterGlyphImage" Glyph="&#xef4f;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
     <FontImageSource x:Key="PlayGlyphImage" Glyph="&#xe037;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
     <FontImageSource x:Key="TrackGlyphImage" Glyph="&#xe3c9;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="CharacterGlyphImage" Glyph="&#xf233;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="RelationsGlyphImage" Glyph="&#xe97a;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
     <FontImageSource x:Key="FavoriteGlyphImage" Glyph="&#xe87d;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
     <FontImageSource x:Key="FavoriteOutlineGlyphImage" Glyph="&#xe87e;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
 

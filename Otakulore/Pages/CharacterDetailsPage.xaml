@@ -12,10 +12,22 @@
                 <Frame>
                     <Grid ColumnDefinitions="150,*">
                         <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                        <VerticalStackLayout Grid.Column="1" Margin="10" VerticalOptions="End">
-                            <Label Text="{Binding Name}" FontSize="Title"/>
-                            <Label Text="{Binding Favorites}" FontSize="Caption"/>
-                        </VerticalStackLayout>
+                        <Grid Grid.Column="1" RowDefinitions="Auto,*" Padding="10">
+                            <ImageButton Grid.Row="0"
+                                         Source="{StaticResource FavoriteGlyphImage}"
+                                         Command="{Binding ToggleFavoriteCommand}"
+                                         HorizontalOptions="End">
+                                <ImageButton.Triggers>
+                                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsFavorite}" Value="False">
+                                        <Setter Property="Source" Value="{StaticResource FavoriteOutlineGlyphImage}"/>
+                                    </DataTrigger>
+                                </ImageButton.Triggers>
+                            </ImageButton>
+                            <VerticalStackLayout Grid.Row="1" VerticalOptions="End">
+                                <Label Text="{Binding Name}" FontSize="Title"/>
+                                <Label Text="{Binding Favorites}" FontSize="Caption"/>
+                            </VerticalStackLayout>
+                        </Grid>
                     </Grid>
                 </Frame>
                 <Frame Padding="10">

@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AniListNet.Objects;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Otakulore.Core.Attributes;
 using Otakulore.Services;
 
@@ -18,6 +21,7 @@ public partial class CharacterDetailsPageModel : ObservableObject, IQueryAttribu
     [ObservableProperty] private string _description;
     [ObservableProperty] private string _gender;
     [ObservableProperty] private string _dateOfBirth;
+    [ObservableProperty] private bool _isFavorite;
     [ObservableProperty] private bool _isLoading = true;
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -34,7 +38,17 @@ public partial class CharacterDetailsPageModel : ObservableObject, IQueryAttribu
         Description = character.Description ?? "No description provided.";
         Gender = character.Gender ?? "Unknown";
         DateOfBirth = character.DateOfBirth.ToDateTime()?.ToShortDateString() ?? "Unknown";
+        IsFavorite = character.IsFavorite;
         IsLoading = false;
+    }
+
+    [RelayCommand]
+    private async Task ToggleFavorite()
+    {
+        if (_data.Client.IsAuthenticated)
+            IsFavorite = await _data.Client.ToggleCharacterFavoriteAsync(_id);
+        else
+            await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
     }
 
 }

@@ -17,8 +17,10 @@ public partial class FavoritesPageModel : ObservableObject
 
     [ObservableProperty] private bool _isAnimeLoading;
     [ObservableProperty] private bool _isMangaLoading;
+    [ObservableProperty] private bool _isCharacterLoading;
     [ObservableProperty] private ObservableCollection<MediaItemModel> _animeItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _mangaItems = new();
+    [ObservableProperty] private ObservableCollection<CharacterItemModel> _characterItems = new();
 
     public async Task CheckAuthenticationStatus()
     {
@@ -39,14 +41,14 @@ public partial class FavoritesPageModel : ObservableObject
     [RelayCommand]
     private async Task Refresh()
     {
+        if (!_id.HasValue)
+        {
+            await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
+            return;
+        }
         await Task.Run(async () =>
         {
             AnimeItems.Clear();
-            if (!_id.HasValue)
-            {
-                await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
-                return;
-            }
             IsAnimeLoading = true;
             var results = await _data.Client.GetUserAnimeFavoritesAsync(_id.Value);
             foreach (var item in results.Data)
@@ -56,16 +58,20 @@ public partial class FavoritesPageModel : ObservableObject
         await Task.Run(async () =>
         {
             MangaItems.Clear();
-            if (!_id.HasValue)
-            {
-                await Toast.Make("You need to login into AniList via the settings to access this feature.").Show();
-                return;
-            }
             IsMangaLoading = true;
             var results = await _data.Client.GetUserMangaFavoritesAsync(_id.Value);
             foreach (var item in results.Data)
                 MangaItems.Add(new MediaItemModel(item));
             IsMangaLoading = false;
+        });
+        await Task.Run(async () =>
+        {
+            CharacterItems.Clear();
+            IsCharacterLoading = true;
+            var results = await _data.Client.GetUserCharacterFavoritesAsync(_id.Value);
+            foreach (var item in results.Data)
+                CharacterItems.Add(new CharacterItemModel(item));
+            IsCharacterLoading = false;
         });
     }
 
@@ -77,6 +83,12 @@ public partial class FavoritesPageModel : ObservableObject
 
     [RelayCommand]
     private async Task SeeMoreManga()
+    {
+        await Toast.Make("This feature is not implemented yet!").Show();
+    }
+
+    [RelayCommand]
+    private async Task SeeMoreCharacters()
     {
         await Toast.Make("This feature is not implemented yet!").Show();
     }
