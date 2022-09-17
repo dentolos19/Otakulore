@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.SearchFilterPage"
              x:DataType="models:SearchFilterPageModel"
@@ -21,14 +22,43 @@
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="5">
-                    <Label Text="Actions" FontAttributes="Bold"/>
-                    <Button Text="Filter" Command="{Binding FilterCommand}"/>
-                    <Button Text="Reset" Command="{Binding ResetCommand}"/>
-                    <Button Text="Cancel" Command="{Binding CancelCommand}"/>
-                </VerticalStackLayout>
-            </Frame>
+            <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="5">
+                        <Frame>
+                            <syncfusion:SfEffectsView>
+                                <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FilterCommand}"/>
+                                </syncfusion:SfEffectsView.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="10" Margin="10">
+                                    <Image Source="{StaticResource FilterGlyphImage}"/>
+                                    <Label Text="Filter" VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </syncfusion:SfEffectsView>
+                        </Frame>
+                        <Frame>
+                            <syncfusion:SfEffectsView>
+                                <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ResetCommand}"/>
+                                </syncfusion:SfEffectsView.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="10" Margin="10">
+                                    <Image Source="{StaticResource DeleteGlyphImage}"/>
+                                    <Label Text="Reset" VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </syncfusion:SfEffectsView>
+                        </Frame>
+                        <Frame>
+                            <syncfusion:SfEffectsView>
+                                <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CancelCommand}"/>
+                                </syncfusion:SfEffectsView.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="10" Margin="10">
+                                    <Image Source="{StaticResource CancelGlyphImage}"/>
+                                    <Label Text="Cancel" VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </syncfusion:SfEffectsView>
+                        </Frame>
+                    </HorizontalStackLayout>
+                </ScrollView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

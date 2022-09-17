@@ -19,5 +19,8 @@
     <FontImageSource x:Key="RelationsGlyphImage" Glyph="&#xe97a;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
     <FontImageSource x:Key="FavoriteGlyphImage" Glyph="&#xe87d;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
     <FontImageSource x:Key="FavoriteOutlineGlyphImage" Glyph="&#xe87e;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="SaveGlyphImage" Glyph="&#xe161;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="DeleteGlyphImage" Glyph="&#xe872;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="CancelGlyphImage" Glyph="&#xe5c9;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
 
 </ResourceDictionary>

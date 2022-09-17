@@ -12,18 +12,6 @@ public class SettingsService
         set => SetValue(value);
     }
 
-    public string? UserAvatarUrl
-    {
-        get => GetValue<string>();
-        set => SetValue(value);
-    }
-
-    public string? UserName
-    {
-        get => GetValue<string>();
-        set => SetValue(value);
-    }
-
     public int ThemeIndex
     {
         get => GetValue(0);

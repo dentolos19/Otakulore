@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.MediaTrackPage"
              x:DataType="models:MediaTrackPageModel"
@@ -44,14 +45,43 @@
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="5">
-                    <Label Text="Actions" FontAttributes="Bold"/>
-                    <Button Text="Save" Command="{Binding SaveCommand}"/>
-                    <Button Text="Delete" Command="{Binding DeleteCommand}"/>
-                    <Button Text="Cancel" Command="{Binding CancelCommand}"/>
-                </VerticalStackLayout>
-            </Frame>
+            <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="5">
+                        <Frame>
+                            <syncfusion:SfEffectsView>
+                                <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SaveCommand}"/>
+                                </syncfusion:SfEffectsView.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="10" Margin="10">
+                                    <Image Source="{StaticResource SaveGlyphImage}"/>
+                                    <Label Text="Save" VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </syncfusion:SfEffectsView>
+                        </Frame>
+                        <Frame>
+                            <syncfusion:SfEffectsView>
+                                <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DeleteCommand}"/>
+                                </syncfusion:SfEffectsView.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="10" Margin="10">
+                                    <Image Source="{StaticResource DeleteGlyphImage}"/>
+                                    <Label Text="Delete" VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </syncfusion:SfEffectsView>
+                        </Frame>
+                        <Frame>
+                            <syncfusion:SfEffectsView>
+                                <syncfusion:SfEffectsView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CancelCommand}"/>
+                                </syncfusion:SfEffectsView.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="10" Margin="10">
+                                    <Image Source="{StaticResource CancelGlyphImage}"/>
+                                    <Label Text="Cancel" VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </syncfusion:SfEffectsView>
+                        </Frame>
+                    </HorizontalStackLayout>
+                </ScrollView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
