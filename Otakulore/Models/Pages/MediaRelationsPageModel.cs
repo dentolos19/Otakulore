@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class MediaRelationsPageModel : ObservableObject, IQueryAttributable
 {
 

@@ -29,7 +29,7 @@ public partial class MediaItemModel
     [RelayCommand]
     private void Open()
     {
-        MauiHelper.NavigateTo(
+        MauiHelper.Navigate(
             typeof(DetailsPage),
             new Dictionary<string, object>
             {

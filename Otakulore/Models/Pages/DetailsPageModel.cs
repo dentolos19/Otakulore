@@ -3,13 +3,13 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class DetailsPageModel : ObservableObject, IQueryAttributable
 {
 
@@ -85,7 +85,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     private Task ShowCharacters()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(MediaCharactersPage),
             new Dictionary<string, object>
             {
@@ -97,7 +97,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     private Task ShowRelations()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(MediaRelationsPage),
             new Dictionary<string, object>
             {
@@ -109,7 +109,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     private Task Play()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(SearchProviderPage),
             new Dictionary<string, object>
             {
@@ -122,7 +122,7 @@ public partial class DetailsPageModel : ObservableObject, IQueryAttributable
     private async Task Track()
     {
         if (_data.Client.IsAuthenticated)
-            await MauiHelper.NavigateTo(
+            await MauiHelper.Navigate(
                 typeof(MediaTrackPage),
                 new Dictionary<string, object>
                 {

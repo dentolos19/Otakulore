@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core;
+using Otakulore.Content;
 using Otakulore.Pages;
 
 namespace Otakulore.Models;
@@ -21,7 +21,7 @@ public partial class SourceItemModel
     [RelayCommand]
     private Task Open()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(SourceViewerPage),
             new Dictionary<string, object>
             {

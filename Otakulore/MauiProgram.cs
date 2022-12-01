@@ -12,15 +12,10 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("MaterialIcons.ttf", "MaterialIcons");
-                fonts.AddFont("Poppins.ttf", "Poppins");
-                fonts.AddFont("SegoeIcons.ttf", "SegoeIcons");
-            })
             .ConfigureSyncfusionCore()
+            .SetupFonts()
             .SetupServices()
-            .SetupViewModels();
+            .SetupRoutes();
         return builder.Build();
     }
 

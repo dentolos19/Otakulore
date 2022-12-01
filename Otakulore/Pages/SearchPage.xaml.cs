@@ -1,9 +1,9 @@
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[IncludePageRoute]
+[PageRoute]
 public partial class SearchPage
 {
 

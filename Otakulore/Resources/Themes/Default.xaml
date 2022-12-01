@@ -12,7 +12,7 @@
     <Color x:Key="Theme4">#40445a</Color>
     <Color x:Key="Theme5">#4c5265</Color>
 
-    <!-- below are styles provided by template -->
+    <!-- below are styles provided by the project template -->
 
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>

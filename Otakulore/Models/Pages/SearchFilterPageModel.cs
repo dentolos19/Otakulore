@@ -3,12 +3,12 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Pages;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class SearchFilterPageModel : ObservableObject, IQueryAttributable
 {
 

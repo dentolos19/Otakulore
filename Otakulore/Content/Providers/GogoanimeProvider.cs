@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
-namespace Otakulore.Core.Providers;
+namespace Otakulore.Content.Providers;
 
 public class GogoanimeProvider : IAnimeProvider
 {

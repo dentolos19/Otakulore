@@ -29,8 +29,6 @@ public partial class AppShell
                 if (!hasAuthenticated)
                     await Toast.Make("Unable to authenticate with AniList!").Show();
             });
-
-        MauiHelper.SetupRoutes();
     }
 
 }

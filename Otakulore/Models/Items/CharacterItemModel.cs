@@ -30,7 +30,7 @@ public partial class CharacterItemModel
     [RelayCommand]
     private Task Open()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(CharacterDetailsPage),
             new Dictionary<string, object>
             {

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core;
-using Otakulore.Core.Attributes;
+using Otakulore.Content;
+using Otakulore.Helpers;
 #if ANDROID
 using Android.Content.PM;
 using Android.Views;
@@ -9,7 +9,7 @@ using Android.Views;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class ContentViewerPageModel : ObservableObject, IQueryAttributable
 {
 

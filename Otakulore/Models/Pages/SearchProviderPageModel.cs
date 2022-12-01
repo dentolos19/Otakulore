@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core;
-using Otakulore.Core.Attributes;
+using Otakulore.Content;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class SearchProviderPageModel : ObservableObject, IQueryAttributable
 {
 

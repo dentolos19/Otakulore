@@ -3,13 +3,13 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsSingletonService]
+[SingletonService]
 public partial class HomePageModel : ObservableObject
 {
 
@@ -50,7 +50,7 @@ public partial class HomePageModel : ObservableObject
     [RelayCommand]
     private Task Search()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(SearchPage),
             new Dictionary<string, object>
             {
@@ -62,7 +62,7 @@ public partial class HomePageModel : ObservableObject
     [RelayCommand]
     private Task SeeMoreTrending()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(SearchPage),
             new Dictionary<string, object>
             {
@@ -74,7 +74,7 @@ public partial class HomePageModel : ObservableObject
     [RelayCommand]
     private Task SeeMoreFavorite()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(SearchPage),
             new Dictionary<string, object>
             {
@@ -86,7 +86,7 @@ public partial class HomePageModel : ObservableObject
     [RelayCommand]
     private Task SeeMorePopular()
     {
-        return MauiHelper.NavigateTo(
+        return MauiHelper.Navigate(
             typeof(SearchPage),
             new Dictionary<string, object>
             {

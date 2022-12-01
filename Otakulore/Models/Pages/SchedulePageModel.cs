@@ -2,12 +2,12 @@
 using AniListNet;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsSingletonService]
+[SingletonService]
 public partial class SchedulePageModel : ObservableObject
 {
 

@@ -4,12 +4,12 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class SeasonalPageModel : ObservableObject
 {
 

@@ -2,12 +2,12 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsSingletonService]
+[SingletonService]
 public partial class FavoritesPageModel : ObservableObject
 {
 

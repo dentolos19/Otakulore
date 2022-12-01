@@ -4,13 +4,13 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class SearchPageModel : ObservableObject, IQueryAttributable
 {
 
@@ -94,7 +94,7 @@ public partial class SearchPageModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     private Task Filter()
     {
-        return MauiHelper.NavigateTo(typeof(SearchFilterPage), new Dictionary<string, object>
+        return MauiHelper.Navigate(typeof(SearchFilterPage), new Dictionary<string, object>
         {
             { "filter", _accumulationFilter }
         });

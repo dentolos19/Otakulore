@@ -16,7 +16,7 @@ public partial class SchedulePage
     {
         if (args.Appointments is not { Count: > 0 })
             return;
-        await MauiHelper.NavigateTo(
+        await MauiHelper.Navigate(
             typeof(DetailsPage),
             new Dictionary<string, object>
             {

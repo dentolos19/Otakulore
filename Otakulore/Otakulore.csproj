@@ -21,8 +21,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiIcon Include="Resources\Images\Other\appicon.svg" ForegroundFile="Resources\Images\Other\appiconfg.svg" Color="#512BD4"/>
-		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512BD4" BaseSize="128,128"/>
+		<MauiIcon Include="Resources\Images\icon.png" Color="#f5d4c1"/>
+		<MauiSplashScreen Include="Resources\Images\splash.svg" Color="#512BD4" BaseSize="128,128"/>
 		<MauiImage Include="Resources\Images\*"/>
 		<MauiFont Include="Resources\Fonts\*"/>
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>

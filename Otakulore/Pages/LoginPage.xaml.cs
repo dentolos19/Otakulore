@@ -1,11 +1,11 @@
 using System.Text.RegularExpressions;
 using CommunityToolkit.Maui.Alerts;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Pages;
 
-[IncludePageRoute]
+[PageRoute]
 public partial class LoginPage
 {
 

@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Core;
-using Otakulore.Core.Attributes;
+using Otakulore.Content;
+using Otakulore.Helpers;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class SourceViewerPageModel : ObservableObject, IQueryAttributable
 {
 

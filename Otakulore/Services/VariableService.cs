@@ -1,6 +1,6 @@
 ﻿using AniListNet;
-using Otakulore.Core;
-using Otakulore.Core.Providers;
+using Otakulore.Content;
+using Otakulore.Content.Providers;
 
 namespace Otakulore.Services;
 

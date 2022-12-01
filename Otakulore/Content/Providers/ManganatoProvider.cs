@@ -1,12 +1,14 @@
-﻿namespace Otakulore.Core.Providers;
+﻿namespace Otakulore.Content.Providers;
 
 public class ManganatoProvider : IProvider
 {
 
     public string Name => "Manganato";
 
-    public Task<MediaSource[]?> GetSources(string query)
+    public Task<MediaSource[]?> GetSources(string? query)
     {
+        if (query is null)
+            return Task.FromResult<MediaSource[]?>(null);
         var htmlDocument = Utilities.HtmlWeb.Load("https://manganato.com/search/story/" + query.Replace(' ', '_'));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='panel-search-story']/div[@class='search-story-item']");
         if (searchElements is not { Count: > 0 })

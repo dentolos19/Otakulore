@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace Otakulore.Core;
+namespace Otakulore.Content;
 
 public static class Utilities
 {

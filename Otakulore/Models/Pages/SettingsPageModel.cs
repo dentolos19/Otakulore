@@ -2,14 +2,14 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core;
-using Otakulore.Core.Attributes;
+using Otakulore.Content;
+using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsSingletonService]
+[SingletonService]
 public partial class SettingsPageModel : ObservableObject
 {
 
@@ -77,7 +77,7 @@ public partial class SettingsPageModel : ObservableObject
         }
         else
         {
-            await MauiHelper.NavigateTo(typeof(LoginPage));
+            await MauiHelper.Navigate(typeof(LoginPage));
         }
     }
 

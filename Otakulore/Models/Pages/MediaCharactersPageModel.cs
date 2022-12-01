@@ -1,14 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using AniListNet;
-using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Core.Attributes;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsTransientService]
+[TransientService]
 public partial class MediaCharactersPageModel : ObservableObject, IQueryAttributable
 {
 

@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Core;
-using Otakulore.Core.Attributes;
+using Otakulore.Content;
+using Otakulore.Helpers;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
-[AsSingletonService]
+[SingletonService]
 public partial class AppShellModel : ObservableObject
 {
 
