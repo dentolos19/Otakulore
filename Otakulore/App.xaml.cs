@@ -1,4 +1,6 @@
-﻿namespace Otakulore;
+﻿using Otakulore.Pages;
+
+namespace Otakulore;
 
 public partial class App
 {
@@ -6,7 +8,8 @@ public partial class App
     public App()
     {
         InitializeComponent();
-        MainPage = new AppShell();
+        Current.UserAppTheme = AppTheme.Dark;
+        MainPage = new MainPage();
     }
 
 }

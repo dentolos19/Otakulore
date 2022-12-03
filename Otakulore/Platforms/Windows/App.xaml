@@ -1,5 +1,6 @@
-﻿<maui:MauiWinUIApplication xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                           xmlns:maui="using:Microsoft.Maui"
-                           x:Class="Otakulore.WinUI.App">
-</maui:MauiWinUIApplication>
+﻿<maui:MauiWinUIApplication
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui"
+    xmlns:local="using:Otakulore.WinUI"
+    x:Class="Otakulore.WinUI.App"/>

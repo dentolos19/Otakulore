@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:models="clr-namespace:Otakulore.Models"
+            xmlns:pages="clr-namespace:Otakulore.Pages"
+            x:Class="Otakulore.Pages.MainPage"
+            x:DataType="models:MainPageModel"
+            FlyoutLayoutBehavior="Popover">
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Otakulore">
+            <Grid RowDefinitions="Auto,*,Auto">
+                 <Grid Grid.Row="0" Padding="12,8" ColumnDefinitions="*,*" Background="{DynamicResource Theme2}">
+                     <Label Grid.Column="0" Text="Otakulore" FontSize="24"/>
+                     <Label Grid.Column="1" Text="Debug" HorizontalOptions="End" VerticalOptions="Center"/>
+                 </Grid>
+                <ListView x:Name="FlyoutCollection" Grid.Row="1" SelectionMode="Single" ItemSelected="OnSelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FlyoutItemModel">
+                            <ViewCell>
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" Padding="12,4">
+                                    <Image Grid.Column="0" Source="{Binding Icon}" Aspect="AspectFill" WidthRequest="32" HeightRequest="32"/>
+                                    <Label Grid.Column="1" Text="{Binding Title}" VerticalTextAlignment="Center"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type models:FlyoutItemModel}">
+                            <models:FlyoutItemModel Title="Home" Type="{x:Type pages:HomePage}">
+                                <models:FlyoutItemModel.Icon>
+                                    <FileImageSource File="home.png"/>
+                                </models:FlyoutItemModel.Icon>
+                            </models:FlyoutItemModel>
+                            <models:FlyoutItemModel Title="Schedules (Beta)" Type="{x:Type pages:SchedulesPage}">
+                                <models:FlyoutItemModel.Icon>
+                                    <FileImageSource File="schedules.png"/>
+                                </models:FlyoutItemModel.Icon>
+                            </models:FlyoutItemModel>
+                            <models:FlyoutItemModel Title="Settings" Type="{x:Type pages:SettingsPage}">
+                                <models:FlyoutItemModel.Icon>
+                                    <FileImageSource File="settings.png"/>
+                                </models:FlyoutItemModel.Icon>
+                            </models:FlyoutItemModel>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+                <Grid Grid.Row="2" Padding="12,8" ColumnDefinitions="*,*" Background="{DynamicResource Theme2}">
+                    <Label Grid.Column="0" Text="Rate Remaining"/>
+                    <Label Grid.Column="1" Text="{Binding RateRemaining}" HorizontalOptions="End"/>
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </FlyoutPage.Flyout>
+    <FlyoutPage.Detail>
+        <ContentPage/>
+    </FlyoutPage.Detail>
+</FlyoutPage>

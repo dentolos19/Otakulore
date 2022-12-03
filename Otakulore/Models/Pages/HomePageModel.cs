@@ -13,86 +13,50 @@ namespace Otakulore.Models;
 public partial class HomePageModel : ObservableObject
 {
 
-    [ObservableProperty] private string _query;
-    [ObservableProperty] private bool _isTrendingLoading = true;
-    [ObservableProperty] private bool _isFavoriteLoading = true;
-    [ObservableProperty] private bool _isPopularLoading = true;
+    private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
+
     [ObservableProperty] private ObservableCollection<MediaItemModel> _trendingItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _favoriteItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _popularItems = new();
 
     public HomePageModel()
     {
-        var data = MauiHelper.GetService<DataService>();
-        Task.Run(async () =>
-        {
-            var results = await data.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Trending });
-            foreach (var item in results.Data)
-                TrendingItems.Add(new MediaItemModel(item));
-            IsTrendingLoading = false;
-        });
-        Task.Run(async () =>
-        {
-            var results = await data.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Favorites });
-            foreach (var item in results.Data)
-                FavoriteItems.Add(new MediaItemModel(item));
-            IsFavoriteLoading = false;
-        });
-        Task.Run(async () =>
-        {
-            var results = await data.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Popularity });
-            foreach (var item in results.Data)
-                PopularItems.Add(new MediaItemModel(item));
-            IsPopularLoading = false;
-        });
+        RefreshTrendingItemsCommand.Execute(null);
+        RefreshFavoriteItemsCommand.Execute(null);
+        RefreshPopularItemsCommand.Execute(null);
     }
 
     [RelayCommand]
-    private Task Search()
+    private Task Search(string query)
     {
-        return MauiHelper.Navigate(
-            typeof(SearchPage),
-            new Dictionary<string, object>
-            {
-                { "filter", new SearchMediaFilter { Query = Query } }
-            }
-        );
+        return MauiHelper.Navigate(typeof(SearchPage), query);
     }
 
     [RelayCommand]
-    private Task SeeMoreTrending()
+    private async Task RefreshTrendingItems()
     {
-        return MauiHelper.Navigate(
-            typeof(SearchPage),
-            new Dictionary<string, object>
-            {
-                { "filter", new SearchMediaFilter { Sort = MediaSort.Trending } }
-            }
-        );
+        TrendingItems.Clear();
+        var result = await _externalService.AniClient.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Trending });
+        foreach (var item in result.Data)
+            TrendingItems.Add(MediaItemModel.Map(item));
     }
 
     [RelayCommand]
-    private Task SeeMoreFavorite()
+    private async Task RefreshFavoriteItems()
     {
-        return MauiHelper.Navigate(
-            typeof(SearchPage),
-            new Dictionary<string, object>
-            {
-                { "filter", new SearchMediaFilter { Sort = MediaSort.Favorites } }
-            }
-        );
+        FavoriteItems.Clear();
+        var result = await _externalService.AniClient.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Favorites });
+        foreach (var item in result.Data)
+            FavoriteItems.Add(MediaItemModel.Map(item));
     }
 
     [RelayCommand]
-    private Task SeeMorePopular()
+    private async Task RefreshPopularItems()
     {
-        return MauiHelper.Navigate(
-            typeof(SearchPage),
-            new Dictionary<string, object>
-            {
-                { "filter", new SearchMediaFilter { Sort = MediaSort.Popularity } }
-            }
-        );
+        PopularItems.Clear();
+        var result = await _externalService.AniClient.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Popularity });
+        foreach (var item in result.Data)
+            PopularItems.Add(MediaItemModel.Map(item));
     }
 
 }

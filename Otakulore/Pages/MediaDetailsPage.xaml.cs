@@ -4,11 +4,11 @@ using Otakulore.Models;
 namespace Otakulore.Pages;
 
 [TransientService]
-[AttachModel(typeof(CharacterDetailsPageModel))]
-public partial class CharacterDetailsPage
+[AttachModel(typeof(MediaDetailsPageModel))]
+public partial class MediaDetailsPage
 {
 
-    public CharacterDetailsPage()
+    public MediaDetailsPage()
     {
         InitializeComponent();
     }

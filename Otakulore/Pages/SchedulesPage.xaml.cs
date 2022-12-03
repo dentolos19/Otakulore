@@ -3,10 +3,10 @@
 namespace Otakulore.Pages;
 
 [SingletonService]
-public partial class SettingsPage
+public partial class SchedulesPage
 {
 
-    public SettingsPage()
+    public SchedulesPage()
     {
         InitializeComponent();
     }

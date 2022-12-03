@@ -3,53 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
              x:Class="Otakulore.Pages.CharacterDetailsPage"
-             x:DataType="models:CharacterDetailsPageModel"
-             Shell.TabBarIsVisible="False"
-             Title="Character">
-    <Grid>
-        <ScrollView Padding="10">
-            <VerticalStackLayout Spacing="10">
-                <Frame>
-                    <Grid ColumnDefinitions="150,*">
-                        <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                        <Grid Grid.Column="1" RowDefinitions="Auto,*" Padding="10">
-                            <ImageButton Grid.Row="0"
-                                         Source="{StaticResource FavoriteGlyphImage}"
-                                         Command="{Binding ToggleFavoriteCommand}"
-                                         HorizontalOptions="End">
-                                <ImageButton.Triggers>
-                                    <DataTrigger TargetType="ImageButton" Binding="{Binding IsFavorite}" Value="False">
-                                        <Setter Property="Source" Value="{StaticResource FavoriteOutlineGlyphImage}"/>
-                                    </DataTrigger>
-                                </ImageButton.Triggers>
-                            </ImageButton>
-                            <VerticalStackLayout Grid.Row="1" VerticalOptions="End">
-                                <Label Text="{Binding Name}" FontSize="Title"/>
-                                <Label Text="{Binding Favorites}" FontSize="Caption"/>
-                            </VerticalStackLayout>
-                        </Grid>
+             x:DataType="models:CharacterDetailsPageModel">
+    <ScrollView Padding="12">
+        <VerticalStackLayout Spacing="8">
+            <Frame>
+                <Grid ColumnDefinitions="128,*">
+                    <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
+                    <StackLayout Grid.Column="1" Padding="12,8" VerticalOptions="End">
+                        <Label Text="{Binding Name}" FontSize="24"/>
+                        <Label Text="{Binding Favorites}"/>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+            <Frame Padding="8">
+                <VerticalStackLayout>
+                    <Label Text="Description" FontAttributes="Bold"/>
+                    <Label Text="{Binding Description}" TextType="Html"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Padding="8">
+                <VerticalStackLayout>
+                    <Grid>
+                        <Label Text="Gender" FontAttributes="Bold"/>
+                        <Label Text="{Binding Gender}" HorizontalOptions="End"/>
                     </Grid>
-                </Frame>
-                <Frame Padding="10">
-                    <VerticalStackLayout>
-                        <Label Text="Description" FontAttributes="Bold"/>
-                        <Label Text="{Binding Description}" TextType="Html"/>
-                    </VerticalStackLayout>
-                </Frame>
-                <Frame Padding="10">
-                    <VerticalStackLayout>
-                        <Grid>
-                            <Label Text="Gender" FontAttributes="Bold"/>
-                            <Label HorizontalOptions="End" Text="{Binding Gender}"/>
-                        </Grid>
-                        <Grid>
-                            <Label Text="Date of Birth" FontAttributes="Bold"/>
-                            <Label HorizontalOptions="End" Text="{Binding DateOfBirth}"/>
-                        </Grid>
-                    </VerticalStackLayout>
-                </Frame>
-            </VerticalStackLayout>
-        </ScrollView>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
-    </Grid>
+                    <Grid>
+                        <Label Text="Birthday" FontAttributes="Bold"/>
+                        <Label Text="{Binding Birthday}" HorizontalOptions="End"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Otakulore.Helpers;
-using Otakulore.Services;
+using Otakulore.Models;
+using Otakulore.Pages;
 
 namespace Otakulore;
 
@@ -9,29 +10,17 @@ public static class MauiHelper
 
     public static MauiAppBuilder SetupFonts(this MauiAppBuilder builder)
     {
-        builder.ConfigureFonts(fonts =>
+        return builder.ConfigureFonts(fonts =>
         {
-            fonts.AddFont("FontAwesomeRegular.ttf", "FontAwesomeRegular");
-            fonts.AddFont("FontAwesomeRegularBrands.ttf", "FontAwesomeRegularBrands");
-            fonts.AddFont("FontAwesomeSolid.ttf", "FontAwesomeSolid");
-            fonts.AddFont("MaterialIcons.ttf", "MaterialIcons");
             fonts.AddFont("Poppins.ttf", "Poppins");
-            fonts.AddFont("SegoeIcons.ttf", "SegoeIcons");
-            fonts.AddFont("SpaceGrotesk.ttf", "SpaceGrotesk");
         });
-        return builder;
     }
 
     public static MauiAppBuilder SetupServices(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton(DataService.Initialize());
-        builder.Services.AddSingleton(ResourceService.Initialize());
-        builder.Services.AddSingleton(SettingsService.Initialize());
-        builder.Services.AddSingleton(VariableService.Initialize());
-
         var types =
             from type in Assembly.GetExecutingAssembly().GetTypes()
-            where type.Namespace == "Otakulore.Models"
+            where type.Namespace?.StartsWith("Otakulore", StringComparison.OrdinalIgnoreCase) ?? false
             select type;
         foreach (var type in types)
         {
@@ -40,33 +29,36 @@ public static class MauiHelper
             if (type.GetCustomAttribute<TransientServiceAttribute>() is not null)
                 builder.Services.AddTransient(type);
         }
-
         return builder;
     }
 
-    public static MauiAppBuilder SetupRoutes(this MauiAppBuilder builder)
+    public static Task Navigate(Type type, object? args = null)
     {
-        var types =
-            from type in Assembly.GetExecutingAssembly().GetTypes()
-            where
-                type.Namespace == "Otakulore.Pages" &&
-                type.GetCustomAttribute(typeof(PageRouteAttribute)) is not null
-            select type;
-        foreach (var type in types)
-            Routing.RegisterRoute(type.Name, type);
-        return builder;
-    }
-
-    public static Task Navigate(Type type, IDictionary<string, object>? parameters = null)
-    {
-        return parameters is { Count: > 0 }
-            ? Shell.Current.GoToAsync(type.Name, parameters)
-            : Shell.Current.GoToAsync(type.Name);
+        if (Application.Current.MainPage is not MainPage mainPage)
+            return Task.CompletedTask;
+        var page = ActivatePage(type, args);
+        return mainPage.Navigation.PushAsync(page);
     }
 
     public static Task NavigateBack()
     {
-        return Shell.Current.GoToAsync("..");
+        return Application.Current.MainPage is not MainPage mainPage
+            ? Task.CompletedTask
+            : mainPage.Navigation.PopAsync();
+    }
+
+    public static Page ActivatePage(Type type, object? args = null)
+    {
+        var page = (Page)GetService(type);
+        var pageAttribute = type.GetCustomAttribute<AttachModelAttribute>();
+        if (pageAttribute is not null)
+        {
+            var pageService = GetService(pageAttribute.Type);
+            if (pageAttribute.Type.GetInterfaces().Contains(typeof(IInitializableObject)))
+                ((IInitializableObject)pageService).Initialize(args);
+            page.BindingContext = pageService;
+        }
+        return page;
     }
 
     public static TService? GetService<TService>()
@@ -75,6 +67,17 @@ public static class MauiHelper
         return MauiWinUIApplication.Current.Services.GetService<TService>();
         #elif ANDROID
         return MauiApplication.Current.Services.GetService<TService>();
+        #else
+        return default;
+        #endif
+    }
+
+    public static object? GetService(Type serviceType)
+    {
+        #if WINDOWS
+        return MauiWinUIApplication.Current.Services.GetService(serviceType);
+        #elif ANDROID
+        return MauiApplication.Current.Services.GetService(serviceType);
         #else
         return default;
         #endif

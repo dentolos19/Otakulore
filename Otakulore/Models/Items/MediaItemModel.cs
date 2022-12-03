@@ -8,34 +8,26 @@ namespace Otakulore.Models;
 public partial class MediaItemModel
 {
 
-    public int Id { get; }
-    public Uri ImageUrl { get; }
-    public string Title { get; }
-    public string Subtitle { get; protected init; }
-    public string Tag { get; protected init; }
-
-    public MediaItemModel(Media data)
-    {
-        Id = data.Id;
-        ImageUrl = data.Cover.ExtraLargeImageUrl;
-        Title = data.Title.PreferredTitle;
-        Subtitle = data.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
-        Tag = Subtitle;
-        if (data.Entry is not null)
-            Subtitle += $" • {data.Entry.Status} • {data.Entry.Progress}/"
-                        + (data.Entry.MaxProgress.HasValue ? data.Entry.MaxProgress.Value : "?");
-    }
+    public required int Id { get; init; }
+    public required Uri ImageUrl { get; init; }
+    public required string Title { get; init; }
+    public required string Tag { get; init; }
 
     [RelayCommand]
-    private void Open()
+    private Task Interact()
     {
-        MauiHelper.Navigate(
-            typeof(DetailsPage),
-            new Dictionary<string, object>
-            {
-                { "id", Id }
-            }
-        );
+        return MauiHelper.Navigate(typeof(MediaDetailsPage), Id);
+    }
+
+    public static MediaItemModel Map(Media media)
+    {
+        return new MediaItemModel
+        {
+            Id = media.Id,
+            ImageUrl = media.Cover.ExtraLargeImageUrl,
+            Title = media.Title.PreferredTitle,
+            Tag = media.Format?.Humanize() ?? "Unknown"
+        };
     }
 
 }
