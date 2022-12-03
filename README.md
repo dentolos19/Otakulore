@@ -2,7 +2,7 @@
 
 An app for tracking, watching and reading all about anime and manga!
 
-> **Note**: This project is powered by [AniList](https://anilist.co) with the API wrapper, [AniList.NET](https://github.com/dentolos19/AniListNet).
+> **Note**: This project is currently being revamped at [this branch](https://github.com/dentolos19/Otakulore/tree/revamp), check it out!
 
 ## Usage
 
