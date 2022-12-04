@@ -10,7 +10,7 @@ using Otakulore.Services;
 namespace Otakulore.Models;
 
 [SingletonService]
-public partial class HomePageModel : ObservableObject
+public partial class HomePageModel : BasePageModel
 {
 
     private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
@@ -19,7 +19,7 @@ public partial class HomePageModel : ObservableObject
     [ObservableProperty] private ObservableCollection<MediaItemModel> _favoriteItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _popularItems = new();
 
-    public HomePageModel()
+    public override void Initialize(object? args = null)
     {
         RefreshTrendingItemsCommand.Execute(null);
         RefreshFavoriteItemsCommand.Execute(null);

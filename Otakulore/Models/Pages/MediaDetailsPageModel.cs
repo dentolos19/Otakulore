@@ -9,7 +9,7 @@ using Otakulore.Services;
 namespace Otakulore.Models;
 
 [TransientService]
-public partial class MediaDetailsPageModel : ObservableObject, IInitializableObject
+public partial class MediaDetailsPageModel : BasePageModel
 {
 
     private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
@@ -33,7 +33,7 @@ public partial class MediaDetailsPageModel : ObservableObject, IInitializableObj
     [ObservableProperty] private ObservableCollection<CharacterItemModel> _characterItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
 
-    public void Initialize(object? args = null)
+    public override void Initialize(object? args = null)
     {
         if (args is not int id)
             return;

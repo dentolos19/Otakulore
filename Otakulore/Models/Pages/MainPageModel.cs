@@ -5,7 +5,7 @@ using Otakulore.Services;
 namespace Otakulore.Models;
 
 [SingletonService]
-public partial class MainPageModel : ObservableObject
+public partial class MainPageModel : BasePageModel
 {
 
     private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();

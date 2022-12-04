@@ -5,7 +5,7 @@ using Otakulore.Services;
 namespace Otakulore.Models;
 
 [TransientService]
-public partial class CharacterDetailsPageModel : ObservableObject, IInitializableObject
+public partial class CharacterDetailsPageModel : BasePageModel
 {
 
     private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
@@ -19,7 +19,7 @@ public partial class CharacterDetailsPageModel : ObservableObject, IInitializabl
     [ObservableProperty] private string _gender;
     [ObservableProperty] private string _birthday;
 
-    public async void Initialize(object? args = null)
+    public override async void Initialize(object? args = null)
     {
         if (args is not int id)
             return;

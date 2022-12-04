@@ -3,8 +3,7 @@ using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[SingletonService]
-[AttachModel(typeof(HomePageModel))]
+[PageService(PageServiceType.Singleton, typeof(HomePageModel))]
 public partial class HomePage
 {
 

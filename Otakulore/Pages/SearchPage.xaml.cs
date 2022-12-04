@@ -3,8 +3,7 @@ using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[TransientService]
-[AttachModel(typeof(SearchPageModel))]
+[PageService(PageServiceType.Transient, typeof(SearchPageModel))]
 public partial class SearchPage
 {
 

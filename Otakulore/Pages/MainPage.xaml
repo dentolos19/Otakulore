@@ -31,7 +31,7 @@
                                     <FileImageSource File="home.png"/>
                                 </models:FlyoutItemModel.Icon>
                             </models:FlyoutItemModel>
-                            <models:FlyoutItemModel Title="Schedules (Beta)" Type="{x:Type pages:SchedulesPage}">
+                            <models:FlyoutItemModel Title="Schedules" Type="{x:Type pages:SchedulesPage}">
                                 <models:FlyoutItemModel.Icon>
                                     <FileImageSource File="schedules.png"/>
                                 </models:FlyoutItemModel.Icon>

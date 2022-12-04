@@ -3,8 +3,7 @@ using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[TransientService]
-[AttachModel(typeof(CharacterDetailsPageModel))]
+[PageService(PageServiceType.Transient, typeof(CharacterDetailsPageModel))]
 public partial class CharacterDetailsPage
 {
 

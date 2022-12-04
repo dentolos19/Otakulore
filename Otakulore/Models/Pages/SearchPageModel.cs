@@ -7,14 +7,14 @@ using Otakulore.Services;
 namespace Otakulore.Models;
 
 [TransientService]
-public partial class SearchPageModel : ObservableObject, IInitializableObject
+public partial class SearchPageModel : BasePageModel
 {
 
     private ExternalService _externalService = MauiHelper.GetService<ExternalService>();
 
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public void Initialize(object? args = null)
+    public override void Initialize(object? args = null)
     {
         if (args is not string query)
             return;

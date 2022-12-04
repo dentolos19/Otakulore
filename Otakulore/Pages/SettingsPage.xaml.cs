@@ -2,7 +2,7 @@
 
 namespace Otakulore.Pages;
 
-[SingletonService]
+[PageService(PageServiceType.Singleton)]
 public partial class SettingsPage
 {
 

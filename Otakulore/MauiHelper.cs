@@ -28,6 +28,18 @@ public static class MauiHelper
                 builder.Services.AddSingleton(type);
             if (type.GetCustomAttribute<TransientServiceAttribute>() is not null)
                 builder.Services.AddTransient(type);
+            var pageAttribute = type.GetCustomAttribute<PageServiceAttribute>();
+            if (pageAttribute is null)
+                continue;
+            switch (pageAttribute.Type)
+            {
+                case PageServiceType.Singleton:
+                    builder.Services.AddSingleton(type);
+                    break;
+                case PageServiceType.Transient:
+                    builder.Services.AddTransient(type);
+                    break;
+            }
         }
         return builder;
     }
@@ -50,14 +62,12 @@ public static class MauiHelper
     public static Page ActivatePage(Type type, object? args = null)
     {
         var page = (Page)GetService(type);
-        var pageAttribute = type.GetCustomAttribute<AttachModelAttribute>();
-        if (pageAttribute is not null)
-        {
-            var pageService = GetService(pageAttribute.Type);
-            if (pageAttribute.Type.GetInterfaces().Contains(typeof(IInitializableObject)))
-                ((IInitializableObject)pageService).Initialize(args);
-            page.BindingContext = pageService;
-        }
+        var pageAttribute = type.GetCustomAttribute<PageServiceAttribute>();
+        if (pageAttribute?.ModelType is null)
+            return page;
+        var pageService = GetService(pageAttribute.ModelType);
+        ((BasePageModel)pageService).Initialize(args);
+        page.BindingContext = pageService;
         return page;
     }
 
