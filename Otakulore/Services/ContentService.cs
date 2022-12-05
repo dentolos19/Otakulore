@@ -8,9 +8,10 @@ namespace Otakulore.Services;
 public class ContentService
 {
 
-    private IReadOnlyList<IProvider> Providers { get; } = new List<IProvider>
+    public IReadOnlyList<IProvider> Providers { get; } = new List<IProvider>
     {
-        new GogoanimeProvider()
+        new GogoanimeProvider(),
+        new ManganatoProvider()
     };
 
 }

@@ -33,7 +33,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [ObservableProperty] private ObservableCollection<CharacterItemModel> _characterItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
 
-    public override void Initialize(object? args = null)
+    protected override void Initialize(object? args = null)
     {
         if (args is not int id)
             return;
@@ -83,7 +83,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     {
         var result = await _externalService.AniClient.GetMediaRelationsAsync(_id);
         foreach (var item in result)
-            RelationItems.Add(MediaItemModel.Map(item.Media)); // TODO: improve to use relation data
+            RelationItems.Add(MediaItemModel.Map(item));
     }
 
 }

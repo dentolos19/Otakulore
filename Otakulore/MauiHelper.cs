@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
+using AniListNet.Objects;
 using Otakulore.Helpers;
 using Otakulore.Models;
 using Otakulore.Pages;
+using UraniumUI;
 
 namespace Otakulore;
 
@@ -13,6 +15,7 @@ public static class MauiHelper
         return builder.ConfigureFonts(fonts =>
         {
             fonts.AddFont("Poppins.ttf", "Poppins");
+            fonts.AddFontAwesomeIconFonts();
         });
     }
 
@@ -66,7 +69,7 @@ public static class MauiHelper
         if (pageAttribute?.ModelType is null)
             return page;
         var pageService = GetService(pageAttribute.ModelType);
-        ((BasePageModel)pageService).Initialize(args);
+        ((BasePageModel)pageService).Activate(args);
         page.BindingContext = pageService;
         return page;
     }
@@ -91,6 +94,25 @@ public static class MauiHelper
         #else
         return default;
         #endif
+    }
+
+    public static MediaSeason GetCurrentSeason(DateOnly date)
+    {
+        var value = date.Month + date.Day / 100f;
+        if (value < 3.21 || value >= 12.22)
+            return MediaSeason.Winter;
+        if (value < 6.21)
+            return MediaSeason.Spring;
+        if (value < 9.23)
+            return MediaSeason.Summer;
+        return MediaSeason.Fall;
+    }
+
+    public static async Task<string> ReadTextAsset(string fileName)
+    {
+        await using var stream = await FileSystem.OpenAppPackageFileAsync(fileName);
+        using var reader = new StreamReader(stream);
+        return await reader.ReadToEndAsync();
     }
 
 }

@@ -24,7 +24,7 @@ public class GogoanimeProvider : IAnimeProvider
             var imageElement = linkElement.SelectSingleNode("./img");
             sources.Add(new MediaSource
             {
-                // ImageUrl = new Uri(imageElement.Attributes["src"].Value),
+                ImageUrl = new Uri(imageElement.Attributes["src"].Value),
                 Title = imageElement.Attributes["alt"].Value,
                 Url = new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value)
             });
@@ -53,6 +53,12 @@ public class GogoanimeProvider : IAnimeProvider
         }
         contents.Reverse();
         return contents;
+    }
+
+    public async Task<Uri?> ExtractVideoPlayerUrl(MediaContent content)
+    {
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync(content.Url.ToString());
+        return new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
     }
 
 }

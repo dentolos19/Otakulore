@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <x:String x:Key="FontFamily">Poppins</x:String>
-    <Color x:Key="FontColor">White</Color>
+    <Color x:Key="TextColor">White</Color>
+    <Color x:Key="SubtextColor">#c8c8c8</Color>
     <Color x:Key="Theme1">#212129</Color>
     <Color x:Key="Theme2">#323949</Color>
     <Color x:Key="Theme3">#3d3e51</Color>

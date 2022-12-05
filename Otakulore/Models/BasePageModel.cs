@@ -5,6 +5,16 @@ namespace Otakulore.Models;
 public class BasePageModel : ObservableObject
 {
 
-    public virtual void Initialize(object? args = null) { }
+    protected bool IsInitialized { get; set; }
+
+    public void Activate(object? args = null)
+    {
+        if (IsInitialized)
+            return;
+        Initialize(args);
+        IsInitialized = true;
+    }
+
+    protected virtual void Initialize(object? args = null) { }
 
 }

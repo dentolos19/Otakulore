@@ -6,30 +6,50 @@
             x:Class="Otakulore.Pages.MediaDetailsPage"
             x:DataType="models:MediaDetailsPageModel"
             android:TabbedPage.ToolbarPlacement="Bottom">
-    <ContentPage Title="Overview" IconImageSource="overview.png">
+    <ContentPage
+        Title="Overview"
+        IconImageSource="{StaticResource OverviewGlyph}">
+
         <ScrollView Padding="12">
             <StackLayout Spacing="8">
                 <Frame>
                     <Grid ColumnDefinitions="128,*">
                         <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                        <StackLayout Grid.Column="1" Padding="12,8" VerticalOptions="End">
-                            <Label Text="{Binding Title}" FontSize="24"/>
-                            <Label Text="{Binding Subtitle}"/>
+                        <StackLayout Grid.Column="1" Padding="8,4" VerticalOptions="End">
+                            <Label
+                                Text="{Binding Title}"
+                                FontAttributes="Bold"
+                                FontSize="24"/>
+                            <Label
+                                Text="{Binding Subtitle}"
+                                FontSize="12"/>
                         </StackLayout>
                     </Grid>
                 </Frame>
                 <Frame Padding="8">
                     <Grid ColumnDefinitions="*,*,*">
                         <StackLayout Grid.Column="0">
-                            <Label Text="{Binding Popularity}" FontAttributes="Bold" FontSize="16" HorizontalOptions="Center"/>
+                            <Label
+                                Text="{Binding Popularity}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"/>
                             <Label Text="Popularity" HorizontalOptions="Center"/>
                         </StackLayout>
                         <StackLayout Grid.Column="1">
-                            <Label Text="{Binding Score}" FontAttributes="Bold" FontSize="16" HorizontalOptions="Center"/>
+                            <Label
+                                Text="{Binding Score}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"/>
                             <Label Text="Score" HorizontalOptions="Center"/>
                         </StackLayout>
                         <StackLayout Grid.Column="2">
-                            <Label Text="{Binding Favorites}" FontAttributes="Bold" FontSize="16" HorizontalOptions="Center"/>
+                            <Label
+                                Text="{Binding Favorites}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"/>
                             <Label Text="Favorites" HorizontalOptions="Center"/>
                         </StackLayout>
                     </Grid>
@@ -66,8 +86,13 @@
                 </Frame>
             </StackLayout>
         </ScrollView>
+
     </ContentPage>
-    <ContentPage Title="Characters" IconImageSource="characters.png" Padding="12">
+    <ContentPage
+        Title="Characters"
+        IconImageSource="{StaticResource CharactersGlyph}"
+        Padding="12">
+
         <CollectionView ItemsSource="{Binding CharacterItems}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
@@ -83,19 +108,24 @@
                                 Grid.Column="0"
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
-                                WidthRequest="128"
-                                HeightRequest="192"/>
+                                WidthRequest="64"
+                                HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Name}" FontSize="24"/>
-                                <Label Text="{Binding Role}"/>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="24"/>
+                                <Label Text="{Binding Role}" TextColor="{DynamicResource SubtextColor}"/>
                             </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </ContentPage>
-    <ContentPage Title="Relations" IconImageSource="relations.png" Padding="12">
+    <ContentPage
+        Title="Relations"
+        IconImageSource="{StaticResource RelationsGlyph}"
+        Padding="12">
+
         <CollectionView ItemsSource="{Binding RelationItems}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
@@ -111,16 +141,17 @@
                                 Grid.Column="0"
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
-                                WidthRequest="128"
-                                HeightRequest="192"/>
+                                WidthRequest="64"
+                                HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Title}" FontSize="24"/>
-                                <Label Text="{Binding Tag}"/>
+                                <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="24"/>
+                                <Label Text="{Binding Tag}" TextColor="{DynamicResource SubtextColor}"/>
                             </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </ContentPage>
 </TabbedPage>

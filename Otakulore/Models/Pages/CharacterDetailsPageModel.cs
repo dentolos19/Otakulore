@@ -19,7 +19,7 @@ public partial class CharacterDetailsPageModel : BasePageModel
     [ObservableProperty] private string _gender;
     [ObservableProperty] private string _birthday;
 
-    public override async void Initialize(object? args = null)
+    protected override async void Initialize(object? args = null)
     {
         if (args is not int id)
             return;

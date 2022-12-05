@@ -1,6 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Otakulore.Pages.SettingsPage">
-    <Label Text="Work-in-progress!" HorizontalOptions="Center" VerticalOptions="Center"/>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Otakulore.Models"
+    x:Class="Otakulore.Pages.SettingsPage"
+    x:DataType="models:SettingsPageModel"
+    Title="Settings">
+    <ScrollView Padding="12">
+        <StackLayout Spacing="8">
+            <Frame Padding="8">
+                <StackLayout>
+                    <Label Text="General" FontAttributes="Bold"/>
+                    <Label Text="To be added."/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="8">
+                <StackLayout>
+                    <Label Text="Providers" FontAttributes="Bold"/>
+                    <CollectionView ItemsSource="{Binding Providers}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ProviderItemModel">
+                                <Button Text="{Binding Name}" Command="{Binding InteractCommand}"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="8">
+                <StackLayout>
+                    <Label Text="Credits" FontAttributes="Bold"/>
+                    <Label Text="To be added."/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

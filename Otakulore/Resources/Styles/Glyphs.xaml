@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome">
+
+    <FontImageSource x:Key="HomeGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.House}"/>
+    <FontImageSource x:Key="SchedulesGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Calendar}"/>
+    <FontImageSource x:Key="SettingsGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Gear}"/>
+    <FontImageSource x:Key="OverviewGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Info}"/>
+    <FontImageSource x:Key="CharactersGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.PeopleGroup}"/>
+    <FontImageSource x:Key="RelationsGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderTree}"/>
+
+</ResourceDictionary>

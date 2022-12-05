@@ -5,24 +5,24 @@
              x:Class="Otakulore.Pages.CharacterDetailsPage"
              x:DataType="models:CharacterDetailsPageModel">
     <ScrollView Padding="12">
-        <VerticalStackLayout Spacing="8">
+        <StackLayout Spacing="8">
             <Frame>
                 <Grid ColumnDefinitions="128,*">
                     <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                    <StackLayout Grid.Column="1" Padding="12,8" VerticalOptions="End">
+                    <StackLayout Grid.Column="1" Padding="8,4" VerticalOptions="End">
                         <Label Text="{Binding Name}" FontSize="24"/>
                         <Label Text="{Binding Favorites}"/>
                     </StackLayout>
                 </Grid>
             </Frame>
             <Frame Padding="8">
-                <VerticalStackLayout>
+                <StackLayout>
                     <Label Text="Description" FontAttributes="Bold"/>
                     <Label Text="{Binding Description}" TextType="Html"/>
-                </VerticalStackLayout>
+                </StackLayout>
             </Frame>
             <Frame Padding="8">
-                <VerticalStackLayout>
+                <StackLayout>
                     <Grid>
                         <Label Text="Gender" FontAttributes="Bold"/>
                         <Label Text="{Binding Gender}" HorizontalOptions="End"/>
@@ -31,8 +31,8 @@
                         <Label Text="Birthday" FontAttributes="Bold"/>
                         <Label Text="{Binding Birthday}" HorizontalOptions="End"/>
                     </Grid>
-                </VerticalStackLayout>
+                </StackLayout>
             </Frame>
-        </VerticalStackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

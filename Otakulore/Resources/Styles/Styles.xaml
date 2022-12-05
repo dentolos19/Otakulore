@@ -2,6 +2,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="WidthRequest" Value="{OnIdiom 32, Phone=64}"/>
+        <Setter Property="HeightRequest" Value="{OnIdiom 32, Phone=64}"/>
+    </Style>
+
     <Style TargetType="Frame">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Background" Value="{DynamicResource Theme2}"/>
@@ -9,7 +14,7 @@
     </Style>
 
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{DynamicResource FontColor}"/>
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
     </Style>
 
@@ -17,22 +22,28 @@
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
     </Style>
 
+    <Style TargetType="Entry">
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
+    </Style>
+
     <Style TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{DynamicResource FontColor}"/>
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
     </Style>
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="NavigationPage.HasNavigationBar" Value="{OnPlatform True, WinUI=False}"/>
         <Setter Property="Background" Value="{DynamicResource Theme1}"/>
     </Style>
 
     <Style TargetType="NavigationPage">
-        <Setter Property="BarTextColor" Value="{DynamicResource FontColor}"/>
+        <Setter Property="BarTextColor" Value="{DynamicResource TextColor}"/>
         <Setter Property="BarBackgroundColor" Value="{DynamicResource Theme2}"/>
     </Style>
 
     <Style TargetType="TabbedPage">
-        <Setter Property="BarTextColor" Value="{DynamicResource FontColor}"/>
+        <Setter Property="BarTextColor" Value="{DynamicResource TextColor}"/>
         <Setter Property="BarBackgroundColor" Value="{DynamicResource Theme2}"/>
     </Style>
 

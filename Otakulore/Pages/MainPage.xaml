@@ -17,8 +17,13 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:FlyoutItemModel">
                             <ViewCell>
-                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" Padding="12,4">
-                                    <Image Grid.Column="0" Source="{Binding Icon}" Aspect="AspectFill" WidthRequest="32" HeightRequest="32"/>
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" Padding="12,8">
+                                    <Image
+                                        Grid.Column="0"
+                                        Source="{Binding Icon}"
+                                        Aspect="Fill"
+                                        WidthRequest="32"
+                                        HeightRequest="32"/>
                                     <Label Grid.Column="1" Text="{Binding Title}" VerticalTextAlignment="Center"/>
                                 </Grid>
                             </ViewCell>
@@ -26,21 +31,18 @@
                     </ListView.ItemTemplate>
                     <ListView.ItemsSource>
                         <x:Array Type="{x:Type models:FlyoutItemModel}">
-                            <models:FlyoutItemModel Title="Home" Type="{x:Type pages:HomePage}">
-                                <models:FlyoutItemModel.Icon>
-                                    <FileImageSource File="home.png"/>
-                                </models:FlyoutItemModel.Icon>
-                            </models:FlyoutItemModel>
-                            <models:FlyoutItemModel Title="Schedules" Type="{x:Type pages:SchedulesPage}">
-                                <models:FlyoutItemModel.Icon>
-                                    <FileImageSource File="schedules.png"/>
-                                </models:FlyoutItemModel.Icon>
-                            </models:FlyoutItemModel>
-                            <models:FlyoutItemModel Title="Settings" Type="{x:Type pages:SettingsPage}">
-                                <models:FlyoutItemModel.Icon>
-                                    <FileImageSource File="settings.png"/>
-                                </models:FlyoutItemModel.Icon>
-                            </models:FlyoutItemModel>
+                            <models:FlyoutItemModel
+                                Icon="{StaticResource HomeGlyph}"
+                                Title="Home"
+                                Type="{x:Type pages:HomePage}"/>
+                            <models:FlyoutItemModel
+                                Icon="{StaticResource SchedulesGlyph}"
+                                Title="Schedules"
+                                Type="{x:Type pages:SchedulesPage}"/>
+                            <models:FlyoutItemModel
+                                Icon="{StaticResource SettingsGlyph}"
+                                Title="Settings"
+                                Type="{x:Type pages:SettingsPage}"/>
                         </x:Array>
                     </ListView.ItemsSource>
                 </ListView>

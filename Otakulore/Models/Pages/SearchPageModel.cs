@@ -14,7 +14,7 @@ public partial class SearchPageModel : BasePageModel
 
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
-    public override void Initialize(object? args = null)
+    protected override void Initialize(object? args = null)
     {
         if (args is not string query)
             return;

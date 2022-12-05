@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using AniListNet;
 using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -19,7 +20,7 @@ public partial class HomePageModel : BasePageModel
     [ObservableProperty] private ObservableCollection<MediaItemModel> _favoriteItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _popularItems = new();
 
-    public override void Initialize(object? args = null)
+    protected override void Initialize(object? args = null)
     {
         RefreshTrendingItemsCommand.Execute(null);
         RefreshFavoriteItemsCommand.Execute(null);
