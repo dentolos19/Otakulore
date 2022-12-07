@@ -31,20 +31,25 @@ public partial class MediaItemModel
         };
     }
 
-    public static MediaItemModel Map(MediaRelationEdge relation)
+    public static MediaItemModel Map(MediaEntry entry)
     {
         return new MediaItemModel
         {
-            Id = relation.Media.Id,
-            ImageUrl = relation.Media.Cover.ExtraLargeImageUrl,
-            Title = relation.Media.Title.PreferredTitle,
-            Tag = relation.Relation.Humanize()
+            Id = entry.Media.Id,
+            ImageUrl = entry.Media.Cover.ExtraLargeImageUrl,
+            Title = entry.Media.Title.PreferredTitle,
+            Subtitle =
+                (entry.Media.Format?.Humanize(LetterCasing.Title) ?? "Unknown") +
+                " • " +
+                entry.Status +
+                " • " +
+                entry.Progress + "/" + (entry.MaxProgress.HasValue ? entry.MaxProgress.Value : "?")
         };
     }
 
     public static MediaItemModel Map(MediaSchedule schedule)
     {
-        return new MediaItemModel()
+        return new MediaItemModel
         {
             Id = schedule.Media.Id,
             ImageUrl = schedule.Media.Cover.ExtraLargeImageUrl,
@@ -56,6 +61,17 @@ public partial class MediaItemModel
                     : string.Empty
             ),
             Subtitle = schedule.AiringTime.Humanize()
+        };
+    }
+
+    public static MediaItemModel Map(MediaRelationEdge relation)
+    {
+        return new MediaItemModel
+        {
+            Id = relation.Media.Id,
+            ImageUrl = relation.Media.Cover.ExtraLargeImageUrl,
+            Title = relation.Media.Title.PreferredTitle,
+            Tag = relation.Relation.Humanize()
         };
     }
 

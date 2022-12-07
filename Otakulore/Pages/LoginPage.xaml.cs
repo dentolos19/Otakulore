@@ -25,12 +25,12 @@ public partial class LoginPage
         {
             SettingsService.Instance.AccessToken = accessToken;
             await MauiHelper.NavigateBack();
-            await DisplayAlert("Login successful!", "You have successfully logged into AniList.", "Close");
+            await DisplayAlert("Login", "You have successfully logged into AniList!", "Back");
         }
         else
         {
             await MauiHelper.NavigateBack();
-            await DisplayAlert("Login unsuccessful!", "You have unsuccessfully logged into AniList.", "Close");
+            await DisplayAlert("Login", "You have unsuccessfully logged into AniList!", "Back");
         }
     }
 

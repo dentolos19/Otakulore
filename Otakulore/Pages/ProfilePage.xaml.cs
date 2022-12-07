@@ -1,8 +1,9 @@
 ﻿using Otakulore.Helpers;
+using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[PageService(PageServiceType.Transient)]
+[PageService(PageServiceType.Singleton, typeof(ProfilePageModel))]
 public partial class ProfilePage
 {
 
