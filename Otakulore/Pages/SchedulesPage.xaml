@@ -6,7 +6,10 @@
              x:DataType="models:SchedulesPageModel"
              Title="Schedules">
     <Grid Padding="8">
-        <CollectionView ItemsSource="{Binding Items}">
+        <CollectionView
+            ItemsSource="{Binding Items}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding Items.AccumulateCommand}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
             </CollectionView.ItemsLayout>
@@ -27,6 +30,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator IsRunning="{Binding RefreshItemsCommand.IsRunning}"/>
+        <ActivityIndicator IsRunning="{Binding Items.AccumulateCommand.IsRunning}"/>
     </Grid>
 </ContentPage>

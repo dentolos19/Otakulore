@@ -13,7 +13,11 @@
             Placeholder="Search"
             SearchCommand="{Binding SearchCommand}"
             SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Items}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding Items.AccumulateCommand}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
             </CollectionView.ItemsLayout>
@@ -39,6 +43,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding SearchCommand.IsRunning}"/>
+        <ActivityIndicator
+            Grid.Row="1"
+            IsRunning="{Binding Items.AccumulateCommand.IsRunning}"/>
     </Grid>
 </ContentPage>

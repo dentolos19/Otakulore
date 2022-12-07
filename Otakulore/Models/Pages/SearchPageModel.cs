@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using AniListNet;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Helpers;
@@ -11,7 +11,7 @@ namespace Otakulore.Models;
 public partial class SearchPageModel : BasePageModel
 {
 
-    [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
 
     protected override void Initialize(object? args = null)
     {
@@ -23,12 +23,19 @@ public partial class SearchPageModel : BasePageModel
     }
 
     [RelayCommand]
-    private async Task Search(string query)
+    private Task Search(string query)
     {
-        Items.Clear();
-        var result = await DataService.Instance.Client.SearchMediaAsync(query);
-        foreach (var item in result.Data)
-            Items.Add(MediaItemModel.Map(item));
+        Items = new AccumulableCollection<MediaItemModel>();
+        Items.AccumulationFunc += async index =>
+        {
+            var result = await DataService.Instance.Client.SearchMediaAsync(query, new AniPaginationOptions(index));
+            return (
+                result.HasNextPage,
+                result.Data.Select(MediaItemModel.Map).ToList()
+            );
+        };
+        Items.AccumulateCommand.Execute(null);
+        return Task.CompletedTask;
     }
 
 }

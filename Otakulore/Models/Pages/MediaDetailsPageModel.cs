@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+using AniListNet;
 using AniListNet.Objects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -30,7 +30,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [ObservableProperty] private string _startDate;
     [ObservableProperty] private string _endDate;
 
-    [ObservableProperty] private ObservableCollection<CharacterItemModel> _characterItems = new();
+    [ObservableProperty] private AccumulableCollection<CharacterItemModel> _characterItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
 
     protected override void Initialize(object? args = null)
@@ -71,11 +71,19 @@ public partial class MediaDetailsPageModel : BasePageModel
     }
 
     [RelayCommand]
-    private async Task LoadCharactersData()
+    private Task LoadCharactersData()
     {
-        var result = await DataService.Instance.Client.GetMediaCharactersAsync(_id);
-        foreach (var item in result.Data)
-            CharacterItems.Add(CharacterItemModel.Map(item));
+        CharacterItems = new AccumulableCollection<CharacterItemModel>();
+        CharacterItems.AccumulationFunc += async index =>
+        {
+            var result = await DataService.Instance.Client.GetMediaCharactersAsync(_id, new AniPaginationOptions(index));
+            return (
+                result.HasNextPage,
+                result.Data.Select(CharacterItemModel.Map).ToList()
+            );
+        };
+        CharacterItems.AccumulateCommand.Execute(null);
+        return Task.CompletedTask;
     }
 
     [RelayCommand]
