@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using AniListNet;
 using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -13,8 +12,6 @@ namespace Otakulore.Models;
 [SingletonService]
 public partial class HomePageModel : BasePageModel
 {
-
-    private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
 
     [ObservableProperty] private ObservableCollection<MediaItemModel> _trendingItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _favoriteItems = new();
@@ -37,7 +34,7 @@ public partial class HomePageModel : BasePageModel
     private async Task RefreshTrendingItems()
     {
         TrendingItems.Clear();
-        var result = await _externalService.AniClient.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Trending });
+        var result = await DataService.Instance.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Trending });
         foreach (var item in result.Data)
             TrendingItems.Add(MediaItemModel.Map(item));
     }
@@ -46,7 +43,7 @@ public partial class HomePageModel : BasePageModel
     private async Task RefreshFavoriteItems()
     {
         FavoriteItems.Clear();
-        var result = await _externalService.AniClient.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Favorites });
+        var result = await DataService.Instance.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Favorites });
         foreach (var item in result.Data)
             FavoriteItems.Add(MediaItemModel.Map(item));
     }
@@ -55,7 +52,7 @@ public partial class HomePageModel : BasePageModel
     private async Task RefreshPopularItems()
     {
         PopularItems.Clear();
-        var result = await _externalService.AniClient.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Popularity });
+        var result = await DataService.Instance.Client.SearchMediaAsync(new SearchMediaFilter { Sort = MediaSort.Popularity });
         foreach (var item in result.Data)
             PopularItems.Add(MediaItemModel.Map(item));
     }

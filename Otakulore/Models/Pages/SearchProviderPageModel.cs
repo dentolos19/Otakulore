@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Content;
 using Otakulore.Helpers;
 using Otakulore.Services;
 
@@ -12,14 +10,12 @@ namespace Otakulore.Models;
 public partial class SearchProviderPageModel : BasePageModel
 {
 
-    private readonly ContentService _contentService = MauiHelper.GetService<ContentService>();
-
-    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
     [ObservableProperty] private ObservableCollection<MediaSourceItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
     protected override void Initialize(object? args = null)
     {
-        foreach (var item in _contentService.Providers)
+        foreach (var item in ContentService.Instance.Providers)
             Providers.Add(ProviderItemModel.Map(item));
         if (args is not string query)
             return;

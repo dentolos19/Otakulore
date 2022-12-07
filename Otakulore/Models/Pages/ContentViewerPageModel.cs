@@ -32,4 +32,9 @@ public partial class ContentViewerPageModel : BasePageModel
         }
     }
 
+    public override void OnNavigatedFrom()
+    {
+        Url = new Uri("https://dentolos19.github.io");
+    }
+
 }

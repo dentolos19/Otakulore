@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using AniListNet.Objects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,8 +12,6 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class MediaDetailsPageModel : BasePageModel
 {
-
-    private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
 
     private int _id;
 
@@ -46,7 +45,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [RelayCommand]
     private async Task LoadOverviewData()
     {
-        var media = await _externalService.AniClient.GetMediaAsync(_id);
+        var media = await DataService.Instance.Client.GetMediaAsync(_id);
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         Title = media.Title.PreferredTitle;
         Subtitle = media.Type == MediaType.Anime && media.Season.HasValue && media.SeasonYear.HasValue
@@ -73,7 +72,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [RelayCommand]
     private async Task LoadCharactersData()
     {
-        var result = await _externalService.AniClient.GetMediaCharactersAsync(_id);
+        var result = await DataService.Instance.Client.GetMediaCharactersAsync(_id);
         foreach (var item in result.Data)
             CharacterItems.Add(CharacterItemModel.Map(item));
     }
@@ -81,7 +80,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [RelayCommand]
     private async Task LoadRelationsData()
     {
-        var result = await _externalService.AniClient.GetMediaRelationsAsync(_id);
+        var result = await DataService.Instance.Client.GetMediaRelationsAsync(_id);
         foreach (var item in result)
             RelationItems.Add(MediaItemModel.Map(item));
     }

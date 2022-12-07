@@ -47,31 +47,37 @@ public static class MauiHelper
         return builder;
     }
 
-    public static Task Navigate(Type type, object? args = null)
+    public static Page ActivatePage(Type pageType, object? args = null)
     {
-        if (Application.Current.MainPage is not MainPage mainPage)
+        var pageService = GetService(pageType);
+        if (pageService is not Page page)
+            throw new Exception("The page service is unavailable.");
+        var pageAttribute = pageType.GetCustomAttribute<PageServiceAttribute>();
+        if (pageAttribute?.ModelType is null)
+            return page;
+        var pageModelService = GetService(pageAttribute.ModelType);
+        if (pageModelService is not BasePageModel pageModel)
+            throw new Exception("The specified page model is invalid.");
+        page.NavigatedTo += (_, _) => pageModel.OnNavigatedTo();
+        page.NavigatedFrom += (_, _) => pageModel.OnNavigatedFrom();
+        pageModel.Activate(args);
+        page.BindingContext = pageModel;
+        return page;
+    }
+
+    public static Task Navigate(Type pageType, object? args = null)
+    {
+        if (Application.Current!.MainPage is not MainPage mainPage)
             return Task.CompletedTask;
-        var page = ActivatePage(type, args);
+        var page = ActivatePage(pageType, args);
         return mainPage.Navigation.PushAsync(page);
     }
 
     public static Task NavigateBack()
     {
-        return Application.Current.MainPage is not MainPage mainPage
-            ? Task.CompletedTask
-            : mainPage.Navigation.PopAsync();
-    }
-
-    public static Page ActivatePage(Type type, object? args = null)
-    {
-        var page = (Page)GetService(type);
-        var pageAttribute = type.GetCustomAttribute<PageServiceAttribute>();
-        if (pageAttribute?.ModelType is null)
-            return page;
-        var pageService = GetService(pageAttribute.ModelType);
-        ((BasePageModel)pageService).Activate(args);
-        page.BindingContext = pageService;
-        return page;
+        if (Application.Current!.MainPage is not MainPage mainPage)
+            return Task.CompletedTask;
+        return mainPage.Navigation.PopAsync();
     }
 
     public static TService? GetService<TService>()

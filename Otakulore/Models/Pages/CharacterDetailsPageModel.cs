@@ -8,8 +8,6 @@ namespace Otakulore.Models;
 public partial class CharacterDetailsPageModel : BasePageModel
 {
 
-    private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
-
     private int _id;
 
     [ObservableProperty] private Uri _imageUrl;
@@ -24,7 +22,7 @@ public partial class CharacterDetailsPageModel : BasePageModel
         if (args is not int id)
             return;
         _id = id;
-        var character = await _externalService.AniClient.GetCharacterAsync(_id);
+        var character = await DataService.Instance.Client.GetCharacterAsync(_id);
         ImageUrl = character.Image.LargeImageUrl;
         Name = character.Name.PreferredName;
         Favorites = "❤️ " + character.Favorites;

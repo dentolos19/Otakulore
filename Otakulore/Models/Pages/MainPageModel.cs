@@ -8,13 +8,11 @@ namespace Otakulore.Models;
 public partial class MainPageModel : BasePageModel
 {
 
-    private readonly ExternalService _externalService = MauiHelper.GetService<ExternalService>();
-
     [ObservableProperty] private int _rateRemaining;
 
     public MainPageModel()
     {
-        _externalService.AniClient.RateChanged += (_, args) => RateRemaining = args.RateRemaining;
+        DataService.Instance.Client.RateChanged += (_, args) => RateRemaining = args.RateRemaining;
     }
 
 }

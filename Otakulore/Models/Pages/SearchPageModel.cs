@@ -10,8 +10,6 @@ namespace Otakulore.Models;
 public partial class SearchPageModel : BasePageModel
 {
 
-    private ExternalService _externalService = MauiHelper.GetService<ExternalService>();
-
     [ObservableProperty] private ObservableCollection<MediaItemModel> _items = new();
 
     protected override void Initialize(object? args = null)
@@ -25,7 +23,7 @@ public partial class SearchPageModel : BasePageModel
     private async Task Search(string query)
     {
         Items.Clear();
-        var result = await _externalService.AniClient.SearchMediaAsync(query);
+        var result = await DataService.Instance.Client.SearchMediaAsync(query);
         foreach (var item in result.Data)
             Items.Add(MediaItemModel.Map(item));
     }

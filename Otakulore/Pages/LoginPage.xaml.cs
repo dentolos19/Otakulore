@@ -1,0 +1,37 @@
+using System.Text.RegularExpressions;
+using Otakulore.Helpers;
+using Otakulore.Services;
+
+namespace Otakulore.Pages;
+
+[PageService(PageServiceType.Transient)]
+public partial class LoginPage
+{
+
+	public LoginPage()
+	{
+		InitializeComponent();
+        WebView.Source = new Uri("https://anilist.co/api/v2/oauth/authorize?client_id=7375&response_type=token");
+	}
+
+    private async void OnNavigating(object? sender, WebNavigatingEventArgs args)
+    {
+        var tokenRegex = new Regex("(?<=access_token=)(.*)(?=&token_type)");
+        if (!tokenRegex.IsMatch(args.Url))
+            return;
+        var accessToken = tokenRegex.Match(args.Url).Value;
+        var hasAuthenticated = await DataService.Instance.Client.TryAuthenticateAsync(accessToken);
+        if (hasAuthenticated)
+        {
+            SettingsService.Instance.AccessToken = accessToken;
+            await MauiHelper.NavigateBack();
+            await DisplayAlert("Login successful!", "You have successfully logged into AniList.", "Close");
+        }
+        else
+        {
+            await MauiHelper.NavigateBack();
+            await DisplayAlert("Login unsuccessful!", "You have unsuccessfully logged into AniList.", "Close");
+        }
+    }
+
+}

@@ -18,7 +18,8 @@ public partial class MainPage
     {
         if (args.SelectedItem is not FlyoutItemModel item)
             return;
-        Detail = new NavigationPage(MauiHelper.ActivatePage(item.Type));
+        var navigationPage = new NavigationPage(MauiHelper.ActivatePage(item.Type));
+        Detail = navigationPage;
         IsPresented = false;
     }
 
