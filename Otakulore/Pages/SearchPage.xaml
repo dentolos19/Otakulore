@@ -7,6 +7,8 @@
              Padding="12">
     <Grid RowDefinitions="Auto,*" RowSpacing="8">
         <SearchBar
+            x:Name="SearchBox"
+            x:FieldModifier="public"
             Grid.Row="0"
             Placeholder="Search"
             SearchCommand="{Binding SearchCommand}"

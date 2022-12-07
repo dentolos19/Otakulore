@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Helpers;
+using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
@@ -16,6 +17,8 @@ public partial class SearchPageModel : BasePageModel
     {
         if (args is not string query)
             return;
+        if (ParentPage is SearchPage page)
+            page.SearchBox.Text = query;
         SearchCommand.Execute(query);
     }
 

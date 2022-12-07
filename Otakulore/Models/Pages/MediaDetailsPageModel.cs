@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
 using Otakulore.Helpers;
+using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
@@ -83,6 +84,18 @@ public partial class MediaDetailsPageModel : BasePageModel
         var result = await DataService.Instance.Client.GetMediaRelationsAsync(_id);
         foreach (var item in result)
             RelationItems.Add(MediaItemModel.Map(item));
+    }
+
+    [RelayCommand]
+    private Task Play()
+    {
+        return MauiHelper.Navigate(typeof(SearchProviderPage), Title);
+    }
+
+    [RelayCommand]
+    private Task Track()
+    {
+        return Task.CompletedTask;
     }
 
 }

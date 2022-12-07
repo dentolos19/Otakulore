@@ -16,18 +16,26 @@
                 <Grid RowDefinitions="Auto,Auto" WidthRequest="128">
                     <Grid
                         Grid.Row="0"
-                        ZIndex="1"
-                        Padding="4"
-                        HorizontalOptions="Start"
-                        VerticalOptions="Start">
-                        <Frame CornerRadius="6" Opacity="0.8" BackgroundColor="Black"/>
-                        <Label Margin="4,2" Text="{Binding Tag}"/>
+                        RowDefinitions="5,Auto,*"
+                        ColumnDefinitions="5,Auto,*">
+                        <Image
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3"
+                            Source="{Binding ImageUrl}"
+                            Aspect="AspectFill"
+                            HeightRequest="196"/>
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Opacity="0.8"
+                            CornerRadius="4"
+                            Color="{DynamicResource Theme3}"/>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,2"
+                            Text="{Binding Tag}"/>
                     </Grid>
-                    <Image
-                        Grid.Row="0"
-                        Source="{Binding ImageUrl}"
-                        Aspect="AspectFill"
-                        HeightRequest="196"/>
                     <Label
                         Grid.Row="1"
                         Margin="4,2"

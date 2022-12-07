@@ -6,6 +6,7 @@ public class BasePageModel : ObservableObject
 {
 
     protected bool IsInitialized { get; set; }
+    public Page ParentPage { get; set; }
 
     public void Activate(object? args = null)
     {

@@ -13,7 +13,7 @@ public partial class ProviderItemModel
     [RelayCommand]
     private Task Interact()
     {
-        return MauiHelper.Navigate(typeof(SearchProviderPage));
+        return MauiHelper.Navigate(typeof(SearchProviderPage), Provider);
     }
 
     public static ProviderItemModel Map(IProvider provider)

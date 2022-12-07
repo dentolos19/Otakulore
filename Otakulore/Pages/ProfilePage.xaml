@@ -5,10 +5,10 @@
     xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
     x:Class="Otakulore.Pages.ProfilePage"
     android:TabbedPage.ToolbarPlacement="Bottom">
-    <ContentPage Title="List">
+    <ContentPage Title="List" IconImageSource="{StaticResource ListGlyph}">
         <Label Text="Coming soon!" HorizontalOptions="Center" VerticalOptions="Center"/>
     </ContentPage>
-    <ContentPage Title="Favorites">
+    <ContentPage Title="Favorites" IconImageSource="{StaticResource FavoritesGlyph}">
         <Label Text="Coming soon!" HorizontalOptions="Center" VerticalOptions="Center"/>
     </ContentPage>
 </TabbedPage>

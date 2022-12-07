@@ -27,6 +27,11 @@
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
     </Style>
 
+    <Style TargetType="Picker">
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
+    </Style>
+
     <Style TargetType="SearchBar">
         <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>

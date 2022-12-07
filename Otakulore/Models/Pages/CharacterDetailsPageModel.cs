@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Markdig;
 using Otakulore.Helpers;
 using Otakulore.Services;
 
@@ -26,7 +27,7 @@ public partial class CharacterDetailsPageModel : BasePageModel
         ImageUrl = character.Image.LargeImageUrl;
         Name = character.Name.PreferredName;
         Favorites = "❤️ " + character.Favorites;
-        Description = character.Description ?? "No description provided.";
+        Description = Markdown.ToHtml(character.Description ?? "No description provided.");
         Gender = character.Gender ?? "Unknown";
         Birthday = character.DateOfBirth.ToDateTime()?.ToShortDateString() ?? "Unknown";
     }

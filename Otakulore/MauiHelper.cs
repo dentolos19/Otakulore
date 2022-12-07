@@ -60,6 +60,7 @@ public static class MauiHelper
             throw new Exception("The specified page model is invalid.");
         page.NavigatedTo += (_, _) => pageModel.OnNavigatedTo();
         page.NavigatedFrom += (_, _) => pageModel.OnNavigatedFrom();
+        pageModel.ParentPage = page;
         pageModel.Activate(args);
         page.BindingContext = pageModel;
         return page;

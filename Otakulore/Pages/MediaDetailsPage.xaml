@@ -15,15 +15,24 @@
                 <Frame>
                     <Grid ColumnDefinitions="128,*">
                         <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                        <StackLayout Grid.Column="1" Padding="8,4" VerticalOptions="End">
-                            <Label
-                                Text="{Binding Title}"
-                                FontAttributes="Bold"
-                                FontSize="24"/>
-                            <Label
-                                Text="{Binding Subtitle}"
-                                FontSize="12"/>
-                        </StackLayout>
+                        <Grid
+                            Grid.Column="1"
+                            RowDefinitions="Auto,*,Auto"
+                            Padding="8,4">
+                            <HorizontalStackLayout Grid.Row="0" Spacing="4" HorizontalOptions="End">
+                                <Button Text="Play" Command="{Binding PlayCommand}"/>
+                                <Button Text="Track" Command="{Binding TrackCommand}"/>
+                            </HorizontalStackLayout>
+                            <StackLayout Grid.Row="2">
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontAttributes="Bold"
+                                    FontSize="24"/>
+                                <Label
+                                    Text="{Binding Subtitle}"
+                                    FontSize="12"/>
+                            </StackLayout>
+                        </Grid>
                     </Grid>
                 </Frame>
                 <Frame Padding="8">

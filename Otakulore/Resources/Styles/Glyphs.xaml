@@ -8,6 +8,9 @@
     <FontImageSource x:Key="ProfileGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.User}"/>
     <FontImageSource x:Key="SettingsGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Gear}"/>
 
+    <FontImageSource x:Key="PlayGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Play}"/>
+    <FontImageSource x:Key="TrackGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Pen}"/>
+
     <FontImageSource x:Key="OverviewGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Info}"/>
     <FontImageSource x:Key="CharactersGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.PeopleGroup}"/>
     <FontImageSource x:Key="RelationsGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderTree}"/>

@@ -7,11 +7,20 @@
     x:DataType="models:SearchProviderPageModel"
     Title="Search Provider" Padding="12">
     <Grid RowDefinitions="Auto,*" RowSpacing="8">
-        <SearchBar
-            Grid.Row="0"
-            Placeholder="Search"
-            SearchCommand="{Binding SearchCommand}"
-            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="4">
+            <SearchBar
+                x:Name="SearchBox"
+                x:FieldModifier="public"
+                Grid.Column="0"
+                Placeholder="Search"
+                SearchCommand="{Binding SearchCommand}"
+                SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+            <Picker
+                Grid.Column="1"
+                ItemsSource="{Binding Providers}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding Provider, Mode=TwoWay}"/>
+        </Grid>
         <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
