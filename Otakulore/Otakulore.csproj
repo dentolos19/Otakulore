@@ -20,6 +20,11 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net7.0-android'">
+		<RunAOTCompilation>False</RunAOTCompilation>
+		<PublishTrimmed>False</PublishTrimmed>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<MauiIcon Include="Resources\Images\Other\icon.png" Color="#f4d4c1"/>
 		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512bd4" BaseSize="128,128"/>
