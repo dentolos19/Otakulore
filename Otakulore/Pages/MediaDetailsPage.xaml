@@ -25,6 +25,8 @@
                             VerticalOptions="End">
                             <Label
                                 Text="{Binding Title}"
+                                LineHeight="2"
+                                LineBreakMode="TailTruncation"
                                 FontAttributes="Bold"
                                 FontSize="24"/>
                             <Label
@@ -131,8 +133,14 @@
                                 WidthRequest="64"
                                 HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="24"/>
-                                <Label Text="{Binding Role}" TextColor="{DynamicResource SubtextColor}"/>
+                                <Label
+                                    Text="{Binding Name}"
+                                    LineBreakMode="TailTruncation"
+                                    FontAttributes="Bold"
+                                    FontSize="16"/>
+                                <Label
+                                    Text="{Binding Role}"
+                                    TextColor="{DynamicResource SubtextColor}"/>
                             </StackLayout>
                         </Grid>
                     </Frame>
@@ -164,8 +172,14 @@
                                 WidthRequest="64"
                                 HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="24"/>
-                                <Label Text="{Binding Tag}" TextColor="{DynamicResource SubtextColor}"/>
+                                <Label
+                                    Text="{Binding Title}"
+                                    LineBreakMode="TailTruncation"
+                                    FontAttributes="Bold"
+                                    FontSize="16"/>
+                                <Label
+                                    Text="{Binding Tag}"
+                                    TextColor="{DynamicResource SubtextColor}"/>
                             </StackLayout>
                         </Grid>
                     </Frame>

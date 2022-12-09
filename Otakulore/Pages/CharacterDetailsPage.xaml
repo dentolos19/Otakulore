@@ -7,11 +7,25 @@
     <ScrollView Padding="12">
         <StackLayout Spacing="8">
             <Frame>
-                <Grid ColumnDefinitions="128,*">
-                    <Image Grid.Column="0" Source="{Binding ImageUrl}"/>
-                    <StackLayout Grid.Column="1" Padding="8,4" VerticalOptions="End">
-                        <Label Text="{Binding Name}" FontSize="24"/>
-                        <Label Text="{Binding Favorites}"/>
+                <Grid ColumnDefinitions="Auto,*">
+                    <Image
+                        Grid.Column="0"
+                        Source="{Binding ImageUrl}"
+                        WidthRequest="128"
+                        HeightRequest="192"/>
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="8,4"
+                        VerticalOptions="End">
+                        <Label
+                            Text="{Binding Name}"
+                            LineHeight="2"
+                            LineBreakMode="TailTruncation"
+                            FontAttributes="Bold"
+                            FontSize="24"/>
+                        <Label
+                            Text="{Binding Favorites}"
+                            FontSize="12"/>
                     </StackLayout>
                 </Grid>
             </Frame>

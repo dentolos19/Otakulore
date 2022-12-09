@@ -9,7 +9,7 @@
 
     <Style TargetType="Frame">
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="Background" Value="{DynamicResource Theme2}"/>
+        <Setter Property="BackgroundColor" Value="{DynamicResource Theme2}"/>
         <Setter Property="CornerRadius" Value="8"/>
     </Style>
 
@@ -19,6 +19,8 @@
     </Style>
 
     <Style TargetType="Button">
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
+        <Setter Property="BackgroundColor" Value="{DynamicResource Theme2}"/>
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
     </Style>
 

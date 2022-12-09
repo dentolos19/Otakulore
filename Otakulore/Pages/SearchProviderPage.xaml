@@ -43,10 +43,13 @@
                                 Grid.Column="0"
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
-                                WidthRequest="64"
-                                HeightRequest="96"/>
+                                WidthRequest="32"
+                                HeightRequest="48"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Title}" FontSize="24"/>
+                                <Label
+                                    Text="{Binding Title}"
+                                    LineBreakMode="TailTruncation"
+                                    FontSize="16"/>
                             </StackLayout>
                         </Grid>
                     </Frame>

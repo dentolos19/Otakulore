@@ -18,7 +18,11 @@
                 <StackLayout>
                     <Label Text="Tracking" FontAttributes="Bold"/>
                     <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="4">
-                        <Image Grid.Column="0" Source="{Binding AvatarUrl}" WidthRequest="32"/>
+                        <Image
+                            Grid.Column="0"
+                            Source="{Binding AvatarUrl}"
+                            WidthRequest="32"
+                            HeightRequest="32"/>
                         <Label Grid.Column="1" Text="{Binding Username}" VerticalOptions="Center"/>
                         <Button Grid.Column="3" Text="{Binding LoginButtonText}" Command="{Binding LoginCommand}"/>
                     </Grid>

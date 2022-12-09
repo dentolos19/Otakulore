@@ -35,8 +35,14 @@
                                 WidthRequest="64"
                                 HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Title}" FontSize="24"/>
-                                <Label Text="{Binding Tag}"/>
+                                <Label
+                                    Text="{Binding Title}"
+                                    LineBreakMode="TailTruncation"
+                                    FontAttributes="Bold"
+                                    FontSize="16"/>
+                                <Label
+                                    Text="{Binding Tag}"
+                                    TextColor="{DynamicResource SubtextColor}"/>
                             </StackLayout>
                         </Grid>
                     </Frame>

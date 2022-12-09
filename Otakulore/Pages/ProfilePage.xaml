@@ -16,7 +16,7 @@
             <Frame Grid.Row="0" Padding="8">
                 <Grid ColumnDefinitions="*,*">
                     <HorizontalStackLayout Grid.Column="0" Spacing="8">
-                        <Image Source="{Binding AvatarUrl}" WidthRequest="32"/>
+                        <Image Source="{Binding AvatarUrl}" WidthRequest="32" HeightRequest="32"/>
                         <Label Text="{Binding Username}" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Column="1" Spacing="4" HorizontalOptions="End">
@@ -65,10 +65,21 @@
                                 <TapGestureRecognizer Command="{Binding InteractCommand}"/>
                             </Frame.GestureRecognizers>
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
-                                <Image Grid.Column="0" Source="{Binding ImageUrl}" Aspect="AspectFill" WidthRequest="64" HeightRequest="96"/>
+                                <Image
+                                    Grid.Column="0"
+                                    Source="{Binding ImageUrl}"
+                                    Aspect="AspectFill"
+                                    WidthRequest="64"
+                                    HeightRequest="96"/>
                                 <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                    <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16"/>
-                                    <Label Text="{Binding Subtitle}" TextColor="{DynamicResource SubtextColor}"/>
+                                    <Label
+                                        Text="{Binding Title}"
+                                        LineBreakMode="TailTruncation"
+                                        FontAttributes="Bold"
+                                        FontSize="16"/>
+                                    <Label
+                                        Text="{Binding Subtitle}"
+                                        TextColor="{DynamicResource SubtextColor}"/>
                                 </StackLayout>
                             </Grid>
                         </Frame>

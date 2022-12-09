@@ -21,7 +21,7 @@
                         FontSize="24"/>
                     <Label
                         Grid.Column="1"
-                        Text="Debug"
+                        Text="{Binding Version}"
                         HorizontalOptions="End"
                         VerticalOptions="Center"/>
                 </Grid>
