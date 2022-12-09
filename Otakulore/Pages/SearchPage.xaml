@@ -46,5 +46,15 @@
         <ActivityIndicator
             Grid.Row="1"
             IsRunning="{Binding Items.AccumulateCommand.IsRunning}"/>
+        <ImageButton
+            Grid.Row="1"
+            Margin="12"
+            Source="{StaticResource FilterGlyph}"
+            CornerRadius="24"
+            WidthRequest="48"
+            HeightRequest="48"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Command="{Binding FilterCommand}"/>
     </Grid>
 </ContentPage>

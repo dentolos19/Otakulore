@@ -66,19 +66,19 @@ public static class MauiHelper
         return page;
     }
 
-    public static Task Navigate(Type pageType, object? args = null)
+    public static Task Navigate(Type pageType, object? args = null, bool showAnimation = true)
     {
         if (Application.Current!.MainPage is not MainPage mainPage)
             return Task.CompletedTask;
         var page = ActivatePage(pageType, args);
-        return mainPage.Navigation.PushAsync(page);
+        return mainPage.Navigation.PushAsync(page, showAnimation);
     }
 
-    public static Task NavigateBack()
+    public static Task NavigateBack(bool showAnimation = true)
     {
         if (Application.Current!.MainPage is not MainPage mainPage)
             return Task.CompletedTask;
-        return mainPage.Navigation.PopAsync();
+        return mainPage.Navigation.PopAsync(showAnimation);
     }
 
     public static TService? GetService<TService>()

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Otakulore.Models"
+    x:Class="Otakulore.Pages.SearchFilterPage"
+    x:DataType="models:SearchFilterPageModel"
+    Title="Search Filter" Padding="12">
+    <StackLayout Spacing="12">
+        <Frame Padding="8">
+            <StackLayout Spacing="4">
+                <Grid>
+                    <Label
+                        Text="Sort"
+                        VerticalOptions="Center"/>
+                    <Picker
+                        ItemsSource="{Binding SortItems}"
+                        SelectedItem="{Binding SelectedSort}"
+                        HorizontalOptions="End"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                    <Label
+                        Grid.Column="0"
+                        Text="Type"
+                        VerticalOptions="Center"/>
+                    <CheckBox
+                        Grid.Column="2"
+                        IsChecked="{Binding TypeEnabled, Mode=TwoWay}"/>
+                    <Picker
+                        Grid.Column="3"
+                        ItemsSource="{Binding TypeItems}"
+                        SelectedItem="{Binding SelectedType}"
+                        IsEnabled="{Binding TypeEnabled}"/>
+                </Grid>
+                <Grid>
+                    <Label
+                        Text="On List"
+                        VerticalOptions="Center"/>
+                    <CheckBox
+                        IsChecked="{Binding OnList, Mode=TwoWay}"
+                        HorizontalOptions="End"/>
+                </Grid>
+            </StackLayout>
+        </Frame>
+        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+            <Button Grid.Column="0" Text="Filter" Command="{Binding FilterCommand}"/>
+            <Button Grid.Column="1" Text="Reset" Command="{Binding ResetCommand}"/>
+            <Button Grid.Column="2" Text="Cancel" Command="{Binding CancelCommand}"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>
