@@ -1,61 +1,64 @@
 ﻿using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using Otakulore.Content.Objects;
 
 namespace Otakulore.Content.Providers;
 
 public class GogoanimeProvider : IAnimeProvider
 {
 
+    private readonly HtmlWeb _htmlWeb = new();
+
     public string Name => "Gogoanime";
 
-    public Task<MediaSource[]?> GetSources(string query)
+    public async Task<IList<MediaSource>> GetSources(string query)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load("https://gogoanime.tel/search.html?keyword=" + Uri.EscapeDataString(query));
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync("https://gogoanime.tel/search.html?keyword=" + Uri.EscapeDataString(query));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='last_episodes']/ul/li");
+        var sources = new List<MediaSource>();
         if (searchElements is not { Count: > 0 })
-            return Task.FromResult<MediaSource[]?>(null);
-        var mediaSources = new List<MediaSource>();
+            return sources;
         foreach (var searchElement in searchElements)
         {
             var linkElement = searchElement.SelectSingleNode("./div/a");
             var imageElement = linkElement.SelectSingleNode("./img");
-            mediaSources.Add(new MediaSource
-            (
-                new Uri(imageElement.Attributes["src"].Value),
-                imageElement.Attributes["alt"].Value,
-                new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value)
-            ));
+            sources.Add(new MediaSource
+            {
+                ImageUrl = new Uri(imageElement.Attributes["src"].Value),
+                Title = imageElement.Attributes["alt"].Value,
+                Url = new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value)
+            });
         }
-        return Task.FromResult(mediaSources.ToArray());
+        return sources;
     }
 
-    public Task<MediaContent[]?> GetContents(MediaSource source)
+    public async Task<IList<MediaContent>> GetContents(MediaSource source)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(source.Url.ToString());
-        var id = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
-        htmlDocument = new HtmlWeb().Load("https://ajax.gogocdn.net/ajax/load-list-episode?ep_start=0&ep_end=10000&id=" + id);
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync(source.Url.ToString());
+        var mediaId = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
+        htmlDocument = await _htmlWeb.LoadFromWebAsync("https://ajax.gogocdn.net/ajax/load-list-episode?ep_start=0&ep_end=10000&id=" + mediaId);
         var episodeElements = htmlDocument.DocumentNode.SelectNodes("//ul/li");
+        var contents = new List<MediaContent>();
         if (episodeElements is not { Count: > 0 })
-            return Task.FromResult<MediaContent[]?>(null);
-        var mediaContents = new List<MediaContent>();
+            return contents;
         foreach (var episodeElement in episodeElements)
         {
             var linkElement = episodeElement.SelectSingleNode("./a");
             var nameElement = linkElement.SelectSingleNode("./div[@class='name']");
-            mediaContents.Add(new MediaContent(
-                "Episode " + Regex.Match(nameElement.InnerText, @"\d+").Value,
-                new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value.Trim())
-            ));
+            contents.Add(new MediaContent
+            {
+                Name = "Episode " + Regex.Match(nameElement.InnerText, @"\d+").Value,
+                Url = new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value.Trim())
+            });
         }
-        mediaContents.Reverse();
-        return Task.FromResult(mediaContents.ToArray());
+        contents.Reverse();
+        return contents;
     }
 
-    public Task<bool> TryExtractVideoPlayerUrl(MediaContent content, out Uri url)
+    public async Task<Uri?> ExtractVideoPlayerUrl(MediaContent content)
     {
-        var htmlDocument = Utilities.HtmlWeb.Load(content.Url.ToString());
-        url = new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
-        return Task.FromResult(true);
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync(content.Url.ToString());
+        return new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
     }
 
 }

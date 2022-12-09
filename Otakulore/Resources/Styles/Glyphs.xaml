@@ -1,26 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<?xaml-comp compile="true"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome">
 
-    <x:String x:Key="GlyphFontFamily">MaterialIcons</x:String>
+    <FontImageSource x:Key="HomeGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.House}"/>
+    <FontImageSource x:Key="SchedulesGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Calendar}"/>
+    <FontImageSource x:Key="ProfileGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.User}"/>
+    <FontImageSource x:Key="SettingsGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Gear}"/>
 
-    <FontImageSource x:Key="HomeGlyphImage" Glyph="&#xe88a;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="ScheduleGlyphImage" Glyph="&#xe916;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="SeasonalGlyphImage" Glyph="&#xe616;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="LibraryGlyphImage" Glyph="&#xe54b;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="SettingsGlyphImage" Glyph="&#xe8b8;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="PlayGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Play}"/>
+    <FontImageSource x:Key="TrackGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Pen}"/>
 
-    <FontImageSource x:Key="RefreshGlyphImage" Glyph="&#xe5d5;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="FilterGlyphImage" Glyph="&#xef4f;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="PlayGlyphImage" Glyph="&#xe037;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="TrackGlyphImage" Glyph="&#xe3c9;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="CharacterGlyphImage" Glyph="&#xf233;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="RelationsGlyphImage" Glyph="&#xe97a;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="FavoriteGlyphImage" Glyph="&#xe87d;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="FavoriteOutlineGlyphImage" Glyph="&#xe87e;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="SaveGlyphImage" Glyph="&#xe161;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="DeleteGlyphImage" Glyph="&#xe872;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
-    <FontImageSource x:Key="CancelGlyphImage" Glyph="&#xe5c9;" FontFamily="{StaticResource GlyphFontFamily}" Color="{DynamicResource ForegroundColor}"/>
+    <FontImageSource x:Key="OverviewGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Info}"/>
+    <FontImageSource x:Key="CharactersGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.PeopleGroup}"/>
+    <FontImageSource x:Key="RelationsGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.FolderTree}"/>
+
+    <FontImageSource x:Key="ListGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.List}"/>
+    <FontImageSource x:Key="FavoritesGlyph" FontFamily="FASolid" Glyph="{x:Static fa:Solid.Heart}"/>
 
 </ResourceDictionary>

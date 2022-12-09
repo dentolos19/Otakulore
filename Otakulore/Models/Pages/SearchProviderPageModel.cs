@@ -3,56 +3,52 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Content;
 using Otakulore.Helpers;
+using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
 
 [TransientService]
-public partial class SearchProviderPageModel : ObservableObject, IQueryAttributable
+public partial class SearchProviderPageModel : BasePageModel
 {
 
-    private bool _queryApplied;
-
-    [ObservableProperty] private bool _isLoading;
-    [ObservableProperty] private string _query;
     [ObservableProperty] private ProviderItemModel _selectedProvider;
-    [ObservableProperty] private ObservableCollection<SourceItemModel> _items = new();
+
+    [ObservableProperty] private ObservableCollection<MediaSourceItemModel> _items = new();
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
-    public SearchProviderPageModel(VariableService variableService)
+    public SearchProviderPageModel()
     {
-        foreach (var provider in variableService.Providers)
-            Providers.Add(new ProviderItemModel(provider));
+        foreach (var item in ContentService.Instance.Providers)
+            Providers.Add(ProviderItemModel.Map(item));
         SelectedProvider = Providers.First();
     }
 
-    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    protected override void Initialize(object? args = null)
     {
-        if (_queryApplied)
-            return;
-        _queryApplied = true;
-        if (query.ContainsKey("provider") && query["provider"] is IProvider provider)
-            SelectedProvider = Providers.FirstOrDefault(item => item.Provider == provider) ?? SelectedProvider;
-        if (!query.ContainsKey("query") || query["query"] is not string searchQuery)
-            return;
-        Query = searchQuery;
-        await Search();
+        if (args is string query)
+        {
+            if (ParentPage is SearchProviderPage page)
+                page.SearchBox.Text = query;
+            SearchCommand.Execute(query);
+        }
+        else if (args is IProvider provider)
+        {
+            SelectedProvider = Providers.FirstOrDefault(
+                item => item.Provider == provider,
+                Providers.First()
+            );
+        }
     }
 
     [RelayCommand]
-    private async Task Search()
+    private async Task Search(string query)
     {
         Items.Clear();
-        IsLoading = true;
-        var sources = await SelectedProvider.Provider.GetSources(Query);
-        if (sources is not { Length: > 0 })
-        {
-            IsLoading = false;
-            return;
-        }
-        foreach (var item in sources)
-            Items.Add(new SourceItemModel(item, SelectedProvider.Provider));
-        IsLoading = false;
+        var provider = SelectedProvider.Provider;
+        var results = await provider.GetSources(query);
+        foreach (var item in results)
+            Items.Add(MediaSourceItemModel.Map(provider, item));
     }
 
 }

@@ -1,39 +1,37 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Otakulore.Content;
+using Otakulore.Content.Objects;
 using Otakulore.Helpers;
 
 namespace Otakulore.Models;
 
 [TransientService]
-public partial class SourceViewerPageModel : ObservableObject, IQueryAttributable
+public partial class SourceViewerPageModel : BasePageModel
 {
 
-    private bool _queryApplied;
+    private IProvider _provider;
+    private MediaSource _source;
 
-    [ObservableProperty] private string _title;
-    [ObservableProperty] private bool _isLoading = true;
-    [ObservableProperty] private ObservableCollection<ContentItemModel> _items = new();
+    [ObservableProperty] private ObservableCollection<MediaContentItemModel> _items = new();
 
-    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    protected override void Initialize(object? args = null)
     {
-        if (_queryApplied)
+        if (args is not (IProvider provider, MediaSource source))
             return;
-        _queryApplied = true;
-        if (!(query.ContainsKey("source") && query.ContainsKey("provider")))
-            return;
-        if (query["source"] is not MediaSource source || query["provider"] is not IProvider provider)
-            return;
-        Title = source.Title;
-        var contents = await provider.GetContents(source);
-        if (contents is null)
-        {
-            IsLoading = false;
-            return;
-        }
-        foreach (var item in contents)
-            Items.Add(new ContentItemModel(item, provider));
-        IsLoading = false;
+        _provider = provider;
+        _source = source;
+        RefreshItemsCommand.Execute(null);
+    }
+
+    [RelayCommand]
+    private async Task RefreshItems()
+    {
+        Items.Clear();
+        var results = await _provider.GetContents(_source);
+        foreach (var item in results)
+            Items.Add(MediaContentItemModel.Map(_provider, item));
     }
 
 }

@@ -7,25 +7,22 @@ namespace Otakulore.Models;
 public partial class ProviderItemModel
 {
 
-    public string Name { get; }
-    public IProvider Provider { get; }
-
-    public ProviderItemModel(IProvider provider)
-    {
-        Name = provider.Name;
-        Provider = provider;
-    }
+    public required string Name { get; init; }
+    public required IProvider Provider { get; init; }
 
     [RelayCommand]
-    private Task Open()
+    private Task Interact()
     {
-        return MauiHelper.Navigate(
-            typeof(SearchProviderPage),
-            new Dictionary<string, object>
-            {
-                { "provider", Provider }
-            }
-        );
+        return MauiHelper.Navigate(typeof(SearchProviderPage), Provider);
+    }
+
+    public static ProviderItemModel Map(IProvider provider)
+    {
+        return new ProviderItemModel
+        {
+            Name = provider.Name,
+            Provider = provider
+        };
     }
 
 }

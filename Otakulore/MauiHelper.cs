@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
+using AniListNet.Objects;
 using Otakulore.Helpers;
-using Otakulore.Services;
+using Otakulore.Models;
+using Otakulore.Pages;
+using UraniumUI;
 
 namespace Otakulore;
 
@@ -9,29 +12,18 @@ public static class MauiHelper
 
     public static MauiAppBuilder SetupFonts(this MauiAppBuilder builder)
     {
-        builder.ConfigureFonts(fonts =>
+        return builder.ConfigureFonts(fonts =>
         {
-            fonts.AddFont("FontAwesomeRegular.ttf", "FontAwesomeRegular");
-            fonts.AddFont("FontAwesomeRegularBrands.ttf", "FontAwesomeRegularBrands");
-            fonts.AddFont("FontAwesomeSolid.ttf", "FontAwesomeSolid");
-            fonts.AddFont("MaterialIcons.ttf", "MaterialIcons");
             fonts.AddFont("Poppins.ttf", "Poppins");
-            fonts.AddFont("SegoeIcons.ttf", "SegoeIcons");
-            fonts.AddFont("SpaceGrotesk.ttf", "SpaceGrotesk");
+            fonts.AddFontAwesomeIconFonts();
         });
-        return builder;
     }
 
     public static MauiAppBuilder SetupServices(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton(DataService.Initialize());
-        builder.Services.AddSingleton(ResourceService.Initialize());
-        builder.Services.AddSingleton(SettingsService.Initialize());
-        builder.Services.AddSingleton(VariableService.Initialize());
-
         var types =
             from type in Assembly.GetExecutingAssembly().GetTypes()
-            where type.Namespace == "Otakulore.Models"
+            where type.Namespace?.StartsWith("Otakulore", StringComparison.OrdinalIgnoreCase) ?? false
             select type;
         foreach (var type in types)
         {
@@ -39,34 +31,54 @@ public static class MauiHelper
                 builder.Services.AddSingleton(type);
             if (type.GetCustomAttribute<TransientServiceAttribute>() is not null)
                 builder.Services.AddTransient(type);
+            var pageAttribute = type.GetCustomAttribute<PageServiceAttribute>();
+            if (pageAttribute is null)
+                continue;
+            switch (pageAttribute.Type)
+            {
+                case PageServiceType.Singleton:
+                    builder.Services.AddSingleton(type);
+                    break;
+                case PageServiceType.Transient:
+                    builder.Services.AddTransient(type);
+                    break;
+            }
         }
-
         return builder;
     }
 
-    public static MauiAppBuilder SetupRoutes(this MauiAppBuilder builder)
+    public static Page ActivatePage(Type pageType, object? args = null)
     {
-        var types =
-            from type in Assembly.GetExecutingAssembly().GetTypes()
-            where
-                type.Namespace == "Otakulore.Pages" &&
-                type.GetCustomAttribute(typeof(PageRouteAttribute)) is not null
-            select type;
-        foreach (var type in types)
-            Routing.RegisterRoute(type.Name, type);
-        return builder;
+        var pageService = GetService(pageType);
+        if (pageService is not Page page)
+            throw new Exception("The page service is unavailable.");
+        var pageAttribute = pageType.GetCustomAttribute<PageServiceAttribute>();
+        if (pageAttribute?.ModelType is null)
+            return page;
+        var pageModelService = GetService(pageAttribute.ModelType);
+        if (pageModelService is not BasePageModel pageModel)
+            throw new Exception("The specified page model is invalid.");
+        page.NavigatedTo += (_, _) => pageModel.OnNavigatedTo();
+        page.NavigatedFrom += (_, _) => pageModel.OnNavigatedFrom();
+        pageModel.ParentPage = page;
+        pageModel.Activate(args);
+        page.BindingContext = pageModel;
+        return page;
     }
 
-    public static Task Navigate(Type type, IDictionary<string, object>? parameters = null)
+    public static Task Navigate(Type pageType, object? args = null)
     {
-        return parameters is { Count: > 0 }
-            ? Shell.Current.GoToAsync(type.Name, parameters)
-            : Shell.Current.GoToAsync(type.Name);
+        if (Application.Current!.MainPage is not MainPage mainPage)
+            return Task.CompletedTask;
+        var page = ActivatePage(pageType, args);
+        return mainPage.Navigation.PushAsync(page);
     }
 
     public static Task NavigateBack()
     {
-        return Shell.Current.GoToAsync("..");
+        if (Application.Current!.MainPage is not MainPage mainPage)
+            return Task.CompletedTask;
+        return mainPage.Navigation.PopAsync();
     }
 
     public static TService? GetService<TService>()
@@ -78,6 +90,36 @@ public static class MauiHelper
         #else
         return default;
         #endif
+    }
+
+    public static object? GetService(Type serviceType)
+    {
+        #if WINDOWS
+        return MauiWinUIApplication.Current.Services.GetService(serviceType);
+        #elif ANDROID
+        return MauiApplication.Current.Services.GetService(serviceType);
+        #else
+        return default;
+        #endif
+    }
+
+    public static MediaSeason GetCurrentSeason(DateOnly date)
+    {
+        var value = date.Month + date.Day / 100f;
+        if (value < 3.21 || value >= 12.22)
+            return MediaSeason.Winter;
+        if (value < 6.21)
+            return MediaSeason.Spring;
+        if (value < 9.23)
+            return MediaSeason.Summer;
+        return MediaSeason.Fall;
+    }
+
+    public static async Task<string> ReadTextAsset(string fileName)
+    {
+        await using var stream = await FileSystem.OpenAppPackageFileAsync(fileName);
+        using var reader = new StreamReader(stream);
+        return await reader.ReadToEndAsync();
     }
 
 }

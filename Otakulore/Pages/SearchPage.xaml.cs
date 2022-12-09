@@ -1,16 +1,15 @@
-using Otakulore.Helpers;
+﻿using Otakulore.Helpers;
 using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[PageRoute]
+[PageService(PageServiceType.Transient, typeof(SearchPageModel))]
 public partial class SearchPage
 {
 
     public SearchPage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<SearchPageModel>();
     }
 
 }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            xmlns:models="clr-namespace:Otakulore.Models"
+            x:Class="Otakulore.Pages.MediaDetailsPage"
+            x:DataType="models:MediaDetailsPageModel"
+            android:TabbedPage.ToolbarPlacement="Bottom">
+    <ContentPage
+        Title="Overview"
+        IconImageSource="{StaticResource OverviewGlyph}">
+
+        <ScrollView Padding="12">
+            <StackLayout Spacing="8">
+                <Frame>
+                    <Grid ColumnDefinitions="128,*">
+                        <Image
+                            Grid.Column="0"
+                            Source="{Binding ImageUrl}"/>
+                        <StackLayout
+                            Grid.Column="1"
+                            Padding="8,4"
+                            VerticalOptions="End">
+                            <Label
+                                Text="{Binding Title}"
+                                FontAttributes="Bold"
+                                FontSize="24"/>
+                            <Label
+                                Text="{Binding Subtitle}"
+                                FontSize="12"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                    <Button
+                        Grid.Column="0"
+                        Text="Play"
+                        Command="{Binding PlayCommand}"/>
+                    <Button
+                        Grid.Column="1"
+                        Text="Track"
+                        Command="{Binding TrackCommand}"/>
+                </Grid>
+                <Frame Padding="8">
+                    <StackLayout>
+                        <Label Text="Description" FontAttributes="Bold"/>
+                        <Label Text="{Binding Description}" TextType="Html"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="8">
+                    <Grid ColumnDefinitions="*,*,*">
+                        <StackLayout Grid.Column="0">
+                            <Label
+                                Text="{Binding Popularity}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"/>
+                            <Label Text="Popularity" HorizontalOptions="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1">
+                            <Label
+                                Text="{Binding Score}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"/>
+                            <Label Text="Score" HorizontalOptions="Center"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2">
+                            <Label
+                                Text="{Binding Favorites}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"/>
+                            <Label Text="Favorites" HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <Frame Padding="8">
+                    <StackLayout>
+                        <Grid>
+                            <Label Text="Format" FontAttributes="Bold"/>
+                            <Label Text="{Binding Format}" HorizontalOptions="End"/>
+                        </Grid>
+                        <Grid>
+                            <Label Text="Status" FontAttributes="Bold"/>
+                            <Label Text="{Binding Status}" HorizontalOptions="End"/>
+                        </Grid>
+                        <Grid>
+                            <Label Text="{Binding ContentLabel}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Content}" HorizontalOptions="End"/>
+                        </Grid>
+                        <Grid>
+                            <Label Text="Start Date" FontAttributes="Bold"/>
+                            <Label Text="{Binding StartDate}" HorizontalOptions="End"/>
+                        </Grid>
+                        <Grid>
+                            <Label Text="End Date" FontAttributes="Bold"/>
+                            <Label Text="{Binding EndDate}" HorizontalOptions="End"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage>
+    <ContentPage
+        Title="Characters"
+        IconImageSource="{StaticResource CharactersGlyph}"
+        Padding="12">
+
+        <CollectionView
+            ItemsSource="{Binding CharacterItems}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding CharacterItems.AccumulateCommand}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:CharacterItemModel">
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                            <Image
+                                Grid.Column="0"
+                                Source="{Binding ImageUrl}"
+                                Aspect="AspectFill"
+                                WidthRequest="64"
+                                HeightRequest="96"/>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="24"/>
+                                <Label Text="{Binding Role}" TextColor="{DynamicResource SubtextColor}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </ContentPage>
+    <ContentPage
+        Title="Relations"
+        IconImageSource="{StaticResource RelationsGlyph}"
+        Padding="12">
+
+        <CollectionView ItemsSource="{Binding RelationItems}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:MediaItemModel">
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                            <Image
+                                Grid.Column="0"
+                                Source="{Binding ImageUrl}"
+                                Aspect="AspectFill"
+                                WidthRequest="64"
+                                HeightRequest="96"/>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="24"/>
+                                <Label Text="{Binding Tag}" TextColor="{DynamicResource SubtextColor}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </ContentPage>
+</TabbedPage>

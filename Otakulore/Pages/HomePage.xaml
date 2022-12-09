@@ -1,72 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.HomePage"
-             x:DataType="models:HomePageModel"
-             Title="Home">
-    <ScrollView Padding="10">
-        <VerticalStackLayout Spacing="10">
-            <Frame Padding="10">
-                <SearchBar Placeholder="Search" Text="{Binding Query, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}"/>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Otakulore.Models"
+    x:Class="Otakulore.Pages.HomePage"
+    x:DataType="models:HomePageModel"
+    Title="Home" Padding="12">
+    <ContentPage.Resources>
+        <LinearItemsLayout x:Key="MediaItemsLayout" Orientation="Horizontal" ItemSpacing="4"/>
+        <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
+            <Frame>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                </Frame.GestureRecognizers>
+                <Grid RowDefinitions="Auto,Auto" WidthRequest="128">
+                    <Grid
+                        Grid.Row="0"
+                        RowDefinitions="5,Auto,*"
+                        ColumnDefinitions="5,Auto,*">
+                        <Image
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3"
+                            Source="{Binding ImageUrl}"
+                            Aspect="AspectFill"
+                            HeightRequest="196"/>
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Opacity="0.8"
+                            CornerRadius="4"
+                            Color="{DynamicResource Theme3}"/>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,2"
+                            Text="{Binding Tag}"/>
+                    </Grid>
+                    <Label
+                        Grid.Row="1"
+                        Margin="4,2"
+                        Text="{Binding Title}"
+                        LineBreakMode="TailTruncation"
+                        HorizontalTextAlignment="Center"/>
+                </Grid>
             </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="10">
+        </DataTemplate>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*" RowSpacing="8">
+        <SearchBar
+            Grid.Row="0"
+            Placeholder="Search"
+            SearchCommand="{Binding SearchCommand}"
+            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="12">
+                <StackLayout Spacing="8">
+                    <Label Text="🤩 Trending Now!" FontAttributes="Bold" FontSize="24"/>
                     <Grid>
-                        <Label Text="🎇 Trending Now" FontSize="Medium" VerticalOptions="Center"/>
-                        <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMoreTrendingCommand}"/>
+                        <CollectionView
+                            ItemsLayout="{StaticResource MediaItemsLayout}"
+                            ItemTemplate="{StaticResource MediaItemTemplate}"
+                            ItemsSource="{Binding TrendingItems}"/>
+                        <ActivityIndicator IsRunning="{Binding RefreshTrendingItemsCommand.IsRunning}"/>
                     </Grid>
+                </StackLayout>
+                <StackLayout Spacing="8">
+                    <Label Text="😍 Highly Beloved!" FontAttributes="Bold" FontSize="24"/>
                     <Grid>
-                        <CollectionView ItemTemplate="{StaticResource MediaItemVerticalTemplate}" ItemsSource="{Binding TrendingItems}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.EmptyView>
-                                <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </CollectionView.EmptyView>
-                        </CollectionView>
-                        <ActivityIndicator IsRunning="{Binding IsTrendingLoading}"/>
+                        <CollectionView
+                            ItemsLayout="{StaticResource MediaItemsLayout}"
+                            ItemTemplate="{StaticResource MediaItemTemplate}"
+                            ItemsSource="{Binding FavoriteItems}"/>
+                        <ActivityIndicator IsRunning="{Binding RefreshFavoriteItemsCommand.IsRunning}"/>
                     </Grid>
-                </VerticalStackLayout>
-            </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="10">
+                </StackLayout>
+                <StackLayout Spacing="8">
+                    <Label Text="💫 Most Popular!" FontAttributes="Bold" FontSize="24"/>
                     <Grid>
-                        <Label Text="❤️ Highly Beloved" FontSize="Medium" VerticalOptions="Center"/>
-                        <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMoreFavoriteCommand}"/>
+                        <CollectionView
+                            ItemsLayout="{StaticResource MediaItemsLayout}"
+                            ItemTemplate="{StaticResource MediaItemTemplate}"
+                            ItemsSource="{Binding PopularItems}"/>
+                        <ActivityIndicator IsRunning="{Binding RefreshPopularItemsCommand.IsRunning}"/>
                     </Grid>
-                    <Grid>
-                        <CollectionView ItemTemplate="{StaticResource MediaItemVerticalTemplate}" ItemsSource="{Binding FavoriteItems}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.EmptyView>
-                                <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </CollectionView.EmptyView>
-                        </CollectionView>
-                        <ActivityIndicator IsRunning="{Binding IsFavoriteLoading}"/>
-                    </Grid>
-                </VerticalStackLayout>
-            </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="10">
-                    <Grid>
-                        <Label Text="🌟 Most Popular" FontSize="Medium" VerticalOptions="Center"/>
-                        <Button Text="See More" HorizontalOptions="End" Command="{Binding SeeMorePopularCommand}"/>
-                    </Grid>
-                    <Grid>
-                        <CollectionView ItemTemplate="{StaticResource MediaItemVerticalTemplate}" ItemsSource="{Binding PopularItems}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.EmptyView>
-                                <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </CollectionView.EmptyView>
-                        </CollectionView>
-                        <ActivityIndicator IsRunning="{Binding IsPopularLoading}"/>
-                    </Grid>
-                </VerticalStackLayout>
-            </Frame>
-        </VerticalStackLayout>
-    </ScrollView>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

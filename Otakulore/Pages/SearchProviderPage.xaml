@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
-             xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.SearchProviderPage"
-             x:DataType="models:SearchProviderPageModel"
-             Title="Search Provider" Padding="10" Shell.TabBarIsVisible="False">
-    <Grid RowDefinitions="Auto,*" RowSpacing="10">
-        <Frame Grid.Row="0" Padding="10">
-            <VerticalStackLayout Spacing="5">
-                <SearchBar Placeholder="Search"
-                           Text="{Binding Query, Mode=TwoWay}"
-                           SearchCommand="{Binding SearchCommand}"/>
-                <Grid>
-                    <Label Text="Provider" VerticalOptions="Center"/>
-                    <Picker ItemsSource="{Binding Providers}"
-                            ItemDisplayBinding="{Binding Name}"
-                            SelectedItem="{Binding SelectedProvider, Mode=TwoWay}"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center">
-                        <Picker.Behaviors>
-                            <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SearchCommand}"/>
-                        </Picker.Behaviors>
-                    </Picker>
-                </Grid>
-            </VerticalStackLayout>
-        </Frame>
-        <Frame Grid.Row="1" Padding="10">
-            <Grid>
-                <CollectionView ItemsSource="{Binding Items}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:SourceItemModel">
-                            <Frame BackgroundColor="{DynamicResource Theme3}">
-                                <syncfusion:SfEffectsView TouchDownEffects="Ripple">
-                                    <syncfusion:SfEffectsView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                                    </syncfusion:SfEffectsView.GestureRecognizers>
-                                    <Label Text="{Binding Name}" Margin="10"/>
-                                </syncfusion:SfEffectsView>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <Label Text="No results found." HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-                <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
-            </Grid>
-        </Frame>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:models="clr-namespace:Otakulore.Models"
+    x:Class="Otakulore.Pages.SearchProviderPage"
+    x:DataType="models:SearchProviderPageModel"
+    Title="Search Provider" Padding="12">
+    <Grid RowDefinitions="Auto,*" RowSpacing="8">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="4">
+            <SearchBar
+                x:Name="SearchBox"
+                x:FieldModifier="public"
+                Grid.Column="0"
+                Placeholder="Search"
+                SearchCommand="{Binding SearchCommand}"
+                SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+            <Picker
+                Grid.Column="1"
+                ItemsSource="{Binding Providers}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedProvider, Mode=TwoWay}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding SearchCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+        </Grid>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:MediaSourceItemModel">
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                            <Image
+                                Grid.Column="0"
+                                Source="{Binding ImageUrl}"
+                                Aspect="AspectFill"
+                                WidthRequest="64"
+                                HeightRequest="96"/>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Title}" FontSize="24"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding SearchCommand.IsRunning}"/>
     </Grid>
 </ContentPage>

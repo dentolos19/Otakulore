@@ -3,14 +3,13 @@ using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[PageRoute]
+[PageService(PageServiceType.Transient, typeof(CharacterDetailsPageModel))]
 public partial class CharacterDetailsPage
 {
 
     public CharacterDetailsPage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<CharacterDetailsPageModel>();
     }
 
 }

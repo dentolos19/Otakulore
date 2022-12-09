@@ -1,8 +1,10 @@
-﻿namespace Otakulore.Content;
+﻿using Otakulore.Content.Objects;
+
+namespace Otakulore.Content;
 
 public interface IAnimeProvider : IProvider
 {
 
-    public Task<bool> TryExtractVideoPlayerUrl(MediaContent content, out Uri url);
+    public Task<Uri?> ExtractVideoPlayerUrl(MediaContent content) => Task.FromResult<Uri?>(null);
 
 }

@@ -1,16 +1,15 @@
-using Otakulore.Helpers;
+﻿using Otakulore.Helpers;
 using Otakulore.Models;
 
 namespace Otakulore.Pages;
 
-[PageRoute]
+[PageService(PageServiceType.Transient, typeof(ContentViewerPageModel))]
 public partial class ContentViewerPage
 {
 
     public ContentViewerPage()
     {
         InitializeComponent();
-        BindingContext = MauiHelper.GetService<ContentViewerPageModel>();
     }
 
 }

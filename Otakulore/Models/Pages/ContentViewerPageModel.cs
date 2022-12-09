@@ -1,52 +1,40 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Otakulore.Content;
+using Otakulore.Content.Objects;
 using Otakulore.Helpers;
-#if ANDROID
-using Android.Content.PM;
-using Android.Views;
-#endif
 
 namespace Otakulore.Models;
 
 [TransientService]
-public partial class ContentViewerPageModel : ObservableObject, IQueryAttributable
+public partial class ContentViewerPageModel : BasePageModel
 {
 
-    [ObservableProperty] private Uri? _url;
-    [ObservableProperty] private bool _isLoading = true;
+    [ObservableProperty] private Uri _url;
 
-    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    protected override async void Initialize(object? args = null)
     {
-        if (!(query.ContainsKey("content") && query.ContainsKey("provider")))
-            return;
-        if (query["content"] is not MediaContent content || query["provider"] is not IProvider provider)
+        if (args is not (IProvider provider, MediaContent content))
             return;
         if (provider is IAnimeProvider animeProvider)
         {
-            var hasExtracted = await animeProvider.TryExtractVideoPlayerUrl(content, out var url);
-            Url = hasExtracted ? url : content.Url;
+            var url = await animeProvider.ExtractVideoPlayerUrl(content);
+            Url = url ?? content.Url;
+            /*
             #if ANDROID
             Platform.CurrentActivity.Window.AddFlags(WindowManagerFlags.Fullscreen);
             Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Landscape;
             #endif
+            */
         }
         else
         {
             Url = content.Url;
         }
-        IsLoading = false;
     }
 
-    [RelayCommand]
-    private Task Back()
+    public override void OnNavigatedFrom()
     {
-        #if ANDROID
-        Platform.CurrentActivity.Window.ClearFlags(WindowManagerFlags.Fullscreen);
-        Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Portrait;
-        #endif
         Url = new Uri("https://dentolos19.github.io");
-        return MauiHelper.NavigateBack();
     }
 
 }

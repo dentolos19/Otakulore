@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.OS;
 
 namespace Otakulore;
 
@@ -15,16 +14,4 @@ namespace Otakulore;
         ConfigChanges.SmallestScreenSize |
         ConfigChanges.Density
 )]
-public class MainActivity : MauiAppCompatActivity
-{
-
-    protected override void OnCreate(Bundle? savedInstanceState)
-    {
-        base.OnCreate(savedInstanceState);
-        MessagingCenter.Subscribe<object, ScreenOrientation>(this, "ChangeOrientation", (_, orientation) =>
-        {
-            RequestedOrientation = orientation;
-        });
-    }
-
-}
+public class MainActivity : MauiAppCompatActivity { }

@@ -8,34 +8,71 @@ namespace Otakulore.Models;
 public partial class MediaItemModel
 {
 
-    public int Id { get; }
-    public Uri ImageUrl { get; }
-    public string Title { get; }
-    public string Subtitle { get; protected init; }
-    public string Tag { get; protected init; }
-
-    public MediaItemModel(Media data)
-    {
-        Id = data.Id;
-        ImageUrl = data.Cover.ExtraLargeImageUrl;
-        Title = data.Title.PreferredTitle;
-        Subtitle = data.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
-        Tag = Subtitle;
-        if (data.Entry is not null)
-            Subtitle += $" • {data.Entry.Status} • {data.Entry.Progress}/"
-                        + (data.Entry.MaxProgress.HasValue ? data.Entry.MaxProgress.Value : "?");
-    }
+    public required int Id { get; init; }
+    public required Uri ImageUrl { get; init; }
+    public required string Title { get; init; }
+    public string Subtitle { get; init; }
+    public string Tag { get; init; }
 
     [RelayCommand]
-    private void Open()
+    private Task Interact()
     {
-        MauiHelper.Navigate(
-            typeof(DetailsPage),
-            new Dictionary<string, object>
-            {
-                { "id", Id }
-            }
-        );
+        return MauiHelper.Navigate(typeof(MediaDetailsPage), Id);
+    }
+
+    public static MediaItemModel Map(Media media)
+    {
+        return new MediaItemModel
+        {
+            Id = media.Id,
+            ImageUrl = media.Cover.ExtraLargeImageUrl,
+            Title = media.Title.PreferredTitle,
+            Tag = media.Format?.Humanize() ?? "Unknown"
+        };
+    }
+
+    public static MediaItemModel Map(MediaEntry entry)
+    {
+        return new MediaItemModel
+        {
+            Id = entry.Media.Id,
+            ImageUrl = entry.Media.Cover.ExtraLargeImageUrl,
+            Title = entry.Media.Title.PreferredTitle,
+            Subtitle =
+                (entry.Media.Format?.Humanize(LetterCasing.Title) ?? "Unknown") +
+                " • " +
+                entry.Status +
+                " • " +
+                entry.Progress + "/" + (entry.MaxProgress.HasValue ? entry.MaxProgress.Value : "?")
+        };
+    }
+
+    public static MediaItemModel Map(MediaSchedule schedule)
+    {
+        return new MediaItemModel
+        {
+            Id = schedule.Media.Id,
+            ImageUrl = schedule.Media.Cover.ExtraLargeImageUrl,
+            Title = schedule.Media.Title.PreferredTitle + (
+                schedule.Media.Type == MediaType.Anime && schedule.Media.Episodes.HasValue
+                    ? schedule.Media.Format == MediaFormat.Movie
+                        ? string.Empty
+                        : $" (Episode {schedule.Media.Episodes})"
+                    : string.Empty
+            ),
+            Subtitle = schedule.AiringTime.Humanize()
+        };
+    }
+
+    public static MediaItemModel Map(MediaRelationEdge relation)
+    {
+        return new MediaItemModel
+        {
+            Id = relation.Media.Id,
+            ImageUrl = relation.Media.Cover.ExtraLargeImageUrl,
+            Title = relation.Media.Title.PreferredTitle,
+            Tag = relation.Relation.Humanize()
+        };
     }
 
 }

@@ -1,83 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
-             xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.SettingsPage"
-             x:DataType="models:SettingsPageModel"
-             Title="Settings">
-    <ScrollView Padding="10">
-        <VerticalStackLayout Spacing="10">
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="5">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Otakulore.Models"
+    x:Class="Otakulore.Pages.SettingsPage"
+    x:DataType="models:SettingsPageModel"
+    Title="Settings">
+    <ScrollView Padding="12">
+        <StackLayout Spacing="8">
+            <Frame Padding="8">
+                <StackLayout>
                     <Label Text="General" FontAttributes="Bold"/>
-                    <Grid>
-                        <Label Text="Theme" VerticalOptions="Center"/>
-                        <Picker SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center">
-                            <Picker.Behaviors>
-                                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UpdateCommand}"/>
-                            </Picker.Behaviors>
-                            <Picker.Items>
-                                <x:String>Default</x:String>
-                                <x:String>Lavender</x:String>
-                            </Picker.Items>
-                        </Picker>
-                    </Grid>
-                </VerticalStackLayout>
+                    <Label Text="To be added."/>
+                </StackLayout>
             </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="5">
-                    <Label Text="Tracker" FontAttributes="Bold"/>
-                    <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="5">
-                        <Image Grid.Column="0" Source="{Binding AvatarUrl}" HeightRequest="30"/>
+            <Frame Padding="8">
+                <StackLayout>
+                    <Label Text="Tracking" FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="4">
+                        <Image Grid.Column="0" Source="{Binding AvatarUrl}" WidthRequest="32"/>
                         <Label Grid.Column="1" Text="{Binding Username}" VerticalOptions="Center"/>
-                        <Button Grid.Column="3" Text="{x:Bind IsLoggedIn ? 'Logout' : 'Login'}" VerticalOptions="Center" Command="{Binding LoginCommand}"/>
+                        <Button Grid.Column="3" Text="{Binding LoginButtonText}" Command="{Binding LoginCommand}"/>
                     </Grid>
-                </VerticalStackLayout>
+                </StackLayout>
             </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="5">
+            <Frame Padding="8">
+                <StackLayout>
                     <Label Text="Providers" FontAttributes="Bold"/>
                     <CollectionView ItemsSource="{Binding Providers}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4"/>
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:ProviderItemModel">
-                                <Frame BackgroundColor="{StaticResource Theme3}">
-                                    <syncfusion:SfEffectsView>
-                                        <syncfusion:SfEffectsView.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding OpenCommand}"/>
-                                        </syncfusion:SfEffectsView.GestureRecognizers>
-                                        <Label Text="{Binding Name}" Margin="10"/>
-                                    </syncfusion:SfEffectsView>
-                                </Frame>
+                                <Button Text="{Binding Name}" Command="{Binding InteractCommand}"/>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </VerticalStackLayout>
+                </StackLayout>
             </Frame>
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="5">
+            <Frame Padding="8">
+                <StackLayout>
                     <Label Text="Credits" FontAttributes="Bold"/>
-                    <Label Text="{Binding Credits}"/>
-                </VerticalStackLayout>
+                    <Label Text="To be added."/>
+                </StackLayout>
             </Frame>
-            <Frame Padding="10">
-                <Grid ColumnDefinitions="*,*">
-                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
-                        <Label Text="{Binding AppVersion}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
-                        <Label Text="App Version"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                        <Label Text="{Binding RateRemaining}" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center"/>
-                        <Label Text="Rate Remaining"/>
-                    </VerticalStackLayout>
-                </Grid>
-            </Frame>
-        </VerticalStackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

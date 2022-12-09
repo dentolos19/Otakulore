@@ -1,11 +1,13 @@
-﻿namespace Otakulore.Content;
+﻿using Otakulore.Content.Objects;
+
+namespace Otakulore.Content;
 
 public interface IProvider
 {
 
     public string Name { get; }
 
-    public Task<MediaSource[]?> GetSources(string query);
-    public Task<MediaContent[]?> GetContents(MediaSource source);
+    public Task<IList<MediaSource>> GetSources(string query);
+    public Task<IList<MediaContent>> GetContents(MediaSource source);
 
 }

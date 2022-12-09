@@ -1,17 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:Otakulore.Models"
-             x:Class="Otakulore.Pages.ContentViewerPage"
-             x:DataType="models:ContentViewerPageModel"
-             Shell.TabBarIsVisible="False"
-             Shell.NavBarIsVisible="False"
-             Title="Content Viewer">
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding BackCommand}"/>
-    </Shell.BackButtonBehavior>
-    <Grid>
-        <WebView Source="{Binding Url}"/>
-        <ActivityIndicator IsRunning="{Binding IsLoading}"/>
-    </Grid>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Otakulore.Models"
+    x:Class="Otakulore.Pages.ContentViewerPage"
+    x:DataType="models:ContentViewerPageModel"
+    NavigationPage.HasNavigationBar="False">
+    <WebView Source="{Binding Url}"/>
 </ContentPage>
