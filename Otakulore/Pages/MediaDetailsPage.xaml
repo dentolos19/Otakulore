@@ -13,10 +13,12 @@
         <ScrollView Padding="12">
             <StackLayout Spacing="8">
                 <Frame>
-                    <Grid ColumnDefinitions="128,*">
+                    <Grid ColumnDefinitions="Auto,*">
                         <Image
                             Grid.Column="0"
-                            Source="{Binding ImageUrl}"/>
+                            Source="{Binding ImageUrl}"
+                            WidthRequest="128"
+                            HeightRequest="192"/>
                         <StackLayout
                             Grid.Column="1"
                             Padding="8,4"

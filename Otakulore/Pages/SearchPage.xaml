@@ -32,8 +32,8 @@
                                 Grid.Column="0"
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
-                                WidthRequest="128"
-                                HeightRequest="192"/>
+                                WidthRequest="64"
+                                HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label Text="{Binding Title}" FontSize="24"/>
                                 <Label Text="{Binding Tag}"/>

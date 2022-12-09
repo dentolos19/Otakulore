@@ -20,7 +20,12 @@
                             <TapGestureRecognizer Command="{Binding InteractCommand}"/>
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
-                            <Image Grid.Column="0" Source="{Binding ImageUrl}" Aspect="AspectFill" WidthRequest="64" HeightRequest="96"/>
+                            <Image
+                                Grid.Column="0"
+                                Source="{Binding ImageUrl}"
+                                Aspect="AspectFill"
+                                WidthRequest="64"
+                                HeightRequest="96"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16"/>
                                 <Label Text="{Binding Subtitle}" TextColor="{DynamicResource SubtextColor}"/>
