@@ -16,15 +16,22 @@ public partial class SettingsPageModel : BasePageModel
     [ObservableProperty] private string _loginButtonText;
     [ObservableProperty] private bool _isLoggedIn;
 
+    [ObservableProperty] private string _credits;
+
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
     public override async void OnNavigatedTo() => await UpdateAuthenticationStatus();
     public override async void OnNavigatedFrom() => await UpdateAuthenticationStatus();
 
-    protected override void Initialize(object? args = null)
+    public SettingsPageModel()
     {
         foreach (var item in ContentService.Instance.Providers)
             Providers.Add(ProviderItemModel.Map(item));
+    }
+
+    protected override async void Initialize(object? args = null)
+    {
+        Credits = await MauiHelper.ReadTextAsset("Credits.txt");
     }
 
     private async Task UpdateAuthenticationStatus()

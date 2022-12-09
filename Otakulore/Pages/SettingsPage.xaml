@@ -42,7 +42,7 @@
             <Frame Padding="8">
                 <StackLayout>
                     <Label Text="Credits" FontAttributes="Bold"/>
-                    <Label Text="To be added."/>
+                    <Label Text="{Binding Credits}"/>
                 </StackLayout>
             </Frame>
         </StackLayout>

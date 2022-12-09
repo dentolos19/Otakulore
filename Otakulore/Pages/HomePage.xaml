@@ -55,7 +55,16 @@
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="12">
                 <StackLayout Spacing="8">
-                    <Label Text="🤩 Trending Now!" FontAttributes="Bold" FontSize="24"/>
+                    <Grid>
+                        <Label
+                            Text="🤩 Trending Now!"
+                            FontAttributes="Bold"
+                            FontSize="24"/>
+                        <Button
+                            Text="See More"
+                            HorizontalOptions="End"
+                            Command="{Binding SeeMoreTrendingCommand}"/>
+                    </Grid>
                     <Grid>
                         <CollectionView
                             ItemsLayout="{StaticResource MediaItemsLayout}"
@@ -65,7 +74,16 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout Spacing="8">
-                    <Label Text="😍 Highly Beloved!" FontAttributes="Bold" FontSize="24"/>
+                    <Grid>
+                        <Label
+                            Text="😍 Highly Beloved!"
+                            FontAttributes="Bold"
+                            FontSize="24"/>
+                        <Button
+                            Text="See More"
+                            HorizontalOptions="End"
+                            Command="{Binding SeeMoreFavoritesCommand}"/>
+                    </Grid>
                     <Grid>
                         <CollectionView
                             ItemsLayout="{StaticResource MediaItemsLayout}"
@@ -75,7 +93,16 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout Spacing="8">
-                    <Label Text="💫 Most Popular!" FontAttributes="Bold" FontSize="24"/>
+                    <Grid>
+                        <Label
+                            Text="💫 Most Popular!"
+                            FontAttributes="Bold"
+                            FontSize="24"/>
+                        <Button
+                            Text="See More"
+                            HorizontalOptions="End"
+                            Command="{Binding SeeMorePopularCommand}"/>
+                    </Grid>
                     <Grid>
                         <CollectionView
                             ItemsLayout="{StaticResource MediaItemsLayout}"

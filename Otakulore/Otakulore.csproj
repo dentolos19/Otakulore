@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiIcon Include="Resources\Images\Other\icon.png" Color="#b2c0b1"/>
+		<MauiIcon Include="Resources\Images\Other\icon.png" Color="#f4d4c1"/>
 		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512bd4" BaseSize="128,128"/>
 		<MauiImage Include="Resources\Images\*"/>
 		<MauiFont Include="Resources\Fonts\*"/>

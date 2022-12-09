@@ -1,0 +1,13 @@
+﻿Thank you for using my app!
+
+Please note that this app does not host advertisements! Our content providers sends you to third-party websites that enables you to watch or read content, but beware that they may contain advertisements.
+
+This app is developed with and running thanks to...
+- .NET MAUI (the framework that is powering this app)
+- AniList & AniChart (the services providing you with the extensive library of Anime & Manga)
+- Gogoanime (Provider for Anime content)
+- Manganato (Provider for Manga content)
+
+Disclaimer: Any legal issues regarding the content on this app should be taken up with the actual service providers themselves as we are not affiliated with them. In case of copyright infringement, please directly contact the responsible parties. This app is only used for educational or personal use.
+
+Created by Dennise Catolos

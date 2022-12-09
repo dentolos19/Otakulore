@@ -25,10 +25,7 @@ public partial class HomePageModel : BasePageModel
     }
 
     [RelayCommand]
-    private Task Search(string query)
-    {
-        return MauiHelper.Navigate(typeof(SearchPage), query);
-    }
+    private Task Search(string query) => MauiHelper.Navigate(typeof(SearchPage), query);
 
     [RelayCommand]
     private async Task RefreshTrendingItems()
@@ -56,5 +53,29 @@ public partial class HomePageModel : BasePageModel
         foreach (var item in result.Data)
             PopularItems.Add(MediaItemModel.Map(item));
     }
+
+    [RelayCommand] private Task SeeMoreTrending() => MauiHelper.Navigate(
+        typeof(SearchPage),
+        new SearchMediaFilter
+        {
+            Sort = MediaSort.Trending
+        }
+    );
+
+    [RelayCommand] private Task SeeMoreFavorites() => MauiHelper.Navigate(
+        typeof(SearchPage),
+        new SearchMediaFilter
+        {
+            Sort = MediaSort.Favorites
+        }
+    );
+
+    [RelayCommand] private Task SeeMorePopular() => MauiHelper.Navigate(
+        typeof(SearchPage),
+        new SearchMediaFilter
+        {
+            Sort = MediaSort.Popularity
+        }
+    );
 
 }
