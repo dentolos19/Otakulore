@@ -4,22 +4,33 @@ An app for tracking, watching and reading all about anime and manga!
 
 > **Note**: This project is powered by [AniList](https://anilist.co) with the API wrapper, [AniList.NET](https://github.com/dentolos19/AniListNet).
 
+# ⚒️ Usage
+
+- For **Windows** users,
+  1. Download `Otakulore_windows.msix` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
+  2. Follow this [documentation](https://docs.microsoft.com/dotnet/maui/windows/deployment/overview#installing-the-app) for installation
+  3. Done!
+- For **Android** users,
+  1. Download `Otakulore_android.apk` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
+  2. Install the app
+  3. Done!
+
 # 📸 Screenshots
 
 <details>
-	<summary>WinUI</summary>
-	![](.github/assets/winui-0.png)
-	![](.github/assets/winui-1.png)
-	![](.github/assets/winui-2.png)
-	![](.github/assets/winui-3.png)
-	![](.github/assets/winui-4.png)
+	<summary>🪟 WinUI</summary>
+	<img src=".github/assets/winui-0.png"/>
+	<img src=".github/assets/winui-1.png"/>
+	<img src=".github/assets/winui-2.png"/>
+	<img src=".github/assets/winui-3.png"/>
+	<img src=".github/assets/winui-4.png"/>
 </details>
 
 <details>
-	<summary>Android</summary>
-	![](.github/assets/android-0.png)
-	![](.github/assets/android-1.png)
-	![](.github/assets/android-2.png)
-	![](.github/assets/android-3.png)
-	![](.github/assets/android-4.png)
+	<summary>📱 Android</summary>
+	<img src=".github/assets/android-0.png"/>
+	<img src=".github/assets/android-1.png"/>
+	<img src=".github/assets/android-2.png"/>
+	<img src=".github/assets/android-3.png"/>
+	<img src=".github/assets/android-4.png"/>
 </details>
