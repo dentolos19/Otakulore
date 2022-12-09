@@ -12,25 +12,29 @@ namespace Otakulore.Models;
 public partial class SearchProviderPageModel : BasePageModel
 {
 
-    [ObservableProperty] private ProviderItemModel _provider;
+    [ObservableProperty] private ProviderItemModel _selectedProvider;
 
     [ObservableProperty] private ObservableCollection<MediaSourceItemModel> _items = new();
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
 
-    protected override void Initialize(object? args = null)
+    public SearchProviderPageModel()
     {
         foreach (var item in ContentService.Instance.Providers)
             Providers.Add(ProviderItemModel.Map(item));
+        SelectedProvider = Providers.First();
+    }
+
+    protected override void Initialize(object? args = null)
+    {
         if (args is string query)
         {
             if (ParentPage is SearchProviderPage page)
                 page.SearchBox.Text = query;
-            Provider = Providers.First();
             SearchCommand.Execute(query);
         }
         else if (args is IProvider provider)
         {
-            Provider = Providers.FirstOrDefault(
+            SelectedProvider = Providers.FirstOrDefault(
                 item => item.Provider == provider,
                 Providers.First()
             );
@@ -41,7 +45,7 @@ public partial class SearchProviderPageModel : BasePageModel
     private async Task Search(string query)
     {
         Items.Clear();
-        var provider = Provider.Provider;
+        var provider = SelectedProvider.Provider;
         var results = await provider.GetSources(query);
         foreach (var item in results)
             Items.Add(MediaSourceItemModel.Map(provider, item));

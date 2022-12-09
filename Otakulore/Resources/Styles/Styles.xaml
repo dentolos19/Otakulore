@@ -27,6 +27,14 @@
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
     </Style>
 
+    <Style TargetType="Image">
+        <Setter Property="Aspect" Value="AspectFill"/>
+    </Style>
+
+    <Style TargetType="ImageButton">
+        <Setter Property="Aspect" Value="AspectFill"/>
+    </Style>
+
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Otakulore.Models"
+             x:Class="Otakulore.Pages.TrackPage"
+             x:DataType="models:TrackPageModel"
+             Title="Track" Padding="12">
+    <StackLayout Spacing="12">
+        <Frame Padding="8">
+            <StackLayout Spacing="4">
+                <Grid>
+                    <Label Text="Status" VerticalOptions="Center"/>
+                    <Picker
+                        ItemsSource="{Binding Statuses}"
+                        SelectedItem="{Binding SelectedStatus}"
+                        HorizontalOptions="End"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Progress" VerticalOptions="Center"/>
+                    <Entry
+                        Text="{Binding Progress}"
+                        HorizontalOptions="End"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                    <Label Grid.Column="0" Text="Start Date" VerticalOptions="Center"/>
+                    <CheckBox
+                        Grid.Column="2"
+                        IsChecked="{Binding StartDateEnabled, Mode=TwoWay}"/>
+                    <DatePicker
+                        Grid.Column="3"
+                        Date="{Binding StartDate}"
+                        IsEnabled="{Binding StartDateEnabled}"/>
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                    <Label Grid.Column="0" Text="Complete Date" VerticalOptions="Center"/>
+                    <CheckBox
+                        Grid.Column="2"
+                        IsChecked="{Binding CompleteDateEnabled, Mode=TwoWay}"/>
+                    <DatePicker
+                        Grid.Column="3"
+                        Date="{Binding CompleteDate}"
+                        IsEnabled="{Binding CompleteDateEnabled}"/>
+                </Grid>
+            </StackLayout>
+        </Frame>
+        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+            <Button Grid.Column="0" Text="Save" Command="{Binding SaveCommand}"/>
+            <Button Grid.Column="1" Text="Delete" Command="{Binding DeleteCommand}"/>
+            <Button Grid.Column="2" Text="Cancel" Command="{Binding CancelCommand}"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

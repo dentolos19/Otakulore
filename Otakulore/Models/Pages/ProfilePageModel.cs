@@ -4,7 +4,6 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Humanizer;
 using Otakulore.Helpers;
 using Otakulore.Services;
 
@@ -28,7 +27,7 @@ public partial class ProfilePageModel : BasePageModel
     [ObservableProperty] private ObservableCollection<MediaEntrySort> _sorts = new();
     [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
 
-    protected override void Initialize(object? args = null)
+    public ProfilePageModel()
     {
         foreach (var @enum in (MediaType[])Enum.GetValues(typeof(MediaType)))
             Types.Add(@enum);

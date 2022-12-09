@@ -101,9 +101,14 @@ public partial class MediaDetailsPageModel : BasePageModel
     }
 
     [RelayCommand]
-    private Task Track()
+    private async Task Track()
     {
-        return Task.CompletedTask;
+        if (!DataService.Instance.Client.IsAuthenticated)
+        {
+            await ParentPage.DisplayAlert("Track", "You need an AniList account to use this page.", "Close");
+            return;
+        }
+        await MauiHelper.Navigate(typeof(TrackPage), _id);
     }
 
 }
