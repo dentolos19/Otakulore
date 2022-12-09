@@ -1,21 +1,14 @@
-# this workflow is built for...
-# < Building .NET MAUI Applications >
-#
-# checkout my other workflow templates @ https://github.com/dentolos19/ActionsPlayground
-#
-# created by Dennise Catolos (https://github.com/dentolos19)
-
 name: Build MAUI
-on: # change this when using this in a project
+on:
   push:
     paths:
       - Otakulore/**
   workflow_dispatch:
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
-env: # change these settings when using this in a project
+env:
   TARGET_BRANCH: ${{ github.event.repository.default_branch }}
   DOTNET_VERSION: 7.0.x
   PROJECT_FILE: Otakulore/Otakulore.csproj
@@ -56,9 +49,9 @@ jobs:
       - name: Publish Project
         run: |
           if ([string]::IsNullOrEmpty("${{ steps.certificate.outputs.SIGNING_THUMBPRINT }}")) {
-            dotnet publish ${{ env.PROJECT_FILE }} -f net6.0-windows10.0.19041.0 -c Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageDir=${{ github.workspace }}/packages/
+            dotnet publish ${{ env.PROJECT_FILE }} -f net7.0-windows10.0.19041.0 -c Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageDir=${{ github.workspace }}/packages/
           } else {
-            dotnet publish ${{ env.PROJECT_FILE }} -f net6.0-windows10.0.19041.0 -c Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{ steps.certificate.outputs.SIGNING_THUMBPRINT }} -p:AppxPackageDir=${{ github.workspace }}/packages/
+            dotnet publish ${{ env.PROJECT_FILE }} -f net7.0-windows10.0.19041.0 -c Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{ steps.certificate.outputs.SIGNING_THUMBPRINT }} -p:AppxPackageDir=${{ github.workspace }}/packages/
           }
           $artifact = (Get-ChildItem ${{ github.workspace }}/packages/*_Test/*.msix).FullName | Select-Object -First 1
           New-Item -ItemType Directory artifacts
@@ -93,7 +86,7 @@ jobs:
           dotnet workload install android
       - name: Publish Project
         run: |
-          dotnet publish ${{ env.PROJECT_FILE }} -f net6.0-android -c Release -o build
+          dotnet publish ${{ env.PROJECT_FILE }} -f net7.0-android -c Release -o build
           $artifact = (Get-ChildItem build/*.apk).FullName | Select-Object -First 1
           New-Item -ItemType Directory artifacts
           Move-Item $artifact artifacts/${{ github.event.repository.name }}_android.apk
