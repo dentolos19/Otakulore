@@ -82,7 +82,7 @@ public partial class TrackPageModel : BasePageModel
         catch
         {
             await ParentPage.DisplayAlert(
-                "Unsuccessful",
+                "Otakulore",
                 "We are unable to complete your request, please try again later.",
                 "Okay"
             );
@@ -93,7 +93,7 @@ public partial class TrackPageModel : BasePageModel
     private async Task Delete()
     {
         var canDelete = await ParentPage.DisplayAlert(
-            "Confirmation",
+            "Otakulore",
             "Are you sure that you want to delete this entry?",
             "Yes",
             "No"
@@ -108,7 +108,7 @@ public partial class TrackPageModel : BasePageModel
         catch
         {
             await ParentPage.DisplayAlert(
-                "Unsuccessful",
+                "Otakulore",
                 "We are unable to complete your request, please try again later.",
                 "Okay"
             );

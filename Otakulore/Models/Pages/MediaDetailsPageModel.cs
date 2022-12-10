@@ -30,6 +30,10 @@ public partial class MediaDetailsPageModel : BasePageModel
     [ObservableProperty] private string _startDate;
     [ObservableProperty] private string _endDate;
 
+    [ObservableProperty] private string[] _synonyms;
+    [ObservableProperty] private string[] _genres;
+    [ObservableProperty] private string[] _tags;
+
     [ObservableProperty] private AccumulableCollection<CharacterItemModel> _characterItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
 
@@ -38,18 +42,42 @@ public partial class MediaDetailsPageModel : BasePageModel
         if (args is not int id)
             return;
         _id = id;
-        LoadOverviewDataCommand.Execute(null);
-        LoadCharactersDataCommand.Execute(null);
-        LoadRelationsDataCommand.Execute(null);
+        RefreshOverviewDataCommand.Execute(null);
+        RefreshCharactersDataCommand.Execute(null);
+        RefreshRelationsDataCommand.Execute(null);
     }
 
     [RelayCommand]
-    private async Task LoadOverviewData()
+    private Task Play()
+    {
+        return MauiHelper.Navigate(typeof(SearchProviderPage), Title);
+    }
+
+    [RelayCommand]
+    private async Task Track()
+    {
+        if (!DataService.Instance.Client.IsAuthenticated)
+        {
+            var wantLogin = await ParentPage.DisplayAlert(
+                "Otakulore",
+                "You need an AniList account to use this feature.",
+                "Login",
+                "Close"
+            );
+            if (wantLogin)
+                await MauiHelper.Navigate(typeof(LoginPage));
+            return;
+        }
+        await MauiHelper.Navigate(typeof(TrackPage), _id);
+    }
+
+    [RelayCommand]
+    private async Task RefreshOverviewData()
     {
         var media = await DataService.Instance.Client.GetMediaAsync(_id);
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         Title = media.Title.PreferredTitle;
-        Subtitle = media.Type == MediaType.Anime && media.Season.HasValue && media.SeasonYear.HasValue
+        Subtitle = media is { Type: MediaType.Anime, Season: { }, SeasonYear: { } }
             ? $"{media.Season} {media.SeasonYear}"
             : media.StartDate.Year.HasValue
                 ? media.StartDate.Year.Value.ToString()
@@ -68,10 +96,13 @@ public partial class MediaDetailsPageModel : BasePageModel
         ContentLabel = media.Type == MediaType.Anime ? "Episodes" : "Chapters";
         StartDate = media.StartDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
         EndDate = media.EndDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
+        Synonyms = media.Synonyms;
+        Genres = media.Genres;
+        Tags = (await DataService.Instance.Client.GetMediaTagsAsync(_id)).Select(item => item.Name).ToArray();
     }
 
     [RelayCommand]
-    private Task LoadCharactersData()
+    private Task RefreshCharactersData()
     {
         CharacterItems = new AccumulableCollection<CharacterItemModel>();
         CharacterItems.AccumulationFunc += async index =>
@@ -87,28 +118,11 @@ public partial class MediaDetailsPageModel : BasePageModel
     }
 
     [RelayCommand]
-    private async Task LoadRelationsData()
+    private async Task RefreshRelationsData()
     {
         var result = await DataService.Instance.Client.GetMediaRelationsAsync(_id);
         foreach (var item in result)
             RelationItems.Add(MediaItemModel.Map(item));
-    }
-
-    [RelayCommand]
-    private Task Play()
-    {
-        return MauiHelper.Navigate(typeof(SearchProviderPage), Title);
-    }
-
-    [RelayCommand]
-    private async Task Track()
-    {
-        if (!DataService.Instance.Client.IsAuthenticated)
-        {
-            await ParentPage.DisplayAlert("Track", "You need an AniList account to use this page.", "Close");
-            return;
-        }
-        await MauiHelper.Navigate(typeof(TrackPage), _id);
     }
 
 }

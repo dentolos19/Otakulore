@@ -5,6 +5,7 @@ using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Helpers;
+using Otakulore.Pages;
 using Otakulore.Services;
 
 namespace Otakulore.Models;
@@ -40,12 +41,17 @@ public partial class ProfilePageModel : BasePageModel
     public override async void OnNavigatedTo()
     {
         await UpdateAuthenticationStatus();
-        if (!DataService.Instance.Client.IsAuthenticated)
-        {
-            await ParentPage.DisplayAlert("Profile", "You need an AniList account to use this page.", "Close");
-            return;
-        }
         RefreshItemsCommand.Execute(null);
+        if (DataService.Instance.Client.IsAuthenticated)
+            return;
+        var wantLogin = await ParentPage.DisplayAlert(
+            "Otakulore",
+            "You need an AniList account to use this feature.",
+            "Login",
+            "Close"
+        );
+        if (wantLogin)
+            await MauiHelper.Navigate(typeof(LoginPage));
     }
 
     private async Task UpdateAuthenticationStatus()
@@ -70,9 +76,9 @@ public partial class ProfilePageModel : BasePageModel
     [RelayCommand]
     private Task RefreshItems()
     {
+        Items = new AccumulableCollection<MediaItemModel>();
         if (_id is null)
             return Task.CompletedTask;
-        Items = new AccumulableCollection<MediaItemModel>();
         Items.AccumulationFunc += async index =>
         {
             var result = await DataService.Instance.Client.GetUserEntriesAsync(

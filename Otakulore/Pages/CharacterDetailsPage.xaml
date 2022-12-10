@@ -19,8 +19,8 @@
                         VerticalOptions="End">
                         <Label
                             Text="{Binding Name}"
-                            LineHeight="2"
                             LineBreakMode="TailTruncation"
+                            MaxLines="2"
                             FontAttributes="Bold"
                             FontSize="24"/>
                         <Label

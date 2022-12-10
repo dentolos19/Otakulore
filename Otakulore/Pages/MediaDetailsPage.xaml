@@ -6,11 +6,24 @@
             x:Class="Otakulore.Pages.MediaDetailsPage"
             x:DataType="models:MediaDetailsPageModel"
             android:TabbedPage.ToolbarPlacement="Bottom">
+    <TabbedPage.Resources>
+        <LinearItemsLayout x:Key="StringItemsLayout" Orientation="Horizontal" ItemSpacing="4"/>
+        <DataTemplate x:Key="StringItemTemplate" x:DataType="x:String">
+            <Frame
+                Padding="8,4"
+                BackgroundColor="{DynamicResource Theme3}">
+                <Label
+                    Text="{Binding}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+            </Frame>
+        </DataTemplate>
+    </TabbedPage.Resources>
     <ContentPage
         Title="Overview"
         IconImageSource="{StaticResource OverviewGlyph}">
-
         <ScrollView Padding="12">
+
             <StackLayout Spacing="8">
                 <Frame>
                     <Grid ColumnDefinitions="Auto,*">
@@ -25,8 +38,8 @@
                             VerticalOptions="End">
                             <Label
                                 Text="{Binding Title}"
-                                LineHeight="2"
                                 LineBreakMode="TailTruncation"
+                                MaxLines="2"
                                 FontAttributes="Bold"
                                 FontSize="24"/>
                             <Label
@@ -103,9 +116,36 @@
                         </Grid>
                     </StackLayout>
                 </Frame>
+                <Frame Padding="8">
+                    <StackLayout>
+                        <Label Text="Synonyms" FontAttributes="Bold"/>
+                        <CollectionView
+                            ItemsLayout="{StaticResource StringItemsLayout}"
+                            ItemTemplate="{StaticResource StringItemTemplate}"
+                            ItemsSource="{Binding Synonyms}"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="8">
+                    <StackLayout>
+                        <Label Text="Genres" FontAttributes="Bold"/>
+                        <CollectionView
+                            ItemsLayout="{StaticResource StringItemsLayout}"
+                            ItemTemplate="{StaticResource StringItemTemplate}"
+                            ItemsSource="{Binding Genres}"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="8">
+                    <StackLayout>
+                        <Label Text="Tags" FontAttributes="Bold"/>
+                        <CollectionView
+                            ItemsLayout="{StaticResource StringItemsLayout}"
+                            ItemTemplate="{StaticResource StringItemTemplate}"
+                            ItemsSource="{Binding Tags}"/>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
-        </ScrollView>
 
+        </ScrollView>
     </ContentPage>
     <ContentPage
         Title="Characters"
