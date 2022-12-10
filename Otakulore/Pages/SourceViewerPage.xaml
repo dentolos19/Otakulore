@@ -5,9 +5,26 @@
     xmlns:models="clr-namespace:Otakulore.Models"
     x:Class="Otakulore.Pages.SourceViewerPage"
     x:DataType="models:SourceViewerPageModel"
-    Title="Source Viewer">
-    <Grid Padding="8">
-        <CollectionView ItemsSource="{Binding Items}">
+    Title="Source Viewer"  Padding="12">
+    <Grid
+        RowDefinitions="Auto,*"
+        RowSpacing="8">
+        <Frame Padding="8">
+            <StackLayout>
+                <Label
+                    Text="{Binding Title}"
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    HorizontalOptions="Center"/>
+                <Label
+                    Text="{Binding Subtitle}"
+                    TextColor="{DynamicResource SubtextColor}"
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+        </Frame>
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
             </CollectionView.ItemsLayout>
@@ -22,6 +39,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator IsRunning="{Binding RefreshItemsCommand.IsRunning}"/>
+        <ActivityIndicator
+            Grid.Row="1"
+            IsRunning="{Binding RefreshItemsCommand.IsRunning}"/>
     </Grid>
 </ContentPage>

@@ -12,6 +12,8 @@ public class ManganatoProvider : IMangaProvider
 
     public async Task<IList<MediaSource>> GetSources(string query)
     {
+        if (string.IsNullOrEmpty(query))
+            return Array.Empty<MediaSource>();
         var htmlDocument = await _htmlWeb.LoadFromWebAsync("https://manganato.com/search/story/" + query.Replace(' ', '_'));
         var searchElements = htmlDocument.DocumentNode.SelectNodes("//div[@class='panel-search-story']/div[@class='search-story-item']");
         var sources = new List<MediaSource>();

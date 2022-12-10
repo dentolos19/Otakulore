@@ -14,6 +14,9 @@ public partial class SourceViewerPageModel : BasePageModel
     private IProvider _provider;
     private MediaSource _source;
 
+    [ObservableProperty] private string _title;
+    [ObservableProperty] private string _subtitle;
+
     [ObservableProperty] private ObservableCollection<MediaContentItemModel> _items = new();
 
     protected override void Initialize(object? args = null)
@@ -22,6 +25,8 @@ public partial class SourceViewerPageModel : BasePageModel
             return;
         _provider = provider;
         _source = source;
+        Title = _source.Title;
+        Subtitle = _provider.Name;
         RefreshItemsCommand.Execute(null);
     }
 

@@ -24,20 +24,28 @@ public partial class SearchProviderPageModel : BasePageModel
         SelectedProvider = Providers.First();
     }
 
-    protected override void Initialize(object? args = null)
+    protected override async void Initialize(object? args = null)
     {
-        if (args is string query)
+        switch (args)
         {
-            if (ParentPage is SearchProviderPage page)
-                page.SearchBox.Text = query;
-            SearchCommand.Execute(query);
-        }
-        else if (args is IProvider provider)
-        {
-            SelectedProvider = Providers.FirstOrDefault(
-                item => item.Provider == provider,
-                Providers.First()
-            );
+            case string query:
+            {
+                if (ParentPage is SearchProviderPage page)
+                    page.SearchBox.Text = query;
+                SearchCommand.Execute(query);
+                await ParentPage.DisplayAlert(
+                    "Otakulore",
+                    "Sometimes you need to change the title a bit in order to find what you are looking for.",
+                    "Close"
+                );
+                break;
+            }
+            case IProvider provider:
+                SelectedProvider = Providers.FirstOrDefault(
+                    item => item.Provider == provider,
+                    Providers.First()
+                );
+                break;
         }
     }
 
