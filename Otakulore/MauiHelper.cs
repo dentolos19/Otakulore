@@ -103,18 +103,6 @@ public static class MauiHelper
         #endif
     }
 
-    public static MediaSeason GetCurrentSeason(DateOnly date)
-    {
-        var value = date.Month + date.Day / 100f;
-        if (value < 3.21 || value >= 12.22)
-            return MediaSeason.Winter;
-        if (value < 6.21)
-            return MediaSeason.Spring;
-        if (value < 9.23)
-            return MediaSeason.Summer;
-        return MediaSeason.Fall;
-    }
-
     public static async Task<string> ReadTextAsset(string fileName)
     {
         await using var stream = await FileSystem.OpenAppPackageFileAsync(fileName);

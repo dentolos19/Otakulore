@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{DB6C43B0-B55F-4313-8DE0-5C1DBE94C3F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AniListNet", "AniListNet\AniListNet\AniListNet.csproj", "{8A43B4AF-85C2-4E26-BC01-33E07460FB73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +27,16 @@ Global
 		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A43B4AF-85C2-4E26-BC01-33E07460FB73} = {DB6C43B0-B55F-4313-8DE0-5C1DBE94C3F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}

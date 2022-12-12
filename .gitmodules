@@ -1,0 +1,3 @@
+[submodule "AniListNet"]
+	path = AniListNet
+	url = https://github.com/dentolos19/AniListNet.git
