@@ -1,44 +1,46 @@
 name: Canary Deployment
 run-name: "Canary Deployment #${{ github.run_number }}"
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+### Configuration ###
+
 on:
   push:
     paths:
       - Otakulore/**
   workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
-
 env:
   TARGET_BRANCH: ${{ github.event.repository.default_branch }}
-  DOTNET_VERSION: 7.0.x
+  PROJECT_FILE: Otakulore/Otakulore.csproj
   WINDOWS_TARGET_FRAMEWORK: net7.0-windows10.0.19041.0
   ANDROID_TARGET_FRAMEWORK: net7.0-android
-  PROJECT_FILE: Otakulore/Otakulore.csproj
   SIGNING_CERTIFICATE: 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
   SIGNING_KEY: temporary
   RELEASE_TAG: Canary
 
+### Configuration ###
+
 jobs:
   windowsBuild:
+    name: Build for Windows
     continue-on-error: true
     runs-on: windows-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Branch
         uses: actions/checkout@v3
         with:
           ref: ${{ env.TARGET_BRANCH }}
-          submodules: recursive
           lfs: true
+          submodules: recursive
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Install Workloads
+      - name: Install .NET Workloads
         run: |
           dotnet workload install maui
       - id: certificate
-        name: Install Certificate
+        name: Install Signing Certificate
         run: |
           if (![string]::IsNullOrEmpty("${{ env.SIGNING_CERTIFICATE }}") -and ![string]::IsNullOrEmpty("${{ env.SIGNING_KEY }}")) {
             $bytes = [System.Convert]::FromBase64String("${{ env.SIGNING_CERTIFICATE }}")
@@ -46,90 +48,78 @@ jobs:
             $password = ConvertTo-SecureString ${{ env.SIGNING_KEY }} -AsPlainText
             Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
             $thumbprint = (Get-PfxCertificate Certificate.pfx -Password $password).Thumbprint
-            Write-Output "::set-output name=SIGNING_THUMBPRINT::$thumbprint"
+            Write-Output -InputObject "SIGNING_THUMBPRINT=$thumbprint" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }
       - name: Publish Project
         run: |
           if ([string]::IsNullOrEmpty("${{ steps.certificate.outputs.SIGNING_THUMBPRINT }}")) {
-            dotnet publish ${{ env.PROJECT_FILE }} -f ${{ env.WINDOWS_TARGET_FRAMEWORK }} -c Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageDir=${{ github.workspace }}/packages/
+            dotnet publish ${{ env.PROJECT_FILE }} --framework ${{ env.WINDOWS_TARGET_FRAMEWORK }} --configuration Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageDir=${{ github.workspace }}/packages/
           } else {
-            dotnet publish ${{ env.PROJECT_FILE }} -f ${{ env.WINDOWS_TARGET_FRAMEWORK }} -c Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{ steps.certificate.outputs.SIGNING_THUMBPRINT }} -p:AppxPackageDir=${{ github.workspace }}/packages/
+            dotnet publish ${{ env.PROJECT_FILE }} --framework ${{ env.WINDOWS_TARGET_FRAMEWORK }} --configuration Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{ steps.certificate.outputs.SIGNING_THUMBPRINT }} -p:AppxPackageDir=${{ github.workspace }}/packages/
           }
           $artifact = (Get-ChildItem ${{ github.workspace }}/packages/*_Test/*.msix).FullName | Select-Object -First 1
-          New-Item -ItemType Directory artifacts
-          Move-Item $artifact artifacts/${{ github.event.repository.name }}_windows.msix
+          New-Item -Path artifacts -ItemType Directory
+          Move-Item -Path $artifact -Destination artifacts/${{ github.event.repository.name }}_windows.msix
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Output
           path: artifacts
   androidBuild:
+    name: Build for Android
     continue-on-error: true
     runs-on: windows-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Branch
         uses: actions/checkout@v3
         with:
           ref: ${{ env.TARGET_BRANCH }}
-          submodules: recursive
           lfs: true
+          submodules: recursive
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: microsoft
           java-version: 11
-      - name: Install Workloads
+      - name: Install .NET Workloads
         run: |
           dotnet workload install maui
           dotnet workload install android
       - name: Publish Project
         run: |
-          dotnet publish ${{ env.PROJECT_FILE }} -f ${{ env.ANDROID_TARGET_FRAMEWORK }} -c Release -o build
+          dotnet publish ${{ env.PROJECT_FILE }} --framework ${{ env.ANDROID_TARGET_FRAMEWORK }} --configuration Release --output build
           $artifact = (Get-ChildItem build/*.apk).FullName | Select-Object -First 1
-          New-Item -ItemType Directory artifacts
-          Move-Item $artifact artifacts/${{ github.event.repository.name }}_android.apk
+          New-Item -Path artifacts -ItemType Directory
+          Move-Item -Path $artifact -Destination artifacts/${{ github.event.repository.name }}_android.apk
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Output
           path: artifacts
-  release:
+  deploy:
+    name: Deploy
     needs: [ windowsBuild, androidBuild ]
-    permissions:
-      contents: write
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
           name: Output
           path: artifacts
-      - id: artifacts
-        name: Check Artifacts
-        run: |
-          $artifacts = (Get-ChildItem -Recurse -File artifacts).FullName
-          $artifactList = ""
-          foreach ($artifact in $artifacts) {
-            if ($artifactList.Length -gt 0) {
-              $artifactList += ","
-            }
-            $artifactList += $artifact
-          }
-          Write-Output "::set-output name=RELEASE_ARTIFACTS::$artifactList"
-      - name: Delete (Existing) Release Tag
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+      - name: Delete (Existing) Releases
+        uses: dev-drprasad/delete-tag-and-release@v0.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.RELEASE_TAG }}
+          delete_release: true
+          delete_draft_release: true
       - name: Release Artifacts
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v0.1.15
         with:
-          artifacts: ${{ steps.artifacts.outputs.RELEASE_ARTIFACTS }}
+          target_commitish: ${{ env.TARGET_BRANCH }}
+          tag_name: ${{ env.RELEASE_TAG }}
           prerelease: true
-          tag: ${{ env.RELEASE_TAG }}
-          commit: ${{ env.TARGET_BRANCH }}
+          files: artifacts/*
