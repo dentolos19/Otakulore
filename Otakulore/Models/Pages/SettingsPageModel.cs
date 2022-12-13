@@ -11,6 +11,8 @@ namespace Otakulore.Models;
 public partial class SettingsPageModel : BasePageModel
 {
 
+    [ObservableProperty] private Theme _selectedTheme;
+
     [ObservableProperty] private string _avatarUrl;
     [ObservableProperty] private string _username;
     [ObservableProperty] private string _loginButtonText;
@@ -18,20 +20,24 @@ public partial class SettingsPageModel : BasePageModel
 
     [ObservableProperty] private string _credits;
 
-    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
+    [ObservableProperty] private ObservableCollection<Theme> _themeItems = new();
+    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providerItems = new();
 
     public override async void OnNavigatedTo() => await UpdateAuthenticationStatus();
     public override async void OnNavigatedFrom() => await UpdateAuthenticationStatus();
 
     public SettingsPageModel()
     {
+        foreach (var item in (Theme[])Enum.GetValues(typeof(Theme)))
+            ThemeItems.Add(item);
         foreach (var item in ContentService.Instance.Providers)
-            Providers.Add(ProviderItemModel.Map(item));
+            ProviderItems.Add(ProviderItemModel.Map(item));
     }
 
     protected override async void Initialize(object? args = null)
     {
         Credits = await MauiHelper.ReadTextAsset("Credits.txt");
+        SelectedTheme = SettingsService.Instance.AppTheme;
     }
 
     private async Task UpdateAuthenticationStatus()
@@ -52,6 +58,16 @@ public partial class SettingsPageModel : BasePageModel
             Username = "AniList";
             IsLoggedIn = false;
             LoginButtonText = "Login";
+        }
+    }
+
+    [RelayCommand]
+    private async Task Update()
+    {
+        if (SettingsService.Instance.AppTheme != SelectedTheme)
+        {
+            App.UpdateTheme(SelectedTheme);
+            SettingsService.Instance.AppTheme = SelectedTheme;
         }
     }
 

@@ -11,6 +11,12 @@ public class SettingsService : ObservableObject
 
     public static SettingsService Instance => MauiHelper.GetService<SettingsService>()!;
 
+    public Theme AppTheme
+    {
+        get => GetValue(Theme.Dark);
+        set => SetValue(value);
+    }
+
     public string? AccessToken
     {
         get => GetValue<string>();

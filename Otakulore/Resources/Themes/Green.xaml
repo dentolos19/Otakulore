@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Otakulore.Resources.Themes.Green">
+
+    <x:String x:Key="FontFamily">Poppins</x:String>
+    <Color x:Key="TextColor">White</Color>
+    <Color x:Key="SubtextColor">#c8c8c8</Color>
+    <Color x:Key="Theme1">#063b00</Color>
+    <Color x:Key="Theme2">#0a5d00</Color>
+    <Color x:Key="Theme3">#089000</Color>
+    <Color x:Key="Theme4">#1fc600</Color>
+    <Color x:Key="Theme5">#0eff00</Color>
+
+</ResourceDictionary>

@@ -21,7 +21,7 @@
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Column="1" Spacing="4" HorizontalOptions="End">
                         <Picker
-                            ItemsSource="{Binding Types}"
+                            ItemsSource="{Binding TypeItems}"
                             SelectedItem="{Binding SelectedType, Mode=TwoWay}">
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior
@@ -30,7 +30,7 @@
                             </Picker.Behaviors>
                         </Picker>
                         <Picker
-                            ItemsSource="{Binding Statuses}"
+                            ItemsSource="{Binding StatusItems}"
                             SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior
@@ -39,7 +39,7 @@
                             </Picker.Behaviors>
                         </Picker>
                         <Picker
-                            ItemsSource="{Binding Sorts}"
+                            ItemsSource="{Binding SortItems}"
                             SelectedItem="{Binding SelectedSort, Mode=TwoWay}">
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior

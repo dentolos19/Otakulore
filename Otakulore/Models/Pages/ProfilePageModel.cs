@@ -23,19 +23,19 @@ public partial class ProfilePageModel : BasePageModel
     [ObservableProperty] private MediaEntryStatus _selectedStatus = MediaEntryStatus.Current;
     [ObservableProperty] private MediaEntrySort _selectedSort = MediaEntrySort.LastUpdated;
 
-    [ObservableProperty] private ObservableCollection<MediaType> _types = new();
-    [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statuses = new();
-    [ObservableProperty] private ObservableCollection<MediaEntrySort> _sorts = new();
+    [ObservableProperty] private ObservableCollection<MediaType> _typeItems = new();
+    [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statusItems = new();
+    [ObservableProperty] private ObservableCollection<MediaEntrySort> _sortItems = new();
     [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
 
     public ProfilePageModel()
     {
-        foreach (var @enum in (MediaType[])Enum.GetValues(typeof(MediaType)))
-            Types.Add(@enum);
-        foreach (var @enum in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
-            Statuses.Add(@enum);
-        foreach (var @enum in (MediaEntrySort[])Enum.GetValues(typeof(MediaEntrySort)))
-            Sorts.Add(@enum);
+        foreach (var item in (MediaType[])Enum.GetValues(typeof(MediaType)))
+            TypeItems.Add(item);
+        foreach (var item in (MediaEntryStatus[])Enum.GetValues(typeof(MediaEntryStatus)))
+            StatusItems.Add(item);
+        foreach (var item in (MediaEntrySort[])Enum.GetValues(typeof(MediaEntrySort)))
+            SortItems.Add(item);
     }
 
     public override async void OnNavigatedTo()
