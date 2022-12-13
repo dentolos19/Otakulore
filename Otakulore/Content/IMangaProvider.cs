@@ -1,3 +1,10 @@
-﻿namespace Otakulore.Content;
+﻿using Otakulore.Content.Objects;
 
-public interface IMangaProvider : IProvider { }
+namespace Otakulore.Content;
+
+public interface IMangaProvider : IProvider
+{
+
+    public Task<Uri> ExtractMangaReaderUrl(MediaContent content) => throw new NotImplementedException();
+
+}

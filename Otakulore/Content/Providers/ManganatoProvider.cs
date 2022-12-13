@@ -27,7 +27,7 @@ public class ManganatoProvider : IMangaProvider
             {
                 ImageUrl = new Uri(imageElement.Attributes["src"].Value),
                 Title = linkElement.Attributes["title"].Value,
-                Url = new Uri(linkElement.Attributes["href"].Value)
+                Data = linkElement.Attributes["href"].Value
             });
         }
         return sources;
@@ -35,7 +35,9 @@ public class ManganatoProvider : IMangaProvider
 
     public async Task<IList<MediaContent>> GetContents(MediaSource source)
     {
-        var htmlDocument = await _htmlWeb.LoadFromWebAsync(source.Url.ToString());
+        if (source.Data is not string url)
+            return Array.Empty<MediaContent>();
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync(url);
         var chapterElements = htmlDocument.DocumentNode.SelectNodes("//ul[@class='row-content-chapter']/li");
         var contents = new List<MediaContent>();
         if (chapterElements is not { Count: > 0 })
@@ -46,11 +48,18 @@ public class ManganatoProvider : IMangaProvider
             contents.Add(new MediaContent
             {
                 Name = linkElement.InnerText,
-                Url = new Uri(linkElement.Attributes["href"].Value)
+                Data = linkElement.Attributes["href"].Value
             });
         }
         contents.Reverse();
         return contents;
+    }
+
+    public Task<Uri> ExtractMangaReaderUrl(MediaContent content)
+    {
+        if (content.Data is string url)
+            return Task.FromResult(new Uri(url));
+        throw new Exception();
     }
 
 }

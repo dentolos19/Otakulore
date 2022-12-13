@@ -5,6 +5,6 @@ namespace Otakulore.Content;
 public interface IAnimeProvider : IProvider
 {
 
-    public Task<Uri?> ExtractVideoPlayerUrl(MediaContent content) => Task.FromResult<Uri?>(null);
+    public Task<Uri> ExtractAnimePlayerUrl(MediaContent content) => throw new NotImplementedException();
 
 }

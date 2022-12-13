@@ -15,26 +15,29 @@ public partial class ContentViewerPageModel : BasePageModel
     {
         if (args is not (IProvider provider, MediaContent content))
             return;
-        if (provider is IAnimeProvider animeProvider)
+        try
         {
-            var url = await animeProvider.ExtractVideoPlayerUrl(content);
-            Url = url ?? content.Url;
-            /*
-            #if ANDROID
-            Platform.CurrentActivity.Window.AddFlags(WindowManagerFlags.Fullscreen);
-            Platform.CurrentActivity.RequestedOrientation = ScreenOrientation.Landscape;
-            #endif
-            */
+            Url = provider switch
+            {
+                IAnimeProvider animeProvider => await animeProvider.ExtractAnimePlayerUrl(content),
+                IMangaProvider mangaProvider => await mangaProvider.ExtractMangaReaderUrl(content),
+                _ => new Uri("about:blank")
+            };
         }
-        else
+        catch
         {
-            Url = content.Url;
+            await ParentPage.DisplayAlert(
+                "Otakulore",
+                "An error occurred.",
+                "Back"
+            );
+            await MauiHelper.NavigateBack();
         }
     }
 
     public override void OnNavigatedFrom()
     {
-        Url = new Uri("https://dentolos19.github.io");
+        Url = new Uri("about:blank");
     }
 
 }

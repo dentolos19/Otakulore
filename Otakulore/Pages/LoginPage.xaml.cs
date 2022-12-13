@@ -8,11 +8,11 @@ namespace Otakulore.Pages;
 public partial class LoginPage
 {
 
-	public LoginPage()
-	{
-		InitializeComponent();
+    public LoginPage()
+    {
+        InitializeComponent();
         WebView.Source = new Uri("https://anilist.co/api/v2/oauth/authorize?client_id=7375&response_type=token");
-	}
+    }
 
     private async void OnNavigating(object? sender, WebNavigatingEventArgs args)
     {

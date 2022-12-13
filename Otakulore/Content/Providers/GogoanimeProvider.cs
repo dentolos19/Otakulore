@@ -26,7 +26,7 @@ public class GogoanimeProvider : IAnimeProvider
             {
                 ImageUrl = new Uri(imageElement.Attributes["src"].Value),
                 Title = imageElement.Attributes["alt"].Value,
-                Url = new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value)
+                Data = "https://gogoanime.tel" + linkElement.Attributes["href"].Value
             });
         }
         return sources;
@@ -34,7 +34,9 @@ public class GogoanimeProvider : IAnimeProvider
 
     public async Task<IList<MediaContent>> GetContents(MediaSource source)
     {
-        var htmlDocument = await _htmlWeb.LoadFromWebAsync(source.Url.ToString());
+        if (source.Data is not string url)
+            return Array.Empty<MediaContent>();
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync(url);
         var mediaId = htmlDocument.DocumentNode.SelectSingleNode("//input[@id='movie_id']").Attributes["value"].Value;
         htmlDocument = await _htmlWeb.LoadFromWebAsync("https://ajax.gogocdn.net/ajax/load-list-episode?ep_start=0&ep_end=10000&id=" + mediaId);
         var episodeElements = htmlDocument.DocumentNode.SelectNodes("//ul/li");
@@ -48,16 +50,18 @@ public class GogoanimeProvider : IAnimeProvider
             contents.Add(new MediaContent
             {
                 Name = "Episode " + Regex.Match(nameElement.InnerText, @"\d+").Value,
-                Url = new Uri("https://gogoanime.tel" + linkElement.Attributes["href"].Value.Trim())
+                Data = "https://gogoanime.tel" + linkElement.Attributes["href"].Value.Trim()
             });
         }
         contents.Reverse();
         return contents;
     }
 
-    public async Task<Uri?> ExtractVideoPlayerUrl(MediaContent content)
+    public async Task<Uri> ExtractAnimePlayerUrl(MediaContent content)
     {
-        var htmlDocument = await _htmlWeb.LoadFromWebAsync(content.Url.ToString());
+        if (content.Data is not string url)
+            throw new Exception();
+        var htmlDocument = await _htmlWeb.LoadFromWebAsync(url);
         return new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
     }
 
