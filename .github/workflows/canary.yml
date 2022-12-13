@@ -109,7 +109,7 @@ jobs:
           name: Output
           path: artifacts
       - name: Delete (Existing) Releases
-        uses: dev-drprasad/delete-tag-and-release@v0.2.1
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
