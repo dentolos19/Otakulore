@@ -5,7 +5,7 @@
     xmlns:models="clr-namespace:Otakulore.Models"
     x:Class="Otakulore.Pages.SourceViewerPage"
     x:DataType="models:SourceViewerPageModel"
-    Title="Source Viewer"  Padding="12">
+    Title="Source Viewer" Padding="12">
     <Grid
         RowDefinitions="Auto,*"
         RowSpacing="8">

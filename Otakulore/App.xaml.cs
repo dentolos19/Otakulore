@@ -3,6 +3,7 @@ using Otakulore.Pages;
 using Otakulore.Resources;
 using Otakulore.Resources.Themes;
 using Otakulore.Services;
+using Otakulore.Utilities.Enumerations;
 
 namespace Otakulore;
 

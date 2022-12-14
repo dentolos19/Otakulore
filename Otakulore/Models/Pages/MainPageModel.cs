@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Otakulore.Helpers;
 using Otakulore.Services;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
 
@@ -26,7 +27,7 @@ public partial class MainPageModel : BasePageModel
         #if DEBUG
         buildVersion = "Debug";
         #endif
-        Version =  $"{version.Remove(version.LastIndexOf("."))} ({buildVersion})";
+        Version = $"{version.Remove(version.LastIndexOf("."))} ({buildVersion})";
         #endif
     }
 

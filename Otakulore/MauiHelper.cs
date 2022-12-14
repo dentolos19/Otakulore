@@ -3,6 +3,8 @@ using AniListNet.Objects;
 using Otakulore.Helpers;
 using Otakulore.Models;
 using Otakulore.Pages;
+using Otakulore.Utilities.Attributes;
+using Otakulore.Utilities.Enumerations;
 using UraniumUI;
 
 namespace Otakulore;

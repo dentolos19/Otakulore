@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
 

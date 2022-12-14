@@ -1,3 +1,3 @@
-﻿namespace Otakulore.Helpers;
+﻿namespace Otakulore.Utilities.Attributes;
 
 public class TransientServiceAttribute : Attribute { }

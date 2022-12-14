@@ -1,4 +1,6 @@
-﻿namespace Otakulore.Helpers;
+﻿using Otakulore.Utilities.Enumerations;
+
+namespace Otakulore.Utilities.Attributes;
 
 public class PageServiceAttribute : Attribute
 {

@@ -1,5 +1,6 @@
 ﻿using AniListNet;
 using Otakulore.Helpers;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Services;
 

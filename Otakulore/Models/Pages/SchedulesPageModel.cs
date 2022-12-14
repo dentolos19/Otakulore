@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Helpers;
 using Otakulore.Services;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
 
@@ -12,7 +13,7 @@ namespace Otakulore.Models;
 public partial class SchedulesPageModel : BasePageModel
 {
 
-    [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private Utilities.AccumulableCollection<MediaItemModel> _items = new();
 
     protected override void Initialize(object? args = null)
     {
@@ -22,7 +23,7 @@ public partial class SchedulesPageModel : BasePageModel
     [RelayCommand]
     private Task RefreshItems()
     {
-        Items = new AccumulableCollection<MediaItemModel>();
+        Items = new Utilities.AccumulableCollection<MediaItemModel>();
         Items.AccumulationFunc += async index =>
         {
             var result = await DataService.Instance.Client.GetMediaSchedulesAsync(default, new AniPaginationOptions(index));

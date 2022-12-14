@@ -5,6 +5,7 @@ using Otakulore.Content;
 using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
 

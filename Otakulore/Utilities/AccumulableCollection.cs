@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Otakulore.Helpers;
+namespace Otakulore.Utilities;
 
 public partial class AccumulableCollection<TObject> : ObservableCollection<TObject>
 {

@@ -1,3 +1,3 @@
-﻿namespace Otakulore.Helpers;
+﻿namespace Otakulore.Utilities.Enumerations;
 
 public enum PageServiceType { Singleton, Transient }

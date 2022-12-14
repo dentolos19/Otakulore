@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
 
@@ -14,7 +15,7 @@ public partial class SearchPageModel : BasePageModel
 
     private SearchMediaFilter _filter = new();
 
-    [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private Utilities.AccumulableCollection<MediaItemModel> _items = new();
 
     protected override void Initialize(object? args = null)
     {
@@ -31,7 +32,7 @@ public partial class SearchPageModel : BasePageModel
     private Task Search(string query)
     {
         _filter.Query = query;
-        Items = new AccumulableCollection<MediaItemModel>();
+        Items = new Utilities.AccumulableCollection<MediaItemModel>();
         Items.AccumulationFunc += async index =>
         {
             var result = await DataService.Instance.Client.SearchMediaAsync(_filter, new AniPaginationOptions(index));

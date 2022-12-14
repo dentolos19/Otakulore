@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Otakulore.Content;
 using Otakulore.Content.Objects;
 using Otakulore.Helpers;
+using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
 
