@@ -1,5 +1,4 @@
-﻿using Otakulore.Helpers;
-using Otakulore.Pages;
+﻿using Otakulore.Pages;
 using Otakulore.Resources;
 using Otakulore.Resources.Themes;
 using Otakulore.Services;

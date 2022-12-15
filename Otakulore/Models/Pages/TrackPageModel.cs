@@ -3,7 +3,6 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Helpers;
 using Otakulore.Services;
 using Otakulore.Utilities.Attributes;
 
@@ -117,6 +116,9 @@ public partial class TrackPageModel : BasePageModel
     }
 
     [RelayCommand]
-    private Task Cancel() => MauiHelper.NavigateBack();
+    private Task Cancel()
+    {
+        return MauiHelper.NavigateBack();
+    }
 
 }

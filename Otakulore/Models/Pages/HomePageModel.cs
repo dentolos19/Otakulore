@@ -3,7 +3,6 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
 using Otakulore.Utilities.Attributes;
@@ -26,7 +25,10 @@ public partial class HomePageModel : BasePageModel
     }
 
     [RelayCommand]
-    private Task Search(string query) => MauiHelper.Navigate(typeof(SearchPage), query);
+    private Task Search(string query)
+    {
+        return MauiHelper.Navigate(typeof(SearchPage), query);
+    }
 
     [RelayCommand]
     private async Task RefreshTrendingItems()
@@ -55,28 +57,37 @@ public partial class HomePageModel : BasePageModel
             PopularItems.Add(MediaItemModel.Map(item));
     }
 
-    [RelayCommand] private Task SeeMoreTrending() => MauiHelper.Navigate(
-        typeof(SearchPage),
-        new SearchMediaFilter
-        {
-            Sort = MediaSort.Trending
-        }
-    );
+    [RelayCommand] private Task SeeMoreTrending()
+    {
+        return MauiHelper.Navigate(
+            typeof(SearchPage),
+            new SearchMediaFilter
+            {
+                Sort = MediaSort.Trending
+            }
+        );
+    }
 
-    [RelayCommand] private Task SeeMoreFavorites() => MauiHelper.Navigate(
-        typeof(SearchPage),
-        new SearchMediaFilter
-        {
-            Sort = MediaSort.Favorites
-        }
-    );
+    [RelayCommand] private Task SeeMoreFavorites()
+    {
+        return MauiHelper.Navigate(
+            typeof(SearchPage),
+            new SearchMediaFilter
+            {
+                Sort = MediaSort.Favorites
+            }
+        );
+    }
 
-    [RelayCommand] private Task SeeMorePopular() => MauiHelper.Navigate(
-        typeof(SearchPage),
-        new SearchMediaFilter
-        {
-            Sort = MediaSort.Popularity
-        }
-    );
+    [RelayCommand] private Task SeeMorePopular()
+    {
+        return MauiHelper.Navigate(
+            typeof(SearchPage),
+            new SearchMediaFilter
+            {
+                Sort = MediaSort.Popularity
+            }
+        );
+    }
 
 }

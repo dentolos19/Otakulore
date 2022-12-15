@@ -4,9 +4,9 @@ using AniListNet.Objects;
 using AniListNet.Parameters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
+using Otakulore.Utilities;
 using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
@@ -27,7 +27,7 @@ public partial class ProfilePageModel : BasePageModel
     [ObservableProperty] private ObservableCollection<MediaType> _typeItems = new();
     [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statusItems = new();
     [ObservableProperty] private ObservableCollection<MediaEntrySort> _sortItems = new();
-    [ObservableProperty] private Utilities.AccumulableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
 
     public ProfilePageModel()
     {
@@ -77,7 +77,7 @@ public partial class ProfilePageModel : BasePageModel
     [RelayCommand]
     private Task RefreshItems()
     {
-        Items = new Utilities.AccumulableCollection<MediaItemModel>();
+        Items = new AccumulableCollection<MediaItemModel>();
         if (_id is null)
             return Task.CompletedTask;
         Items.AccumulationFunc += async index =>

@@ -12,15 +12,14 @@
             <Frame Padding="8">
                 <StackLayout>
                     <Label Text="General" FontAttributes="Bold"/>
-                    <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Grid>
                         <Label
-                            Grid.Column="0"
                             Text="Theme"
                             VerticalOptions="Center"/>
                         <Picker
-                            Grid.Column="2"
                             ItemsSource="{Binding ThemeItems}"
-                            SelectedItem="{Binding SelectedTheme, Mode=TwoWay}">
+                            SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
+                            HorizontalOptions="End">
                             <Picker.Behaviors>
                                 <behaviors:EventToCommandBehavior
                                     EventName="SelectedIndexChanged"

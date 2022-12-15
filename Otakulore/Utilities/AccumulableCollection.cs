@@ -7,7 +7,7 @@ public partial class AccumulableCollection<TObject> : ObservableCollection<TObje
 {
 
     public int AccumulationIndex { get; private set; }
-    public Func<int, Task<(bool, IList<TObject>)>>? AccumulationFunc;
+    public Func<int, Task<(bool, IList<TObject>)>>? AccumulationFunc { get; set; }
     public bool HasMoreItems { get; private set; } = true;
 
     [RelayCommand]

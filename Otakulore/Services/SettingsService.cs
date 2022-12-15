@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Helpers;
 using Otakulore.Utilities.Attributes;
 using Otakulore.Utilities.Enumerations;
 
@@ -25,18 +24,20 @@ public class SettingsService : ObservableObject
         set => SetValue(value);
     }
 
+    private static bool IsStorableType(Type type)
+    {
+        return type == typeof(bool) ||
+               type == typeof(double) ||
+               type == typeof(int) ||
+               type == typeof(float) ||
+               type == typeof(long) ||
+               type == typeof(string) ||
+               type == typeof(DateTime);
+    }
+
     private static TObject? GetValue<TObject>(TObject? defaultValue = default, [CallerMemberName] string propertyName = null!)
     {
-        var valueType = typeof(TObject);
-        if (
-            valueType == typeof(bool) ||
-            valueType == typeof(double) ||
-            valueType == typeof(int) ||
-            valueType == typeof(float) ||
-            valueType == typeof(long) ||
-            valueType == typeof(string) ||
-            valueType == typeof(DateTime)
-        )
+        if (IsStorableType(typeof(TObject)))
             return Preferences.Default.Get(propertyName, defaultValue);
         var json = Preferences.Default.Get(propertyName, string.Empty);
         return string.IsNullOrEmpty(json)
@@ -52,16 +53,7 @@ public class SettingsService : ObservableObject
                 Preferences.Default.Remove(propertyName);
             return;
         }
-        var valueType = value.GetType();
-        if (
-            valueType == typeof(bool) ||
-            valueType == typeof(double) ||
-            valueType == typeof(int) ||
-            valueType == typeof(float) ||
-            valueType == typeof(long) ||
-            valueType == typeof(string) ||
-            valueType == typeof(DateTime)
-        )
+        if (IsStorableType(typeof(TObject)))
         {
             Preferences.Default.Set(propertyName, value);
         }

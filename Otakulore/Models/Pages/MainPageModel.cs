@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Helpers;
 using Otakulore.Services;
 using Otakulore.Utilities.Attributes;
 

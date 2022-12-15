@@ -4,9 +4,9 @@ using AniListNet.Objects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
-using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
+using Otakulore.Utilities;
 using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;
@@ -35,7 +35,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [ObservableProperty] private string[] _genres;
     [ObservableProperty] private string[] _tags;
 
-    [ObservableProperty] private Utilities.AccumulableCollection<CharacterItemModel> _characterItems = new();
+    [ObservableProperty] private AccumulableCollection<CharacterItemModel> _characterItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
 
     protected override void Initialize(object? args = null)
@@ -105,7 +105,7 @@ public partial class MediaDetailsPageModel : BasePageModel
     [RelayCommand]
     private Task RefreshCharactersData()
     {
-        CharacterItems = new Utilities.AccumulableCollection<CharacterItemModel>();
+        CharacterItems = new AccumulableCollection<CharacterItemModel>();
         CharacterItems.AccumulationFunc += async index =>
         {
             var result = await DataService.Instance.Client.GetMediaCharactersAsync(_id, new AniPaginationOptions(index));

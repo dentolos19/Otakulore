@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Otakulore.Content;
-using Otakulore.Helpers;
 using Otakulore.Pages;
 using Otakulore.Services;
 using Otakulore.Utilities.Attributes;
