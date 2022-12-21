@@ -97,8 +97,8 @@ public partial class MediaDetailsPageModel : BasePageModel
         ContentLabel = media.Type == MediaType.Anime ? "Episodes" : "Chapters";
         StartDate = media.StartDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
         EndDate = media.EndDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
-        Synonyms = media.Synonyms;
-        Genres = media.Genres;
+        Synonyms = media.Synonyms.ToArray();
+        Genres = media.Genres.ToArray();
         Tags = (await DataService.Instance.Client.GetMediaTagsAsync(_id)).Select(item => item.Name).ToArray();
     }
 
