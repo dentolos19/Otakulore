@@ -4,6 +4,7 @@ using AniListNet.Objects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Humanizer;
+using Markdig;
 using Otakulore.Pages;
 using Otakulore.Services;
 using Otakulore.Utilities;
@@ -86,7 +87,7 @@ public partial class MediaDetailsPageModel : BasePageModel
         Popularity = media.Popularity.ToString();
         Score = media.MeanScore.HasValue ? media.MeanScore.Value + "%" : "Unknown";
         Favorites = media.Favorites.ToString();
-        Description = media.Description ?? "No description provided.";
+        Description = Markdown.ToHtml(media.Description ?? "No description provided.");
         Format = media.Format?.Humanize(LetterCasing.Title) ?? "Unknown";
         Status = media.Status.Humanize(LetterCasing.Title);
         Content = media.Episodes.HasValue
@@ -97,8 +98,8 @@ public partial class MediaDetailsPageModel : BasePageModel
         ContentLabel = media.Type == MediaType.Anime ? "Episodes" : "Chapters";
         StartDate = media.StartDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
         EndDate = media.EndDate.ToDateTime()?.ToShortDateString() ?? "Unknown";
-        Synonyms = media.Synonyms.ToArray();
-        Genres = media.Genres.ToArray();
+        Synonyms = media.Synonyms;
+        Genres = media.Genres;
         Tags = (await DataService.Instance.Client.GetMediaTagsAsync(_id)).Select(item => item.Name).ToArray();
     }
 
