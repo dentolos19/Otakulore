@@ -1,4 +1,4 @@
-# <img src=".github/icon.png" width="48px"/> Otakulore
+# <img src="docs/icon.png" width="48px"/> Otakulore
 
 An app for tracking, watching and reading all about anime and manga!
 
@@ -17,18 +17,18 @@ An app for tracking, watching and reading all about anime and manga!
 
 <details>
 	<summary>🪟 WinUI</summary>
-	<img src=".github/assets/winui-0.png"/>
-	<img src=".github/assets/winui-1.png"/>
-	<img src=".github/assets/winui-2.png"/>
-	<img src=".github/assets/winui-3.png"/>
-	<img src=".github/assets/winui-4.png"/>
+	<img src="docs/winui-0.png"/>
+	<img src="docs/winui-1.png"/>
+	<img src="docs/winui-2.png"/>
+	<img src="docs/winui-3.png"/>
+	<img src="docs/winui-4.png"/>
 </details>
 
 <details>
 	<summary>📱 Android</summary>
-	<img src=".github/assets/android-0.png"/>
-	<img src=".github/assets/android-1.png"/>
-	<img src=".github/assets/android-2.png"/>
-	<img src=".github/assets/android-3.png"/>
-	<img src=".github/assets/android-4.png"/>
+	<img src="docs/android-0.png"/>
+	<img src="docs/android-1.png"/>
+	<img src="docs/android-2.png"/>
+	<img src="docs/android-3.png"/>
+	<img src="docs/android-4.png"/>
 </details>
