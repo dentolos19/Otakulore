@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -11,11 +12,11 @@
         <StackLayout Spacing="8">
             <Frame Padding="8">
                 <StackLayout>
-                    <Label Text="General" FontAttributes="Bold"/>
+                    <Label Text="General" FontAttributes="Bold" />
                     <Grid>
                         <Label
                             Text="Theme"
-                            VerticalOptions="Center"/>
+                            VerticalOptions="Center" />
                         <Picker
                             ItemsSource="{Binding ThemeItems}"
                             SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
@@ -23,7 +24,7 @@
                             <Picker.Behaviors>
                                 <behaviors:EventToCommandBehavior
                                     EventName="SelectedIndexChanged"
-                                    Command="{Binding UpdateCommand}"/>
+                                    Command="{Binding UpdateCommand}" />
                             </Picker.Behaviors>
                         </Picker>
                     </Grid>
@@ -31,38 +32,38 @@
             </Frame>
             <Frame Padding="8">
                 <StackLayout>
-                    <Label Text="Tracking" FontAttributes="Bold"/>
+                    <Label Text="Tracking" FontAttributes="Bold" />
                     <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="4">
                         <Image
                             Grid.Column="0"
                             Source="{Binding AvatarUrl}"
                             WidthRequest="32"
-                            HeightRequest="32"/>
+                            HeightRequest="32" />
                         <Label
                             Grid.Column="1"
                             Text="{Binding Username}"
-                            VerticalOptions="Center"/>
+                            VerticalOptions="Center" />
                         <Button
                             Grid.Column="3"
                             Text="{Binding LoginButtonText}"
                             BackgroundColor="{DynamicResource Theme3}"
-                            Command="{Binding LoginCommand}"/>
+                            Command="{Binding LoginCommand}" />
                     </Grid>
                 </StackLayout>
             </Frame>
             <Frame Padding="8">
                 <StackLayout>
-                    <Label Text="Providers" FontAttributes="Bold"/>
+                    <Label Text="Providers" FontAttributes="Bold" />
                     <CollectionView ItemsSource="{Binding ProviderItems}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4"/>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:ProviderItemModel">
                                 <Button
                                     Text="{Binding Name}"
                                     BackgroundColor="{DynamicResource Theme3}"
-                                    Command="{Binding InteractCommand}"/>
+                                    Command="{Binding InteractCommand}" />
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -70,8 +71,8 @@
             </Frame>
             <Frame Padding="8">
                 <StackLayout>
-                    <Label Text="Credits" FontAttributes="Bold"/>
-                    <Label Text="{Binding Credits}"/>
+                    <Label Text="Credits" FontAttributes="Bold" />
+                    <Label Text="{Binding Credits}" />
                 </StackLayout>
             </Frame>
         </StackLayout>

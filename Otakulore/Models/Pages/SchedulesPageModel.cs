@@ -10,7 +10,6 @@ namespace Otakulore.Models;
 [SingletonService]
 public partial class SchedulesPageModel : BasePageModel
 {
-
     [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
 
     protected override void Initialize(object? args = null)
@@ -33,5 +32,4 @@ public partial class SchedulesPageModel : BasePageModel
         Items.AccumulateCommand.Execute(null);
         return Task.CompletedTask;
     }
-
 }

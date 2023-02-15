@@ -16,12 +16,12 @@ An app for tracking, watching and reading all about anime and manga!
 # 📸 Screenshots
 
 <details>
-	<summary>🪟 WinUI</summary>
-	<img src="docs/winui-0.png"/>
-	<img src="docs/winui-1.png"/>
-	<img src="docs/winui-2.png"/>
-	<img src="docs/winui-3.png"/>
-	<img src="docs/winui-4.png"/>
+	<summary>🪟 Windows</summary>
+	<img src="docs/windows-0.png"/>
+	<img src="docs/windows-1.png"/>
+	<img src="docs/windows-2.png"/>
+	<img src="docs/windows-3.png"/>
+	<img src="docs/windows-4.png"/>
 </details>
 
 <details>

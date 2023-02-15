@@ -5,7 +5,6 @@ namespace Otakulore.Pages;
 
 public partial class MainPage
 {
-
     public new INavigation Navigation => ((NavigationPage)Detail).Navigation;
 
     public MainPage()
@@ -28,5 +27,4 @@ public partial class MainPage
         Detail = navigationPage;
         IsPresented = false;
     }
-
 }

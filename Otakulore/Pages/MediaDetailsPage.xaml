@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
@@ -7,7 +8,7 @@
             x:DataType="models:MediaDetailsPageModel"
             android:TabbedPage.ToolbarPlacement="Bottom">
     <TabbedPage.Resources>
-        <LinearItemsLayout x:Key="StringItemsLayout" Orientation="Horizontal" ItemSpacing="4"/>
+        <LinearItemsLayout x:Key="StringItemsLayout" Orientation="Horizontal" ItemSpacing="4" />
         <DataTemplate x:Key="StringItemTemplate" x:DataType="x:String">
             <Frame
                 Padding="8,4"
@@ -15,7 +16,7 @@
                 <Label
                     Text="{Binding}"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center" />
             </Frame>
         </DataTemplate>
     </TabbedPage.Resources>
@@ -31,7 +32,7 @@
                             Grid.Column="0"
                             Source="{Binding ImageUrl}"
                             WidthRequest="128"
-                            HeightRequest="192"/>
+                            HeightRequest="192" />
                         <StackLayout
                             Grid.Column="1"
                             Padding="8,4"
@@ -41,10 +42,10 @@
                                 LineBreakMode="TailTruncation"
                                 MaxLines="2"
                                 FontAttributes="Bold"
-                                FontSize="24"/>
+                                FontSize="24" />
                             <Label
                                 Text="{Binding Subtitle}"
-                                FontSize="12"/>
+                                FontSize="12" />
                         </StackLayout>
                     </Grid>
                 </Frame>
@@ -52,16 +53,16 @@
                     <Button
                         Grid.Column="0"
                         Text="Play"
-                        Command="{Binding PlayCommand}"/>
+                        Command="{Binding PlayCommand}" />
                     <Button
                         Grid.Column="1"
                         Text="Track"
-                        Command="{Binding TrackCommand}"/>
+                        Command="{Binding TrackCommand}" />
                 </Grid>
                 <Frame Padding="8">
                     <StackLayout>
-                        <Label Text="Description" FontAttributes="Bold"/>
-                        <Label Text="{Binding Description}" TextType="Html"/>
+                        <Label Text="Description" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" TextType="Html" />
                     </StackLayout>
                 </Frame>
                 <Frame Padding="8">
@@ -71,76 +72,76 @@
                                 Text="{Binding Popularity}"
                                 FontAttributes="Bold"
                                 FontSize="16"
-                                HorizontalOptions="Center"/>
-                            <Label Text="Popularity" HorizontalOptions="Center"/>
+                                HorizontalOptions="Center" />
+                            <Label Text="Popularity" HorizontalOptions="Center" />
                         </StackLayout>
                         <StackLayout Grid.Column="1">
                             <Label
                                 Text="{Binding Score}"
                                 FontAttributes="Bold"
                                 FontSize="16"
-                                HorizontalOptions="Center"/>
-                            <Label Text="Score" HorizontalOptions="Center"/>
+                                HorizontalOptions="Center" />
+                            <Label Text="Score" HorizontalOptions="Center" />
                         </StackLayout>
                         <StackLayout Grid.Column="2">
                             <Label
                                 Text="{Binding Favorites}"
                                 FontAttributes="Bold"
                                 FontSize="16"
-                                HorizontalOptions="Center"/>
-                            <Label Text="Favorites" HorizontalOptions="Center"/>
+                                HorizontalOptions="Center" />
+                            <Label Text="Favorites" HorizontalOptions="Center" />
                         </StackLayout>
                     </Grid>
                 </Frame>
                 <Frame Padding="8">
                     <StackLayout>
                         <Grid>
-                            <Label Text="Format" FontAttributes="Bold"/>
-                            <Label Text="{Binding Format}" HorizontalOptions="End"/>
+                            <Label Text="Format" FontAttributes="Bold" />
+                            <Label Text="{Binding Format}" HorizontalOptions="End" />
                         </Grid>
                         <Grid>
-                            <Label Text="Status" FontAttributes="Bold"/>
-                            <Label Text="{Binding Status}" HorizontalOptions="End"/>
+                            <Label Text="Status" FontAttributes="Bold" />
+                            <Label Text="{Binding Status}" HorizontalOptions="End" />
                         </Grid>
                         <Grid>
-                            <Label Text="{Binding ContentLabel}" FontAttributes="Bold"/>
-                            <Label Text="{Binding Content}" HorizontalOptions="End"/>
+                            <Label Text="{Binding ContentLabel}" FontAttributes="Bold" />
+                            <Label Text="{Binding Content}" HorizontalOptions="End" />
                         </Grid>
                         <Grid>
-                            <Label Text="Start Date" FontAttributes="Bold"/>
-                            <Label Text="{Binding StartDate}" HorizontalOptions="End"/>
+                            <Label Text="Start Date" FontAttributes="Bold" />
+                            <Label Text="{Binding StartDate}" HorizontalOptions="End" />
                         </Grid>
                         <Grid>
-                            <Label Text="End Date" FontAttributes="Bold"/>
-                            <Label Text="{Binding EndDate}" HorizontalOptions="End"/>
+                            <Label Text="End Date" FontAttributes="Bold" />
+                            <Label Text="{Binding EndDate}" HorizontalOptions="End" />
                         </Grid>
                     </StackLayout>
                 </Frame>
                 <Frame Padding="8">
                     <StackLayout>
-                        <Label Text="Synonyms" FontAttributes="Bold"/>
+                        <Label Text="Synonyms" FontAttributes="Bold" />
                         <CollectionView
                             ItemsLayout="{StaticResource StringItemsLayout}"
                             ItemTemplate="{StaticResource StringItemTemplate}"
-                            ItemsSource="{Binding Synonyms}"/>
+                            ItemsSource="{Binding Synonyms}" />
                     </StackLayout>
                 </Frame>
                 <Frame Padding="8">
                     <StackLayout>
-                        <Label Text="Genres" FontAttributes="Bold"/>
+                        <Label Text="Genres" FontAttributes="Bold" />
                         <CollectionView
                             ItemsLayout="{StaticResource StringItemsLayout}"
                             ItemTemplate="{StaticResource StringItemTemplate}"
-                            ItemsSource="{Binding Genres}"/>
+                            ItemsSource="{Binding Genres}" />
                     </StackLayout>
                 </Frame>
                 <Frame Padding="8">
                     <StackLayout>
-                        <Label Text="Tags" FontAttributes="Bold"/>
+                        <Label Text="Tags" FontAttributes="Bold" />
                         <CollectionView
                             ItemsLayout="{StaticResource StringItemsLayout}"
                             ItemTemplate="{StaticResource StringItemTemplate}"
-                            ItemsSource="{Binding Tags}"/>
+                            ItemsSource="{Binding Tags}" />
                     </StackLayout>
                 </Frame>
             </StackLayout>
@@ -157,13 +158,13 @@
             RemainingItemsThreshold="0"
             RemainingItemsThresholdReachedCommand="{Binding CharacterItems.AccumulateCommand}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:CharacterItemModel">
                     <Frame>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}" />
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
                             <Image
@@ -171,16 +172,16 @@
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
                                 WidthRequest="64"
-                                HeightRequest="96"/>
+                                HeightRequest="96" />
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label
                                     Text="{Binding Name}"
                                     LineBreakMode="TailTruncation"
                                     FontAttributes="Bold"
-                                    FontSize="16"/>
+                                    FontSize="16" />
                                 <Label
                                     Text="{Binding Role}"
-                                    TextColor="{DynamicResource SubtextColor}"/>
+                                    TextColor="{DynamicResource SubtextColor}" />
                             </StackLayout>
                         </Grid>
                     </Frame>
@@ -196,13 +197,13 @@
 
         <CollectionView ItemsSource="{Binding RelationItems}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaItemModel">
                     <Frame>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}" />
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
                             <Image
@@ -210,16 +211,16 @@
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
                                 WidthRequest="64"
-                                HeightRequest="96"/>
+                                HeightRequest="96" />
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label
                                     Text="{Binding Title}"
                                     LineBreakMode="TailTruncation"
                                     FontAttributes="Bold"
-                                    FontSize="16"/>
+                                    FontSize="16" />
                                 <Label
                                     Text="{Binding Tag}"
-                                    TextColor="{DynamicResource SubtextColor}"/>
+                                    TextColor="{DynamicResource SubtextColor}" />
                             </StackLayout>
                         </Grid>
                     </Frame>

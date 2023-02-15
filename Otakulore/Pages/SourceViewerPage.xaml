@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -15,32 +16,32 @@
                     Text="{Binding Title}"
                     FontAttributes="Bold"
                     FontSize="24"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center" />
                 <Label
                     Text="{Binding Subtitle}"
                     TextColor="{DynamicResource SubtextColor}"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center" />
             </StackLayout>
         </Frame>
         <CollectionView
             Grid.Row="1"
             ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaContentItemModel">
                     <Frame Padding="12,8">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}" />
                         </Frame.GestureRecognizers>
-                        <Label Text="{Binding Name}"/>
+                        <Label Text="{Binding Name}" />
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <ActivityIndicator
             Grid.Row="1"
-            IsRunning="{Binding RefreshItemsCommand.IsRunning}"/>
+            IsRunning="{Binding RefreshItemsCommand.IsRunning}" />
     </Grid>
 </ContentPage>

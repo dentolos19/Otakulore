@@ -6,7 +6,6 @@ namespace Otakulore.Services;
 [SingletonService]
 public class DataService
 {
-
     public static DataService Instance => MauiHelper.GetService<DataService>()!;
 
     public AniClient Client { get; private set; } = new();
@@ -15,5 +14,4 @@ public class DataService
     {
         Client = new AniClient();
     }
-
 }

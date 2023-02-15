@@ -7,7 +7,6 @@ namespace Otakulore.Models;
 
 public partial class MediaContentItemModel
 {
-
     public required string Name { get; init; }
     public required (IProvider, MediaContent) Data { get; init; }
 
@@ -25,5 +24,4 @@ public partial class MediaContentItemModel
             Data = (provider, content)
         };
     }
-
 }

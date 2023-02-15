@@ -11,21 +11,17 @@ namespace Otakulore.Models;
 [SingletonService]
 public partial class SettingsPageModel : BasePageModel
 {
+    [ObservableProperty] private string _avatarUrl;
+
+    [ObservableProperty] private string _credits;
+    [ObservableProperty] private bool _isLoggedIn;
+    [ObservableProperty] private string _loginButtonText;
+    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providerItems = new();
 
     [ObservableProperty] private Theme _selectedTheme;
 
-    [ObservableProperty] private string _avatarUrl;
-    [ObservableProperty] private string _username;
-    [ObservableProperty] private string _loginButtonText;
-    [ObservableProperty] private bool _isLoggedIn;
-
-    [ObservableProperty] private string _credits;
-
     [ObservableProperty] private ObservableCollection<Theme> _themeItems = new();
-    [ObservableProperty] private ObservableCollection<ProviderItemModel> _providerItems = new();
-
-    public override async void OnNavigatedTo() => await UpdateAuthenticationStatus();
-    public override async void OnNavigatedFrom() => await UpdateAuthenticationStatus();
+    [ObservableProperty] private string _username;
 
     public SettingsPageModel()
     {
@@ -33,6 +29,16 @@ public partial class SettingsPageModel : BasePageModel
             ThemeItems.Add(item);
         foreach (var item in ContentService.Instance.Providers)
             ProviderItems.Add(ProviderItemModel.Map(item));
+    }
+
+    public override async void OnNavigatedTo()
+    {
+        await UpdateAuthenticationStatus();
+    }
+
+    public override async void OnNavigatedFrom()
+    {
+        await UpdateAuthenticationStatus();
     }
 
     protected override async void Initialize(object? args = null)
@@ -86,5 +92,4 @@ public partial class SettingsPageModel : BasePageModel
             await MauiHelper.Navigate(typeof(LoginPage));
         }
     }
-
 }

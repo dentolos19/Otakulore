@@ -2,7 +2,6 @@
 
 public partial class App
 {
-
     public App()
     {
         InitializeComponent();
@@ -12,5 +11,4 @@ public partial class App
     {
         return MauiProgram.CreateMauiApp();
     }
-
 }

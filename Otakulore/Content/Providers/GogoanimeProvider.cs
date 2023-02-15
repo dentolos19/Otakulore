@@ -6,7 +6,6 @@ namespace Otakulore.Content.Providers;
 
 public class GogoanimeProvider : IAnimeProvider
 {
-
     private readonly HtmlWeb _htmlWeb = new();
 
     public string Name => "Gogoanime";
@@ -64,5 +63,4 @@ public class GogoanimeProvider : IAnimeProvider
         var htmlDocument = await _htmlWeb.LoadFromWebAsync(url);
         return new Uri("https:" + htmlDocument.DocumentNode.SelectSingleNode("//div[@class='play-video']/iframe").Attributes["src"].Value);
     }
-
 }

@@ -7,7 +7,6 @@ namespace Otakulore.Services;
 [SingletonService]
 public class ContentService
 {
-
     public static ContentService Instance => MauiHelper.GetService<ContentService>()!;
 
     public IReadOnlyList<IProvider> Providers { get; } = new List<IProvider>
@@ -15,5 +14,4 @@ public class ContentService
         new GogoanimeProvider(),
         new ManganatoProvider()
     };
-
 }

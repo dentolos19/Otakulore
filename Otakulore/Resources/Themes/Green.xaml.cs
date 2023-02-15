@@ -2,10 +2,8 @@
 
 public partial class Green
 {
-
     public Green()
     {
         InitializeComponent();
     }
-
 }

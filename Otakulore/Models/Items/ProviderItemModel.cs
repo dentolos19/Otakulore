@@ -6,7 +6,6 @@ namespace Otakulore.Models;
 
 public partial class ProviderItemModel
 {
-
     public required string Name { get; init; }
     public required IProvider Provider { get; init; }
 
@@ -24,5 +23,4 @@ public partial class ProviderItemModel
             Provider = provider
         };
     }
-
 }

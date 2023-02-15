@@ -5,7 +5,6 @@ namespace Otakulore.Utilities;
 
 public partial class AccumulableCollection<TObject> : ObservableCollection<TObject>
 {
-
     public int AccumulationIndex { get; private set; }
     public Func<int, Task<(bool, IList<TObject>)>>? AccumulationFunc { get; set; }
     public bool HasMoreItems { get; private set; } = true;
@@ -20,5 +19,4 @@ public partial class AccumulableCollection<TObject> : ObservableCollection<TObje
         foreach (var item in items)
             Add(item);
     }
-
 }

@@ -14,20 +14,19 @@ namespace Otakulore.Models;
 [SingletonService]
 public partial class ProfilePageModel : BasePageModel
 {
+    [ObservableProperty] private string _avatarUrl;
 
     private int? _id;
-
-    [ObservableProperty] private string _avatarUrl;
-    [ObservableProperty] private string _username;
+    [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private MediaEntrySort _selectedSort = MediaEntrySort.LastUpdated;
+    [ObservableProperty] private MediaEntryStatus _selectedStatus = MediaEntryStatus.Current;
 
     [ObservableProperty] private MediaType _selectedType = MediaType.Anime;
-    [ObservableProperty] private MediaEntryStatus _selectedStatus = MediaEntryStatus.Current;
-    [ObservableProperty] private MediaEntrySort _selectedSort = MediaEntrySort.LastUpdated;
+    [ObservableProperty] private ObservableCollection<MediaEntrySort> _sortItems = new();
+    [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statusItems = new();
 
     [ObservableProperty] private ObservableCollection<MediaType> _typeItems = new();
-    [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statusItems = new();
-    [ObservableProperty] private ObservableCollection<MediaEntrySort> _sortItems = new();
-    [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
+    [ObservableProperty] private string _username;
 
     public ProfilePageModel()
     {
@@ -100,5 +99,4 @@ public partial class ProfilePageModel : BasePageModel
         Items.AccumulateCommand.Execute(null);
         return Task.CompletedTask;
     }
-
 }

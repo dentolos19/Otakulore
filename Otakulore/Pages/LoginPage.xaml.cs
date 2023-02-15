@@ -8,7 +8,6 @@ namespace Otakulore.Pages;
 [PageService(PageServiceType.Transient)]
 public partial class LoginPage
 {
-
     public LoginPage()
     {
         InitializeComponent();
@@ -34,5 +33,4 @@ public partial class LoginPage
             await DisplayAlert("Login", "You have unsuccessfully logged into AniList!", "Back");
         }
     }
-
 }

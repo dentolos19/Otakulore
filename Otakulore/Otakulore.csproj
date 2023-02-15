@@ -26,25 +26,25 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiIcon Include="Resources\Images\Other\icon.png" Color="#f4d4c1"/>
-		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512bd4" BaseSize="128,128"/>
-		<MauiImage Include="Resources\Images\*"/>
-		<MauiFont Include="Resources\Fonts\*"/>
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+		<MauiIcon Include="Resources\Images\Other\icon.png" Color="#f4d4c1" />
+		<MauiSplashScreen Include="Resources\Images\Other\splash.svg" Color="#512bd4" BaseSize="128,128" />
+		<MauiImage Include="Resources\Images\*" />
+		<MauiFont Include="Resources\Fonts\*" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="3.1.0"/>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0"/>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.46"/>
-		<PackageReference Include="Humanizer.Core" Version="2.14.1"/>
-		<PackageReference Include="Markdig" Version="0.30.4"/>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0"/>
-		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.1.2"/>
+		<PackageReference Include="CommunityToolkit.Maui" Version="3.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+		<PackageReference Include="Humanizer.Core" Version="2.14.1" />
+		<PackageReference Include="Markdig" Version="0.30.4" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\AniListNet\AniListNet\AniListNet.csproj"/>
+		<ProjectReference Include="..\AniListNet\AniListNet\AniListNet.csproj" />
 	</ItemGroup>
 
 </Project>

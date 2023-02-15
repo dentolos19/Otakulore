@@ -9,7 +9,6 @@ namespace Otakulore;
 
 public static class MauiHelper
 {
-
     public static MauiAppBuilder SetupFonts(this MauiAppBuilder builder)
     {
         return builder.ConfigureFonts(fonts =>
@@ -83,24 +82,24 @@ public static class MauiHelper
 
     public static TService? GetService<TService>()
     {
-        #if WINDOWS
+#if WINDOWS
         return MauiWinUIApplication.Current.Services.GetService<TService>();
-        #elif ANDROID
+#elif ANDROID
         return MauiApplication.Current.Services.GetService<TService>();
-        #else
+#else
         return default;
-        #endif
+#endif
     }
 
     public static object? GetService(Type serviceType)
     {
-        #if WINDOWS
+#if WINDOWS
         return MauiWinUIApplication.Current.Services.GetService(serviceType);
-        #elif ANDROID
+#elif ANDROID
         return MauiApplication.Current.Services.GetService(serviceType);
-        #else
+#else
         return default;
-        #endif
+#endif
     }
 
     public static async Task<string> ReadTextAsset(string fileName)
@@ -109,5 +108,4 @@ public static class MauiHelper
         using var reader = new StreamReader(stream);
         return await reader.ReadToEndAsync();
     }
-
 }

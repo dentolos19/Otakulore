@@ -11,11 +11,10 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class SearchProviderPageModel : BasePageModel
 {
-
-    [ObservableProperty] private ProviderItemModel _selectedProvider;
-
     [ObservableProperty] private ObservableCollection<MediaSourceItemModel> _items = new();
     [ObservableProperty] private ObservableCollection<ProviderItemModel> _providers = new();
+
+    [ObservableProperty] private ProviderItemModel _selectedProvider;
 
     public SearchProviderPageModel()
     {
@@ -58,5 +57,4 @@ public partial class SearchProviderPageModel : BasePageModel
         foreach (var item in results)
             Items.Add(MediaSourceItemModel.Map(provider, item));
     }
-
 }

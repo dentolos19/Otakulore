@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -15,7 +16,7 @@
                 Grid.Column="0"
                 Placeholder="Search"
                 SearchCommand="{Binding SearchCommand}"
-                SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+                SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}" />
             <Picker
                 Grid.Column="1"
                 ItemsSource="{Binding Providers}"
@@ -24,19 +25,19 @@
                 <Picker.Behaviors>
                     <toolkit:EventToCommandBehavior
                         EventName="SelectedIndexChanged"
-                        Command="{Binding SearchCommand}"/>
+                        Command="{Binding SearchCommand}" />
                 </Picker.Behaviors>
             </Picker>
         </Grid>
         <CollectionView Grid.Row="1" ItemsSource="{Binding Items}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaSourceItemModel">
                     <Frame>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}" />
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
                             <Image
@@ -44,18 +45,18 @@
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
                                 WidthRequest="32"
-                                HeightRequest="48"/>
+                                HeightRequest="48" />
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label
                                     Text="{Binding Title}"
                                     LineBreakMode="TailTruncation"
-                                    FontSize="16"/>
+                                    FontSize="16" />
                             </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding SearchCommand.IsRunning}"/>
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding SearchCommand.IsRunning}" />
     </Grid>
 </ContentPage>

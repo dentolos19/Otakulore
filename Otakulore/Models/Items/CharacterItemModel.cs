@@ -6,7 +6,6 @@ namespace Otakulore.Models;
 
 public partial class CharacterItemModel
 {
-
     public required int Id { get; init; }
     public required Uri ImageUrl { get; init; }
     public required string Name { get; init; }
@@ -28,5 +27,4 @@ public partial class CharacterItemModel
             Role = character.Role.ToString()
         };
     }
-
 }

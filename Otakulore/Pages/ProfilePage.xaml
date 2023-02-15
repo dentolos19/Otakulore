@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <TabbedPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -16,8 +17,8 @@
             <Frame Grid.Row="0" Padding="8">
                 <Grid ColumnDefinitions="*,*">
                     <HorizontalStackLayout Grid.Column="0" Spacing="8">
-                        <Image Source="{Binding AvatarUrl}" WidthRequest="32" HeightRequest="32"/>
-                        <Label Text="{Binding Username}" VerticalOptions="Center"/>
+                        <Image Source="{Binding AvatarUrl}" WidthRequest="32" HeightRequest="32" />
+                        <Label Text="{Binding Username}" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Grid.Column="1" Spacing="4" HorizontalOptions="End">
                         <Picker
@@ -26,7 +27,7 @@
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior
                                     EventName="SelectedIndexChanged"
-                                    Command="{Binding RefreshItemsCommand}"/>
+                                    Command="{Binding RefreshItemsCommand}" />
                             </Picker.Behaviors>
                         </Picker>
                         <Picker
@@ -35,7 +36,7 @@
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior
                                     EventName="SelectedIndexChanged"
-                                    Command="{Binding RefreshItemsCommand}"/>
+                                    Command="{Binding RefreshItemsCommand}" />
                             </Picker.Behaviors>
                         </Picker>
                         <Picker
@@ -44,7 +45,7 @@
                             <Picker.Behaviors>
                                 <toolkit:EventToCommandBehavior
                                     EventName="SelectedIndexChanged"
-                                    Command="{Binding RefreshItemsCommand}"/>
+                                    Command="{Binding RefreshItemsCommand}" />
                             </Picker.Behaviors>
                         </Picker>
                     </HorizontalStackLayout>
@@ -56,13 +57,13 @@
                 RemainingItemsThreshold="0"
                 RemainingItemsThresholdReachedCommand="{Binding Items.AccumulateCommand}">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:MediaItemModel">
                         <Frame>
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                                <TapGestureRecognizer Command="{Binding InteractCommand}" />
                             </Frame.GestureRecognizers>
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
                                 <Image
@@ -70,26 +71,26 @@
                                     Source="{Binding ImageUrl}"
                                     Aspect="AspectFill"
                                     WidthRequest="64"
-                                    HeightRequest="96"/>
+                                    HeightRequest="96" />
                                 <StackLayout Grid.Column="1" VerticalOptions="Center">
                                     <Label
                                         Text="{Binding Title}"
                                         LineBreakMode="TailTruncation"
                                         FontAttributes="Bold"
-                                        FontSize="16"/>
+                                        FontSize="16" />
                                     <Label
                                         Text="{Binding Subtitle}"
-                                        TextColor="{DynamicResource SubtextColor}"/>
+                                        TextColor="{DynamicResource SubtextColor}" />
                                 </StackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <ActivityIndicator Grid.Row="1" IsRunning="{Binding Items.AccumulateCommand.IsRunning}"/>
+            <ActivityIndicator Grid.Row="1" IsRunning="{Binding Items.AccumulateCommand.IsRunning}" />
         </Grid>
     </ContentPage>
     <ContentPage Title="Favorites" IconImageSource="{StaticResource FavoritesGlyph}">
-        <Label Text="Coming soon!" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Label Text="Coming soon!" HorizontalOptions="Center" VerticalOptions="Center" />
     </ContentPage>
 </TabbedPage>

@@ -1,22 +1,107 @@
 name: Canary Deployment
 run-name: "${{ github.workflow }} #${{ github.run_number }}"
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
 on:
   push:
     paths:
       - Otakulore/**
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+env:
+  PROJECT_FILE: Otakulore/Otakulore.csproj
+  WINDOWS_TARGET_FRAMEWORK: net7.0-windows10.0.19041.0
+  ANDROID_TARGET_FRAMEWORK: net7.0-android
+  RELEASE_TAG: Canary
 jobs:
-  main:
-    uses: dentolos19/ActionsPlayground/.github/workflows/REUSABLE-dotnet-maui.yml@main
-    with:
-      TARGET_BRANCH: ${{ github.event.repository.default_branch }}
-      PROJECT_FILE: Otakulore/Otakulore.csproj
-      RELEASE_TAG: Canary
-      WINDOWS_TARGET_FRAMEWORK: net7.0-windows10.0.19041.0
-      ANDROID_TARGET_FRAMEWORK: net7.0-android
-    secrets:
-      SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
-      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+  windowsBuild:
+    name: Build for Windows
+    continue-on-error: true
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          submodules: recursive
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+      - name: Install .NET Workloads
+        run: |
+          dotnet workload install maui
+      - id: certificate
+        name: Install Signing Certificate
+        run: |
+          $bytes = [System.Convert]::FromBase64String("${{ secrets.SIGNING_CERTIFICATE }}")
+          [IO.File]::WriteAllBytes("certificate.pfx", $bytes)
+          $password = ConvertTo-SecureString ${{ secrets.SIGNING_KEY }} -AsPlainText
+          Import-PfxCertificate certificate.pfx -CertStoreLocation "Cert:\CurrentUser\My" -Password $password
+          $thumbprint = (Get-PfxCertificate Certificate.pfx -Password $password).Thumbprint
+          Write-Output -InputObject "SIGNING_THUMBPRINT=$thumbprint" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Publish Project
+        run: |
+          dotnet publish ${{ env.PROJECT_FILE }} --framework ${{ env.WINDOWS_TARGET_FRAMEWORK }} --configuration Release -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:PackageCertificateThumbprint=${{ steps.certificate.outputs.SIGNING_THUMBPRINT }} -p:AppxPackageDir=${{ github.workspace }}/packages/
+          $artifact = (Get-ChildItem ${{ github.workspace }}/packages/*_Test/*.msix).FullName | Select-Object -First 1
+          New-Item -Path artifacts -ItemType Directory
+          Move-Item -Path $artifact -Destination artifacts/${{ github.event.repository.name }}_windows.msix
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Output
+          path: artifacts
+  androidBuild:
+    name: Build for Android
+    continue-on-error: true
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          submodules: recursive
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: microsoft
+          java-version: 11
+      - name: Install .NET Workloads
+        run: |
+          dotnet workload install maui
+          dotnet workload install android
+      - name: Publish Project
+        run: |
+          dotnet publish ${{ env.PROJECT_FILE }} --framework ${{ env.ANDROID_TARGET_FRAMEWORK }} --configuration Release --output build
+          $artifact = (Get-ChildItem build/*.apk).FullName | Select-Object -First 1
+          New-Item -Path artifacts -ItemType Directory
+          Move-Item -Path $artifact -Destination artifacts/${{ github.event.repository.name }}_android.apk
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Output
+          path: artifacts
+  deploy:
+    name: Deploy
+    needs: [ windowsBuild, androidBuild ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: Output
+          path: artifacts
+      - name: Delete (Existing) Releases
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          delete_release: true
+          delete_draft_release: true
+      - name: Release Artifacts
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          prerelease: true
+          files: artifacts/*

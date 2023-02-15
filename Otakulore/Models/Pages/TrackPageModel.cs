@@ -11,15 +11,15 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class TrackPageModel : BasePageModel
 {
+    [ObservableProperty] private DateTime _completeDate = DateTime.Today;
+    [ObservableProperty] private bool _completeDateEnabled;
 
     private int _id;
+    [ObservableProperty] private string _progress = "0";
 
     [ObservableProperty] private MediaEntryStatus _selectedStatus = MediaEntryStatus.Planning;
-    [ObservableProperty] private string _progress = "0";
-    [ObservableProperty] private bool _startDateEnabled;
     [ObservableProperty] private DateTime _startDate = DateTime.Today;
-    [ObservableProperty] private bool _completeDateEnabled;
-    [ObservableProperty] private DateTime _completeDate = DateTime.Today;
+    [ObservableProperty] private bool _startDateEnabled;
 
     [ObservableProperty] private ObservableCollection<MediaEntryStatus> _statuses = new();
 
@@ -120,5 +120,4 @@ public partial class TrackPageModel : BasePageModel
     {
         return MauiHelper.NavigateBack();
     }
-
 }

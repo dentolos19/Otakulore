@@ -4,7 +4,6 @@ namespace Otakulore.Utilities.Attributes;
 
 public class PageServiceAttribute : Attribute
 {
-
     public PageServiceType Type { get; }
     public Type? ModelType { get; }
 
@@ -13,5 +12,4 @@ public class PageServiceAttribute : Attribute
         Type = type;
         ModelType = modelType;
     }
-
 }

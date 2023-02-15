@@ -8,7 +8,6 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class ContentViewerPageModel : BasePageModel
 {
-
     [ObservableProperty] private Uri _url;
 
     protected override async void Initialize(object? args = null)
@@ -39,5 +38,4 @@ public partial class ContentViewerPageModel : BasePageModel
     {
         Url = new Uri("about:blank");
     }
-
 }

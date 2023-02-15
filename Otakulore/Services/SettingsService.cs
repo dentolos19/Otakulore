@@ -9,7 +9,6 @@ namespace Otakulore.Services;
 [SingletonService]
 public class SettingsService : ObservableObject
 {
-
     public static SettingsService Instance => MauiHelper.GetService<SettingsService>()!;
 
     public Theme AppTheme
@@ -63,5 +62,4 @@ public class SettingsService : ObservableObject
             Preferences.Default.Set(propertyName, json);
         }
     }
-
 }

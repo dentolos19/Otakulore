@@ -8,15 +8,15 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class CharacterDetailsPageModel : BasePageModel
 {
+    [ObservableProperty] private string _birthday;
+    [ObservableProperty] private string _description;
+    [ObservableProperty] private string _favorites;
+    [ObservableProperty] private string _gender;
 
     private int _id;
 
     [ObservableProperty] private Uri _imageUrl;
     [ObservableProperty] private string _name;
-    [ObservableProperty] private string _favorites;
-    [ObservableProperty] private string _description;
-    [ObservableProperty] private string _gender;
-    [ObservableProperty] private string _birthday;
 
     protected override async void Initialize(object? args = null)
     {
@@ -31,5 +31,4 @@ public partial class CharacterDetailsPageModel : BasePageModel
         Gender = character.Gender ?? "Unknown";
         Birthday = character.DateOfBirth.ToDateTime()?.ToShortDateString() ?? "Unknown";
     }
-
 }

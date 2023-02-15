@@ -7,10 +7,8 @@ namespace Otakulore.Pages;
 [PageService(PageServiceType.Transient, typeof(SourceViewerPageModel))]
 public partial class SourceViewerPage
 {
-
     public SourceViewerPage()
     {
         InitializeComponent();
     }
-
 }

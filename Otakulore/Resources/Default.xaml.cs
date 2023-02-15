@@ -2,10 +2,8 @@
 
 public partial class Default
 {
-
     public Default()
     {
         InitializeComponent();
     }
-
 }

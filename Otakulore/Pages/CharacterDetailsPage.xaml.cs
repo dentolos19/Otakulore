@@ -7,10 +7,8 @@ namespace Otakulore.Pages;
 [PageService(PageServiceType.Transient, typeof(CharacterDetailsPageModel))]
 public partial class CharacterDetailsPage
 {
-
     public CharacterDetailsPage()
     {
         InitializeComponent();
     }
-
 }

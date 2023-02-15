@@ -7,7 +7,6 @@ namespace Otakulore.Models;
 
 public partial class MediaItemModel
 {
-
     public required int Id { get; init; }
     public required Uri ImageUrl { get; init; }
     public required string Title { get; init; }
@@ -74,5 +73,4 @@ public partial class MediaItemModel
             Tag = relation.Relation.Humanize()
         };
     }
-
 }

@@ -5,7 +5,6 @@ namespace Otakulore;
 
 public static class MauiProgram
 {
-
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
@@ -14,10 +13,9 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .SetupFonts()
             .SetupServices();
-        #if DEBUG
+#if DEBUG
         builder.Logging.AddDebug();
-        #endif
+#endif
         return builder.Build();
     }
-
 }

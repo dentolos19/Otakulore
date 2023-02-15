@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
@@ -12,7 +13,7 @@
                         Grid.Column="0"
                         Source="{Binding ImageUrl}"
                         WidthRequest="128"
-                        HeightRequest="192"/>
+                        HeightRequest="192" />
                     <StackLayout
                         Grid.Column="1"
                         Padding="8,4"
@@ -22,28 +23,28 @@
                             LineBreakMode="TailTruncation"
                             MaxLines="2"
                             FontAttributes="Bold"
-                            FontSize="24"/>
+                            FontSize="24" />
                         <Label
                             Text="{Binding Favorites}"
-                            FontSize="12"/>
+                            FontSize="12" />
                     </StackLayout>
                 </Grid>
             </Frame>
             <Frame Padding="8">
                 <StackLayout>
-                    <Label Text="Description" FontAttributes="Bold"/>
-                    <Label Text="{Binding Description}" TextType="Html"/>
+                    <Label Text="Description" FontAttributes="Bold" />
+                    <Label Text="{Binding Description}" TextType="Html" />
                 </StackLayout>
             </Frame>
             <Frame Padding="8">
                 <StackLayout>
                     <Grid>
-                        <Label Text="Gender" FontAttributes="Bold"/>
-                        <Label Text="{Binding Gender}" HorizontalOptions="End"/>
+                        <Label Text="Gender" FontAttributes="Bold" />
+                        <Label Text="{Binding Gender}" HorizontalOptions="End" />
                     </Grid>
                     <Grid>
-                        <Label Text="Birthday" FontAttributes="Bold"/>
-                        <Label Text="{Binding Birthday}" HorizontalOptions="End"/>
+                        <Label Text="Birthday" FontAttributes="Bold" />
+                        <Label Text="{Binding Birthday}" HorizontalOptions="End" />
                     </Grid>
                 </StackLayout>
             </Frame>

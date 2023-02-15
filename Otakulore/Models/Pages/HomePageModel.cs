@@ -12,10 +12,10 @@ namespace Otakulore.Models;
 [SingletonService]
 public partial class HomePageModel : BasePageModel
 {
-
-    [ObservableProperty] private ObservableCollection<MediaItemModel> _trendingItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _favoriteItems = new();
     [ObservableProperty] private ObservableCollection<MediaItemModel> _popularItems = new();
+
+    [ObservableProperty] private ObservableCollection<MediaItemModel> _trendingItems = new();
 
     protected override void Initialize(object? args = null)
     {
@@ -89,5 +89,4 @@ public partial class HomePageModel : BasePageModel
             }
         );
     }
-
 }

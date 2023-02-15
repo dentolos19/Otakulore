@@ -5,7 +5,6 @@ namespace Otakulore.Content.Providers;
 
 public class ManganatoProvider : IMangaProvider
 {
-
     private readonly HtmlWeb _htmlWeb = new();
 
     public string Name => "Manganato";
@@ -61,5 +60,4 @@ public class ManganatoProvider : IMangaProvider
             return Task.FromResult(new Uri(url));
         throw new Exception();
     }
-
 }

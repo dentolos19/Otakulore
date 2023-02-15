@@ -7,7 +7,6 @@ namespace Otakulore.Models;
 
 public partial class MediaSourceItemModel
 {
-
     public required Uri ImageUrl { get; init; }
     public required string Title { get; init; }
     public required (IProvider, MediaSource) Data { get; init; }
@@ -27,5 +26,4 @@ public partial class MediaSourceItemModel
             Data = (provider, source)
         };
     }
-
 }

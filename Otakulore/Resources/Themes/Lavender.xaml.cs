@@ -2,10 +2,8 @@
 
 public partial class Lavender
 {
-
     public Lavender()
     {
         InitializeComponent();
     }
-
 }

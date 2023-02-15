@@ -11,15 +11,14 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class SearchFilterPageModel : BasePageModel
 {
-
     private SearchMediaFilter _filter = new();
+    [ObservableProperty] private bool _onList;
 
     [ObservableProperty] private MediaSort _selectedSort = MediaSort.Relevance;
     [ObservableProperty] private MediaType _selectedType;
-    [ObservableProperty] private bool _typeEnabled;
-    [ObservableProperty] private bool _onList;
 
     [ObservableProperty] private ObservableCollection<MediaSort> _sortItems = new();
+    [ObservableProperty] private bool _typeEnabled;
     [ObservableProperty] private ObservableCollection<MediaType> _typeItems = new();
 
     public SearchFilterPageModel()
@@ -68,5 +67,4 @@ public partial class SearchFilterPageModel : BasePageModel
     {
         return MauiHelper.NavigateBack();
     }
-
 }

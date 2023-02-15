@@ -10,14 +10,13 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class SourceViewerPageModel : BasePageModel
 {
+    [ObservableProperty] private ObservableCollection<MediaContentItemModel> _items = new();
 
     private IProvider _provider;
     private MediaSource _source;
-
-    [ObservableProperty] private string _title;
     [ObservableProperty] private string _subtitle;
 
-    [ObservableProperty] private ObservableCollection<MediaContentItemModel> _items = new();
+    [ObservableProperty] private string _title;
 
     protected override void Initialize(object? args = null)
     {
@@ -38,5 +37,4 @@ public partial class SourceViewerPageModel : BasePageModel
         foreach (var item in results)
             Items.Add(MediaContentItemModel.Map(_provider, item));
     }
-
 }

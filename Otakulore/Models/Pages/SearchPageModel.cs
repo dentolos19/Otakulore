@@ -12,7 +12,6 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class SearchPageModel : BasePageModel
 {
-
     private SearchMediaFilter _filter = new();
 
     [ObservableProperty] private AccumulableCollection<MediaItemModel> _items = new();
@@ -50,5 +49,4 @@ public partial class SearchPageModel : BasePageModel
     {
         return MauiHelper.Navigate(typeof(SearchFilterPage), _filter);
     }
-
 }

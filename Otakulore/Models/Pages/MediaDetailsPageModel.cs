@@ -15,29 +15,28 @@ namespace Otakulore.Models;
 [TransientService]
 public partial class MediaDetailsPageModel : BasePageModel
 {
+    [ObservableProperty] private AccumulableCollection<CharacterItemModel> _characterItems = new();
+    [ObservableProperty] private string _content;
+    [ObservableProperty] private string _contentLabel;
+    [ObservableProperty] private string _description;
+    [ObservableProperty] private string _endDate;
+    [ObservableProperty] private string _favorites;
+    [ObservableProperty] private string _format;
+    [ObservableProperty] private string[] _genres;
 
     private int _id;
 
     [ObservableProperty] private Uri _imageUrl;
-    [ObservableProperty] private string _title;
-    [ObservableProperty] private string _subtitle;
     [ObservableProperty] private string _popularity;
+    [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
     [ObservableProperty] private string _score;
-    [ObservableProperty] private string _favorites;
-    [ObservableProperty] private string _description;
-    [ObservableProperty] private string _format;
-    [ObservableProperty] private string _status;
-    [ObservableProperty] private string _content;
-    [ObservableProperty] private string _contentLabel;
     [ObservableProperty] private string _startDate;
-    [ObservableProperty] private string _endDate;
+    [ObservableProperty] private string _status;
+    [ObservableProperty] private string _subtitle;
 
     [ObservableProperty] private string[] _synonyms;
-    [ObservableProperty] private string[] _genres;
     [ObservableProperty] private string[] _tags;
-
-    [ObservableProperty] private AccumulableCollection<CharacterItemModel> _characterItems = new();
-    [ObservableProperty] private ObservableCollection<MediaItemModel> _relationItems = new();
+    [ObservableProperty] private string _title;
 
     protected override void Initialize(object? args = null)
     {
@@ -126,5 +125,4 @@ public partial class MediaDetailsPageModel : BasePageModel
         foreach (var item in result)
             RelationItems.Add(MediaItemModel.Map(item));
     }
-
 }

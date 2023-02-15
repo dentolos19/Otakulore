@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FlyoutPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -18,14 +19,15 @@
                     <Label
                         Grid.Column="0"
                         Text="Otakulore"
-                        FontSize="24"/>
+                        FontSize="24" />
                     <Label
                         Grid.Column="1"
                         Text="{Binding Version}"
                         HorizontalOptions="End"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center" />
                 </Grid>
-                <ListView x:Name="FlyoutCollection" Grid.Row="1" SelectionMode="Single" ItemSelected="OnSelectionChanged">
+                <ListView x:Name="FlyoutCollection" Grid.Row="1" SelectionMode="Single"
+                          ItemSelected="OnSelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:FlyoutItemModel">
                             <ViewCell>
@@ -35,8 +37,8 @@
                                         Source="{Binding Icon}"
                                         Aspect="Fill"
                                         WidthRequest="32"
-                                        HeightRequest="32"/>
-                                    <Label Grid.Column="1" Text="{Binding Title}" VerticalTextAlignment="Center"/>
+                                        HeightRequest="32" />
+                                    <Label Grid.Column="1" Text="{Binding Title}" VerticalTextAlignment="Center" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
@@ -46,35 +48,35 @@
                             <models:FlyoutItemModel
                                 Icon="{StaticResource HomeGlyph}"
                                 Title="Home"
-                                Type="{x:Type pages:HomePage}"/>
+                                Type="{x:Type pages:HomePage}" />
                             <models:FlyoutItemModel
                                 Icon="{StaticResource SchedulesGlyph}"
                                 Title="Schedules"
-                                Type="{x:Type pages:SchedulesPage}"/>
+                                Type="{x:Type pages:SchedulesPage}" />
                             <models:FlyoutItemModel
                                 Icon="{StaticResource ProfileGlyph}"
                                 Title="Profile"
-                                Type="{x:Type pages:ProfilePage}"/>
+                                Type="{x:Type pages:ProfilePage}" />
                             <models:FlyoutItemModel
                                 Icon="{StaticResource SettingsGlyph}"
                                 Title="Settings"
-                                Type="{x:Type pages:SettingsPage}"/>
+                                Type="{x:Type pages:SettingsPage}" />
                         </x:Array>
                     </ListView.ItemsSource>
                 </ListView>
                 <Grid Grid.Row="2" Padding="12,8" ColumnDefinitions="*,*" Background="{DynamicResource Theme2}">
                     <Label
                         Grid.Column="0"
-                        Text="Rate Remaining"/>
+                        Text="Rate Remaining" />
                     <Label
                         Grid.Column="1"
                         Text="{Binding RateRemaining}"
-                        HorizontalOptions="End"/>
+                        HorizontalOptions="End" />
                 </Grid>
             </Grid>
         </ContentPage>
     </FlyoutPage.Flyout>
     <FlyoutPage.Detail>
-        <ContentPage/>
+        <ContentPage />
     </FlyoutPage.Detail>
 </FlyoutPage>

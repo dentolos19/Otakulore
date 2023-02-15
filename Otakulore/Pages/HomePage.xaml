@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -7,11 +8,11 @@
     x:DataType="models:HomePageModel"
     Title="Home" Padding="12">
     <ContentPage.Resources>
-        <LinearItemsLayout x:Key="MediaItemsLayout" Orientation="Horizontal" ItemSpacing="4"/>
+        <LinearItemsLayout x:Key="MediaItemsLayout" Orientation="Horizontal" ItemSpacing="4" />
         <DataTemplate x:Key="MediaItemTemplate" x:DataType="models:MediaItemModel">
             <Frame>
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                    <TapGestureRecognizer Command="{Binding InteractCommand}" />
                 </Frame.GestureRecognizers>
                 <Grid RowDefinitions="Auto,Auto" WidthRequest="128">
                     <Grid
@@ -23,25 +24,25 @@
                             Grid.ColumnSpan="3"
                             Source="{Binding ImageUrl}"
                             Aspect="AspectFill"
-                            HeightRequest="196"/>
+                            HeightRequest="196" />
                         <BoxView
                             Grid.Row="1"
                             Grid.Column="1"
                             Opacity="0.8"
                             CornerRadius="4"
-                            Color="{DynamicResource Theme3}"/>
+                            Color="{DynamicResource Theme3}" />
                         <Label
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="4,2"
-                            Text="{Binding Tag}"/>
+                            Text="{Binding Tag}" />
                     </Grid>
                     <Label
                         Grid.Row="1"
                         Margin="4,2"
                         Text="{Binding Title}"
                         LineBreakMode="TailTruncation"
-                        HorizontalTextAlignment="Center"/>
+                        HorizontalTextAlignment="Center" />
                 </Grid>
             </Frame>
         </DataTemplate>
@@ -51,7 +52,7 @@
             Grid.Row="0"
             Placeholder="Search"
             SearchCommand="{Binding SearchCommand}"
-            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"/>
+            SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}" />
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="12">
                 <StackLayout Spacing="8">
@@ -59,18 +60,18 @@
                         <Label
                             Text="🤩 Trending Now!"
                             FontAttributes="Bold"
-                            FontSize="24"/>
+                            FontSize="24" />
                         <Button
                             Text="See More"
                             HorizontalOptions="End"
-                            Command="{Binding SeeMoreTrendingCommand}"/>
+                            Command="{Binding SeeMoreTrendingCommand}" />
                     </Grid>
                     <Grid>
                         <CollectionView
                             ItemsLayout="{StaticResource MediaItemsLayout}"
                             ItemTemplate="{StaticResource MediaItemTemplate}"
-                            ItemsSource="{Binding TrendingItems}"/>
-                        <ActivityIndicator IsRunning="{Binding RefreshTrendingItemsCommand.IsRunning}"/>
+                            ItemsSource="{Binding TrendingItems}" />
+                        <ActivityIndicator IsRunning="{Binding RefreshTrendingItemsCommand.IsRunning}" />
                     </Grid>
                 </StackLayout>
                 <StackLayout Spacing="8">
@@ -78,18 +79,18 @@
                         <Label
                             Text="😍 Highly Beloved!"
                             FontAttributes="Bold"
-                            FontSize="24"/>
+                            FontSize="24" />
                         <Button
                             Text="See More"
                             HorizontalOptions="End"
-                            Command="{Binding SeeMoreFavoritesCommand}"/>
+                            Command="{Binding SeeMoreFavoritesCommand}" />
                     </Grid>
                     <Grid>
                         <CollectionView
                             ItemsLayout="{StaticResource MediaItemsLayout}"
                             ItemTemplate="{StaticResource MediaItemTemplate}"
-                            ItemsSource="{Binding FavoriteItems}"/>
-                        <ActivityIndicator IsRunning="{Binding RefreshFavoriteItemsCommand.IsRunning}"/>
+                            ItemsSource="{Binding FavoriteItems}" />
+                        <ActivityIndicator IsRunning="{Binding RefreshFavoriteItemsCommand.IsRunning}" />
                     </Grid>
                 </StackLayout>
                 <StackLayout Spacing="8">
@@ -97,18 +98,18 @@
                         <Label
                             Text="💫 Most Popular!"
                             FontAttributes="Bold"
-                            FontSize="24"/>
+                            FontSize="24" />
                         <Button
                             Text="See More"
                             HorizontalOptions="End"
-                            Command="{Binding SeeMorePopularCommand}"/>
+                            Command="{Binding SeeMorePopularCommand}" />
                     </Grid>
                     <Grid>
                         <CollectionView
                             ItemsLayout="{StaticResource MediaItemsLayout}"
                             ItemTemplate="{StaticResource MediaItemTemplate}"
-                            ItemsSource="{Binding PopularItems}"/>
-                        <ActivityIndicator IsRunning="{Binding RefreshPopularItemsCommand.IsRunning}"/>
+                            ItemsSource="{Binding PopularItems}" />
+                        <ActivityIndicator IsRunning="{Binding RefreshPopularItemsCommand.IsRunning}" />
                     </Grid>
                 </StackLayout>
             </StackLayout>

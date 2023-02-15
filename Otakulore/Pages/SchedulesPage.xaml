@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Otakulore.Models"
@@ -11,13 +12,13 @@
             RemainingItemsThreshold="0"
             RemainingItemsThresholdReachedCommand="{Binding Items.AccumulateCommand}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:MediaItemModel">
                     <Frame>
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding InteractCommand}"/>
+                            <TapGestureRecognizer Command="{Binding InteractCommand}" />
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
                             <Image
@@ -25,22 +26,22 @@
                                 Source="{Binding ImageUrl}"
                                 Aspect="AspectFill"
                                 WidthRequest="64"
-                                HeightRequest="96"/>
+                                HeightRequest="96" />
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label
                                     Text="{Binding Title}"
                                     LineBreakMode="TailTruncation"
                                     FontAttributes="Bold"
-                                    FontSize="16"/>
+                                    FontSize="16" />
                                 <Label
                                     Text="{Binding Subtitle}"
-                                    TextColor="{DynamicResource SubtextColor}"/>
+                                    TextColor="{DynamicResource SubtextColor}" />
                             </StackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <ActivityIndicator IsRunning="{Binding Items.AccumulateCommand.IsRunning}"/>
+        <ActivityIndicator IsRunning="{Binding Items.AccumulateCommand.IsRunning}" />
     </Grid>
 </ContentPage>
