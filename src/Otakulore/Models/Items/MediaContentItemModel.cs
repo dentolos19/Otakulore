@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Otakulore.Content;
-using Otakulore.Content.Objects;
 using Otakulore.Pages;
+using Otakulore.Providers;
+using Otakulore.Providers.Objects;
 
 namespace Otakulore.Models;
 

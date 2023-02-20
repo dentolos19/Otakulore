@@ -13,9 +13,9 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .SetupFonts()
             .SetupServices();
-#if DEBUG
+        #if DEBUG
         builder.Logging.AddDebug();
-#endif
+        #endif
         return builder.Build();
     }
 }

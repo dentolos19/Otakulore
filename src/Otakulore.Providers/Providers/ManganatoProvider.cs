@@ -1,7 +1,7 @@
 ﻿using HtmlAgilityPack;
-using Otakulore.Content.Objects;
+using Otakulore.Providers.Objects;
 
-namespace Otakulore.Content.Providers;
+namespace Otakulore.Providers.Providers;
 
 public class ManganatoProvider : IMangaProvider
 {

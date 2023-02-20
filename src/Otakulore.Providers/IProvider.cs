@@ -1,6 +1,6 @@
-﻿using Otakulore.Content.Objects;
+﻿using Otakulore.Providers.Objects;
 
-namespace Otakulore.Content;
+namespace Otakulore.Providers;
 
 public interface IProvider
 {

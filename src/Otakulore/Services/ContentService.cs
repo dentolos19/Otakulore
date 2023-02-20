@@ -1,5 +1,5 @@
-﻿using Otakulore.Content;
-using Otakulore.Content.Providers;
+﻿using Otakulore.Providers;
+using Otakulore.Providers.Providers;
 using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Services;

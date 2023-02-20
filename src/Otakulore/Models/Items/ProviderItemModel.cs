@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Otakulore.Content;
 using Otakulore.Pages;
+using Otakulore.Providers;
 
 namespace Otakulore.Models;
 

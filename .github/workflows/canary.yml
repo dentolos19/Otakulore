@@ -3,13 +3,13 @@ run-name: "${{ github.workflow }} #${{ github.run_number }}"
 on:
   push:
     paths:
-      - Otakulore/**
+      - src/**
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 env:
-  PROJECT_FILE: Otakulore/Otakulore.csproj
+  PROJECT_FILE: src/Otakulore/Otakulore.csproj
   WINDOWS_TARGET_FRAMEWORK: net7.0-windows10.0.19041.0
   ANDROID_TARGET_FRAMEWORK: net7.0-android
   RELEASE_TAG: Canary
@@ -82,7 +82,7 @@ jobs:
           path: artifacts
   deploy:
     name: Deploy
-    needs: [ windowsBuild, androidBuild ]
+    needs: [windowsBuild, androidBuild]
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts

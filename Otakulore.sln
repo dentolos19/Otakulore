@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore", "Otakulore\Otakulore.csproj", "{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{FF8887F7-0B22-4FE6-98F9-795DAB69B25A}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{DB6C43B0-B55F-4313-8DE0-5C1DBE94C3F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore", "src\Otakulore\Otakulore.csproj", "{F1C5E7FE-E604-4C2A-8218-80AC92C06873}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AniListNet", "AniListNet\AniListNet\AniListNet.csproj", "{8A43B4AF-85C2-4E26-BC01-33E07460FB73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Otakulore.Providers", "src\Otakulore.Providers\Otakulore.Providers.csproj", "{330CD419-1F4A-43C2-815A-D522CA750371}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,22 +19,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{761F52DE-E4BD-4CB5-BDAA-8D8CAB5BEDFA}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A43B4AF-85C2-4E26-BC01-33E07460FB73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C5E7FE-E604-4C2A-8218-80AC92C06873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C5E7FE-E604-4C2A-8218-80AC92C06873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C5E7FE-E604-4C2A-8218-80AC92C06873}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F1C5E7FE-E604-4C2A-8218-80AC92C06873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C5E7FE-E604-4C2A-8218-80AC92C06873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C5E7FE-E604-4C2A-8218-80AC92C06873}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{330CD419-1F4A-43C2-815A-D522CA750371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330CD419-1F4A-43C2-815A-D522CA750371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330CD419-1F4A-43C2-815A-D522CA750371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330CD419-1F4A-43C2-815A-D522CA750371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8A43B4AF-85C2-4E26-BC01-33E07460FB73} = {DB6C43B0-B55F-4313-8DE0-5C1DBE94C3F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}

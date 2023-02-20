@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Otakulore.Content;
-using Otakulore.Content.Objects;
+using Otakulore.Providers;
+using Otakulore.Providers.Objects;
 using Otakulore.Utilities.Attributes;
 
 namespace Otakulore.Models;

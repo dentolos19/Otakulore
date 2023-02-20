@@ -1,4 +1,4 @@
-﻿namespace Otakulore.Content.Objects;
+﻿namespace Otakulore.Providers.Objects;
 
 public class MediaContent
 {
