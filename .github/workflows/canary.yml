@@ -84,6 +84,8 @@ jobs:
     name: Deploy
     needs: [windowsBuild, androidBuild]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
@@ -97,7 +99,6 @@ jobs:
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           delete_release: true
-          delete_draft_release: true
       - name: Release Artifacts
         uses: softprops/action-gh-release@v0.1.15
         with:
