@@ -2,7 +2,9 @@
 
 An app for tracking, watching and reading all about anime and manga!
 
-# ⚒️ Usage
+> **Note**: This project has gone through many iterations! [wpf-1](https://github.com/dentolos19/Otakulore/tree/iteration/wpf-1), [uwp](https://github.com/dentolos19/Otakulore/tree/iteration/uwp), [wpf-2](https://github.com/dentolos19/Otakulore/tree/iteration/wpf-2), [winui](https://github.com/dentolos19/Otakulore/tree/iteration/winui) and [maui-1](https://github.com/dentolos19/Otakulore/tree/iteration/maui-1)!
+
+## ⚒️ Usage
 
 - For **Windows** users,
   1. Download `Otakulore_windows.msix` from the [releases page](https://github.com/dentolos19/Otakulore/releases)
@@ -13,7 +15,7 @@ An app for tracking, watching and reading all about anime and manga!
   2. Install the app
   3. Done!
 
-# 📸 Screenshots
+## 📸 Screenshots
 
 <details>
 	<summary>🪟 Windows</summary>
