@@ -78,7 +78,7 @@ public partial class MediaDetailsPageModel : BasePageModel
         var media = await DataService.Instance.Client.GetMediaAsync(_id);
         ImageUrl = media.Cover.ExtraLargeImageUrl;
         Title = media.Title.PreferredTitle;
-        Subtitle = media is { Type: MediaType.Anime, Season: { }, SeasonYear: { } }
+        Subtitle = media is { Type: MediaType.Anime, Season: not null, SeasonYear: not null }
             ? $"{media.Season} {media.SeasonYear}"
             : media.StartDate.Year.HasValue
                 ? media.StartDate.Year.Value.ToString()
